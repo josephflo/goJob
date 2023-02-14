@@ -1,0 +1,45 @@
+
+
+.home{ 
+    position: absolute;
+    width: 1440px;
+    height: 685px;
+    left: 0px;
+    top: 123px;
+    background-image: url('../../image/home.png');
+ }
+
+
+ .title{
+    position: absolute;
+    width: 811px;
+    height: 48px;
+    left: 315px;
+    top: 120px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+    
+    color: #FFFFFF;
+ }
+
+.title_two{
+    position: absolute;
+    width: 466px;
+    height: 40px;
+    left: 454px;
+    top: 190px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 33px;
+    line-height: 40px;
+    /* identical to box height */
+    
+    
+    color: #FFFFFF;
+ }
