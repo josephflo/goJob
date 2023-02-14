@@ -25,8 +25,6 @@ const pruebaUser = async(req, res) => {
   }
 
 
-
-
 };
 
 
