@@ -1,13 +1,14 @@
 const { Router} = require('express');
 
 const router = Router();
-const {getAllUsersHandler, getIdUserHandler, postUserHandler } = require("../handlers/userHandler")
-const axios = require('axios');
-const {Job, Service, User} = require('../connection/db')
+const userHandlers = require("../handlers/userHandler")
+/*****GET ****** */
+router.get("/", userHandlers.getAllUser);
+router.get("/:id", userHandlers.getUserID);
 
-router.get("/", getAllUsersHandler);
-router.get("/:id", getIdUserHandler);
-router.post("/register", postUserHandler);
+/****** POST ****** */
+router.post("/register", userHandlers.postUser);
+router.post("/login", userHandlers.login)
 
 
 

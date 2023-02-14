@@ -12,6 +12,10 @@ const serviceModel = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    tittle: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false
