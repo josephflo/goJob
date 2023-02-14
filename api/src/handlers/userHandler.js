@@ -1,11 +1,13 @@
-const { Job, Service, User } = require("../connection/db");
+const {Job, Service, User} = require("../connection/db")
+const bcrypt = require("bcrypt");
+
 const { 
   getDbUser,
   getUserByID,
   getUserName
  } = require("../controllers/userController");
 
-const getAllUsersHandler = async (req, res) => {
+const getAllUser = async (req, res) => {
   let {name} = req.query
 
   let userTotal
@@ -34,7 +36,7 @@ const getAllUsersHandler = async (req, res) => {
 };
 
 
-const getIdUserHandler = async (req, res) => {
+const getUserID = async (req, res) => {
   const id = req.params.id;
   let userTotal;
 
@@ -67,9 +69,12 @@ const getIdUserHandler = async (req, res) => {
 
 };
 
-const postUserHandler = async (req, res) => {
+const postUser = async (req, res) => {
   try {
     let newUser = req.body;
+
+    let pwd = await bcrypt.hash(newUser.password, 10);
+    newUser.password = pwd
 
     let userCreated = await User.create(newUser);
     /// Por aca puede faltar agregar algo de otra tabla
@@ -86,9 +91,42 @@ const postUserHandler = async (req, res) => {
   }
 };
 
+const login = async(req, res)=>{
+const userLogin = req.body
+try {
+  if(!userLogin.user || !userLogin.password) throw new Error("Mising data")
+  //verificamos si existe el usuario
+  let resultUser = await User.findOne({
+    where: {user: userLogin.user}
+  })
+  if(!resultUser) throw new Error("El usuario no existe")
+
+  //comprobamos contraseña
+  let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
+  if(!pwd)throw new Error("Contraseña incorrecta")
+
+  //si todo salio bien
+  return res.status(200).json({
+    status: "success",
+    message: "Login correctamente",
+    result: resultUser
+  });
+} catch (error) {
+  return res.status(200).json({
+    status: "success",
+    message: error.message,
+  });
+}
+}
+
+const addJob = async(req, res)=>{
+  
+}
+
 module.exports = {
-  getAllUsersHandler,
-  getIdUserHandler,
-  postUserHandler,
+  getAllUser,
+  getUserID,
+  postUser,
+  login
 };
 
