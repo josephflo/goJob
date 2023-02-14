@@ -7,7 +7,7 @@ const {Job, Service, User} = require('../connection/db')
 
 router.get("/", getAllUsersHandler);
 router.get("/:id", getIdUserHandler);
-router.post("/", postUserHandler);
+router.post("/register", postUserHandler);
 
 
 module.exports = router;
