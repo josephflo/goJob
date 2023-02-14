@@ -1,15 +1,13 @@
-import "./App.css";
-import LandingPage from "./components/landingPage/landingPage";
-import NavBarHome from "./components/navbarHome/navBarHome";
-import NavbarInicioSecion from "./components/navbarInicioSesion/NavbarInicioSecion";
-import Navbar from "./components/navbarPortada/NavBar";
+import styles from "./style";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <LandingPage />
-    </div>
+    <>
+      <div className="w-[80%] p-4 rounded-[20px] bg-color1">
+        <h1 className="text-dimBlue">Hola Mundo</h1>
+      </div>
+      <h2 className={styles.boxWidth}>Prueba</h2>
+    </>
   );
 }
 
