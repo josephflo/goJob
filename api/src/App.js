@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors");
 const morgan = require('morgan');
+
 //importar Rutas
 const routes = require ('./routes/index.js') // todas las rutas estan ligadas a esta, por lo tanto no necesito traer las otras rutas
 
