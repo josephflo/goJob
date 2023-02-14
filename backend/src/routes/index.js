@@ -14,7 +14,7 @@ const app = Router();
 
 // configurar las routes(app)
 
-app.use('/go-job', user)
+app.use('/user', user)
 app.use('/job', job)
 app.use('/service', service)
 
