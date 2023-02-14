@@ -1,8 +1,12 @@
-const express = require("express")
-const router = express.Router()
-const userController = require("../controllers/user")
+const { Router} = require('express');
+const router = Router();
+const {getAllUsersHandler, getIdUserHandler, postUserHandler } = require("../handlers/userHandler")
+const axios = require('axios');
+const {Job, Service, User} = require('../connection/db')
 
-router.post("/register", userController.pruebaUser)
+router.get("/", getAllUsersHandler);
+router.get("/:id", getIdUserHandler);
+router.post("/", postUserHandler);
 
 
-module.exports = router
+module.exports = router;
