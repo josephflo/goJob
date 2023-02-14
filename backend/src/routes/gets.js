@@ -13,21 +13,21 @@ app.get('/jobs', async (req, res) => {
     res.send(jobs);
   });
 
-  app.get('/User', async (req, res) => {
+  app.get('/user', async (req, res) => {
     
     const Users = await User.findAll();
     
     res.send(Users);
   });
 
-  app.get('/Service', async (req, res) => {
+  app.get('/service', async (req, res) => {
    
     const Services = await Service.findAll();
     
     res.send(Services); 
   });
 
-  app.get('/ServicesJobs', async (req, res) => {
+  app.get('/servicesjobs', async (req, res) => {
     
     const Jobs = await Job.findAll({
       include: Service
@@ -36,7 +36,7 @@ app.get('/jobs', async (req, res) => {
     res.send(Jobs);
   });
 
-  app.get('/UserJobs', async (req, res) => {
+  app.get('/userjobs', async (req, res) => {
     
     const users = await User.findAll({
       include: Job
