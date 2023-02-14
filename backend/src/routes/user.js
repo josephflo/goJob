@@ -1,4 +1,5 @@
 const { Router} = require('express');
+
 const router = Router();
 const {getAllUsersHandler, getIdUserHandler, postUserHandler } = require("../handlers/userHandler")
 const axios = require('axios');

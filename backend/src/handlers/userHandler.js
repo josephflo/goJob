@@ -1,67 +1,93 @@
-const {Job, Service, User} = require ("../connection/db")
-const {getDbUser} = require ("../controllers/userController")
+const { Job, Service, User } = require("../connection/db");
+const { 
+  getDbUser,
+  getUserByID,
+  getUserName
+ } = require("../controllers/userController");
 
-const getAllUsersHandler = async (req,res) =>{
-    const name = req.query.name;
-    let userTotal = await getDbUser();
+const getAllUsersHandler = async (req, res) => {
+  let {name} = req.query
 
+  let userTotal
+  try {
     if(name){
-        let userName = await userTotal.filter (element => element.name.toLowerCase().includes(name))
-        userName.length?
-        res.status(200).send(userName) :
-        res.status(404).send("No se encuentra esa persona")
+      userTotal = await getUserName(name)
     }else{
-        res.status(200).send(userTotal)
+      userTotal = await getDbUser();
     }
-}
 
-const getIdUserHandler = async (req,res) =>{
-    const id = req.params.id;
-    const userTotal = await getDbUser();
-    if(id){
-        let userId = await userTotal.filter (element => element.id == id)
-        userId.length?
-        res.status(200).json(userId) :
-        res.status(404).send("No encontre al Usuario")
+    if(!userTotal.length) throw Error("Sin resultados")
+
+  //si todo salio bien
+  return res.status(404).json({
+    status: "success",
+    message: "Extraccion exitosa",
+    users: userTotal
+  });
+
+  } catch (error) {
+    return res.status(404).json({
+      status: "error",
+      message: error.message
+    });
+  }
+};
+
+
+const getIdUserHandler = async (req, res) => {
+  const id = req.params.id;
+  let userTotal;
+
+  try {
+    if (!id) throw Error("Mising data")
+
+    //extraemos datos y comprobamos si hay datos
+    userTotal = await getUserByID(id);
+    if(userTotal == undefined){
+      return res.status(404).json({
+        status: "error",
+        message: "No se encontraron resultados"
+      });
     }
-}
 
-const postUserHandler = async (req,res) => {
-    try{
-        let{
-            firstName,
-            lastName,
-            email,
-            password,
-            city,
-            image,
-            phone,
-            address,
-            role,
-        } = req.body
+    //si todo salio bien
+    return res.status(404).json({
+      status: "success",
+      message: "Extraccion exitosa",
+      user: userTotal
+    });
 
-        let userCreated = await User.create({
-            firstName,
-            lastName,
-            email,
-            password,
-            city,
-            image,
-            phone,
-            address,
-            role,
-        });
-        /// Por aca puede faltar agregar algo de otra tabla
-        res.status(200).send(userCreated)
-    }catch(error){
-        console.log(error)
-    }
-}
+  } catch (error) {
+    return res.status(404).json({
+      status: "error",
+      message: error.message,
+      id
+    });
+  }
 
+};
+
+const postUserHandler = async (req, res) => {
+  try {
+    let newUser = req.body;
+
+    let userCreated = await User.create(newUser);
+    /// Por aca puede faltar agregar algo de otra tabla
+    return res.status(200).json({
+      status: "success",
+      message: "Usuario creado correctamente",
+      user: userCreated,
+    });
+  } catch (error) {
+    return res.status(404).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
 
 module.exports = {
-    getAllUsersHandler,
-    getIdUserHandler,
-    postUserHandler,
-
-}
+  getAllUsersHandler,
+  getIdUserHandler,
+  postUserHandler,
+};
