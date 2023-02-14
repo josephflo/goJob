@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 const jobModel = (sequelize) => {
   // defino el modelo
-  sequelize.define('User', {
+  sequelize.define('Job', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

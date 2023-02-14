@@ -3,6 +3,7 @@ const { Sequelize } = require('sequelize');
 
 //models
 const userModel = require("../models/User")
+const jobModel = require("../models/Job")
 
 const {
     DB_USER,
@@ -20,6 +21,16 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 
 //creacion de modelos
 userModel(sequelize)
+jobModel(sequelize)
+
+//destructuring de modelos
+const { User, Job } = sequelize.models;
+
+
+/****** RELACIONES ********** */
+//relacion Users y Jobs
+User.belongsToMany(Job, {through: "UsersJobs"})
+Job.belongsToMany(User, {through: "UsersJobs"})
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
