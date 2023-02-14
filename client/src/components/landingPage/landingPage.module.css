@@ -1,0 +1,37 @@
+input {
+  font-family: "FontAwesome";
+}
+
+.container {
+  background: url("../../assets/landing.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  /* background-color: red; */
+
+  /* width: auto; */
+  height: 900px;
+  /* display: flex;
+    justify-content: center; */
+  text-align: center;
+  position: relative;
+}
+
+.center {
+  position: absolute;
+  top: 35%;
+  width: 100%;
+}
+.text1 {
+  color: aliceblue;
+}
+
+.text2 {
+  color: aliceblue;
+}
+
+.search {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+}
