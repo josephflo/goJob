@@ -23,6 +23,9 @@ const userModel = (sequelize) => {
         unique: true,
 
     },
+    rating: {
+        type: DataTypes.FLOAT,
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -50,7 +53,7 @@ const userModel = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            isIn: [['empleador', 'professional', 'admin']]
+            isIn: [['comun', 'professional', 'admin']]
           }
     },
 

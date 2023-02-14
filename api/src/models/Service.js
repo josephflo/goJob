@@ -4,17 +4,29 @@ const serviceModel = (sequelize) => {
   // defino el modelo
   sequelize.define('Service', {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    tittle: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     tittle: {
       type: DataTypes.TEXT,
       allowNull: false
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    location: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    presupuesto: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   
 
