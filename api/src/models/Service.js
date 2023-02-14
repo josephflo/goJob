@@ -8,6 +8,10 @@ const serviceModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
     },
+    tittle: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
     description: {
         type: DataTypes.TEXT,
         allowNull: false
