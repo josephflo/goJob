@@ -21,10 +21,10 @@ const getAllUser = async (req, res) => {
     if(!userTotal.length) throw Error("Sin resultados")
 
   //si todo salio bien
-  return res.status(404).json({
+  return res.status(200).json({
     status: "success",
     message: "Extraccion exitosa",
-    users: userTotal
+    result: userTotal,
   });
 
   } catch (error) {
@@ -56,7 +56,7 @@ const getUserID = async (req, res) => {
     return res.status(404).json({
       status: "success",
       message: "Extraccion exitosa",
-      user: userTotal
+      result: userTotal
     });
 
   } catch (error) {
@@ -81,7 +81,7 @@ const postUser = async (req, res) => {
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
-      user: userCreated,
+      result: userCreated,
     });
   } catch (error) {
     return res.status(404).json({
@@ -97,13 +97,21 @@ try {
   if(!userLogin.user || !userLogin.password) throw new Error("Mising data")
   //verificamos si existe el usuario
   let resultUser = await User.findOne({
-    where: {user: userLogin.user}
+    where: {user: userLogin.user},
+    include: {
+      model: User,
+      as: 'friends'
+    }
   })
   if(!resultUser) throw new Error("El usuario no existe")
 
   //comprobamos contraseña
   let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
   if(!pwd)throw new Error("Contraseña incorrecta")
+
+  //eliminamos contraseña
+  delete resultUser.dataValues.password
+
 
   //si todo salio bien
   return res.status(200).json({
@@ -112,8 +120,8 @@ try {
     result: resultUser
   });
 } catch (error) {
-  return res.status(200).json({
-    status: "success",
+  return res.status(400).json({
+    status: "error",
     message: error.message,
   });
 }
