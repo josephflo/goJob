@@ -27,7 +27,21 @@ app.get('/jobs', async (req, res) => {
     res.send(Services); 
   });
 
-app.post('/Registe', async(req,res)=>{
-
+  app.get('/ServicesJobs', async (req, res) => {
     
-})
+    const Jobs = await Job.findAll({
+      include: Service
+    });
+    
+    res.send(Jobs);
+  });
+
+  app.get('/UserJobs', async (req, res) => {
+    
+    const users = await User.findAll({
+      include: Job
+    });
+   
+    res.send(users);
+  });
+  
