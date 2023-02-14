@@ -5,9 +5,9 @@ const {getAllService,  getIdService, postService} = require('../handlers/service
 
 
 
-router.get('/service', getAllService());
-router.get('/service/:id', getIdService());
-router.post('/service', postService());
+router.get('/', getAllService());
+router.get('/:id', getIdService());
+router.post('/', postService());
 
 
 
