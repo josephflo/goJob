@@ -1,9 +1,10 @@
-const axios = require('axios');
+const express = require("express")
 const { Op } = require("sequelize");
 const { Router } = require('express');
 const { User, Job, Service , conn } = require('../connection/db');
 
-const router = Router();
+
+const app = express()
 
 app.get('/jobs', async (req, res) => {
    
@@ -25,3 +26,8 @@ app.get('/jobs', async (req, res) => {
     
     res.send(Services); 
   });
+
+app.post('/Registe', async(req,res)=>{
+
+    
+})
