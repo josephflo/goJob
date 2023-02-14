@@ -13,6 +13,7 @@ const createToken = (user)=>{
     lastName: user.lastName,
     email: user.email,
     rating: user.rating,
+    user: user.user,
     password: user.password,
     city: user.city,
     image: user.image,
