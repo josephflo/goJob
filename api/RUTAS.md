@@ -1,7 +1,7 @@
 # RUTAS
 
 ## post
-post(http://localhost:3005/go-job/register)
+post(http://localhost:3005/user/register)
 ```
 //Body
 {
