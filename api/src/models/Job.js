@@ -5,43 +5,18 @@ const jobModel = (sequelize) => {
   // defino el modelo
   sequelize.define('Job', {
     id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
     },
-    brand: {
+    name: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    category: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    subcategory: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    tittle: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    location: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    budget: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    byWho: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     }
-  
 
   },{timestamps: false });
 };
