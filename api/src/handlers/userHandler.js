@@ -2,11 +2,11 @@ const {Job, Service, User} = require ("../connection/db")
 const {getDbUser} = require ("../controllers/userController")
 
 const getAllUsersHandler = async (req,res) =>{
-    const name = req.query.name;
+    const name = req.query.firstName;
     let userTotal = await getDbUser();
 
     if(name){
-        let userName = await userTotal.filter (element => element.name.toLowerCase().includes(name))
+        let userName = await userTotal.filter (element => element.name.toLowerCase().includes(firstName))
         userName.length?
         res.status(200).send(userName) :
         res.status(404).send("No se encuentra esa persona")
