@@ -1,10 +1,12 @@
 const {Job, Service, User} = require("../connection/db")
+
 const {Op} = require("sequelize");
 
 
 const getDbUser = async () =>{
   try{
     const dbUser = await User.findAll();
+
 
     return dbUser;
   }catch(error){
@@ -33,6 +35,7 @@ const getUserByID = async (id) =>{
     return dbUser;
   }catch(error){
     throw Error(error.message)
+
   }
 }
 
