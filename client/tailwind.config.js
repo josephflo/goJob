@@ -3,6 +3,9 @@ module.exports = {
   content: ["./public/index.html", "./src/**/*.{js,jsx}"],
   theme: {
     extend: {
+      backgroundImage: {
+        landingBackground: "url('./assets/landing.svg')",
+      },
       colors: {
         color1: "#112240",
         color2: "#1fa2aa",
