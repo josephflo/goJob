@@ -1,4 +1,7 @@
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/landingPage";
+import Navbar from "./components/navbarPortada/NavBar";
+import FormContact from "./components/Form/FormContact";
 // import styles from "./style";
 
 function App() {
@@ -8,8 +11,13 @@ function App() {
         <h1 className="text-dimBlue">Hola Mundo</h1>
       </div>
       <h2 className={styles.boxWidth}>Prueba</h2> */}
-
-      <LandingPage />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route path="/contact" component={FormContact} />
+        </Switch>
+      </BrowserRouter>
+      {/* <LandingPage /> */}
     </>
   );
 }
