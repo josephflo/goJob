@@ -46,11 +46,11 @@ Job.belongsToMany(Service, {through: "ServicesJobs", timestamps: false})
 
 //Relacion Users a Users
 User.belongsToMany(User, {
+  timestamps: false,
   through: 'UserFriends', // nombre de la tabla intermedia
   foreignKey: 'userId',
   otherKey: 'friendId',
   as: 'friends', // nombre de la columna en el modelo
-
 });
 
 module.exports = {

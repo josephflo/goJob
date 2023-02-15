@@ -16,7 +16,8 @@ exports.auth = (req, res, next) => {
   }
 
   //limpiar token
-  let token = req.headers.authorization.replace(/['"]+/g, "")
+  //let token = req.headers.authorization.replace(/['"]+/g, "")
+  let token = req.headers.authorization
   //decodificar token
   try {
     let payload = jwt.decode(token, CLAVE_SECRET_CRYPT)

@@ -6,6 +6,7 @@ const {
   getUserByID,
   getUserName
  } = require("../controllers/userController");
+const { createToken } = require("../services/jwt");
 
 const getAllUser = async (req, res) => {
   let {name} = req.query
@@ -109,6 +110,9 @@ try {
   let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
   if(!pwd)throw new Error("Contraseña incorrecta")
 
+  //creamos token
+  let token = createToken(resultUser.dataValues)
+
   //eliminamos contraseña
   delete resultUser.dataValues.password
 
@@ -117,7 +121,8 @@ try {
   return res.status(200).json({
     status: "success",
     message: "Login correctamente",
-    result: resultUser
+    result: resultUser,
+    token: token
   });
 } catch (error) {
   return res.status(400).json({
@@ -127,14 +132,69 @@ try {
 }
 }
 
-const addJob = async(req, res)=>{
+const decifrarToken = async(req, res)=>{
+
+  return res.status(200).json({
+    status: "success",
+    token: req.user
+  })
+}
+
+const addFriend = async(req, res)=>{
+  //extraemos datos
+  let idUser = req.user.id
+  let idFriend = req.body.idFriend
+  
+  try {
+    if(!idUser || !idFriend) throw new Error("Mising data")
+
+    let user = await User.findOne({where: {id: idUser}})
+    await user.addFriend(idFriend)
+
+    return res.status(200).json({
+      status: "success",
+      message: `Amigo "${user.dataValues.user}" agregado correctamente`,
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
   
 }
+
+const deleteFriend = async(req, res)=>{
+  //extraemos datos
+  let idUser = req.user.id
+  let idFriend = req.body.idFriend
+  
+  try {
+    if(!idUser || !idFriend) throw new Error("Mising data")
+
+    let user = await User.findOne({where: {id: idUser}})
+    await user.removeFriend(idFriend)
+
+    return res.status(200).json({
+      status: "success",
+      message: `Amigo "${user.dataValues.user}" eliminado correctamente`,
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+}
+
 
 module.exports = {
   getAllUser,
   getUserID,
   postUser,
-  login
+  login,
+  decifrarToken,
+  addFriend,
+  deleteFriend
 };
 
