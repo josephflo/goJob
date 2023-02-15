@@ -1,5 +1,6 @@
 import React from "react";
 import { lupa } from "../../assets";
+import Footer from "../Footer/Footer";
 import Navbar from "../navbarPortada/NavBar";
 // import { Link } from "react-router-dom";
 
@@ -46,6 +47,13 @@ export default function LandingPage() {
           </form>
         </div>
       </div>
+
+      <div>
+        <Footer/>
+      </div>
+    </div>
+
     </>
+
   );
 }
