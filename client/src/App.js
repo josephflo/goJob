@@ -1,7 +1,9 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/landingPage";
+
 import Navbar from "./components/navbarPortada/NavBar";
 import FormContact from "./components/Form/FormContact";
+
 // import styles from "./style";
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
       </BrowserRouter>
       {/* <LandingPage /> */}
     </>
+
   );
 }
 
