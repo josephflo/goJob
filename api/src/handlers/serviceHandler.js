@@ -40,9 +40,18 @@ const getIdService = async (req, res) =>{
 const postService = async (req, res) => {
     try{ 
 
-        let{ description } = req.body
+        let{ 
+            tittle, 
+            description,
+            location,
+            presupuesto
+            } = req.body
 
-        let creacionServicio = await Service.create({ description});
+        let creacionServicio = await Service.create({ 
+            tittle,
+            description,
+            location,
+            presupuesto});
         
         res.send('Nuevo servicio agregado.')
 
