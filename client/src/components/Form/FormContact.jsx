@@ -38,7 +38,7 @@ function FormContact() {
   }
 
   return (
-    <div class="flex justify-center items-center h-screen bg-blue-800">
+    <div class="flex justify-center items-center h-screen bg-white-800">
       <div class="w-96 p-6 shadow-lg bg-white rounded-md">
         <h1 class="text-3xl block text-center font-semibold">
           <i class="fa-solid fa-paper-plane"></i> Contacto
