@@ -51,7 +51,7 @@ export default function LandingPage() {
       <div>
         <Footer/>
       </div>
-    </div>
+ 
 
     </>
 
