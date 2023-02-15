@@ -1,5 +1,6 @@
 const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
+const cloudinary = require("../services/cloudinary")
 
 const { 
   getDbUser,
@@ -71,13 +72,29 @@ const getUserID = async (req, res) => {
 };
 
 const postUser = async (req, res) => {
+
+  const{image} = req.body;
+ 
   try {
+    // el metodo para subir las imagenes al folder de cloudinary
+    const photoProfile = await cloudinary.uploader.upload(image,{
+      folder:profilesPictures
+          })
+
     let newUser = req.body;
 
     let pwd = await bcrypt.hash(newUser.password, 10);
     newUser.password = pwd
 
-    let userCreated = await User.create(newUser);
+// copiamos todo user solo pisamos image con los datos 
+// se requiere un campo mas porque el modelo es tipo texto
+    let userCreated = await User.create({
+      ...newUser, 
+      image: {
+        public_id: photoProfile.public_id,
+        url: result.secure_url
+      }
+    });
     /// Por aca puede faltar agregar algo de otra tabla
     return res.status(200).json({
       status: "success",
