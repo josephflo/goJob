@@ -1,21 +1,19 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LandingPage from "./components/landingPage/landingPage";
+import {HOME, LOGIN,PRIVATE,LOGOUT} from './config/routes/paths'
+import Home from './views/Home';
+import Login from './views/Login';
+import Private from './views/Private';
+import Logout from './views/Logout';
 
-import Navbar from "./components/navbarPortada/NavBar";
-import FormContact from "./components/Form/FormContact";
-
-// import styles from "./style";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path="/" component={LandingPage} />
-        <Route path="/contact" component={FormContact} />
-        <Route exact={HOME} component={<Home />} />
-        <Route exact={LOGIN} component={<Login />} />
-        <Route exact={PRIVATE} component={<Private />} />
-        <Route exact={LOGOUT} component={<Logout />} />
+        <Route path={HOME} element={<Home />} />
+        <Route path={LOGIN} element={<Login />} />
+        <Route path={PRIVATE} element={<Private />} />
+        <Route path={LOGOUT} element={<Logout />} />
       </Routes>
     </BrowserRouter>
   );
