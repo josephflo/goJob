@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-import './FormContact.css';
+import "./FormContact.css";
 
 function FormContact() {
   const [name, setName] = useState("");
@@ -9,10 +10,6 @@ function FormContact() {
 
   function sendEmail(e) {
     e.preventDefault();
-    if (name === "" || email === "" || message === "") {
-      alert("llene los campos");
-      return;
-    }
 
     const templateParams = {
       from_name: name,
@@ -41,41 +38,67 @@ function FormContact() {
   }
 
   return (
-    
-    <div className="container">
-      <h1 className="title">Contacto</h1>
-      <form className="form" onSubmit={sendEmail}>
-        <label className="label">Nombre:</label>
-        <p>
-        <input
-          className="input"
-          type="text"
-          placeholder="Escriba su nombre"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
-        </p>
-        <p>
-        <label className="label">Email:</label>
-        <input
-          className="input"
-          type="text"
-          placeholder="Escriba su email"
-          onChange={(e) => setEmail(e.target.value)}
-          value={email}
-        />
-        </p>
-        <p>
-        <label className="label">Mensaje:</label>
-        <textarea
-          className="textarea"
-          placeholder="Escriba su mensaje"
-          onChange={(e) => setMessage(e.target.value)}
-          value={message}
-        />
-        </p>
-        <input className="button" type="submit" value="Enviar" />
-      </form>
+    <div class="flex justify-center items-center h-screen bg-indigo-600">
+      <div class="w-96 p-6 shadow-lg bg-white rounded-md">
+        <h1 class="text-3xl block text-center font-semibold">
+          <i class="fa-solid fa-paper-plane"></i> Contacto
+        </h1>
+        <hr class="mt-3" />
+
+        <form className="form" onSubmit={sendEmail}>
+          <div class="mt-3">
+            <label class="block text-base mb-2">Nombre:</label>
+            <input
+              class="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+              type="text"
+              placeholder="Escriba su nombre"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              required="required"
+              data-error="El nombre es requerido."
+            />
+          </div>
+          <div class="mt-3">
+            <label class="block text-base mb-2">Email:</label>
+            <input
+              class="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+              type="email"
+              placeholder="Escriba su email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required="required"
+              data-error="El email es requerido."
+            />
+          </div>
+          <div class="mt-3">
+            <label class="block text-sm font-medium text-gray-700">
+              Mensaje:
+            </label>
+            <textarea
+              class="border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600"
+              placeholder="Escriba su mensaje"
+              onChange={(e) => setMessage(e.target.value)}
+              value={message}
+              required="required"
+              data-error="El mensaje es requerido."
+            />
+          </div>
+          <div class="mt-3">
+            <input
+              class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold"
+              type="submit"
+              value="Enviar"
+            />
+          </div>
+          <div class="mt-3">
+            <NavLink to="/">
+              <button class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
+                Volver
+              </button>
+            </NavLink>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
