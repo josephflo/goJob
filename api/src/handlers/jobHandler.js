@@ -3,8 +3,7 @@ const {getDbJob} = require("../controllers/jobController");
 
 const getAllJobHandler = async(req,res) =>{
     try{
-        await getDbJob();
-        const allJob = await Job.findAll();
+        const allJob = await getDbJob()
         res.status(200).send(allJob);
     }catch(error){
         throw Error(error.message)
@@ -13,7 +12,7 @@ const getAllJobHandler = async(req,res) =>{
 
 const getIdJobHandler = async(req,res) =>{
     let id = req.params.id
-    const allJob = await Job.findAll();
+    const allJob = await getDbJob()
 
     if(id){
         let jobId = await allJob.filter(element => element.id == id)
