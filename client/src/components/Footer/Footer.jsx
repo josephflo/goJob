@@ -7,7 +7,7 @@ function Footer() {
         <div class="sm:flex sm:items-center sm:justify-between">
           <a href="/" class="flex items-center mb-4 sm:mb-0">
             <img
-              src="https://flowbite.com/docs/images/logo.svg"//aca deberia ir nuestro logo :
+              src="https://flowbite.com/docs/images/logo.svg"//aca deberia ir nuestro logo
               class="h-8 mr-3"
               alt="aca va nuestro logo"
             />

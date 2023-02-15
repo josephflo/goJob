@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-import "./FormContact.css";
+
 
 function FormContact() {
   const [name, setName] = useState("");
@@ -38,7 +38,7 @@ function FormContact() {
   }
 
   return (
-    <div class="flex justify-center items-center h-screen bg-indigo-600">
+    <div class="flex justify-center items-center h-screen bg-blue-800">
       <div class="w-96 p-6 shadow-lg bg-white rounded-md">
         <h1 class="text-3xl block text-center font-semibold">
           <i class="fa-solid fa-paper-plane"></i> Contacto
@@ -71,7 +71,7 @@ function FormContact() {
             />
           </div>
           <div class="mt-3">
-            <label class="block text-sm font-medium text-gray-700">
+            <label class="block text-base mb-2">
               Mensaje:
             </label>
             <textarea
@@ -85,14 +85,14 @@ function FormContact() {
           </div>
           <div class="mt-3">
             <input
-              class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold"
+              class="border-2 border-green-700 bg-green-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-green-700 font-semibold"
               type="submit"
               value="Enviar"
             />
           </div>
           <div class="mt-3">
             <NavLink to="/">
-              <button class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-indigo-700 font-semibold">
+              <button class="border-2 border-red-700 bg-red-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-red-700 font-semibold">
                 Volver
               </button>
             </NavLink>
