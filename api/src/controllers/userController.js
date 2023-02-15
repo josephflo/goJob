@@ -5,10 +5,15 @@ const {Op} = require("sequelize");
 
 const getDbUser = async () =>{
   try{
-    const dbUser = await User.findAll();
+    let dbUser = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: {
+        model: User,
+        as: 'friends'
+      },
+    });
 
-
-    return dbUser;
+    return dbUser
   }catch(error){
     throw Error(error.message)
   }
@@ -17,7 +22,12 @@ const getDbUser = async () =>{
 const getUserName = async(name) =>{
   try{
     const dbUser = await User.findAll({
-      where: {firstName: {[Op.iLike]:`%${name}%`}}
+      where: {firstName: {[Op.iLike]:`%${name}%`}},
+      attributes: { exclude: ['password'] },
+      include: {
+        model: User,
+        as: 'friends'
+      }
     });
 
     return dbUser;
@@ -29,7 +39,12 @@ const getUserName = async(name) =>{
 const getUserByID = async (id) =>{
   try{
     const dbUser = await User.findOne({
-      where: {id: id}
+      where: {id: id},
+      attributes: { exclude: ['password'] },
+      include: {
+        model: User,
+        as: 'friends'
+      }
     });
 
     return dbUser;
