@@ -1,5 +1,6 @@
 import React from "react";
 import { lupa } from "../../assets";
+import Footer from "../Footer/Footer";
 // import { Link } from "react-router-dom";
 
 export default function LandingPage() {
@@ -37,6 +38,9 @@ export default function LandingPage() {
             </button>
           </div>
         </form>
+      </div>
+      <div>
+        <Footer/>
       </div>
     </div>
   );
