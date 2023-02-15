@@ -37,9 +37,16 @@ const userModel = (sequelize) => {
         allowNull: false,
     },
     image: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-
+        
+        public_id:{
+            type:DataTypes.STRING,
+            required: true
+        },
+        url:{
+            type:DataTypes.STRING,
+            required:true
+        }
+        
     },
     phone: {
         type: DataTypes.INTEGER,

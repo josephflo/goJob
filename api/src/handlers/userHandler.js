@@ -78,7 +78,7 @@ const postUser = async (req, res) => {
   try {
     // el metodo para subir las imagenes al folder de cloudinary
     const photoProfile = await cloudinary.uploader.upload(image,{
-      folder:profilesPictures
+      folder:"profilesPictures"
           })
 
     let newUser = req.body;
@@ -87,7 +87,7 @@ const postUser = async (req, res) => {
     newUser.password = pwd
 
 // copiamos todo user solo pisamos image con los datos 
-// se requiere un campo mas porque el modelo es tipo texto
+// ya se modifico image para recibir ambos datos
     let userCreated = await User.create({
       ...newUser, 
       image: {
