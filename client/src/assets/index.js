@@ -10,6 +10,8 @@ import people06 from "./people06.svg";
 import people07 from "./people07.svg";
 import people08 from "./people08.svg";
 
+import detailProfile from "./detailProfile.svg";
+
 export {
   lupa,
   logo,
@@ -21,4 +23,5 @@ export {
   people06,
   people07,
   people08,
+  detailProfile,
 };
