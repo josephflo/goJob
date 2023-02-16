@@ -150,9 +150,9 @@ color: #696565;
 .check{
 
 position: absolute;
-left: 45.2%;
+left: 44%;
 right: 52.21%;
-top: 15.44%;
+top: 14%;
 bottom: 76.47%;
 color: #73E31B;
 }
@@ -168,9 +168,6 @@ font-style: normal;
 font-weight: 400;
 font-size: 30px;
 line-height: 39px;
-/* identical to box height */
-
-
 color: #000000;
 }
 .tarif_min{
@@ -183,8 +180,50 @@ top: 76px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 300;
-font-size: 20px;
+font-size: 18px;
 line-height: 24px;
 
 color: #696565;
+}
+
+.contrat{
+    position: absolute;
+width: 103px;
+height: 18px;
+left: 282px;
+top: 117px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 300;
+font-size: 15px;
+line-height: 18px;
+
+color: #696565;
+
+}
+
+.numberJobs{
+    position: absolute;
+width: 166px;
+height: 18px;
+left: 420px;
+top: 117px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 300;
+font-size: 15px;
+line-height: 18px;
+
+color: #696565;
+}
+
+.icon_profile{
+    position: absolute;
+left: 26.2%;
+right: 70.44%;
+top: 41.18%;
+bottom: 50.74%;
+color: #2D3648;
 }

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { HiHeart } from "react-icons/hi";
 import { AiFillStar } from "react-icons/ai";
 import { BsCheck2Square} from "react-icons/bs";
+import { CgProfile} from "react-icons/cg";
 
 
 import './card.css';
@@ -12,12 +13,14 @@ function Card({
   id,
   firstName,
   lastName,
-  name,
-  description,
   image,
-  rating,
+  job,
+  contrat,
+  numberJobs,
   reviews,
-  tarif_min,
+  description,
+  ratings,
+  tarif_min='$',
 }) {
   
   const Swal = require('sweetalert2');
@@ -31,17 +34,18 @@ function Card({
   return (
     <div className="card">
       <img src={image} className="card-img" alt="image-profile" />
-
       <div>
         <h2 className="name">
           {firstName} {lastName}
         </h2>
-        <h3 className="profesion">{name}</h3>
+        <h3 className="profesion">{job}</h3>
         <p className="description">{description}</p>
-        <h2 className="rating">{rating}</h2>
-        <h1 className="reviews">{reviews}</h1>
+        <h2 className="rating">{ratings}</h2>
+        <h1 className="reviews">{reviews} reseñas</h1>
         <h1 className="price">{tarif_min}</h1>
         <h2 className="tarif_min">Tarifa min</h2>
+        <h2 className="contrat">{contrat} contratos</h2>
+        <h2 className="numberJobs">{numberJobs} trabajos realizados</h2>
       </div>
       <div>
         <NavLink to={`/calender/${id}`}>
@@ -54,8 +58,9 @@ function Card({
         <button  onClick={() =>{ handleClick()}}>
         <HiHeart className="icon_heart"/>
         </button>
-        < AiFillStar className='star'/>
-        < BsCheck2Square className='check'/>
+        < AiFillStar size={32} className='star'/>
+        < BsCheck2Square size={25} className='check'/>
+        < CgProfile size={32} className='icon_profile'/>
         </div>
       </div>
     </div>
