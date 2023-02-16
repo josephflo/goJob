@@ -2,8 +2,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/landingPage";
 import Navbar from "./components/navbarPortada/NavBar";
 import FormContact from "./components/Form/FormContact";
-import Professionals from "./components/Professionals/Professionals";
-import DetailCard from "./components/detailCard/DetailCard";
+import Professionals from "./components/Profesional/Professionals";
+import DetailCard from "./components/DetailCard/detailCard";
 
 
 // import styles from "./style";
