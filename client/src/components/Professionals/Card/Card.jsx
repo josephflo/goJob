@@ -5,8 +5,6 @@ import { HiHeart } from "react-icons/hi";
 import { AiFillStar } from "react-icons/ai";
 import { BsCheck2Square} from "react-icons/bs";
 import { CgProfile} from "react-icons/cg";
-
-
 import './card.css';
 
 function Card({
