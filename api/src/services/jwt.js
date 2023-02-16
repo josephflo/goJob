@@ -12,7 +12,7 @@ const createToken = (user)=>{
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    rating: user.rating,
+    //rating: user.rating,
     user: user.user,
     //password: user.password,
     city: user.city,
