@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/landingPage";
-
 import Navbar from "./components/navbarPortada/NavBar";
 import FormContact from "./components/Form/FormContact";
 import Professionals from "./components/Professionals/Professionals";
+import DetailCard from "./components/detailCard/DetailCard";
+
 
 // import styles from "./style";
 
@@ -19,11 +20,14 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
           <Route path='/profesionals' component={Professionals} />
+          <Route
+            path="/detail/:id"
+            render={({ match }) => <DetailCard id={match.params.id} />}
+          />
         </Switch>
       </BrowserRouter>
       {/* <LandingPage /> */}
     </>
-
   );
 }
 

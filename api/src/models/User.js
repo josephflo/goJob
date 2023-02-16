@@ -32,9 +32,6 @@ const userModel = (sequelize) => {
         unique: true,
 
     },
-    rating: {
-        type: DataTypes.FLOAT,
-    },
     city: {
         type: DataTypes.STRING,
         allowNull: false,
