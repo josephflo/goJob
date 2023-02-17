@@ -11,23 +11,28 @@ const { createToken } = require("../services/jwt");
 
 const getAllUser = async (req, res) => {
   let {name} = req.query
+  let page = Number(req.query.page || 1)
+  let page_size = Number(req.query.page_size || 15)
 
   let userTotal
   try {
     if(name){
-      userTotal = await getUserName(name)
+      userTotal = await getUserName(name, page, page_size)
     }else{
-      userTotal = await getDbUser();
+      userTotal = await getDbUser(page, page_size);
     }
 
-    if(!userTotal.length) throw Error("Sin resultados")
+    if(!userTotal.result.length) throw Error("Sin resultados")
 
-  //si todo salio bien
-  return res.status(200).json({
-    status: "success",
-    message: "Extraccion exitosa",
-    result: userTotal,
-  });
+   
+
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Extraccion exitosa",
+      ...userTotal
+
+    });
 
   } catch (error) {
     return res.status(404).json({
@@ -47,15 +52,10 @@ const getUserID = async (req, res) => {
 
     //extraemos datos y comprobamos si hay datos
     userTotal = await getUserByID(id);
-    if(userTotal == undefined){
-      return res.status(404).json({
-        status: "error",
-        message: "No se encontraron resultados"
-      });
-    }
-
+    
+   
     //si todo salio bien
-    return res.status(404).json({
+    return res.status(200).json({
       status: "success",
       message: "Extraccion exitosa",
       result: userTotal
@@ -64,53 +64,26 @@ const getUserID = async (req, res) => {
   } catch (error) {
     return res.status(404).json({
       status: "error",
-      message: error.message,
-      id
+      message: error.message
     });
   }
 
 };
 
 const postUser = async (req, res) => {
-
-  //const{image} = req.body;
- 
   try {
-    // el metodo para subir las imagenes al folder de cloudinary
-    // const photoProfile = await cloudinary.uploader.upload(image,{
-    //   folder:"profilesPictures"
-    //       })
-
     let newUser = req.body;
 
     let pwd = await bcrypt.hash(newUser.password, 10);
     newUser.password = pwd
 
-// copiamos todo user solo pisamos image con los datos 
-// ya se modifico image para recibir ambos datos
-    let userCreated = await User.create(
-      // {
-      //   firstName:newUser.firstName,
-      //   lastName: newUser.lastName,
-      //   user: newUser.user,
-      //   password:newUser.password,
-      //   email: newUser.email,
-      //   city: newUser.city,
-      //   image: newUser.image,
-      //   phone: newUser.phone,
-      //   address:newUser.address,
-      //   role:newUser.role
-      
-    //   ...newUser, 
-    //   image: result.secure_url,
-    //   publicIdImage: result.public_id     
-    // }
-    );
+    let userCreated = await User.create(newUser);
     /// Por aca puede faltar agregar algo de otra tabla
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
       result: userCreated,
+      jobs: "Jobs agregados correctamente",
     });
   } catch (error) {
     return res.status(404).json({
@@ -121,44 +94,108 @@ const postUser = async (req, res) => {
 };
 
 const login = async(req, res)=>{
-const userLogin = req.body
-try {
-  if(!userLogin.user || !userLogin.password) throw new Error("Mising data")
-  //verificamos si existe el usuario
-  let resultUser = await User.findOne({
-    where: {user: userLogin.user},
-    include: {
-      model: User,
-      as: 'friends'
+  const userLogin = req.body
+  try {
+    if(!userLogin.user || !userLogin.password) throw new Error("Mising data")
+    //verificamos si existe el usuario
+    let resultUser = await User.findOne({
+      where: {user: userLogin.user},
+      include:{
+        model: Job,
+        through: { 
+          attributes:[]
+        }
+      }
+    })
+    if(!resultUser) throw new Error("El usuario no existe")
+  
+    //comprobamos contraseña
+    let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
+    if(!pwd)throw new Error("Contraseña incorrecta")
+  
+    //creamos token
+    let token = createToken(resultUser.dataValues)
+  
+    //eliminamos contraseña
+    delete resultUser.dataValues.password
+
+    //traemos los service de Users
+    let services = await resultUser.getServices()
+
+    //merge de las respuestas
+    let merge = {
+      ...resultUser.dataValues,
+      services: [...services]
     }
-  })
-  if(!resultUser) throw new Error("El usuario no existe")
-
-  //comprobamos contraseña
-  let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
-  if(!pwd)throw new Error("Contraseña incorrecta")
-
-  //creamos token
-  let token = createToken(resultUser.dataValues)
-
-  //eliminamos contraseña
-  delete resultUser.dataValues.password
-
-
-  //si todo salio bien
-  return res.status(200).json({
-    status: "success",
-    message: "Login correctamente",
-    result: resultUser,
-    token: token
-  });
-} catch (error) {
-  return res.status(400).json({
-    status: "error",
-    message: error.message,
-  });
+  
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Login correctamente",
+      result: merge,
+      token: token
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
 }
+//job
+const addJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.addJob(idJob)
+
+    // let job = await Job.findOne({where: {id: idJob}})
+    // await job.addUser(idUser)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job agregado correctamente",
+      idUser,
+      idJob,
+      user,
+  
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
 }
+
+const deleteJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.removeJob(idJob)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job eliminado correctamente"
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 
 const decifrarToken = async(req, res)=>{
 
@@ -167,7 +204,7 @@ const decifrarToken = async(req, res)=>{
     token: req.user
   })
 }
-
+//amigos
 const addFriend = async(req, res)=>{
   //extraemos datos
   let idUser = req.user.id
@@ -215,14 +252,175 @@ const deleteFriend = async(req, res)=>{
   }
 }
 
+const getFriends = async(req, res)=>{
+  let idUser = req.user.id
+
+  try {
+    let user = await User.findOne({
+      where: {id: idUser},
+      include: {
+        model: User,
+        as: 'friends',
+        attributes: { exclude: ['password', 'role'] },
+        through: { 
+          attributes:[]
+        }
+      }
+    })
+
+    if(!user.dataValues.friends.length){
+      return res.status(200).json({
+        status: "success",
+        message: `No se encontraron amigos de este usuario`,
+        result: user.dataValues.friends
+      })
+    }
+
+
+    return res.status(200).json({
+      status: "success",
+      message: `Extraccion de amigos exitosa`,
+      result: user.dataValues.friends
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+}
+//server
+const createServer = async (req, res) => {
+  let newService = req.body;
+  let idUser = req.user.id;
+  try {
+    let getUser = await User.findOne({ where: { id: idUser } });
+    //agregamos servicio
+    let service = await getUser.createService(newService);
+    //vinculamos el servicio con los jobs
+    let addJob = await service.addJobs(newService.jobs)
+
+
+    return res.status(200).json({
+      status: "success",
+      message: "Servicio creado correctamente",
+      service: service,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+const getAllService = async (req, res) => {
+  let idUser = req.user.id;
+  try {
+    let getUser = await User.findOne({ where: { id: idUser } });
+    let allServices = await getUser.getServices({
+      include: {
+        model: Job,
+        through: { 
+        attributes:[]
+      }}
+      
+    })
+
+    return res.status(400).json({
+      status: "error",
+      message: "Extraccion exitosa",
+      result: allServices
+    })
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+};
+
+const actualizarService = async(req, res)=>{
+  let putService = req.body.service;
+  let idUser = req.user.id;
+  let idService = Number(req.params.idService)
+  let putJobs = req.body.jobs
+
+  try {
+    //actualizamos datos de service
+    let service = await Service.update(
+      putService, 
+      {
+        where: {
+          id: idService,
+          UserId: idUser  
+        }
+      }
+    )
+    //actualizamos relacion Service Jobs
+    if(putJobs.length){
+      let actService = await Service.findOne({where: {id: idService}})
+      await actService.setJobs(putJobs)
+    }
+
+
+
+    return res.status(200).json({
+      status: "success",
+      message: "Se actualizo correctamente",  
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+const deleteService = async (req, res)=>{
+  let idUser = req.user.id;
+  let idService = Number(req.params.idService)
+
+  try {
+    let deleteService = await Service.destroy({
+      where: {id: idService, UserId: idUser}
+    })
+
+    //si todo sale bien
+    return res.status(200).json({
+      status: "success",
+      message: "Service Eliminado correctamente"
+    });
+
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+  
+
+}
+
+
+
 
 module.exports = {
   getAllUser,
   getUserID,
-  postUser,
+  createUser,
   login,
   decifrarToken,
   addFriend,
-  deleteFriend
+  deleteFriend,
+  addJob,
+  deleteJob,
+  getFriends,
+  getAllService,
+  createServer,
+  actualizarService,
+  deleteService
 };
 

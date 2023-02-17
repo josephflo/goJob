@@ -1,15 +1,21 @@
 const { Router} = require('express');
-const {
-    getAllJobHandler,
-    getIdJobHandler,
-    postJobHandler,} = require("../handlers/jobHandler")
+const jobHandlers = require("../handlers/jobHandler");
+const { auth, verifyRole } = require('../middlewares/auth');
 
 const router = Router();
+/*******GET ********* */
+router.get("/", jobHandlers.getAllJobs);
+router.get("/:id", jobHandlers.getIdJob);
 
-router.get("/", getAllJobHandler);
-router.get("/:id", getIdJobHandler);
+/***** POST ******* */
+router.post("/", jobHandlers.createJob);
 
-router.post("/", postJobHandler);
+/****** DELETE ******** */
+router.delete("/:id", jobHandlers.deleteJob);
+
+/******** PUT ********* */
+router.put("/:id", jobHandlers.actulizarJob);
+
 
 
 module.exports = router;

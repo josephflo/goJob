@@ -3,6 +3,7 @@ const {Job, Service, User} = require("../connection/db")
 const {Op} = require("sequelize");
 
 
+
 const getDbUser = async () =>{
   try{
     let dbUser = await User.findAll({
