@@ -88,7 +88,7 @@ put ( http://localhost:3005/user/update )
 
 //Body
 
-//En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs lo dejamos vacio, pero es obligatorio enviarlo
+//En la propiedad "jobs" agregamos los todos los id de los Jobs
 {
 	user:{
 		    firstName: "Cap MODIFY",
