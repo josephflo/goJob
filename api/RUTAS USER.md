@@ -79,6 +79,32 @@ get ( http://localhost:3005/user/get/"id" )
 
 ```
 
+## Put
+
+put ( http://localhost:3005/user/update )
+```
+//Ruta para actualizar Users logeado
+//Requiere del token
+
+//Body
+
+//En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs lo dejamos vacio, pero es obligatorio enviarlo
+{
+	user:{
+		    firstName: "Cap MODIFY",
+            lastName: "America",
+            email: "Cap@gmail.com",
+            user: "cap22",
+            password: "123456",
+            city: "Dubai",
+            phone: 9871256,
+            address: "Av. Troya",
+            role: "admin"
+	},
+	jobs: []  
+}
+```
+
 "**********************************************************************"
 
 # Rutas para crear, actualizar y eliminar servicios del usuario
