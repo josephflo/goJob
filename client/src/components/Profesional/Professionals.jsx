@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Card from "../Card/Card";
-import "./Professionals.css";
 
 function Professionals() {
   const professionals = useState((state) => state.professionals);
