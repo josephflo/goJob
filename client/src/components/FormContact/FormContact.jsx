@@ -59,13 +59,13 @@ function FormContact() {
       <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
         <div className="text-center lg:text-left">
           <h1 className="mt-6 text-3xl font-extrabold text-blue-900">
-            <i class="fa-solid fa-paper-plane"></i> Contacto
+            <i className="fa-solid fa-paper-plane"></i> Contacto
           </h1>
-          <hr class="mt-3" />
+          <hr className="mt-3" />
           <div className="mt-6">
             <form className="space-y-1" onSubmit={sendEmail}>
               
-              <div class="mt-3">
+              <div className="mt-3">
                 <label
                   htmlFor="firstName"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
@@ -83,7 +83,7 @@ function FormContact() {
                   data-error="El nombre es requerido."
                 />
               </div>
-              <div class="mt-3">
+              <div className="mt-3">
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
@@ -100,7 +100,7 @@ function FormContact() {
                   data-error="El email es requerido."
                 />
               </div>
-              <div class="mt-3">
+              <div className="mt-3">
                 <label
                   htmlFor="message"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
@@ -116,14 +116,14 @@ function FormContact() {
                   data-error="El mensaje es requerido."
                 />
               </div>
-              <div class="mt-3">
+              <div className="mt-3">
                 <button
                   className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-3 px-4 border border-blue-700 rounded"
                   /* type="submit"
                   value="Enviar" */
                 >Enviar</button>
                 </div>
-                <div class="mt-3">
+                <div className="mt-3">
                 <NavLink to="/">
                   <button className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-3 px-4 border border-blue-700 rounded">
                     Volver
