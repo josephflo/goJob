@@ -16,7 +16,7 @@ const createToken = (user)=>{
     user: user.user,
     //password: user.password,
     city: user.city,
-    image: user.image,
+    //image: user.image,
     phone: user.phone,
     address: user.address,
     role: user.role,

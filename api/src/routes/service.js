@@ -1,13 +1,12 @@
 const { Router} = require('express');
 const router = Router();
 const axios = require('axios');
-const {getAllService,  getIdService, postService} = require('../handlers/serviceHandler');
+const { auth } = require("../middlewares/auth")
 
+const serviceHandlers = require('../handlers/serviceHandler');
 
-
-router.get('/', getAllService);
-router.get('/:id', getIdService);
-router.post('/', postService);
+router.get('/', serviceHandlers.getAllServices);
+router.get('/:id', serviceHandlers.getIdService);
 
 
 

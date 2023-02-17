@@ -37,9 +37,7 @@ const userModel = (sequelize) => {
         allowNull: false,
     },
     image: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-
+        type: DataTypes.TEXT
     },
     phone: {
         type: DataTypes.INTEGER,
