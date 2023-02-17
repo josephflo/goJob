@@ -73,13 +73,13 @@ const getUserID = async (req, res) => {
 
 const postUser = async (req, res) => {
 
-  const{image} = req.body;
+  //const{image} = req.body;
  
   try {
     // el metodo para subir las imagenes al folder de cloudinary
-    const photoProfile = await cloudinary.uploader.upload(image,{
-      folder:"profilesPictures"
-          })
+    // const photoProfile = await cloudinary.uploader.upload(image,{
+    //   folder:"profilesPictures"
+    //       })
 
     let newUser = req.body;
 
@@ -88,13 +88,24 @@ const postUser = async (req, res) => {
 
 // copiamos todo user solo pisamos image con los datos 
 // ya se modifico image para recibir ambos datos
-    let userCreated = await User.create({
-      ...newUser, 
-      image: {
-        public_id: photoProfile.public_id,
-        url: result.secure_url
-      }
-    });
+    let userCreated = await User.create(
+      // {
+      //   firstName:newUser.firstName,
+      //   lastName: newUser.lastName,
+      //   user: newUser.user,
+      //   password:newUser.password,
+      //   email: newUser.email,
+      //   city: newUser.city,
+      //   image: newUser.image,
+      //   phone: newUser.phone,
+      //   address:newUser.address,
+      //   role:newUser.role
+      
+    //   ...newUser, 
+    //   image: result.secure_url,
+    //   publicIdImage: result.public_id     
+    // }
+    );
     /// Por aca puede faltar agregar algo de otra tabla
     return res.status(200).json({
       status: "success",
