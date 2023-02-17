@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/landingPage";
-
 import Navbar from "./components/navbarPortada/NavBar";
-import FormContact from "./components/Form/FormContact";
-import DetailCard from "./components/detailCard/DetailCard";
+import FormContact from "./components/FormContact/FormContact";
+import Professionals from "./components/Profesional/Professionals";
+import DetailCard from "./components/DetailCard/detailCard";
+import Admin from "./components/Dashboard/Admi";
+
 
 // import styles from "./style";
 
@@ -18,6 +20,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
+          <Route path='/profesionals' component={Professionals} />
+          <Route path='/admin' component={Admin} />
+
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
