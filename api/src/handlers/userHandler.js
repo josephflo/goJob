@@ -1,6 +1,7 @@
 const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
-const cloudinary = require("../services/cloudinary")
+const {uploadImage} = require("../services/cloudinary")
+
 
 const { 
   getDbUser,
@@ -70,28 +71,59 @@ const getUserID = async (req, res) => {
 
 };
 
-const postUser = async (req, res) => {
-  try {
-    let newUser = req.body;
 
-    let pwd = await bcrypt.hash(newUser.password, 10);
-    newUser.password = pwd
+
+const createUser = async (req, res) => {
+  let newUser = req.body.user;
+  let idJobs = req.body.jobs;
+  let error = false;
+
+  try {
+    if(!newUser) throw new Error("Mising data");
+    
+    if(req.files?.image){
+      let pwd = await bcrypt.hash(newUser.password, 10);
+      newUser.password = pwd;
+      const result = await uploadImage(req.files.image.tempFilePath);
+      if(result.error) error = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
+      newUser.imageurl = result.secure_url;
+      newUser.imagePublicId = result.imagePublicId;
+    } else {
+      let pwd = await bcrypt.hash(newUser.password, 10);
+      newUser.password = pwd;
+      newUser.imageurl = "sin foto";
+      newUser.imagePublicId = "sin foto";
+    }
 
     let userCreated = await User.create(newUser);
-    /// Por aca puede faltar agregar algo de otra tabla
+    delete userCreated.dataValues.password;
+
+    // Verificar que los JobIds existen en la base de datos
+    const jobs = await Job.findAll({ where: { id: idJobs }});
+    if (jobs.length !== idJobs.length) {
+      throw new Error("Uno o más JobIds no existen en la base de datos");
+    }
+
+    await userCreated.addJobs(jobs);
+    // agregar nuevo usuario a Jobs
+
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
       result: userCreated,
       jobs: "Jobs agregados correctamente",
+      error: error // Agregamos la variable de estado a la respuesta
     });
   } catch (error) {
     return res.status(404).json({
       status: "error",
       message: error.message,
+      error: error || true // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
     });
   }
 };
+
+
 
 const login = async(req, res)=>{
   const userLogin = req.body
