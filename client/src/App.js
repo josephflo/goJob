@@ -1,30 +1,49 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import LandingPage from "./components/landingPage/landingPage";
 
-import Navbar from "./components/navbarPortada/NavBar";
-import FormContact from "./components/Form/FormContact";
+// Components
+import LandingPage from "./components/landingPage/landingPage";
+import FormContact from "./containers/Form/FormContact";
 import DetailCard from "./components/detailCard/DetailCard";
 
-// import styles from "./style";
+// Containers
+import Register from "./containers/register/Register";
+import Login from "./containers/login/Login";
+import AddJob from "./containers/addJob/AddJob";
+
+import axios from "axios";
+import Users from "./components/Users/Users";
+import { useEffect } from "react";
+import { getService, getUsers } from "./redux/actions/actions";
+import { useDispatch } from "react-redux";
+import Services from "./components/services/Services";
+axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUsers()); // Cambiar cuando está posisionado en admin
+    dispatch(getService(1, 5)); // Cambiar cuando se presiona onClick() en boton Services (NavBar)
+  }, []);
+
   return (
     <>
-      {/* <div className="w-[80%] p-4 rounded-[20px] bg-color1">
-        <h1 className="text-dimBlue">Hola Mundo</h1>
-      </div>
-      <h2 className={styles.boxWidth}>Prueba</h2> */}
       <BrowserRouter>
         <Switch>
+          {/* Components */}
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
+          <Route exact path="/user" component={Users} />
+          <Route exact path="/service" component={Services} />
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
+          {/* Containers */}
+          <Route exact path="/user/register" component={Register} />
+          <Route path="/user/login" component={Login} />
+          <Route path="/job" component={AddJob} />
         </Switch>
       </BrowserRouter>
-      {/* <LandingPage /> */}
     </>
   );
 }
