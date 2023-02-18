@@ -1,5 +1,6 @@
 const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
+const bienvenidaMail = require('../templatesEmails/singupEmail');
 
 const { 
   getDbUser,
@@ -71,7 +72,11 @@ const getUserID = async (req, res) => {
 
 const createUser = async (req, res) => {
   let newUser = req.body.user;
-  let idJobs = req.body.jobs
+  let idJobs = req.body.jobs;
+
+  let nombre = newUser.firstName;
+  let apellido = newUser.lastName;
+  let email = newUser.email;
 
   try {
     if(!newUser) throw new Error("Mising data")
@@ -82,6 +87,9 @@ const createUser = async (req, res) => {
     //creamos User
     let userCreated = await User.create(newUser);
     delete userCreated.dataValues.password
+
+    //mandomos email de bienvenida
+    bienvenidaMail(nombre, apellido, email);
 
     //verificamos si agregamos Jobs
     let jobs
