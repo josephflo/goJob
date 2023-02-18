@@ -17,27 +17,27 @@ const userModel = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    user: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
 
     },
-    rating: {
-        type: DataTypes.FLOAT,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     city: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     image: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-
+        type: DataTypes.TEXT
     },
     phone: {
         type: DataTypes.INTEGER,
