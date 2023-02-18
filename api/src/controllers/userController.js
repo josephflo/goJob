@@ -10,6 +10,7 @@ const getDbUser = async (page, page_size) =>{
 
   try{
     let result = await User.findAll({
+      order: [['firstName', 'ASC']],
       limit: page_size,
       offset: offset,
       attributes: { exclude: ['password'] },
@@ -65,6 +66,7 @@ const getUserName = async(name, page, page_size) =>{
   const offset = (page - 1) * page_size;
   try{
     const result = await User.findAll({
+      order: [['firstName', 'ASC']],
       limit: page_size,
       offset: offset,
       where: {firstName: {[Op.iLike]:`%${name}%`}},

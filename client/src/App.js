@@ -4,6 +4,14 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "./components/landingPage/landingPage";
 import FormContact from "./containers/Form/FormContact";
 import DetailCard from "./components/detailCard/DetailCard";
+=======
+import LandingPage from "./components/landingPage/landingPage";
+import Navbar from "./components/navbarPortada/NavBar";
+import FormContact from "./components/FormContact/FormContact";
+import Professionals from "./components/Profesional/Professionals";
+import DetailCard from "./components/DetailCard/detailCard";
+import Admin from "./components/Dashboard/Admi";
+
 
 // Containers
 import Register from "./containers/register/Register";
@@ -34,6 +42,9 @@ function App() {
           <Route path="/contact" component={FormContact} />
           <Route exact path="/user" component={Users} />
           <Route exact path="/service" component={Services} />
+          <Route path='/profesionals' component={Professionals} />
+          <Route path='/admin' component={Admin} />
+
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
