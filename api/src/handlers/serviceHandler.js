@@ -14,10 +14,24 @@ const getAllServices = async (req, res)=>{
     let service = await Service.findAll({
       limit: page_size,
       offset: offset,
-      //attributes: { exclude: ['password'] },
+      attributes: { exclude: ['UserId'] },
       include: [
         {
           model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as:"userId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
+
+        },
+        {
+          model: User,
+          as: "postulantes",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
           through: { 
             attributes:[]
           }
@@ -73,9 +87,24 @@ const getIdService = async (req, res) => {
     //let getUser = await User.findOne({ where: { id: idUser } });
     let service = await Service.findOne({
       where: {id: idService},
+      attributes: { exclude: ['idPostulantes', 'servicePostulantesUser', "UserId"] },
       include: [
         {
           model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as:"userId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
+
+        },
+        {
+          model: User,
+          as: "postulantes",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
           through: { 
             attributes:[]
           }

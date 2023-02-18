@@ -141,6 +141,7 @@ const login = async(req, res)=>{
     //traemos los service de Users
     let services = await resultUser.getServices()
 
+
     //merge de las respuestas
     let merge = {
       ...resultUser.dataValues,
@@ -292,14 +293,15 @@ const getFriends = async(req, res)=>{
     })
   }
 }
-//server
+//service
 const createServer = async (req, res) => {
   let newService = req.body;
   let idUser = req.user.id;
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
     //agregamos servicio
-    let service = await getUser.createService(newService);
+    let service = await await getUser.createMyService(newService);
+
     //vinculamos el servicio con los jobs
     let addJob = await service.addJobs(newService.jobs)
 
@@ -407,6 +409,80 @@ const deleteService = async (req, res)=>{
 
 }
 
+const postularService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+
+  try {
+    const service = await Service.findByPk(idService);
+
+    let postulate = await service.addPostulante(idUser)
+
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Postulo correctamente ",
+      idPostulantes: service.dataValues.idPostulantes,
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      postulate
+    });
+  }
+}
+
+const deletePostuleService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+
+  try {
+    const service = await Service.findByPk(idService);
+
+    let postulate = await service.removePostulante(idUser)
+
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Elimino la postulacion correctamente "
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      postulate
+    });
+  }
+}
+
+//rating
+const createRating = async(req, res)=>{
+  let idUser = req.user.id
+  let idUserCalificado = Number(req.query.id)
+  let rating = Number(req.query.rating)
+
+  try {
+    const user1 = await User.findByPk(idUser);
+
+    const newRating = await user1.rateUser(idUserCalificado, rating);
+
+    //si todo sale bien
+    return res.status(400).json({
+      status: "success",
+      message: "Calificacion exitosa",
+      newRating
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 
 
 
@@ -423,6 +499,9 @@ module.exports = {
   createServer,
   actualizarService,
   deleteService,
-  putUser
+  putUser,
+  createRating,
+  postularService,
+  deletePostuleService
 };
 
