@@ -76,7 +76,7 @@ const createUser = async (req, res) => {
 
   let nombre = newUser.firstName;
   let apellido = newUser.lastName;
-  let email = newUser.email;
+  let correo = newUser.email;
 
   try {
     if(!newUser) throw new Error("Mising data")
@@ -89,7 +89,7 @@ const createUser = async (req, res) => {
     delete userCreated.dataValues.password
 
     //mandomos email de bienvenida
-    bienvenidaMail(nombre, apellido, email);
+    bienvenidaMail(nombre, apellido, correo);
 
     //verificamos si agregamos Jobs
     let jobs
