@@ -1,5 +1,7 @@
 const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
+const {uploadImage} = require("../services/cloudinary")
+const fs = require("fs-extra")
 const bienvenidaMail = require('../templatesEmails/singupEmail');
 
 const { 
@@ -70,22 +72,47 @@ const getUserID = async (req, res) => {
 
 };
 
+
+
 const createUser = async (req, res) => {
   let newUser = req.body.user;
   let idJobs = req.body.jobs;
-
+  let error = false;
   let nombre = newUser.firstName;
   let apellido = newUser.lastName;
   let correo = newUser.email;
 
   try {
-    if(!newUser) throw new Error("Mising data")
-    //ciframos contraseña
-    let pwd = await bcrypt.hash(newUser.password, 10);
-    newUser.password = pwd
+    if(!newUser) throw new Error("Mising data");
+    
+    if(req.files?.image){
+      let pwd = await bcrypt.hash(newUser.password, 10);
+      newUser.password = pwd;
+      const result = await uploadImage(req.files.image.tempFilePath);
+      if(result.error) error = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
+      newUser.imageurl = result.secure_url;
+      newUser.imagePublicId = result.public_id;
 
-    //creamos User
+      await fs.unlink(req.files.image.tempFilePath) // borra el archivo despues de subirlo a cloudinary
+
+    } else {
+      let pwd = await bcrypt.hash(newUser.password, 10);
+      newUser.password = pwd;
+      newUser.imageurl = "sin foto";
+      newUser.imagePublicId = "sin foto";
+    }
+
     let userCreated = await User.create(newUser);
+    delete userCreated.dataValues.password;
+
+    // Verificar que los JobIds existen en la base de datos
+    const jobs = await Job.findAll({ where: { id: idJobs }});
+    if (jobs.length !== idJobs.length) {
+      throw new Error("Uno o más JobIds no existen en la base de datos");
+    }
+
+    await userCreated.addJobs(jobs);
+    // agregar nuevo usuario a Jobs
     delete userCreated.dataValues.password
 
     //mandomos email de bienvenida
@@ -105,20 +132,23 @@ const createUser = async (req, res) => {
     }
 
 
-    /// Por aca puede faltar agregar algo de otra tabla
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
       result: userCreated,
       jobs: "Jobs agregados correctamente",
+      error: error // Agregamos la variable de estado a la respuesta
     });
   } catch (error) {
     return res.status(404).json({
       status: "error",
       message: error.message,
+      error: error || true // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
     });
   }
 };
+
+
 
 const login = async(req, res)=>{
   const userLogin = req.body
