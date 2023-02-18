@@ -1,6 +1,7 @@
 const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
 const {uploadImage} = require("../services/cloudinary")
+const fs = require("fs")
 
 
 const { 
@@ -87,7 +88,10 @@ const createUser = async (req, res) => {
       const result = await uploadImage(req.files.image.tempFilePath);
       if(result.error) error = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
       newUser.imageurl = result.secure_url;
-      newUser.imagePublicId = result.imagePublicId;
+      newUser.imagePublicId = result.public_id;
+
+      fs.unlink(req.files.image.tempFilePath) // borra el archivo despues de subirlo a cloudinary
+
     } else {
       let pwd = await bcrypt.hash(newUser.password, 10);
       newUser.password = pwd;
