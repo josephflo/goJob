@@ -49,11 +49,26 @@ Service.belongsTo(User, {
 });
 
 //=>
-User.hasMany(Service, {
-  foreignKey: 'idTrabajador'
+// User.hasMany(Service, {
+//   foreignKey: 'idTrabajador',
+//   as: "myTrabajos"
+// });
+// Service.belongsTo(User, {
+//   foreignKey: 'idTrabajador',
+//   as: "trabajadorId"
+// });
+
+User.belongsToMany(Service, {
+  through: 'ServiceMyTrabajo',
+  foreignKey: 'userId',
+  timestamps: false,
+  as: "myTrabajos",
 });
-Service.belongsTo(User, {
-  foreignKey: 'idTrabajador'
+Service.belongsToMany(User, {
+  through: 'ServiceMyTrabajo',
+  foreignKey: 'serviceId',
+  timestamps: false,
+  as: "trabajadorId"
 });
 
 //=>Postular

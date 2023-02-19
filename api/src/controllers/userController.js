@@ -160,22 +160,20 @@ const getUserByID = async (id) =>{
               attributes:[]
             }
           }
-        }      
+        },
+        {
+          model: Service,
+          as: "myTrabajos",
+          through: { 
+            attributes:[]
+          }
+        }   
   
       ],
     });
 
     //verificamos si trae resultados
     if(result == undefined)throw new Error("No se encontraron resultados")
-
-    //traemos los service de Users
-    let MyServices = await result.getServices({
-      where: {UserId: id}
-    })
-
-    let j
-
-
  
     //si todo salio bien
 
