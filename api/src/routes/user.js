@@ -18,7 +18,6 @@ router.get("/token", auth, userHandlers.decifrarToken);
 
 /****** POST ****** */
 router.post("/register", userHandlers.createUser);
-router.post("/job", auth, userHandlers.addJob)
 router.post("/service", auth, userHandlers.createServer)
 
 router.post("/login", userHandlers.login)
@@ -26,10 +25,10 @@ router.post("/friend", auth, userHandlers.addFriend)
 
 /****** PUT ******* */
 router.put("/service/:idService", auth, userHandlers.actualizarService)
+router.put("/update", auth, userHandlers.putUser)
 
 /******* DELETE ******* */
 router.delete("/friend", auth, userHandlers.deleteFriend)
-router.delete   ("/job", auth, userHandlers.deleteJob)
 
 router.delete("/service/:idService", auth, userHandlers.deleteService)
 
