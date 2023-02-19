@@ -157,12 +157,53 @@ const login = async(req, res)=>{
     //verificamos si existe el usuario
     let resultUser = await User.findOne({
       where: {user: userLogin.user},
-      include:{
-        model: Job,
-        through: { 
-          attributes:[]
-        }
-      }
+      include: [
+        {
+          model: User,
+          as: 'friends',
+          attributes: { exclude: ['password', 'role'] },
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: Service,
+          as: "myServices",
+          include:[         
+            {
+              model: User,
+              as: "postulantes",
+              attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+              through: { 
+                attributes:[]
+              },
+
+            },
+            {
+              model: User,
+              as: "trabajadorId",
+              attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+              through: { 
+                attributes:[]
+              }
+            }
+          ]
+        },
+        {
+          model: Service,
+          as: "myTrabajos",
+          through: { 
+            attributes:[]
+          }
+        }   
+  
+      ],
     })
     if(!resultUser) throw new Error("El usuario no existe")
   
@@ -176,20 +217,12 @@ const login = async(req, res)=>{
     //eliminamos contraseña
     delete resultUser.dataValues.password
 
-    //traemos los service de Users
-    let services = await resultUser.getServices()
 
-    //merge de las respuestas
-    let merge = {
-      ...resultUser.dataValues,
-      services: [...services]
-    }
-  
     //si todo salio bien
     return res.status(200).json({
       status: "success",
       message: "Login correctamente",
-      result: merge,
+      result: resultUser,
       token: token
     });
   } catch (error) {
@@ -330,14 +363,15 @@ const getFriends = async(req, res)=>{
     })
   }
 }
-//server
+//service
 const createServer = async (req, res) => {
   let newService = req.body;
   let idUser = req.user.id;
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
     //agregamos servicio
-    let service = await getUser.createService(newService);
+    let service = await await getUser.createMyService(newService);
+
     //vinculamos el servicio con los jobs
     let addJob = await service.addJobs(newService.jobs)
 
@@ -359,13 +393,30 @@ const getAllService = async (req, res) => {
   let idUser = req.user.id;
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
-    let allServices = await getUser.getServices({
-      include: {
-        model: Job,
-        through: { 
-        attributes:[]
-      }}
-      
+    let allServices = await getUser.getMyServices({
+      attributes: { exclude: ['UserId'] },
+      include: [
+        {
+          model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as:"userId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
+
+        },
+        {
+          model: User,
+          as: "postulantes",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          through: { 
+            attributes:[]
+          }
+        }
+      ]
     })
 
     return res.status(400).json({
@@ -445,6 +496,138 @@ const deleteService = async (req, res)=>{
 
 }
 
+const postularService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+
+  try {
+    if (isNaN(idService)){
+      return res.status(400).json({
+        status: "error",
+        message: "Datos de entrada invalidos"
+      });
+    }
+
+    const service = await Service.findOne({where: {id: idService}});
+
+    let postulate = await service.addPostulante(idUser)
+
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Postulo correctamente ",
+      idPostulantes: service.dataValues.idPostulantes,
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+const deletePostuleService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+
+  try {
+    if (isNaN(idService)){
+      return res.status(400).json({
+        status: "error",
+        message: "Datos de entrada invalidos"
+      });
+    }
+
+    const service = await Service.findByPk(idService);
+
+    let postulate = await service.removePostulante(idUser)
+
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Elimino la postulacion correctamente "
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      postulate
+    });
+  }
+}
+
+const elegirTrabajador = async (req, res)=>{
+  let idUser = req.user.id
+
+  let idTrabajador = Number(req.query.trabajador)
+  let idService = Number(req.query.service)
+
+  try {
+    if(!idTrabajador || !idService)throw Error("Mising data")
+
+    //elegimos el trabajador
+    let service = await Service.findOne({where: {id: idService, UserId: idUser}})
+    let addTraba = await service.addTrabajadorId(idTrabajador)
+
+    //eliminamos al trabajdor de la lista postulantes
+    let deletePostu = await service.removePostulante(idTrabajador)
+
+    //actualizamos el state del service
+    let actStateSer = await Service.update(
+      {
+        state: "proceso"
+      },
+      {
+        where: {id: idService, UserId: idUser}
+      }
+    )
+
+
+
+    return res.status(400).json({
+      status: "success",
+      message: "Pruebaaaa",
+      service,
+      idTrabajador,
+      idService,
+      idUser,
+      addTraba: addTraba
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+}
+
+//rating
+const createRating = async(req, res)=>{
+  let idUser = req.user.id
+  let idUserCalificado = Number(req.query.id)
+  let rating = Number(req.query.rating)
+
+  try {
+    const user1 = await User.findByPk(idUser);
+
+    const newRating = await user1.rateUser(idUserCalificado, rating);
+
+    //si todo sale bien
+    return res.status(400).json({
+      status: "success",
+      message: "Calificacion exitosa",
+      newRating
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 
 
 
@@ -461,6 +644,10 @@ module.exports = {
   createServer,
   actualizarService,
   deleteService,
-  putUser
+  putUser,
+  createRating,
+  postularService,
+  deletePostuleService,
+  elegirTrabajador
 };
 
