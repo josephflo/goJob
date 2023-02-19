@@ -10,6 +10,7 @@ const getDbUser = async (page, page_size) =>{
 
   try{
     let result = await User.findAll({
+      order: [['firstName', 'ASC']],
       limit: page_size,
       offset: offset,
       attributes: { exclude: ['password'] },
@@ -65,9 +66,15 @@ const getUserName = async(name, page, page_size) =>{
   const offset = (page - 1) * page_size;
   try{
     const result = await User.findAll({
+      order: [['firstName', 'ASC']],
       limit: page_size,
       offset: offset,
-      where: {firstName: {[Op.iLike]:`%${name}%`}},
+      where: {
+        [Op.or]: {
+          firstName: {[Op.iLike]:`%${name}%`},
+          lastName: {[Op.iLike]:`%${name}%`}
+        }
+      },
       attributes: { exclude: ['password'] },
       include: [
         {
@@ -140,21 +147,38 @@ const getUserByID = async (id) =>{
           through: { 
             attributes:[]
           }
-        }
+        },
+        {
+          model: Service,
+          as: "myServices",
+          include:
+          {
+            model: User,
+            as: "postulantes",
+            attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+            through: { 
+              attributes:[]
+            }
+          }
+        },
+        {
+          model: Service,
+          as: "myTrabajos",
+          through: { 
+            attributes:[]
+          }
+        }   
+  
       ],
     });
 
     //verificamos si trae resultados
     if(result == undefined)throw new Error("No se encontraron resultados")
-
-    //traemos los service de Users
-    let services = await result.getServices()
-    
+ 
     //si todo salio bien
 
     let merge = {
       ...result.dataValues,
-      services: [...services]
     }
 
     return merge
