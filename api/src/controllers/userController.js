@@ -94,6 +94,14 @@ const getUserName = async(name, page, page_size) =>{
       ],
     });
 
+    // let rating = await getRating(result)
+
+    // let merge = {
+    //   ...result.dataValues,
+    //   rating
+    // } 
+
+  
     //contamos el total de paginas
     const totalCount = await User.count({
       where: {firstName: {[Op.iLike]:`%${name}%`}}
@@ -174,11 +182,15 @@ const getUserByID = async (id) =>{
 
     //verificamos si trae resultados
     if(result == undefined)throw new Error("No se encontraron resultados")
- 
-    //si todo salio bien
+
+    //traemos el score
+     
+
+    let rating = await getRating(result)
 
     let merge = {
-      ...result.dataValues,
+      rating,
+      ...result.dataValues
     }
 
     return merge
@@ -188,6 +200,29 @@ const getUserByID = async (id) =>{
 
   }
 }
+
+const getRating = async(user)=>{
+
+  let scores = await user.getMyTrabajos({
+    where: {
+      state: "terminado",
+      score: {
+        [Op.gt]: 0
+      }
+    },
+  })
+
+  scores = scores.map(sc=>{
+    return sc.score
+  })
+
+  const suma = scores.reduce((acumulador, valorActual) => acumulador + valorActual);
+  const promedio = suma / scores.length;
+
+  return parseFloat(promedio.toFixed(1));
+
+}
+
 
 module.exports = {
   getDbUser,

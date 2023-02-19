@@ -22,22 +22,25 @@ router.post("/service", auth, userHandlers.createServer)//
 router.post("/login", userHandlers.login)//
 router.post("/friend", auth, userHandlers.addFriend)//
 
-router.post("/postulate/service/:idService", auth, userHandlers.postularService)
+router.post("/service/postulate/:idService", auth, userHandlers.postularService)
 
-router.post("/service/trabajador", auth, userHandlers.elegirTrabajador)
-
+router.post("/service/elegir/trabajador", auth, userHandlers.elegirTrabajador)
 
 
 /****** PUT ******* */
 router.put("/service/:idService", auth, userHandlers.actualizarService)//
 router.put("/update", auth, userHandlers.putUser)//
 
+router.put("/service/finalizar/:idService", auth, userHandlers.serviceFinalizado)
+router.put("/service/calificar/:idService", auth, userHandlers.calificarService)
+
+
 /******* DELETE ******* */
 router.delete("/friend", auth, userHandlers.deleteFriend)//
 
 router.delete("/service/:idService", auth, userHandlers.deleteService)//
 
-router.delete("/postulate/service/:idService", auth, userHandlers.deletePostuleService)
+router.delete("/service/postulate/:idService", auth, userHandlers.deletePostuleService)
 
 
 // probando
