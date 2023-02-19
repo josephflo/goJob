@@ -20,7 +20,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
-          <Route path='/profesionals' component={Professionals} />
+          <Route path='/service' component={Professionals} />
           <Route path='/admin' component={Admin} />
 
           <Route
