@@ -4,7 +4,7 @@ import Logout from './Logout'
 
 const Home = () => {
   return (
-    <div>
+    <div class= "content-center">
       <h1>Aplication</h1>
       <Login/>
       <Logout/>
