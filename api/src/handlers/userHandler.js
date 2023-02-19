@@ -2,7 +2,7 @@ const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
 const {uploadImage} = require("../services/cloudinary")
 const fs = require("fs-extra")
-const bienvenidaMail = require('../templatesEmails/singupEmail');
+
 
 const { 
   getDbUser,
@@ -78,9 +78,6 @@ const createUser = async (req, res) => {
   let newUser = req.body.user;
   let idJobs = req.body.jobs;
   let error = false;
-  let nombre = newUser.firstName;
-  let apellido = newUser.lastName;
-  let correo = newUser.email;
 
   try {
     if(!newUser) throw new Error("Mising data");
@@ -113,24 +110,6 @@ const createUser = async (req, res) => {
 
     await userCreated.addJobs(jobs);
     // agregar nuevo usuario a Jobs
-    delete userCreated.dataValues.password
-
-    //mandomos email de bienvenida
-    bienvenidaMail(nombre, apellido, correo);
-
-    //verificamos si agregamos Jobs
-    let jobs
-    let jobId
-    if(idJobs.length){
-      jobs = await userCreated.addJobs(idJobs)
-    }else{
-      return res.status(200).json({
-        status: "success",
-        message: "Registro exitoso sin Jobs",
-        user: userCreated
-      });
-    }
-
 
     return res.status(200).json({
       status: "success",
@@ -199,36 +178,52 @@ const login = async(req, res)=>{
     });
   }
 }
-
-const putUser = async(req, res)=>{
+//job
+const addJob = async(req, res)=>{
   let idUser = req.user.id
-  let putUser = req.body.user
-  let jobsUser = req.body.jobs
-  
+  let idJob = req.body.id
+
   try {
-    //actualizamos el user
+    if(!idJob) throw new Error("Mising data")
 
-    //ciframos contraseña
-    let pwd = await bcrypt.hash(putUser.password, 10);
-    putUser.password = pwd
-    
-    let newUser = await User.update(
-      putUser,
-      {where: {id: idUser}}
-    )
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.addJob(idJob)
 
-    //actualizamos sus Jobs
-    let user = await User.findOne({
-      where: {id: idUser}
-    })
-    await user.setJobs(jobsUser)
-    
+    // let job = await Job.findOne({where: {id: idJob}})
+    // await job.addUser(idUser)
 
     return res.status(400).json({
       status: "success",
-      message: "Actualizado correctamente"
+      message: "Job agregado correctamente",
+      idUser,
+      idJob,
+      user,
+  
     });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
 
+const deleteJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.removeJob(idJob)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job eliminado correctamente"
+    });
   } catch (error) {
     return res.status(400).json({
       status: "error",
@@ -456,11 +451,12 @@ module.exports = {
   decifrarToken,
   addFriend,
   deleteFriend,
+  addJob,
+  deleteJob,
   getFriends,
   getAllService,
   createServer,
   actualizarService,
-  deleteService,
-  putUser
+  deleteService
 };
 
