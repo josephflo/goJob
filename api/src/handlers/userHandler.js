@@ -643,7 +643,7 @@ module.exports = {
   createServer,
   actualizarService,
   deleteService,
-  putUser,
+  //putUser,
   createRating,
   postularService,
   deletePostuleService,
