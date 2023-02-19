@@ -35,8 +35,16 @@ const getAllServices = async (req, res)=>{
           through: { 
             attributes:[]
           }
+        },
+        {
+          model: User,
+          as: "trabajadorId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          through: { 
+            attributes:[]
+          }
         }
-      ],
+      ]
     });
 
     //contamos el total de paginas
@@ -104,6 +112,14 @@ const getIdService = async (req, res) => {
         {
           model: User,
           as: "postulantes",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as: "trabajadorId",
           attributes:["id", "firstName", "lastName", "user", "email", "phone"],
           through: { 
             attributes:[]

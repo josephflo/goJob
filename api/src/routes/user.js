@@ -24,6 +24,8 @@ router.post("/friend", auth, userHandlers.addFriend)//
 
 router.post("/postulate/service/:idService", auth, userHandlers.postularService)
 
+router.post("/service/trabajador", auth, userHandlers.elegirTrabajador)
+
 
 
 /****** PUT ******* */

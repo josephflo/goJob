@@ -14,7 +14,7 @@ const serviceModel = (sequelize) => {
     },
     state: {
       type: DataTypes.STRING,
-      default: 'pendiente',
+      defaultValue: 'pendiente',
       validate: {
           isIn: [['pendiente', 'proceso', 'terminado']]
         }
@@ -35,14 +35,11 @@ const serviceModel = (sequelize) => {
       type: DataTypes.INTEGER,
       default: 0
     },
-    UserId: {
-      type: DataTypes.INTEGER
-    },
-    idTrabajador: {
-      type: DataTypes.INTEGER
-    }
-  
+    // UserId: {
+    //   type: DataTypes.INTEGER
+    // }
 
+  
   },{timestamps: false });
 };
 
