@@ -18,7 +18,9 @@ async function uploadImage (filePath) { // file path es la direccion desde lo en
 
   })
 }
-//dale node y el archivo para ver el urlimage y poder usarla
+//dale node y el cambia la ruta de tu archivo para ver el urlimage y 
+//poder usarla con el link que arroja el console.log
+
 //console.log(uploadImage("larutadetuimagen"))
 
 module.exports = {
