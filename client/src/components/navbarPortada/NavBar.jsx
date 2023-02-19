@@ -17,18 +17,18 @@ const Navbar = () => {
         <Link to={"/"} className={n.link}>
           <h2>Inicio</h2>
         </Link>
-        <Link to={"/"} className={n.link}>
+        <Link to={"/job"} className={n.link}>
           <h2>Jobs</h2>
         </Link>
-        <Link to={"/"} className={n.link}>
-          <h2>Como Funciona</h2>
+        <Link to={"/service"} className={n.link}>
+          <h2>Services</h2>
         </Link>
-        <Link to={"/"} className={n.link}>
+        <Link to={"/user/login"} className={n.link}>
           <h2>
             <b>Acceder</b>
           </h2>
         </Link>
-        <Link to={"/"} className={n.link}>
+        <Link to={"/user/register"} className={n.link}>
           <h2 className={n.registrate}>Registrate</h2>
         </Link>
       </div>
