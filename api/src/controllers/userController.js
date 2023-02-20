@@ -216,6 +216,10 @@ const getRating = async(user)=>{
     return sc.score
   })
 
+  if(!scores.length){
+    return "none"
+  }
+
   const suma = scores.reduce((acumulador, valorActual) => acumulador + valorActual);
   const promedio = suma / scores.length;
 
