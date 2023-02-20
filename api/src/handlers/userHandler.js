@@ -268,6 +268,45 @@ const deleteJob = async(req, res)=>{
 }
 
 
+const putUser = async(req, res)=>{
+  let idUser = req.user.id
+  let putUser = req.body.user
+  let jobsUser = req.body.jobs
+  
+  try {
+    //actualizamos el user
+
+    //ciframos contraseña
+    let pwd = await bcrypt.hash(putUser.password, 10);
+    putUser.password = pwd
+    
+    let newUser = await User.update(
+      putUser,
+      {where: {id: idUser}}
+    )
+
+    //actualizamos sus Jobs
+    let user = await User.findOne({
+      where: {id: idUser}
+    })
+    await user.setJobs(jobsUser)
+    
+
+    return res.status(400).json({
+      status: "success",
+      message: "Actualizado correctamente"
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+
+
 const decifrarToken = async(req, res)=>{
 
   return res.status(200).json({
@@ -643,7 +682,7 @@ module.exports = {
   createServer,
   actualizarService,
   deleteService,
-  //putUser,
+  putUser,
   createRating,
   postularService,
   deletePostuleService,
