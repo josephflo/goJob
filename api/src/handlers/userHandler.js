@@ -2,7 +2,7 @@ const {Job, Service, User} = require("../connection/db")
 const bcrypt = require("bcrypt");
 const {uploadImage} = require("../services/cloudinary")
 const fs = require("fs-extra")
-
+const bienvenidaMail = require('../templatesEmails/singupEmail');
 
 const { 
   getDbUser,
@@ -78,6 +78,11 @@ const createUser = async (req, res) => {
   let newUser = req.body.user;
   let idJobs = req.body.jobs;
   let error = false;
+  let nombre = newUser.firstName;
+  let apellido = newUser.lastName;
+  let correo = newUser.email;
+
+
 
   try {
     if(!newUser) throw new Error("Mising data");
@@ -111,8 +116,26 @@ const createUser = async (req, res) => {
     //lo comente por que trai conflictos con mi merge: fray
 
     await userCreated.addJobs(idJobs);
-    // agregar nuevo usuario a Jobs
 
+  
+    // agregar nuevo usuario a Jobs
+    delete userCreated.dataValues.password
+
+    //mandomos email de bienvenida
+    bienvenidaMail(nombre, apellido, correo);
+
+    //verificamos si agregamos Jobs
+    let jobs
+    let jobId
+    if(idJobs.length){
+      jobs = await userCreated.addJobs(idJobs)
+    }else{
+      return res.status(200).json({
+        status: "success",
+        message: "Registro exitoso sin Jobs",
+        user: userCreated
+      });
+    }
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
