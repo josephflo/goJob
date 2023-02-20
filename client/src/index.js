@@ -9,13 +9,23 @@ import { Auth0Provider } from "@auth0/auth0-react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 console.log(process.env.REACT_APP_AUTH0_DOMAIN, process.env.REACT_APP_AUTH0_CLIENT_ID);
-const domain = process.env.REACT_APP_AUTH0_DOMAIN
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID
+const domain = 'dev-n7ephpskn740wukr.us.auth0.com'
+const clientId = 'oGbRakbXxn8Pac6TX0s25wmSgTzxleej'
+
+// const onRedirectCallback = appState => {
+//   history.push(
+//     appState && appState.targetUrl
+//       ? appState.targetUrl
+//       : window.location.href = "http://localhost:3000/"
+//   );
+// };
 
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Auth0Provider domain={domain} clientId={clientId} redirectUri={window.location.origin} >
+      <Auth0Provider domain='dev-n7ephpskn740wukr.us.auth0.com' clientId='oGbRakbXxn8Pac6TX0s25wmSgTzxleej' authorizationParams={{
+        redirect_uri: window.location.origin,
+      }} >
         <App />
       </Auth0Provider>
     </React.StrictMode>

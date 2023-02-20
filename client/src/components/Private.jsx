@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Private = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-
+  console.log(user);
   if (isLoading) {
     return <div>Loading ...</div>;
   }
@@ -17,6 +17,5 @@ const Private = () => {
       </div>
     )
   );
-};
-
+}
 export default Private;

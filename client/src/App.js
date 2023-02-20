@@ -7,6 +7,7 @@ import Navbar from "./components/navbarPortada/NavBar";
 import Professionals from "./components/Profesional/Professionals";
 import DetailCard from "./components/DetailCard/detailCard";
 import Admin from "./components/Dashboard/Admi";
+import Private from "./components/Private";
 
 
 // Containers
@@ -34,21 +35,22 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Components */}
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/contact" component={FormContact} />
-          <Route path='/service' component={Professionals} />
-          <Route exact path="/user" component={Users} />
-          //<Route exact path="/service" component={Services} />
-          <Route path='/admin' component={Admin} />
+          <Route exact path="/" element={<LandingPage/>} />
+          <Route exact path="/contact" element={<FormContact/>} />
+          <Route exact path='/service' element={<Professionals/>} />
+          <Route exact path="/user" element={<Users/>} />
+          <Route exact path="/service" element={<Services/>} />
+          <Route path="/profile" element={<Private/>} />
+          <Route path='/admin' element={Admin} />
 
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
           {/* Containers */}
-          <Route exact path="/user/register" component={Register} />
-          <Route path="/user/login" component={Login} />
-          <Route path="/job" component={AddJob} />
+          <Route exact path="/user/register" element={<Register/>} />
+          <Route path="/user/login" element={<Login/>} />
+          <Route path="/job" element={<AddJob/>} />
         </Routes>
       </BrowserRouter>
     </>
