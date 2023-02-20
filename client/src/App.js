@@ -42,23 +42,23 @@ function App() {
           {/* Components */}
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
-          <Route path='/service' component={Professionals} />
           <Route exact path="/user" component={Users} />
-          
-          <Route path="/profesionals" component={Professionals} />
-          <Route path="/admin" component={Admin} />
+          <Route path="/service" component={Professionals} />
           {/* <Route path="/createPablo" component={FormCreateUser} /> */}
-{/*           //<Route exact path="/service" component={Services} />
- */}          <Route path='/admin' component={Admin} />
-
+         
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
+          //ADMIN
+          <Route path='/admin' component={Admin} />
+         <Route path='/addService' component={Services} />
+         <Route path="/addJob" component={AddJob} />
+
           {/* Containers */}
           <Route exact path="/user/register" component={Register} />
           <Route path="/user/login" component={Login} />
-          <Route path="/job" component={AddJob} />
+          
         </Switch>
       </BrowserRouter>
     </>
