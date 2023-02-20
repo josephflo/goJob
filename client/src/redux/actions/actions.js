@@ -1,20 +1,6 @@
 import axios from "axios";
 import { ActionTypes } from "../constants/actions-types";
 
-// export function getName(name) {
-//   return async function (dispatch) {
-//     try {
-//       let res = await axios.get(/* 'http://localhost:3001/' */ +name);
-//       return dispatch({
-//         type: ActionTypes.GET_NAME,
-//         payload: res.data,
-//       });
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// }
-
 //** ACTIONS JOB **********************************/
 
 export const addJob = (input) => {
@@ -135,3 +121,20 @@ export const getService = (page, page_size) => {
     });
   };
 };
+
+//**FILTER*********************************** */
+export const filterByJobs = (payload) =>{
+  return(
+    {
+      type: ActionTypes.FILTER_BY_JOBS,
+      payload
+    }
+  )
+}
+
+export function orderByName(payload) {
+  return {
+    type:ActionTypes.ORDER_BY_NAME,
+    payload
+  }
+}
