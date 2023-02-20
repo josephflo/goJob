@@ -82,6 +82,8 @@ const createUser = async (req, res) => {
   let apellido = newUser.lastName;
   let correo = newUser.email;
 
+
+
   try {
     if(!newUser) throw new Error("Mising data");
     
@@ -114,6 +116,8 @@ const createUser = async (req, res) => {
     //lo comente por que trai conflictos con mi merge: fray
 
     await userCreated.addJobs(idJobs);
+
+  
     // agregar nuevo usuario a Jobs
     delete userCreated.dataValues.password
 
@@ -132,8 +136,6 @@ const createUser = async (req, res) => {
         user: userCreated
       });
     }
-
-
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
@@ -234,6 +236,60 @@ const login = async(req, res)=>{
     });
   }
 }
+//job
+const addJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.addJob(idJob)
+
+    // let job = await Job.findOne({where: {id: idJob}})
+    // await job.addUser(idUser)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job agregado correctamente",
+      idUser,
+      idJob,
+      user,
+  
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+const deleteJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.removeJob(idJob)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job eliminado correctamente"
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 
 const putUser = async(req, res)=>{
   let idUser = req.user.id
@@ -271,6 +327,7 @@ const putUser = async(req, res)=>{
     });
   }
 }
+
 
 
 const decifrarToken = async(req, res)=>{
@@ -716,6 +773,8 @@ module.exports = {
   decifrarToken,
   addFriend,
   deleteFriend,
+  addJob,
+  deleteJob,
   getFriends,
   getAllService,
   createServer,

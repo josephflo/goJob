@@ -7,7 +7,7 @@ const jobModel = require("../models/Job")
 const serviceModel = require("../models/Service")
 const ratingModel = require("../models/Rating")
 
-const {
+const {   
     DB_USER,
     DB_NAME,
     DB_PASSWORD,

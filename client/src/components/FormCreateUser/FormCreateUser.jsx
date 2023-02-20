@@ -1,62 +1,6 @@
-import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { createUser, getJobs } from "../../redux/actions/actions";
+import React from "react";
 
-export default function Register() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getJobs());
-    //   console.log(jobs);
-  }, []);
-
-  const jobsDB = useSelector((state) => state.jobs);
-  const [input, setInput] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    user: "",
-    password: "",
-    city: "",
-    phone: 0,
-    address: "",
-    role: "",
-  });
-  const [inputJob, setInputJob] = useState([]);
-
-  //   const _jobs = ["Albañil", "Pintor", "Carpintero"];
-  //   let _jobs = jobs;
-
-  const changeInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    console.log(jobsDB);
-    setInput({ ...input, [name]: value });
-  };
-
-  const changeInputJob = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    console.log(inputJob);
-    setInputJob({ ...inputJob, [name]: inputJob[name].concat(value) });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // validate();
-    // console.log({
-    //   user: input,
-    //   jobs: inputJob,
-    // });
-    dispatch(
-      createUser({
-        user: input,
-        jobs: inputJob,
-      })
-    );
-  };
-
+function FormCreateUser() {
   return (
     <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
       <svg
@@ -76,6 +20,7 @@ export default function Register() {
           fill="#06159B"
         />
       </svg>
+
       <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
         <div className="text-center lg:text-left">
           <h2 className="mt-6 text-3xl font-extrabold text-blue-900">
@@ -84,7 +29,7 @@ export default function Register() {
           <p className="mt-2 text-sm text-gray-600">
             Si ya tienes una cuenta
             <a
-              href="/user/login"
+              href=""
               className="font-medium text-blue-900 hover:text-blue-500"
             >
               {" "}
@@ -92,24 +37,20 @@ export default function Register() {
             </a>
           </p>
         </div>
-
         <div className="mt-6">
-          <form onSubmit={handleSubmit} className="space-y-1">
+          <form className="space-y-1">
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
               <div>
                 <label
                   htmlFor="firstName"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese nombre:
+                  Ingrese nombre
                 </label>
                 <input
                   type="text"
-                  name="firstName"
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Nombre"
-                  value={input.firstName}
-                  onChange={changeInput}
                 />
               </div>
               <div>
@@ -117,13 +58,10 @@ export default function Register() {
                   htmlFor="lastName"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese apellido:
+                  Ingrese apellido
                 </label>
                 <input
                   type="text"
-                  name="lastName"
-                  value={input.lastName}
-                  onChange={changeInput}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Apellido"
                 />
@@ -133,32 +71,12 @@ export default function Register() {
                   htmlFor="email"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese email:{" "}
+                  Ingrese email
                 </label>
                 <input
                   type="text"
-                  name="email"
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Email"
-                  value={input.email}
-                  onChange={changeInput}
-                />
-              </div>
-
-              <div>
-                <label
-                  htmlFor="user"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Crear User:
-                </label>
-                <input
-                  type="text"
-                  name="user"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Usuario"
-                  value={input.user}
-                  onChange={changeInput}
                 />
               </div>
               <div>
@@ -166,119 +84,77 @@ export default function Register() {
                   htmlFor="password"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese password:
+                  Ingrese password
                 </label>
                 <input
                   type="text"
-                  name="password"
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Password"
-                  value={input.password}
-                  onChange={changeInput}
-                ></input>
+                />
               </div>
               <div>
                 <label
                   htmlFor="city"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese Ciudad:
+                  Ingrese Ciudad
                 </label>
                 <input
                   type="text"
-                  name="city"
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="City"
-                  value={input.city}
-                  onChange={changeInput}
-                ></input>
-              </div>
-              <div>
-                <label
-                  htmlFor="Phone"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese número de telefono:{" "}
-                </label>
-                <input
-                  type="text"
-                  name="phone"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-sky-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Telefono - Cel"
-                  value={input.phone}
-                  onChange={changeInput}
-                ></input>
+                />
               </div>
               <div>
                 <label
                   htmlFor="address"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese su dirección:{" "}
+                  Ingrese su dirección
                 </label>
                 <input
                   type="text"
-                  name="address"
-                  value={input.address}
-                  onChange={changeInput}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Domicilio"
-                ></input>
+                />
               </div>
               <div>
                 <label
-                  htmlFor="text"
+                  htmlFor="Imagen"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingresar rol (admin-):{" "}
+                  Ingrese imagen de su perfil
                 </label>
                 <input
                   type="text"
-                  name="role"
-                  value={input.role}
-                  onChange={changeInput}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Role"
-                ></input>
+                  placeholder="Imagen de perfil"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="Phone"
+                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                >
+                  Ingrese número de telefono
+                </label>
+                <input
+                  type="text"
+                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-sky-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Telefono - Cel"
+                />
               </div>
             </div>
             <div>
-              <label>Jobs: </label>
-              <div>
-                {jobsDB.map((job) => (
-                  <label key={job.name}>
-                    {job.name}
-                    <input
-                      type="checkbox"
-                      name="jobs"
-                      value={job.name}
-                      onChange={changeInputJob}
-                    />
-                    <span></span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div class="mt-3">
-              <button
-                type="submit"
-                name="btn"
-                className="mt-3 w-full py-3 bg-blue-900 text-white "
-              >
+              <button className="mt-3 w-full py-3 bg-blue-900 text-white ">
                 Registrarse
               </button>
             </div>
           </form>
-          <div class="mt-3">
-            <NavLink to="/">
-              <button class="mt-3 w-full py-3 bg-red-900 text-white ">
-                Volver
-              </button>
-            </NavLink>
-          </div>
         </div>
       </div>
     </div>
   );
 }
+
+export default FormCreateUser;

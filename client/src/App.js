@@ -1,17 +1,16 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // Components
-import LandingPage from "./components/landingPage/landingPage";
-import FormContact from "./containers/Form/FormContact";
-import DetailCard from "./components/detailCard/DetailCard";
-=======
+// import LandingPage from "./components/landingPage/landingPage";
+// import FormContact from "./containers/Form/FormContact";
+// import DetailCard from "./components/detailCard/DetailCard";
+// =======
 import LandingPage from "./components/landingPage/landingPage";
 import Navbar from "./components/navbarPortada/NavBar";
 import FormContact from "./components/FormContact/FormContact";
 import Professionals from "./components/Profesional/Professionals";
 import DetailCard from "./components/DetailCard/detailCard";
 import Admin from "./components/Dashboard/Admi";
-
 
 // Containers
 import Register from "./containers/register/Register";
@@ -24,6 +23,9 @@ import { useEffect } from "react";
 import { getService, getUsers } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
 import Services from "./components/services/Services";
+import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
+
+//import Services from "./components/services/Services";
 axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
@@ -41,18 +43,22 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
           <Route exact path="/user" component={Users} />
-          <Route exact path="/service" component={Services} />
-          <Route path='/profesionals' component={Professionals} />
-          <Route path='/admin' component={Admin} />
-
+          <Route path="/service" component={Professionals} />
+          {/* <Route path="/createPablo" component={FormCreateUser} /> */}
+         
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
+          //ADMIN
+          <Route path='/admin' component={Admin} />
+         <Route path='/addService' component={Services} />
+         <Route path="/addJob" component={AddJob} />
+
           {/* Containers */}
           <Route exact path="/user/register" component={Register} />
           <Route path="/user/login" component={Login} />
-          <Route path="/job" component={AddJob} />
+          
         </Switch>
       </BrowserRouter>
     </>
