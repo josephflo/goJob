@@ -9,9 +9,6 @@ const stripe = require("./stripe")
 const cloudinary = require("./cloudinary")
 
 
-
-
-
 /////
 const app = Router();
 
