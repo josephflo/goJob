@@ -60,9 +60,14 @@ async function deleteProduct(idProduct){  //si algun usuario por alguna razon qu
       return deleted
 }
 
+async function listProducts(){ //aqui buscamos todos los productos existentes si ningun tipo de filtro
 
+    const allProducts = await stripe.products.list({
+    
+    });
 
-
+      return allProducts
+}
 
 
 module.exports={
@@ -71,6 +76,8 @@ module.exports={
     createPrice,
     createSession,
     getProductById,
-    deleteProduct
+    deleteProduct,
+    listProducts
+    
 }
 
