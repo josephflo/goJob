@@ -1,13 +1,9 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Components
 import LandingPage from "./components/landingPage/landingPage";
 import FormContact from "./containers/Form/FormContact";
-import DetailCard from "./components/detailCard/DetailCard";
-=======
-import LandingPage from "./components/landingPage/landingPage";
 import Navbar from "./components/navbarPortada/NavBar";
-import FormContact from "./components/FormContact/FormContact";
 import Professionals from "./components/Profesional/Professionals";
 import DetailCard from "./components/DetailCard/detailCard";
 import Admin from "./components/Dashboard/Admi";
@@ -23,7 +19,7 @@ import Users from "./components/Users/Users";
 import { useEffect } from "react";
 import { getService, getUsers } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
-//import Services from "./components/services/Services";
+import Services from "./components/services/Services";
 axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
@@ -36,7 +32,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Switch>
+        <Routes>
           {/* Components */}
           <Route exact path="/" component={LandingPage} />
           <Route path="/contact" component={FormContact} />
@@ -53,7 +49,7 @@ function App() {
           <Route exact path="/user/register" component={Register} />
           <Route path="/user/login" component={Login} />
           <Route path="/job" component={AddJob} />
-        </Switch>
+        </Routes>
       </BrowserRouter>
     </>
   );

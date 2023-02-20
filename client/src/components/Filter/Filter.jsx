@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {useSelector, useDispatch} from 'react-redux';
+import { getService } from "../../redux/actions/actions";
 
 function Filter () {
     const jobs = useSelector((state) => state.job)
