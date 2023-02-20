@@ -31,7 +31,10 @@ const serviceModel = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    
+    stripepriceId:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     score:{
       type: DataTypes.INTEGER,
       default: 0

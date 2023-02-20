@@ -5,10 +5,11 @@ const {createCheckoutHandler,
         priceCreatedHandler,
         productByIdHandler,
         delProductHandler,
-        allProductHandler} = require("../handlers/stripeHandler")
+        allProductHandler,
+        allPriceProductHandler} = require("../handlers/stripeHandler")
 
 
-//estas rutas solo son para ver como funciona el api, las rutas funcionales vienen dentro de service
+//estas rutas solo son para ver como funciona el api, las rutas funcionales vienen dentro de createservice y createjob
 
 router.post("/checkout", createCheckoutHandler) // creas un checkout
 
@@ -22,6 +23,7 @@ router.delete("/delproducto/:idproduct",delProductHandler)//borrar producto por 
 
 router.get("/allProducts",allProductHandler)//muestra todos los productos en un array de objetos
 
+router.get("/allPrices/:idproduct",allPriceProductHandler)//muestra todos los precios de un producto
 
 
 module.exports = router;

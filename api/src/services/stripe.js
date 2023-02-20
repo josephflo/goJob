@@ -69,6 +69,21 @@ async function listProducts(){ //aqui buscamos todos los productos existentes si
       return allProducts
 }
 
+async function listPrices(producto_id){ //aqui buscamos todos los precios de un producto
+
+    const prices = await stripe.prices.list({product: producto_id});
+
+      return prices
+}
+
+
+// const existingPrice = listPrices(producto_id).data.find(price => price.unit_amount === priceInCents);
+
+// if (existingPrice) {
+  
+// } else {
+ 
+// }
 
 module.exports={
     stripe,
@@ -77,7 +92,8 @@ module.exports={
     createSession,
     getProductById,
     deleteProduct,
-    listProducts
+    listProducts,
+    listPrices
     
 }
 

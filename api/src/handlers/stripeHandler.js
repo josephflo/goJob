@@ -1,4 +1,4 @@
-const {createSession, createProduct, createPrice,getProductById,deleteProduct,listProducts} = require("../services/stripe")
+const {createSession, createProduct, createPrice,getProductById,deleteProduct,listProducts,listPrices} = require("../services/stripe")
 
 const createCheckoutHandler = async (req,res)=>{    
 try {   
@@ -78,6 +78,19 @@ const allProductHandler = async (req,res)=>{
             
                     res.json({ error: error.message})
                 }}
+
+const allPriceProductHandler = async (req,res)=>{    
+                try { 
+                    const {producto_id}= req.params
+
+                    const allPrices = await listPrices(producto_id)
+            
+                    res.json(allPrices)
+                    
+                } catch (error) {
+            
+                    res.json({ error: error.message})
+                }}
             
    
 module.exports = {
@@ -86,5 +99,6 @@ module.exports = {
     productCreateHandler,
     priceCreatedHandler,
     delProductHandler,
-    allProductHandler
+    allProductHandler,
+    allPriceProductHandler
 }
