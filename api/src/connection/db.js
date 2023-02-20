@@ -100,11 +100,6 @@ User.belongsToMany(User, {
   as: 'friends', // nombre de la columna en el modelo
 });
 
-//Relacion para el Rating
-User.hasMany(Rating, { as: 'ratings' });
-Rating.belongsTo(Service, { as: 'service' });
-
-
 
 
 module.exports = {

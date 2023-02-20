@@ -33,7 +33,7 @@ const serviceModel = (sequelize) => {
     },
     stripepriceId:{
       type: DataTypes.STRING,
-      allowNull: false
+      //allowNull: false
     },
     score:{
       type: DataTypes.INTEGER,

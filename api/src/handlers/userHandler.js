@@ -620,8 +620,8 @@ const deletePostuleService = async (req, res)=>{
 const elegirTrabajador = async (req, res)=>{
   let idUser = req.user.id
 
-  let idTrabajador = Number(req.query.trabajador)
-  let idService = Number(req.query.service)
+  let idTrabajador = Number(req.body.trabajador)
+  let idService = Number(req.body.service)
 
   try {
     if(!idTrabajador || !idService)throw Error("Mising data")
@@ -643,22 +643,97 @@ const elegirTrabajador = async (req, res)=>{
       }
     )
 
-
-
-    return res.status(400).json({
+    //Si todo salio bien
+    return res.status(200).json({
       status: "success",
-      message: "Pruebaaaa",
-      service,
-      idTrabajador,
-      idService,
-      idUser,
-      addTraba: addTraba
+      message: "Se agrego trabjador al servicio exitosamente"
+
     })
   } catch (error) {
     return res.status(400).json({
       status: "error",
       message: error.message
     })
+  }
+}
+
+const serviceFinalizado = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = Number(req.params.idService)
+
+
+  try {
+
+    //actualizamos el state del service
+    let actStateSer = await Service.update(
+      {
+        state: "terminado"
+      },
+      {
+        where: {id: idService, UserId: idUser}
+      }
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Servicio finalizado",
+      idUser,
+      idService
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      idUser,
+      idService,
+      lala: "asasas"
+    });
+  }
+
+ 
+}
+
+const calificarService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = Number(req.params.idService)
+  let scoreService = Number(req.body.score)
+
+  try {
+    //verificamos el estado del servicio
+    let service = await Service.findOne({
+      where: {id: idService}
+    })
+    if(service.state != "terminado"){
+      return res.status(400).json({
+        status: "error",
+        message: "El servicio no se encuentra finalizado"
+      })
+    }
+
+    //actualizamos el state del service
+    let actStateSer = await Service.update(
+      {
+        score: scoreService
+      },
+      {
+        where: {id: idService, UserId: idUser}
+      }
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Calificion del servicio exitoso"
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      idUser,
+      idService,
+      lala: "asasas"
+    });
   }
 }
 
@@ -709,6 +784,8 @@ module.exports = {
   createRating,
   postularService,
   deletePostuleService,
-  elegirTrabajador
+  elegirTrabajador,
+  serviceFinalizado,
+  calificarService
 };
 
