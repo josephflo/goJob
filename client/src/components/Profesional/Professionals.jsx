@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../../redux/actions/actions";
 import Card from "../Card/Card";
 import Filter from "../Filter/Filter";
-import NavBar from "../navbarInicioSesion/NavbarInicioSecion";
+import NavBar from "../navbarPortada/NavBar";
 
 function Professionals() {
   const users = useSelector((state) => state.users);
@@ -20,7 +20,7 @@ function Professionals() {
   return (
     <div>
       <div>
-        <NavBar />
+        <NavBar  />
       </div>
       <div>
         <h1 className="absolute left-12 top-36 font-sans not-italic font-extrabold text-2xl text-black">
