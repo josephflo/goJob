@@ -110,17 +110,24 @@ export const userLogin = (input) => {
 
 //** SERVICES ********************************* */
 
-export const getService = (page, page_size) => {
+export const getService = () => {
   return async (dispatch) => {
-    const result = await axios.get(
-      `service?page=${page}&page_size=${page_size}`
-    );
+    const result = await axios.get(`/service`);
     return dispatch({
       type: ActionTypes.GET_SERVICE,
-      payload: result.data,
+      payload: result.data.result,
     });
   };
 };
+// export const getServices = () => {
+//   return async (dispatch) => {
+//     const result = await axios.get("/user/services");
+//     return dispatch({
+//       type: ActionTypes.GET_SERVICES,
+//       payload: result.data,
+//     });
+//   };
+// };
 
 export const createService = (input) => {
   return async (dispatch) => {
@@ -131,7 +138,8 @@ export const createService = (input) => {
         "Content-Type": "application/json",
       },
     };
-    const result = await axios.post("/user/register", json, customConfig);
+    console.log(input);
+    const result = await axios.post("/user/service", json, customConfig);
     return dispatch({
       type: ActionTypes.CREATE_SERVICE,
       payload: result.data,

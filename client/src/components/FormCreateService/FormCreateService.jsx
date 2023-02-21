@@ -1,20 +1,27 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createService } from "../../redux/actions/actions";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createService, getJobs } from "../../redux/actions/actions";
 import NavBar from "../navbarPortada/NavBar";
 
 function FormCreateService() {
-  const [input, setInput] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    user: "",
-    password: "",
-    city: "",
-    address: "",
-    imageurl: "",
-    phone: 0,
-  });
+  // const [input, setInput] = useState({
+  //   firstName: "",
+  //   lastName: "",
+  //   email: "",
+  //   user: "",
+  //   password: "",
+  //   city: "",
+  //   address: "",
+  //   imageurl: "",
+  //   phone: 0,
+  // });
+  const [inputJob, setInputJob] = useState(1);
+  const dispatch = useDispatch();
+  const jobs_ = useSelector((state) => state.jobs);
+
+  useEffect(() => {
+    dispatch(getJobs());
+  }, []);
 
   const [input_2, setInput_2] = useState({
     title: "",
@@ -23,41 +30,48 @@ function FormCreateService() {
     presupuesto: "0",
   });
 
-  const dispatch = useDispatch();
+  // const changeInput = (e) => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
+  //   setInput({ ...input, [name]: value });
+  //   console.log(input);
+  // };
 
-  const changeInput = (e) => {
+  const changeInputJob = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
-    setInput({ ...input, [name]: value });
-    console.log(input);
+    const value = parseInt(e.target.value);
+    console.log(name);
+    console.log(value);
+    setInputJob(value);
   };
 
   const changeInput_2 = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setInput_2({ ...input_2, [name]: value });
+    console.log(input_2);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(input_2, inputJob);
     dispatch(
       createService({
-        user: input,
-        jobs: [],
+        tittle: input_2.title,
+        description: input_2.description,
+        location: input_2.location,
+        presupuesto: input_2.presupuesto,
+        jobs: [inputJob],
       })
     );
-    setInput({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      city: "",
-      address: "",
-      imageurl: "",
-      phone: 0,
-      service: "",
+    setInput_2({
+      title: "",
       description: "",
+      location: "",
+      presupuesto: "0",
     });
+    setInputJob(1);
+    window.alert("Se creó con exito el servicio");
   };
 
   return (
@@ -89,7 +103,7 @@ function FormCreateService() {
             <h2 className="mt-6 text-3xl font-extrabold text-blue-900">
               Crea tu servicio
             </h2>
-            <p className="mt-2 text-sm text-gray-600">
+            {/* <p className="mt-2 text-sm text-gray-600">
               Si ya tienes una cuenta
               <a
                 href=""
@@ -98,153 +112,11 @@ function FormCreateService() {
                 {" "}
                 Inicia Sesion
               </a>
-            </p>
+            </p> */}
           </div>
           <div className="mt-6">
             <form className="space-y-1" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
-                <div>
-                  <label
-                    htmlFor="firstName"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese nombre
-                  </label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={input.firstName}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Nombre"
-                    required="required"
-                    data-error="El nombre es requerido."
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="lastName"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese apellido
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={input.lastName}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Apellido"
-                    required="required"
-                    data-error="El Apellido es requerido."
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={input.email}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Email"
-                    required="required"
-                    data-error="El Email es requerido."
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="password"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese password
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    value={input.password}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Password"
-                    required="required"
-                    data-error="La contraseña es requerido."
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="city"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese Ciudad
-                  </label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={input.city}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="City"
-                    required="required"
-                    data-error="La ciudad es requerido."
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese su dirección
-                  </label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={input.address}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Domicilio"
-                    required="required"
-                    data-error="El Domicilio es requerido."
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="Imagen"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese imagen de su perfil
-                  </label>
-                  <input
-                    type="text"
-                    name="image"
-                    value={input.imageurl}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Imagen de perfil"
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="Phone"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                  >
-                    Ingrese número de telefono
-                  </label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={input.phone}
-                    onChange={changeInput}
-                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-sky-700 leading-tight focus:outline-none focus:shadow-outline"
-                    placeholder="Telefono - Cel"
-                    required="required"
-                    data-error="El número de teléfono es requerido."
-                  />
-                </div>
                 <div>
                   <label
                     htmlFor="nameService"
@@ -254,7 +126,7 @@ function FormCreateService() {
                   </label>
                   <input
                     type="text"
-                    name="service"
+                    name="title"
                     value={input_2.title}
                     onChange={changeInput_2}
                     className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
@@ -282,10 +154,64 @@ function FormCreateService() {
                   data-error="La Descripción es requerido."
                 />
               </div>
+              <div>
+                <label
+                  htmlFor="descriptionService"
+                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                >
+                  Ingrese lugar de trabajo
+                </label>
+                <input
+                  type="text"
+                  name="location"
+                  value={input_2.location}
+                  onChange={changeInput_2}
+                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Ingresa el lugar donde se realizará el trabajo"
+                  required="required"
+                  data-error="La Descripción es requerido."
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="descriptionService"
+                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                >
+                  Ingrese el prespuesto que tiene
+                </label>
+                <input
+                  type="text"
+                  name="presupuesto"
+                  value={input_2.presupuesto}
+                  onChange={changeInput_2}
+                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder=""
+                  required="required"
+                  data-error="La Descripción es requerido."
+                />
+              </div>
+
+              <div>
+                <label>Jobs: </label>
+                <div>
+                  {jobs_.map((job) => (
+                    <label key={job.id}>
+                      {job.name}
+                      <input
+                        type="radio"
+                        name="jobs"
+                        value={job.id}
+                        onChange={changeInputJob}
+                      />
+                      <span></span>
+                    </label>
+                  ))}
+                </div>
+              </div>
               <div></div>
               <div>
                 <button className="mt-3 w-full py-3 bg-blue-900 text-white ">
-                  Registrarse
+                  Crear servicio
                 </button>
               </div>
             </form>

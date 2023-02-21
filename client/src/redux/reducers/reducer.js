@@ -33,44 +33,47 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         service: action.payload,
+        users2: action.payload,
       };
-
 
     case ActionTypes.FILTER_BY_JOBS:
       const alljobs = state.users2;
-      console.log(action.payload);
-      const filter =
+      console.log("Este es el action: " + action.payload);
+      console.log("safdsf");
+      console.log(alljobs);
+      console.log("fdasdfss");
+      const filterJobs =
         action.payload === "default_2"
           ? alljobs
-          : alljobs.filter(
-              (j) =>
-                // j.jobs.some((j) => j.city === action.payload)
-                j.city === action.payload
-            );
+          : alljobs.map((job) => console.log(job));
+      // alljobs.filter(
+      //     (j) =>
+      //       // j.jobs.some((j) => j.city === action.payload)
+      //       // j.Jobs.name === action.payload
+      //       j.Jobs.id == action.payload
+      //   );
       return {
         ...state,
-        users2: filter,
+        users2: filterJobs,
       };
     case ActionTypes.ORDER_BY_NAME:
-      let users_ = state.users.slice();
+      let users_ = state.service.slice();
       const sort =
         action.payload === "A-Z" || action.payload === "default"
           ? users_.sort(function (a, b) {
-              console.log(a.firstName);
-              if (a.firstName > b.firstName) {
+              if (a.tittle > b.tittle) {
                 return 1;
               }
-              if (b.firstName > a.firstName) {
+              if (b.tittle > a.tittle) {
                 return -1;
               }
               return 0;
             })
           : users_.sort(function (a, b) {
-              console.log(a.firstName);
-              if (a.firstName > b.firstName) {
+              if (a.tittle > b.tittle) {
                 return -1;
               }
-              if (b.firstName > a.firstName) {
+              if (b.tittle > a.tittle) {
                 return 1;
               }
               return 0;

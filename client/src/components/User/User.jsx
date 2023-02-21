@@ -9,15 +9,18 @@ export default function Users({ users }) {
         <Card
           id={e.id}
           key={e.id}
-          firstName={e.firstName}
+          tittle={e.tittle}
+          presupuesto={e.presupuesto}
+          // firstName={e.firstName}
           lastName={e.lastName}
           imageurl={e.imageurl}
-          job={e.job}
+          job={e.Jobs}
           contrat={e.contrat}
           numberJobs={e.numberJobs}
-          reviews={e.reviews}
+          // reviews={e.reviews}
           description={e.description}
-          ratings={e.ratings}
+          // ratings={e.ratings}
+          userId={e.userId}
           /* tarif_min={tarif_min} */
         />
       ))}
