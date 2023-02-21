@@ -147,6 +147,23 @@ export const createService = (input) => {
   };
 };
 
+// get ( http://localhost:3005/service?page=1&page_size=5 )
+
+export const serviceFilter = (input) => {
+  return async (dispatch) => {
+    let result;
+    if (input === "default_2") {
+      result = await axios.get(`/service`);
+    } else {
+      result = await axios.get(`/service?page=1&page_size=10&job=${input}`);
+    }
+    return dispatch({
+      type: "SERVICE_FILTER",
+      payload: result.data.result,
+    });
+  };
+};
+
 //**FILTER*********************************** */
 export const filterByJobs = (payload) => {
   return {

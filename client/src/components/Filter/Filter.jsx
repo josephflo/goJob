@@ -5,6 +5,7 @@ import {
   filterByJobs,
   orderByName,
   getUsers,
+  serviceFilter,
 } from "../../redux/actions/actions";
 
 function Filter() {
@@ -25,8 +26,9 @@ function Filter() {
 
   useEffect(() => {
     dispatch(getJobs());
+    dispatch(serviceFilter(state_2.check_2));
     dispatch(orderByName(state.check));
-    dispatch(filterByJobs(state_2.check_2));
+    // dispatch(filterByJobs(state_2.check_2));
   }, [state, state_2]);
 
   // function handleClick(e) {
@@ -84,9 +86,9 @@ function Filter() {
         <span>By Job</span>
         {jobs?.map((j) => {
           return (
-            // <option key={j.id} value="all">
-            //   {j.name}
-            // </option>
+            // // <option key={j.id} value="all">
+            // //   {j.name}
+            // // </option>
             <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
               <input
                 id={j.id}

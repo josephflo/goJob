@@ -36,16 +36,10 @@ export default function reducer(state = initialState, action) {
         users2: action.payload,
       };
 
-    case ActionTypes.FILTER_BY_JOBS:
-      const alljobs = state.users2;
-      console.log("Este es el action: " + action.payload);
-      console.log("safdsf");
-      console.log(alljobs);
-      console.log("fdasdfss");
-      const filterJobs =
-        action.payload === "default_2"
-          ? alljobs
-          : alljobs.map((job) => console.log(job));
+    case "SERVICE_FILTER":
+      // const alljobs = state.users2;
+      // const filterJobs = action.payload === "default_2" ? alljobs : alljobs;
+      // : alljobs.filter((job) => console.log(job));
       // alljobs.filter(
       //     (j) =>
       //       // j.jobs.some((j) => j.city === action.payload)
@@ -54,7 +48,7 @@ export default function reducer(state = initialState, action) {
       //   );
       return {
         ...state,
-        users2: filterJobs,
+        users2: action.payload,
       };
     case ActionTypes.ORDER_BY_NAME:
       let users_ = state.service.slice();

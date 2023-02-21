@@ -5,10 +5,10 @@ import Card from "../Card/Card";
 export default function Users({ users }) {
   return (
     <>
-      {users.map((e) => (
+      {users.map((e, index) => (
         <Card
           id={e.id}
-          key={e.id}
+          key={index}
           tittle={e.tittle}
           presupuesto={e.presupuesto}
           // firstName={e.firstName}

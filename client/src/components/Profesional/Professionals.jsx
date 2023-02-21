@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getService, getUsers, orderByName } from "../../redux/actions/actions";
+import {
+  getService,
+  getUsers,
+  orderByName,
+  serviceFilter,
+} from "../../redux/actions/actions";
 import Card from "../Card/Card";
 import Filter from "../Filter/Filter";
 import NavBar from "../navbarPortada/NavBar";
@@ -10,6 +15,9 @@ import User from "../User/User";
 function Professionals() {
   let users2 = useSelector((state) => state.users2);
   let service = useSelector((state) => state.service);
+
+  let id = useState(null);
+
   console.log(users2, "users aca");
 
   const dispatch = useDispatch();
