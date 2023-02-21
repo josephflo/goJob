@@ -7,7 +7,7 @@ const jobModel = require("../models/Job")
 const serviceModel = require("../models/Service")
 const ratingModel = require("../models/Rating")
 
-const {
+const {   
     DB_USER,
     DB_NAME,
     DB_PASSWORD,
@@ -99,11 +99,6 @@ User.belongsToMany(User, {
   otherKey: 'friendId',
   as: 'friends', // nombre de la columna en el modelo
 });
-
-//Relacion para el Rating
-User.hasMany(Rating, { as: 'ratings' });
-Rating.belongsTo(Service, { as: 'service' });
-
 
 
 
