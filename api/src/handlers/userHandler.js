@@ -10,19 +10,43 @@ const {
   getUserName
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
+const { Op } = require("sequelize");
 
 const getAllUser = async (req, res) => {
-  let {name} = req.query
+  let name = req.query.name
+  let job = Number(req.query.job)
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
 
   let userTotal
-  try {
-    if(name){
-      userTotal = await getUserName(name, page, page_size)
-    }else{
-      userTotal = await getDbUser(page, page_size);
+  let querys = {}
+
+  //configuraciones para filtrado
+  let statementUser
+  if(name){
+    statementUser = {
+      [Op.or]: {
+        firstName: {[Op.iLike]:`%${name}%`},
+        lastName: {[Op.iLike]:`%${name}%`},
+        user: {[Op.iLike]:`%${name}%`}
+      }
     }
+    querys.name = name
+  }
+
+  let statmenteJob
+  if(job){
+    statmenteJob = {
+      id: job
+    }
+    querys.job = job
+  }
+  
+
+  try {
+  
+    userTotal = await getDbUser(page, page_size, querys, statementUser, statmenteJob);
+    
 
     if(!userTotal.result.length) throw Error("Sin resultados")
 
@@ -82,6 +106,8 @@ const createUser = async (req, res) => {
   let apellido = newUser.lastName;
   let correo = newUser.email;
 
+
+
   try {
     if(!newUser) throw new Error("Mising data");
     
@@ -114,6 +140,8 @@ const createUser = async (req, res) => {
     //lo comente por que trai conflictos con mi merge: fray
 
     await userCreated.addJobs(idJobs);
+
+  
     // agregar nuevo usuario a Jobs
     delete userCreated.dataValues.password
 
@@ -132,8 +160,6 @@ const createUser = async (req, res) => {
         user: userCreated
       });
     }
-
-
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
@@ -234,6 +260,60 @@ const login = async(req, res)=>{
     });
   }
 }
+//job
+const addJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.addJob(idJob)
+
+    // let job = await Job.findOne({where: {id: idJob}})
+    // await job.addUser(idUser)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job agregado correctamente",
+      idUser,
+      idJob,
+      user,
+  
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+const deleteJob = async(req, res)=>{
+  let idUser = req.user.id
+  let idJob = req.body.id
+
+  try {
+    if(!idJob) throw new Error("Mising data")
+
+    //traemos el model para agregar
+    let user = await User.findOne({where: {id: idUser}})
+    await user.removeJob(idJob)
+
+    return res.status(400).json({
+      status: "success",
+      message: "Job eliminado correctamente"
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 
 const putUser = async(req, res)=>{
   let idUser = req.user.id
@@ -271,6 +351,7 @@ const putUser = async(req, res)=>{
     });
   }
 }
+
 
 
 const decifrarToken = async(req, res)=>{
@@ -563,8 +644,8 @@ const deletePostuleService = async (req, res)=>{
 const elegirTrabajador = async (req, res)=>{
   let idUser = req.user.id
 
-  let idTrabajador = Number(req.query.trabajador)
-  let idService = Number(req.query.service)
+  let idTrabajador = Number(req.body.trabajador)
+  let idService = Number(req.body.service)
 
   try {
     if(!idTrabajador || !idService)throw Error("Mising data")
@@ -586,22 +667,97 @@ const elegirTrabajador = async (req, res)=>{
       }
     )
 
-
-
-    return res.status(400).json({
+    //Si todo salio bien
+    return res.status(200).json({
       status: "success",
-      message: "Pruebaaaa",
-      service,
-      idTrabajador,
-      idService,
-      idUser,
-      addTraba: addTraba
+      message: "Se agrego trabjador al servicio exitosamente"
+
     })
   } catch (error) {
     return res.status(400).json({
       status: "error",
       message: error.message
     })
+  }
+}
+
+const serviceFinalizado = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = Number(req.params.idService)
+
+
+  try {
+
+    //actualizamos el state del service
+    let actStateSer = await Service.update(
+      {
+        state: "terminado"
+      },
+      {
+        where: {id: idService, UserId: idUser}
+      }
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Servicio finalizado",
+      idUser,
+      idService
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      idUser,
+      idService,
+      lala: "asasas"
+    });
+  }
+
+ 
+}
+
+const calificarService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = Number(req.params.idService)
+  let scoreService = Number(req.body.score)
+
+  try {
+    //verificamos el estado del servicio
+    let service = await Service.findOne({
+      where: {id: idService}
+    })
+    if(service.state != "terminado"){
+      return res.status(400).json({
+        status: "error",
+        message: "El servicio no se encuentra finalizado"
+      })
+    }
+
+    //actualizamos el state del service
+    let actStateSer = await Service.update(
+      {
+        score: scoreService
+      },
+      {
+        where: {id: idService, UserId: idUser}
+      }
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Calificion del servicio exitoso"
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      idUser,
+      idService,
+      lala: "asasas"
+    });
   }
 }
 
@@ -641,6 +797,8 @@ module.exports = {
   decifrarToken,
   addFriend,
   deleteFriend,
+  addJob,
+  deleteJob,
   getFriends,
   getAllService,
   createServer,
@@ -650,6 +808,8 @@ module.exports = {
   createRating,
   postularService,
   deletePostuleService,
-  elegirTrabajador
+  elegirTrabajador,
+  serviceFinalizado,
+  calificarService
 };
 

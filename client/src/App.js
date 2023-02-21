@@ -21,7 +21,7 @@ import axios from "axios";
 import Users from "./components/Users/Users";
 import { useEffect } from "react";
 import { getService, getUsers } from "./redux/actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Services from "./components/services/Services";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
 import Jobs from "./components/jobs/Jobs";
@@ -34,9 +34,10 @@ axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
   const dispatch = useDispatch();
+  let users = useSelector((state) => state.users);
   useEffect(() => {
-    dispatch(getUsers()); // Cambiar cuando está posisionado en admin
-    dispatch(getService(1, 5)); // Cambiar cuando se presiona onClick() en boton Services (NavBar)
+    // dispatch(getUsers()); // Cambiar cuando está posisionado en admin
+    // dispatch(getService(1, 5)); // Cambiar cuando se presiona onClick() en boton Services (NavBar)
   }, []);
 
   return (
@@ -52,20 +53,17 @@ function App() {
   <Route path="/createService" component={FormCreateService} /> 
 
           {/* <Route path="/createPablo" component={FormCreateUser} /> */}
-         
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
-          //ADMIN
-          <Route path='/admin' component={Admin} />
-         <Route path='/addService' component={Services} />
-         <Route path="/addJob" component={AddJob} />
-
+          {/* ADMIN */}
+          <Route path="/admin" component={Admin} />
+          <Route path="/addService" component={Services} />
+          <Route path="/job" component={AddJob} />
           {/* Containers */}
           <Route exact path="/user/register" component={Register} />
           <Route path="/user/login" component={Login} />
-          
         </Switch>
       </BrowserRouter>
     </>

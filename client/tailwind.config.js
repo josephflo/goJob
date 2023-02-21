@@ -37,23 +37,16 @@ module.exports = {
     },
   },
   plugins: [],
-  content: [
-        "./node_modules/flowbite/**/*.js"
-    ],
-  plugins: [
-    require('flowbite/plugin')
-],
-content: [
-  "./src/**/*.{js,jsx,ts,tsx}",
-
-],
-theme: {
-  extend: {
-    colors: {
-      glass: "rgba(255,255,255,0.25)",
-      brown: "rgb(30, 30, 17);"
-    }
+  content: ["./node_modules/flowbite/**/*.js"],
+  plugins: [require("flowbite/plugin")],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        glass: "rgba(255,255,255,0.25)",
+        brown: "rgb(30, 30, 17);",
+      },
+    },
   },
-},
-plugins: [],
+  plugins: [],
 };

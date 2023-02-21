@@ -23,14 +23,14 @@ function Card({
       confirmButtonText: "ok",
     });
   }
-  return (
-    <div className="absolute sticky h-60  ">
-      <div className="grid grid-cols-4 box-border left-56 bg-gray-200 border-solid-gray-300 rounded-2xl">
-        <div className="col-span-1 w-40 h-41 bg-white">
+  return(
+    <div className=" sticky absolute">
+      <div className="grid grid-cols-4 box-border  h-72 w-70 top-96 left-56 bg-white border-solid-gray-300 rounded-2xl">
+        <div className=" flex col-span-1 w-56">
           <img
             src={imageurl}
             alt=""
-            className="border-2 rounded  "
+            className="  h-44 w-52 left-4 top-11 rounded-2xl "
           />
           <p>
           <button
@@ -43,6 +43,7 @@ function Card({
           </button>
           </p>
         </div>
+
         <div className="col-span-2 w-72">
           <h1 className=" w-38 h-7 left-96 top-9 font-sans text-xl not-italic text-black">
             {firstName} {lastName}
@@ -67,6 +68,7 @@ function Card({
             <i className="fa-solid fa-star text-yellow-400"></i>
             {ratings}4.5
           </p>
+
           <p className=" w-36 h-6 left-2/3 top-20 font-sans not-italic text-sm font-light text-gray-400">
             {reviews}reseñas
           </p>
@@ -89,6 +91,7 @@ function Card({
           </p>
           <p>
           <NavLink to={`/detail/${id}`}>
+
             <button className=" w-36 h-14 left-36 top-48 rounded-2xl bg-gray-300">
               Contactar
             </button>
