@@ -5,11 +5,12 @@ require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
 
 
-const getDbUser = async (page, page_size) =>{
+const getDbUser = async (page, page_size, querys, statementUser, statmenteJob) =>{
   const offset = (page - 1) * page_size;
 
   try{
     let result = await User.findAll({
+      where: statementUser,
       order: [['firstName', 'ASC']],
       limit: page_size,
       offset: offset,
@@ -17,6 +18,7 @@ const getDbUser = async (page, page_size) =>{
       include: [
         {
           model: Job,
+          where: statmenteJob,
           through: { 
             attributes:[]
           }
@@ -26,34 +28,25 @@ const getDbUser = async (page, page_size) =>{
 
     //contamos el total de paginas
     const totalCount = await User.count({
-      where: {
-        // Condición de búsqueda (opcional)
-      }
+      where: statementUser,
+      include: [
+        {
+          model: Job,
+          where: statmenteJob,
+          through: { 
+            attributes:[]
+          }
+        }
+      ],
     });
     const totalPages = Math.ceil(totalCount / page_size);
 
-    //paginacion
-    let nextPage
-    let previousPage
-    if(page == totalPages && page == 1){
-      nextPage = null
-      previousPage = null
-    }else if(page == 1){
-      previousPage = null
-      nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
-    }else if(page > 1 && page < totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
-      nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
-    }else if(page = totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
-      nextPage = null
-    }
+    let paginado = paginacion(page, page_size, totalPages, totalCount, querys)
+
 
 
     return {
-      nextPage,
-      previousPage,
-      totalPages,
+      ...paginado,
       result
     }
   }catch(error){
@@ -61,79 +54,60 @@ const getDbUser = async (page, page_size) =>{
   }
 }
 
-const getUserName = async(name, page, page_size) =>{
-
-  const offset = (page - 1) * page_size;
-  try{
-    const result = await User.findAll({
-      order: [['firstName', 'ASC']],
-      limit: page_size,
-      offset: offset,
-      where: {
-        [Op.or]: {
-          firstName: {[Op.iLike]:`%${name}%`},
-          lastName: {[Op.iLike]:`%${name}%`}
-        }
-      },
-      attributes: { exclude: ['password'] },
-      include: [
-        {
-          model: User,
-          as: 'friends',
-          attributes: { exclude: ['password', 'role'] },
-          through: { 
-            attributes:[]
-          }
-        },
-        {
-          model: Job,
-          through: { 
-            attributes:[]
-          }
-        }
-      ],
-    });
-
-    // let rating = await getRating(result)
-
-    // let merge = {
-    //   ...result.dataValues,
-    //   rating
-    // } 
-
-  
-    //contamos el total de paginas
-    const totalCount = await User.count({
-      where: {firstName: {[Op.iLike]:`%${name}%`}}
-    });
-    const totalPages = Math.ceil(totalCount / page_size);
-
-    //paginacion
-    let nextPage
-    let previousPage
-    if(page == totalPages && page == 1){
-      nextPage = null
-      previousPage = null
-    }else if(page < totalPages){
-      previousPage = null
-      nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}&name=${name}`
-    }else if(page > 1 && page < totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}&name=${name}`
-      nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}&name=${name}`
-    }else if(page = totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}&name=${name}`
-      nextPage = null
+let  convertObjToQuery = (objeto)=>{
+  let queryString = "";
+  for (let clave in objeto) {
+    if (objeto.hasOwnProperty(clave)) {
+      if (queryString.length > 0) {
+        queryString += "&";
+      }
+      queryString += encodeURIComponent(clave) + "=" + encodeURIComponent(objeto[clave]);
     }
-
-    return {
-      nextPage,
-      previousPage,
-      totalPages,
-      result
-    }
-  }catch(error){
-    throw Error(error.message)
   }
+  return `&${queryString}`;
+}
+
+const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
+  let query = convertObjToQuery(querys)
+
+  let nextPage
+  let previousPage
+
+  if(page == totalPages && page == 1 || totalCount <= 0){
+    nextPage = null
+    previousPage = null
+  }else if(page == 1){
+    previousPage = null
+
+    nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
+    nextPage = nextPage.concat(query)
+  }else if(page > 1 && page < totalPages){
+    previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
+    previousPage = previousPage.concat(query)
+
+    nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
+    nextPage = nextPage.concat(query)
+
+  }else if(page = totalPages){
+    previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
+    previousPage = previousPage.concat(query)
+
+    nextPage = null
+  }
+
+  return {
+    nextPage,
+    previousPage,
+    totalPages
+  }
+  
+
+
+
+
+
+
+
 }
 
 const getUserByID = async (id) =>{
@@ -230,6 +204,5 @@ const getRating = async(user)=>{
 
 module.exports = {
   getDbUser,
-  getUserByID,
-  getUserName
+  getUserByID
 }

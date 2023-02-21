@@ -10,19 +10,43 @@ const {
   getUserName
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
+const { Op } = require("sequelize");
 
 const getAllUser = async (req, res) => {
-  let {name} = req.query
+  let name = req.query.name
+  let job = Number(req.query.job)
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
 
   let userTotal
-  try {
-    if(name){
-      userTotal = await getUserName(name, page, page_size)
-    }else{
-      userTotal = await getDbUser(page, page_size);
+  let querys = {}
+
+  //configuraciones para filtrado
+  let statementUser
+  if(name){
+    statementUser = {
+      [Op.or]: {
+        firstName: {[Op.iLike]:`%${name}%`},
+        lastName: {[Op.iLike]:`%${name}%`},
+        user: {[Op.iLike]:`%${name}%`}
+      }
     }
+    querys.name = name
+  }
+
+  let statmenteJob
+  if(job){
+    statmenteJob = {
+      id: job
+    }
+    querys.job = job
+  }
+  
+
+  try {
+  
+    userTotal = await getDbUser(page, page_size, querys, statementUser, statmenteJob);
+    
 
     if(!userTotal.result.length) throw Error("Sin resultados")
 
