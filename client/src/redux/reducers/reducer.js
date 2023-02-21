@@ -4,6 +4,7 @@ const initialState = {
   jobs: [],
   jobById: {},
   service: [],
+  users2: [],
 };
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -26,41 +27,59 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
+        users2: action.payload,
       };
     case ActionTypes.GET_SERVICE:
       return {
         ...state,
         service: action.payload,
       };
-      case ActionTypes.FILTER_BY_JOBS:
-        const alljobs = state.jobs;
-        const filter= action.payload === 'all' ? alljobs : alljobs.filter((j) => j.jobs.some(j=> j.name === action.payload));
-        return{
-          ...state,
-          jobs: filter,
-        }
-        case ActionTypes.ORDER_BY_NAME:
-          const sort = action.payload === 'A-Z' ? state.users.sort(function (a, b) {
-            if (a.firstName > b.firstName) {
-              return 1;
-            }
-            if (b.firstName > a.firstName) {
-              return -1;
-            }
-            return 0
-          }) : state.users.sort(function (a, b) {
-            if (a.firstName > b.firstName) {
-              return -1;
-            }
-            if (b.firstName > a.firstName) {
-              return 1;
-            }
-            return 0
-          })
-          return {
-            ...state,
-            users: sort
-          }
+
+
+    case ActionTypes.FILTER_BY_JOBS:
+      const alljobs = state.users2;
+      console.log(action.payload);
+      const filter =
+        action.payload === "default_2"
+          ? alljobs
+          : alljobs.filter(
+              (j) =>
+                // j.jobs.some((j) => j.city === action.payload)
+                j.city === action.payload
+            );
+      return {
+        ...state,
+        users2: filter,
+      };
+    case ActionTypes.ORDER_BY_NAME:
+      let users_ = state.users.slice();
+      const sort =
+        action.payload === "A-Z" || action.payload === "default"
+          ? users_.sort(function (a, b) {
+              console.log(a.firstName);
+              if (a.firstName > b.firstName) {
+                return 1;
+              }
+              if (b.firstName > a.firstName) {
+                return -1;
+              }
+              return 0;
+            })
+          : users_.sort(function (a, b) {
+              console.log(a.firstName);
+              if (a.firstName > b.firstName) {
+                return -1;
+              }
+              if (b.firstName > a.firstName) {
+                return 1;
+              }
+              return 0;
+            });
+      return {
+        ...state,
+        users2: sort,
+      };
+
     default:
       return state;
   }

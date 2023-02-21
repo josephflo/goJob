@@ -123,18 +123,16 @@ export const getService = (page, page_size) => {
 };
 
 //**FILTER*********************************** */
-export const filterByJobs = (payload) =>{
-  return(
-    {
-      type: ActionTypes.FILTER_BY_JOBS,
-      payload
-    }
-  )
-}
+export const filterByJobs = (payload) => {
+  return {
+    type: ActionTypes.FILTER_BY_JOBS,
+    payload,
+  };
+};
 
 export function orderByName(payload) {
   return {
-    type:ActionTypes.ORDER_BY_NAME,
-    payload
-  }
+    type: ActionTypes.ORDER_BY_NAME,
+    payload,
+  };
 }

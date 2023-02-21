@@ -18,17 +18,25 @@ export default function Jobs({ jobs, handleUpdate, handleModal }) {
         return (
           
           <tr key={job.id}>
-            <th scope="row">{job.id}</th>
-            <td>
+            {/* <th scope="row">{job.id}</th> */}
+            <td scope="col" class="px-6 py-3">
               <button type="submit" onClick={() => handleModal(job)}>
                 {job.name}
               </button>
             </td>
-            <td>
-              <button type="submit" onClick={() => handleDelete(job.id)}>
+            <td scope="col" class="px-6 py-3">
+              <button
+                class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleDelete(job.id)}
+              >
                 Delete
               </button>
-              <button type="submit" onClick={() => handleUpdate(job)}>
+              <button
+                class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                type="submit"
+                onClick={() => handleUpdate(job)}
+              >
                 Update
               </button>
             </td>
