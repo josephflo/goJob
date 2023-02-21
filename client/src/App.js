@@ -58,9 +58,9 @@ function App() {
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
           {/* ADMIN */}
-          <Route path="/admin" component={Admin} />
-          <Route path="/addService" component={Services} />
-          <Route path="/job" component={AddJob} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/admin/service" component={Services} />
+          <Route exact path="/admin/job" component={AddJob} />
           {/* Containers */}
           <Route exact path="/user/register" component={Register} />
           <Route path="/user/login" component={Login} />
