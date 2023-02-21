@@ -8,8 +8,10 @@ import NavBar from "../navbarPortada/NavBar";
 import User from "../User/User";
 
 function Professionals() {
+
   let users2 = useSelector((state) => state.users2);
   console.log(users2, "users aca");
+
 
   const dispatch = useDispatch();
 
@@ -42,6 +44,8 @@ function Professionals() {
           Profesionales que se ajustan a tus necesidades
         </h1>
       </div>
+
+
       <div className="flex flex-wrap pt-80 w-[50%] mx-auto">
         {users2?.length > 0 ? (
           <User users={users2} />
@@ -66,6 +70,7 @@ function Professionals() {
           //     );
           //   }
           // })
+
           <p> ups! no hay profesionales </p>
         )}
       </div>

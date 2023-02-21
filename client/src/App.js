@@ -24,6 +24,10 @@ import { getService, getUsers } from "./redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Services from "./components/services/Services";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
+import Jobs from "./components/jobs/Jobs";
+import Job from "./components/CardJobs/Job";
+import FormCreateService from "./components/FormCreateService/FormCreateService";
+
 
 //import Services from "./components/services/Services";
 axios.defaults.baseURL = "http://localhost:3005/";
@@ -45,15 +49,18 @@ function App() {
           <Route path="/contact" component={FormContact} />
           <Route exact path="/user" component={Users} />
           <Route path="/service" component={Professionals} />
+          <Route path="/job" component={Job} />
+  <Route path="/createService" component={FormCreateService} /> 
+
           {/* <Route path="/createPablo" component={FormCreateUser} /> */}
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
           {/* ADMIN */}
-          <Route path="/admin" component={Admin} />
-          <Route path="/addService" component={Services} />
-          <Route path="/job" component={AddJob} />
+          <Route exact path="/admin" component={Admin} />
+          <Route exact path="/admin/service" component={Services} />
+          <Route exact path="/admin/job" component={AddJob} />
           {/* Containers */}
           <Route exact path="/user/register" component={Register} />
           <Route path="/user/login" component={Login} />

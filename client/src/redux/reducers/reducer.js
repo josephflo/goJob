@@ -34,6 +34,8 @@ export default function reducer(state = initialState, action) {
         ...state,
         service: action.payload,
       };
+
+
     case ActionTypes.FILTER_BY_JOBS:
       const alljobs = state.users2;
       console.log(action.payload);
@@ -77,6 +79,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         users2: sort,
       };
+
     default:
       return state;
   }

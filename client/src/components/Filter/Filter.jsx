@@ -7,8 +7,10 @@ import {
   getUsers,
 } from "../../redux/actions/actions";
 
+
 function Filter() {
   const jobs = useSelector((state) => state.jobs);
+  const users= useSelector((state) => state.users)
   const dispatch = useDispatch();
   // const [change, setChange] = useState("default");
 
@@ -54,6 +56,7 @@ function Filter() {
   // function handleFilterJobs(e) {
   //   dispatch(filterByJobs(e.target.value));
   // }
+
   return (
     <div className="grid grid-cols-4">
       {/* <select
@@ -181,6 +184,7 @@ function Filter() {
         </div>
         {/* </div> */}
         {/* <div className="flex col-span-1 ">
+
         <button
         className=" absolute w-56 h-14 left-3/4 top-56 bg-white rounded-3xl "
         onClick={(e) => {

@@ -16,6 +16,7 @@ export default function Jobs({ jobs, handleUpdate, handleModal }) {
     <>
       {jobs.map((job) => {
         return (
+          
           <tr key={job.id}>
             {/* <th scope="row">{job.id}</th> */}
             <td scope="col" class="px-6 py-3">
