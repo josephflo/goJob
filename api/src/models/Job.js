@@ -18,11 +18,11 @@ const jobModel = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false
     },
-     stripeproductid:{
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    } 
+    //  stripeproductid:{
+    //   type: DataTypes.STRING,
+    //   allowNull: false,
+    //   unique: true
+    // } 
 
   },{timestamps: false });
 };

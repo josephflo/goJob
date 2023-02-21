@@ -474,9 +474,21 @@ const createServer = async (req, res) => {
 
 const getAllService = async (req, res) => {
   let idUser = req.user.id;
+
+  let page = Number(req.query.page || 1)
+  let page_size = Number(req.query.page_size || 15)
+  const offset = (page - 1) * page_size;
+
+  let state = req.query.state
+  let tittle = req.query.name
+  let jobId = Number(req.query.job)
+
+  let querys = {}
+
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
     let allServices = await getUser.getMyServices({
+      where: {state},
       attributes: { exclude: ['UserId'] },
       include: [
         {
