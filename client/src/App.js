@@ -1,16 +1,14 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Components
-// import LandingPage from "./components/landingPage/landingPage";
-// import FormContact from "./containers/Form/FormContact";
-// import DetailCard from "./components/detailCard/DetailCard";
-// =======
+import LandingPage from "./components/landingPage/landingPage";
+import FormContact from "./containers/Form/FormContact";
 import LandingPage from "./components/landingPage/landingPage";
 import Navbar from "./components/navbarPortada/NavBar";
-import FormContact from "./components/FormContact/FormContact";
 import Professionals from "./components/Profesional/Professionals";
 import DetailCard from "./components/DetailCard/detailCard";
 import Admin from "./components/Dashboard/Admi";
+import Private from "./components/auth0/Private"
 
 // Containers
 import Register from "./containers/register/Register";
@@ -21,6 +19,8 @@ import axios from "axios";
 import Users from "./components/Users/Users";
 import { useEffect } from "react";
 import { getService, getUsers } from "./redux/actions/actions";
+import { useDispatch } from "react-redux";
+import Services from "./components/services/Services";
 import { useDispatch, useSelector } from "react-redux";
 import Services from "./components/services/Services";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
@@ -29,7 +29,6 @@ import Job from "./components/CardJobs/Job";
 import FormCreateService from "./components/FormCreateService/FormCreateService";
 
 
-//import Services from "./components/services/Services";
 axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
@@ -43,28 +42,40 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Switch>
+        <Routes>
           {/* Components */}
-          <Route exact path="/" component={LandingPage} />
-          <Route path="/contact" component={FormContact} />
-          <Route exact path="/user" component={Users} />
-          <Route path="/service" component={Professionals} />
-          <Route path="/job" component={Job} />
-  <Route path="/createService" component={FormCreateService} /> 
+          <Route exact path="/" element={<LandingPage/>} />
+          <Route exact path="/contact" element={<FormContact/>} />
+          <Route exact path='/service' element={<Professionals/>} />
+          <Route exact path="/user" element={<Users/>} />
+          <Route exact path="/service" element={<Services/>} />
+          <Route path="/user/profile" element={<Private/>} />
+          <Route path='/admin' element={Admin} />
+          <Route exact path="/" element={LandingPage} />
+          <Route path="/contact" element={FormContact} />
+          <Route exact path="/user" element={Users} />
+          <Route path="/service" element={Professionals} />
+          <Route path="/job" element={Job} />
+  <Route path="/createService" element={FormCreateService} /> 
 
-          {/* <Route path="/createPablo" component={FormCreateUser} /> */}
+          {/* <Route path="/createPablo" element={FormCreateUser} /> */}
           <Route
             path="/detail/:id"
             render={({ match }) => <DetailCard id={match.params.id} />}
           />
+          
           {/* ADMIN */}
-          <Route exact path="/admin" component={Admin} />
-          <Route exact path="/admin/service" component={Services} />
-          <Route exact path="/admin/job" component={AddJob} />
+          <Route exact path="/admin" element={Admin} />
+          <Route exact path="/admin/service" element={Services} />
+          <Route exact path="/admin/job" element={AddJob} />
+          
           {/* Containers */}
+          <Route exact path="/user/register" element={<Register/>} />
+          <Route path="/user/login" element={<Login/>} />
+          <Route path="/job" element={<AddJob/>} />
           <Route exact path="/user/register" component={Register} />
-          <Route path="/user/login" component={Login} />
-        </Switch>
+          <Route path="/user/login" element={Login} />
+        </Routes>
       </BrowserRouter>
     </>
   );
