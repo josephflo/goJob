@@ -1,15 +1,72 @@
-import React from "react";
-import NavBar from '../navbarPortada/NavBar'
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createService } from "../../redux/actions/actions";
+import NavBar from "../navbarPortada/NavBar";
 
 function FormCreateService() {
+  const [input, setInput] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    user: "",
+    password: "",
+    city: "",
+    address: "",
+    imageurl: "",
+    phone: 0,
+  });
+
+  const [input_2, setInput_2] = useState({
+    title: "",
+    description: "",
+    location: "",
+    presupuesto: "0",
+  });
+
+  const dispatch = useDispatch();
+
+  const changeInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInput({ ...input, [name]: value });
+    console.log(input);
+  };
+
+  const changeInput_2 = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setInput_2({ ...input_2, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      createService({
+        user: input,
+        jobs: [],
+      })
+    );
+    setInput({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      city: "",
+      address: "",
+      imageurl: "",
+      phone: 0,
+      service: "",
+      description: "",
+    });
+  };
 
   return (
-    <div> 
     <div>
-        <NavBar/>
-    </div>
-    <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-      {/* <svg
+      <div>
+        <NavBar />
+      </div>
+      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        {/* <svg
         width="118"
         height="53"
         viewBox="0 0 118 50"
@@ -27,163 +84,188 @@ function FormCreateService() {
         />
       </svg> */}
 
-      <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
-        <div className="text-center lg:text-left">
-          <h2 className="mt-6 text-3xl font-extrabold text-blue-900">
-            Crea tu servicio
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
-            Si ya tienes una cuenta
-            <a
-              href=""
-              className="font-medium text-blue-900 hover:text-blue-500"
-            >
-              {" "}
-              Inicia Sesion
-            </a>
-          </p>
-        </div>
-        <div className="mt-6">
-          <form className="space-y-1">
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
-              <div>
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese nombre
-                </label>
-                <input
-                  type="text"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Nombre"
-                  required="required"
-                  data-error="El nombre es requerido."
-                />
+        <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
+          <div className="text-center lg:text-left">
+            <h2 className="mt-6 text-3xl font-extrabold text-blue-900">
+              Crea tu servicio
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Si ya tienes una cuenta
+              <a
+                href=""
+                className="font-medium text-blue-900 hover:text-blue-500"
+              >
+                {" "}
+                Inicia Sesion
+              </a>
+            </p>
+          </div>
+          <div className="mt-6">
+            <form className="space-y-1" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
+                <div>
+                  <label
+                    htmlFor="firstName"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese nombre
+                  </label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={input.firstName}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Nombre"
+                    required="required"
+                    data-error="El nombre es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="lastName"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese apellido
+                  </label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={input.lastName}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Apellido"
+                    required="required"
+                    data-error="El Apellido es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={input.email}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Email"
+                    required="required"
+                    data-error="El Email es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese password
+                  </label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={input.password}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Password"
+                    required="required"
+                    data-error="La contraseña es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="city"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese Ciudad
+                  </label>
+                  <input
+                    type="text"
+                    name="city"
+                    value={input.city}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="City"
+                    required="required"
+                    data-error="La ciudad es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="address"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese su dirección
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={input.address}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Domicilio"
+                    required="required"
+                    data-error="El Domicilio es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="Imagen"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese imagen de su perfil
+                  </label>
+                  <input
+                    type="text"
+                    name="image"
+                    value={input.imageurl}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Imagen de perfil"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="Phone"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese número de telefono
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={input.phone}
+                    onChange={changeInput}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-sky-700 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Telefono - Cel"
+                    required="required"
+                    data-error="El número de teléfono es requerido."
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="nameService"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese nombre del Servicio
+                  </label>
+                  <input
+                    type="text"
+                    name="service"
+                    value={input_2.title}
+                    onChange={changeInput_2}
+                    className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                    placeholder="Nombre de servicio"
+                    required="required"
+                    data-error="El nombre del Servicio es requerido."
+                  />
+                </div>
               </div>
               <div>
                 <label
-                  htmlFor="lastName"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese apellido
-                </label>
-                <input
-                  type="text"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Apellido"
-                  required="required"
-                  data-error="El Apellido es requerido."
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese email
-                </label>
-                <input
-                  type="email"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Email"
-                  required="required"
-                  data-error="El Email es requerido."
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese password
-                </label>
-                <input
-                  type="password"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Password"
-                  required="required"
-                  data-error="La contraseña es requerido."
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese Ciudad
-                </label>
-                <input
-                  type="text"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="City"
-                  required="required"
-                  data-error="La ciudad es requerido."
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="address"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese su dirección
-                </label>
-                <input
-                  type="text"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Domicilio"
-                  required="required"
-                  data-error="El Domicilio es requerido."
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="Imagen"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese imagen de su perfil
-                </label>
-                <input
-                  type="text"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Imagen de perfil"
-                  required="required"
-                  data-error="La imagen es requerido."
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="Phone"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese número de telefono
-                </label>
-                <input
-                  type="tel"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-sky-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Telefono - Cel"
-                  required="required"
-                  data-error="El número de teléfono es requerido."
-                />
-              </div>
-              <div>
-              <label
-                  htmlFor="nameService"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese nombre del Servicio
-                </label>
-                <input
-                  type="text"
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Nombre de servicio"
-                  required="required"
-                  data-error="El nombre del Servicio es requerido."
-                />
-              </div>
-              </div>
-              <div> 
-              <label
                   htmlFor="descriptionService"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
@@ -191,23 +273,25 @@ function FormCreateService() {
                 </label>
                 <input
                   type="text"
+                  name="description"
+                  value={input_2.description}
+                  onChange={changeInput_2}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Description del servicio"
                   required="required"
                   data-error="La Descripción es requerido."
                 />
               </div>
+              <div></div>
               <div>
-            </div>
-            <div>
-              <button className="mt-3 w-full py-3 bg-blue-900 text-white ">
-                Registrarse
-              </button>
-            </div>
-          </form>
+                <button className="mt-3 w-full py-3 bg-blue-900 text-white ">
+                  Registrarse
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

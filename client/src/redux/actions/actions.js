@@ -122,6 +122,23 @@ export const getService = (page, page_size) => {
   };
 };
 
+export const createService = (input) => {
+  return async (dispatch) => {
+    const json = JSON.stringify(input);
+    const customConfig = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    };
+    const result = await axios.post("/user/register", json, customConfig);
+    return dispatch({
+      type: ActionTypes.CREATE_SERVICE,
+      payload: result.data,
+    });
+  };
+};
+
 //**FILTER*********************************** */
 export const filterByJobs = (payload) => {
   return {
