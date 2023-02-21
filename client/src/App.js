@@ -7,7 +7,7 @@ import Navbar from "./components/navbarPortada/NavBar";
 import Professionals from "./components/Profesional/Professionals";
 import DetailCard from "./components/DetailCard/detailCard";
 import Admin from "./components/Dashboard/Admi";
-import Private from "./components/Private";
+import Private from "./components/auth0/Private"
 
 
 // Containers
@@ -40,7 +40,7 @@ function App() {
           <Route exact path='/service' element={<Professionals/>} />
           <Route exact path="/user" element={<Users/>} />
           <Route exact path="/service" element={<Services/>} />
-          <Route path="/profile" element={<Private/>} />
+          <Route path="/user/profile" element={<Private/>} />
           <Route path='/admin' element={Admin} />
 
           <Route
