@@ -26,6 +26,7 @@ import Services from "./components/services/Services";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
 import Jobs from "./components/jobs/Jobs";
 import Job from "./components/CardJobs/Job";
+import FormCreateService from "./components/FormCreateService/FormCreateService";
 
 
 //import Services from "./components/services/Services";
@@ -48,6 +49,8 @@ function App() {
           <Route exact path="/user" component={Users} />
           <Route path="/service" component={Professionals} />
           <Route path="/job" component={Job} />
+  <Route path="/createService" component={FormCreateService} /> 
+
           {/* <Route path="/createPablo" component={FormCreateUser} /> */}
          
           <Route
