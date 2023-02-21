@@ -41,18 +41,18 @@ export default function reducer(state = initialState, action) {
         }
         case ActionTypes.ORDER_BY_NAME:
           const sort = action.payload === 'A-Z' ? state.users.sort(function (a, b) {
-            if (a.name > b.name) {
+            if (a.firstName > b.firstName) {
               return 1;
             }
-            if (b.name > a.name) {
+            if (b.firstName > a.firstName) {
               return -1;
             }
             return 0
           }) : state.users.sort(function (a, b) {
-            if (a.name > b.name) {
+            if (a.firstName > b.firstName) {
               return -1;
             }
-            if (b.name > a.name) {
+            if (b.firstName > a.firstName) {
               return 1;
             }
             return 0

@@ -24,6 +24,9 @@ import { getService, getUsers } from "./redux/actions/actions";
 import { useDispatch } from "react-redux";
 import Services from "./components/services/Services";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
+import Jobs from "./components/jobs/Jobs";
+import Job from "./components/CardJobs/Job";
+
 
 //import Services from "./components/services/Services";
 axios.defaults.baseURL = "http://localhost:3005/";
@@ -44,6 +47,7 @@ function App() {
           <Route path="/contact" component={FormContact} />
           <Route exact path="/user" component={Users} />
           <Route path="/service" component={Professionals} />
+          <Route path="/job" component={Job} />
           {/* <Route path="/createPablo" component={FormCreateUser} /> */}
          
           <Route

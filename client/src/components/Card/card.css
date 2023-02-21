@@ -2,8 +2,8 @@ body{
     background: #b2b2b4;
 }
 
-/* .container{
+.container{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-} */
+}

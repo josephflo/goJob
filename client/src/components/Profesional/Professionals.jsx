@@ -7,8 +7,6 @@ import NavBar from "../navbarPortada/NavBar";
 
 function Professionals() {
   const users = useSelector((state) => state.users);
-  console.log(users,"users aca")
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,7 +33,7 @@ function Professionals() {
           Profesionales que se ajustan a tus necesidades
         </h1>
       </div>
-      <div >
+      <div className="flex flex-wrap pt-80 w-[50%] mx-auto " >
         { users?.length > 0 ? ( 
           users?.map((e) => {
             if (e.role === "professional") {
