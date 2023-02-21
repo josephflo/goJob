@@ -49,7 +49,7 @@ export default function AddJob() {
       });
     }
 
-    // alert("Job craeted correctly! :D");
+    alert("Job craeted correctly! :D");
     setUpdateState(true);
     window.location.reload(true);
   };

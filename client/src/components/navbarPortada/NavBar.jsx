@@ -26,6 +26,15 @@ const Navbar = () => {
         <Link to={"/service"} className={n.link}>
           <h2>Services</h2>
         </Link>
+        <Link to={"/admin/job"} className={n.link}>
+          <h2>Crear job</h2>
+        </Link>
+        <Link to={"/createService"} className={n.link}>
+          <h2>Crear servicio</h2>
+        </Link>
+        <Link to={"/user/register"} className={n.link}>
+          <h2>Create una cuenta YA</h2>
+        </Link>
         {/* <div>
           <Link to={"/user/register"} className={n.link}>
             <button

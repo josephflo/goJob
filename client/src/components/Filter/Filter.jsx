@@ -1,27 +1,3 @@
-import React, { useEffect } from "react";
-import {useSelector, useDispatch} from 'react-redux';
-import { getService } from "../../redux/actions/actions";
-
-function Filter () {
-    const jobs = useSelector((state) => state.job)
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(getService())
-    }, [dispatch])
-
-    function handleClick(e){
-        e.preventDefault(e);
-        dispatch(getService())
-    }
-    return(
-        <div>
-            <select>
-            <option disabled selected value='job'>Areas de trabajos</option>
-                {
-                jobs.map((j) => {
-                    <option key={j.id}>{j.name}</option>
-                })}
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -29,12 +5,12 @@ import {
   filterByJobs,
   orderByName,
   getUsers,
+  serviceFilter,
 } from "../../redux/actions/actions";
-
 
 function Filter() {
   const jobs = useSelector((state) => state.jobs);
-  const users= useSelector((state) => state.users)
+  const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
   // const [change, setChange] = useState("default");
 
@@ -50,8 +26,9 @@ function Filter() {
 
   useEffect(() => {
     dispatch(getJobs());
+    dispatch(serviceFilter(state_2.check_2));
     dispatch(orderByName(state.check));
-    dispatch(filterByJobs(state_2.check_2));
+    // dispatch(filterByJobs(state_2.check_2));
   }, [state, state_2]);
 
   // function handleClick(e) {
@@ -109,16 +86,18 @@ function Filter() {
         <span>By Job</span>
         {jobs?.map((j) => {
           return (
-            // <option key={j.id} value="all">
-            //   {j.name}
-            // </option>
+            // // <option key={j.id} value="all">
+            // //   {j.name}
+            // // </option>
             <div class="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
               <input
                 id={j.id}
                 type="radio"
                 name="check_2"
-                value={j.name}
-                checked={check_2 === j.name}
+                value={j.id}
+                checked={check_2 == j.id}
+                // value={j.name}
+                // checked={check_2 === j.name}
                 onChange={handleFilter}
                 class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />

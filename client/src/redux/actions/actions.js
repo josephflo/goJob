@@ -110,14 +110,56 @@ export const userLogin = (input) => {
 
 //** SERVICES ********************************* */
 
-export const getService = (page, page_size) => {
+export const getService = () => {
   return async (dispatch) => {
-    const result = await axios.get(
-      `service?page=${page}&page_size=${page_size}`
-    );
+    const result = await axios.get(`/service`);
     return dispatch({
       type: ActionTypes.GET_SERVICE,
+      payload: result.data.result,
+    });
+  };
+};
+// export const getServices = () => {
+//   return async (dispatch) => {
+//     const result = await axios.get("/user/services");
+//     return dispatch({
+//       type: ActionTypes.GET_SERVICES,
+//       payload: result.data,
+//     });
+//   };
+// };
+
+export const createService = (input) => {
+  return async (dispatch) => {
+    const json = JSON.stringify(input);
+    const customConfig = {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    };
+    console.log(input);
+    const result = await axios.post("/user/service", json, customConfig);
+    return dispatch({
+      type: ActionTypes.CREATE_SERVICE,
       payload: result.data,
+    });
+  };
+};
+
+// get ( http://localhost:3005/service?page=1&page_size=5 )
+
+export const serviceFilter = (input) => {
+  return async (dispatch) => {
+    let result;
+    if (input === "default_2") {
+      result = await axios.get(`/service`);
+    } else {
+      result = await axios.get(`/service?page=1&page_size=10&job=${input}`);
+    }
+    return dispatch({
+      type: "SERVICE_FILTER",
+      payload: result.data.result,
     });
   };
 };
