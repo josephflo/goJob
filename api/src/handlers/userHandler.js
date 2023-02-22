@@ -6,8 +6,7 @@ const bienvenidaMail = require('../templatesEmails/singupEmail');
 
 const { 
   getDbUser,
-  getUserByID,
-  getUserName
+  getUserByID
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
 const { Op } = require("sequelize");

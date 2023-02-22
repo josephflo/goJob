@@ -27,7 +27,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statmenteJob) =
     });
 
     //contamos el total de paginas
-    const totalCount = await User.count({
+    let totalCount = await User.count({
       where: statementUser,
       include: [
         {
@@ -39,8 +39,15 @@ const getDbUser = async (page, page_size, querys, statementUser, statmenteJob) =
         }
       ],
     });
+    if(!statmenteJob){
+      totalCount = totalCount/2
+    }
     const totalPages = Math.ceil(totalCount / page_size);
 
+    console.log("*******************************************");
+    console.log(totalCount);
+    console.log(statementUser);
+    console.log(statmenteJob);
     let paginado = paginacion(page, page_size, totalPages, totalCount, querys)
 
 
@@ -73,7 +80,10 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
   let nextPage
   let previousPage
 
-  if(page == totalPages && page == 1 || totalCount <= 0){
+  console.log("///////////////////////////////////////////////////");
+  console.log(totalCount);
+
+  if(page == totalPages && page == 1 || totalCount <= 0 || totalCount < page_size){
     nextPage = null
     previousPage = null
   }else if(page == 1){

@@ -10,9 +10,6 @@ router.get("/:id", jobHandlers.getIdJob);
 /***** POST ******* */
 router.post("/", jobHandlers.createJob);
 
-//creacion hardcore de Jobs (solo en modo desarrollo)
-router.post("/hardcore", jobHandlers.creacionDeJobsParaPruebas)
-
 /****** DELETE ******** */
 router.delete("/:id", jobHandlers.deleteJob);
 

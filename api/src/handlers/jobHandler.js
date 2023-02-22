@@ -122,73 +122,12 @@ const actulizarJob = async(req, res)=>{
   }
 }
 
-const creacionDeJobsParaPruebas = async(req, res)=>{
-  let newJob1 = {
-    name: "Albañil",
-    description: "Construccion y reparacion de casas"
-  }
-  let newJob2 = {
-    name: "Mecanico",
-    description: "Reparacion de autmoviles"
-  }
-  let newJob3 = {
-    name: "Dentista",
-    description: "Cuidado y curacion de los dientes"
-  }
-  let newJob4 = {
-    name: "Plomero",
-    description: "Instalacion y reparacion de tuberias"
-  }
-  let newJob5 = {
-    name: "Pintor de casas",
-    description: "Pintado de casas"
-  }
-  let newJob6 = {
-    name: "Arquitecto",
-    description: "Diseño de contrucciones"
-  }
-  let newJob7 = {
-    name: "Programador web",
-    description: "Creacion y mantenimiento de sitios web"
-  }
-  let newJob8 = {
-    name: "Pastelero",
-    description: "Creacion de pasteles"
-  }
 
-  try {
-    let jobCreated1 = await Job.create(newJob1);
-    let jobCreated2 = await Job.create(newJob2);
-    let jobCreated3 = await Job.create(newJob3);
-    let jobCreated4 = await Job.create(newJob4);
-    let jobCreated5 = await Job.create(newJob5);
-    let jobCreated6 = await Job.create(newJob6);
-    let jobCreated7 = await Job.create(newJob7);
-    let jobCreated8 = await Job.create(newJob8);
-
-    return res.status(200).json({
-      status: "success", 
-      message: "Job de prueba agregados correctamente"
-    })
-
-  } catch (error) {
-    return res.status(200).json({
-      status: "error", 
-      message: error.message
-    })
-  }
-
-
-
-
-
-}
 
 module.exports = {
   getAllJobs,
   getIdJob,
   createJob,
   deleteJob,
-  actulizarJob,
-  creacionDeJobsParaPruebas
+  actulizarJob
 };
