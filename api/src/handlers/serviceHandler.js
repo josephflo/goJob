@@ -16,34 +16,29 @@ const getAllServices = async (req, res)=>{
   let tittle = req.query.name
   let jobId = Number(req.query.job)
 
+  console.log(state);
+
   let querys = {}
 
   //configuraciones para filtrado
-  let statementService
-  if(state && tittle){
-    statementService = {
-      state,
-      tittle: {[Op.iLike]:`%${tittle}%`}
-    }
+  let statementService = {}
+
+  if(state){
+    statementService.state = state
     querys.state = state
-    querys.name = tittle
-  }else if(state){
-    statementService = {
-      state
-    }
-    querys.state = state
-  }else if(tittle){
-    statementService = {
-      tittle: {[Op.iLike]:`%${tittle}%`}
-    }
-    querys.name = tittle
+  }
+  if(tittle){
+    statementService.tittle = {[Op.iLike]:`%${tittle}%`}
+    querys.tittle = tittle
   }
 
-  let statmenteJob
+  console.log("11111111111111111111111111111111111");
+  console.log(statementService);
+
+  let statmenteJob = {}
   if(jobId){
-    statmenteJob = {
-      id: jobId
-    }
+    statmenteJob.id = jobId
+
     querys.job = jobId
 
   }
@@ -52,14 +47,14 @@ const getAllServices = async (req, res)=>{
 
   try {
     let service = await Service.findAll({
-      where: statementService,
+      where: {...statementService},
       limit: page_size,
       offset: offset,
       attributes: { exclude: ['UserId'] },
       include: [
         {
           model: Job,
-          where: statmenteJob,
+          where: {...statmenteJob},
           through: { 
             attributes:[]
           }

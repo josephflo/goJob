@@ -21,23 +21,19 @@ const getAllUser = async (req, res) => {
   let querys = {}
 
   //configuraciones para filtrado
-  let statementUser
+  let statementUser = {}
   if(name){
-    statementUser = {
-      [Op.or]: {
-        firstName: {[Op.iLike]:`%${name}%`},
-        lastName: {[Op.iLike]:`%${name}%`},
-        user: {[Op.iLike]:`%${name}%`}
-      }
+    statementUser[Op.or] =  {
+      firstName: {[Op.iLike]:`%${name}%`},
+      lastName: {[Op.iLike]:`%${name}%`},
+      user: {[Op.iLike]:`%${name}%`}
     }
     querys.name = name
   }
 
-  let statmenteJob
+  let statmenteJob = {}
   if(job){
-    statmenteJob = {
-      id: job
-    }
+    statmenteJob.id = job
     querys.job = job
   }
   
