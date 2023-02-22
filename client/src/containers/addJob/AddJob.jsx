@@ -70,88 +70,123 @@ export default function AddJob() {
   };
   return (
     <>
-      <h1>Job Section</h1>
-      <hr></hr>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>name</label>
-          <input
-            type="text"
-            name="name"
-            value={input.name}
-            onChange={changeInput}
-          />
-        </div>
-        <div>
-          <label>description:</label>
-          <input
-            type="text"
-            name="description"
-            value={input.description}
-            onChange={changeInput}
-          ></input>
-        </div>
-        <div>
-          {updateState ? (
-            <>
-              <button type="submit" name="btn">
-                Add
-              </button>
-            </>
-          ) : (
-            <>
-              <button type="submit" name="btn">
-                Update
-              </button>
-              <button
-                onClick={() => {
-                  setModal(false);
-                }}
-                name="btn"
-              >
-                Cancel
-              </button>
-            </>
-          )}
-        </div>
-      </form>
-      <hr></hr>
-      {/* <div>
+      <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
+        <h1 className="mt-6 text-3xl font-extrabold text-blue-900">
+          Job Section
+        </h1>
+        <hr></hr>
+        <form onSubmit={handleSubmit} className="space-y-1">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+            >
+              Job's name:
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={input.name}
+              onChange={changeInput}
+              className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Insert a new Job..."
+            />
+          </div>
+          <div>
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+            >
+              Description:
+            </label>
+            <input
+              type="text"
+              name="description"
+              value={input.description}
+              onChange={changeInput}
+              className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Insert a description..."
+            ></input>
+          </div>
+          <div>
+            {updateState ? (
+              <>
+                <button
+                  type="submit"
+                  name="btn"
+                  class="bg-green-500 m-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Add
+                </button>
+              </>
+            ) : (
+              <div className="p-3">
+                <button
+                  class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                  type="submit"
+                  name="btn"
+                >
+                  Update
+                </button>
+                <button
+                  onClick={() => {
+                    setModal(false);
+                  }}
+                  name="btn"
+                  class="bg-red-500 ml-3 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+          </div>
+        </form>
+        <hr></hr>
+        {/* <div>
         <h1>Show Jobs</h1>
         {jobs ? jobs.map((job) => <h1>{job.name}</h1>) : <h1>No Jobs</h1>}
       </div> */}
-      <table className="table mb-4">
-        <thead>
-          <tr>
-            <th scope="col">No.</th>
-            <th scope="col">Job</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
+        <h1 className="mt-6 text-3xl font-extrabold text-blue-900">
+          List of Jobs
+        </h1>
 
-        <tbody>
-          <Jobs
-            jobs={jobs}
-            handleUpdate={handleUpdate}
-            handleModal={handleModal}
-          />
-        </tbody>
-      </table>
-      <hr></hr>
-      {modal ? (
-        <></>
-      ) : (
-        <>
-          <ModalJob job={jobId} setModal={setModal} />
-        </>
-      )}
+        <table className="w-full text-sm text-left text-black-500 dark:text-gray-400 mb-4">
+          <thead>
+            <tr>
+              {/* <th scope="col">No.</th> */}
+              <th scope="col" class="px-6 py-3">
+                Job (click text for more)
+              </th>
+              <th scope="col" class="px-6 py-3 mx-auto">
+                Actions
+              </th>
+            </tr>
+          </thead>
 
-      <div class="mt-3">
-        <NavLink to="/">
-          <button class="border-2 border-red-700 bg-red-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-red-700 font-semibold">
-            Volver
-          </button>
-        </NavLink>
+          <tbody>
+            <Jobs
+              jobs={jobs}
+              handleUpdate={handleUpdate}
+              handleModal={handleModal}
+            />
+          </tbody>
+        </table>
+        <hr></hr>
+        {modal ? (
+          <></>
+        ) : (
+          <>
+            <ModalJob job={jobId} setModal={setModal} />
+          </>
+        )}
+
+        <div class="mt-3">
+          <NavLink to="/">
+            <button class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-grey-700 font-semibold">
+              Volver
+            </button>
+          </NavLink>
+        </div>
       </div>
     </>
   );
