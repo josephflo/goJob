@@ -18,17 +18,20 @@ post( http://localhost:3005/user/register )
 
 //En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs lo dejamos vacio, pero es obligatorio enviarlo
 {
-	user:{
-		    firstName: "Cap",
-            lastName: "America",
-            email: "Cap@gmail.com",
-            user: "cap22",
-            password: "123456",
-            city: "Dubai",
-            phone: 9871256,
-            address: "Av. Troya",
-            role: "admin"
-	},
+    user: {
+      firstName: "Amy",
+      lastName: "Garcia",
+      email: "amygarcia@example.com",
+      user: "amygarcia",
+      password: "123456",
+      phone: 1234567897,
+      role: "professional",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
+    },
 	jobs: []  
 }
 ```
@@ -131,7 +134,11 @@ post ( http://localhost:3005/user/service )
 	description: "techo construccion",
 	location: "Paris",
 	presupuesto: "200",
+  provincia: "Buenos Aires",
+	ciudad: "Rand",
+	direccion: "Av. Napoelon"
 	jobs: []
+  
 }
 //en "jobs" enviamos los id de los Jobs
 ```

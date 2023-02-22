@@ -1,5 +1,7 @@
 const { conn } = require("./src/connection/db");
 const app = require("./src/App");
+const bcrypt = require("bcrypt");
+
 
 require("dotenv").config();
 const { PORT } = process.env;
@@ -15,8 +17,8 @@ const { PORT } = process.env;
     })
 
     let creaUsers = users.map(async(user)=>{
-      // let pwd = await bcrypt.hash(user.password, 10);
-      // user.password = pwd;
+      let pwd = await bcrypt.hash(user.user.password, 10);
+      user.user.password = pwd;
       let newUser = await User.create(user.user);
       await newUser.addJobs(user.jobs);
 

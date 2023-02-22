@@ -130,14 +130,6 @@ const createUser = async (req, res) => {
     let userCreated = await User.create(newUser);
     delete userCreated.dataValues.password;
 
-    // Verificar que los JobIds existen en la base de datos
-    // const jobsData = await Job.findAll({ where: { id: idJobs }});
-    // if (jobs.length !== idJjobsDataobs.length) {
-    //   throw new Error("Uno o más JobIds no existen en la base de datos");
-    // }
-
-    //lo comente por que trai conflictos con mi merge: fray
-
     await userCreated.addJobs(idJobs);
 
   

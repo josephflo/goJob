@@ -22,10 +22,13 @@ let users = [
       email: "johndoe@example.com",
       user: "johndoe",
       password: "123456",
-      city: "New York",
       phone: 1234567890,
-      address: "123 Main St",
-      role: "comun"
+      role: "comun",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "Av. Lorenzo",
+      horario: "Mañana",
     },
     jobs: [1, 3, 5]
   },
@@ -36,10 +39,15 @@ let users = [
       email: "janedoe@example.com",
       user: "janedoe",
       password: "123456",
-      city: "Los Angeles",
       phone: 1234567891,
       address: "456 Elm St",
-      role: "professional"
+      role: "professional",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "456 Elm St",
+      horario: "Tarde",
+
     },
     jobs: [2, 4]
   },
@@ -50,10 +58,13 @@ let users = [
       email: "bobsmith@example.com",
       user: "bobsmith",
       password: "123456",
-      city: "Chicago",
       phone: 1234567892,
-      address: "789 Oak St",
-      role: "comun"
+      role: "comun",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
     },
     jobs: [1, 2]
   },
@@ -64,10 +75,13 @@ let users = [
       email: "sarahjohnson@example.com",
       user: "sarahjohnson",
       password: "123456",
-      city: "Miami",
       phone: 1234567893,
-      address: "1010 Pine St",
-      role: "professional"
+      role: "professional",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
     },
     jobs: [7]
   },
@@ -78,10 +92,13 @@ let users = [
       email: "tomwilson@example.com",
       user: "tomwilson",
       password: "123456",
-      city: "Houston",
       phone: 1234567894,
-      address: "1212 Maple St",
-      role: "comun"
+      role: "comun",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
     },
     jobs: [3, 8, 10]
   },
@@ -92,10 +109,13 @@ let users = [
       email: "emilydavis@example.com",
       user: "emilydavis",
       password: "123456",
-      city: "San Francisco",
       phone: 1234567895,
-      address: "1313 Cedar St",
-      role: "professional"
+      role: "professional",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
     },
     jobs: [9]
   },
@@ -106,10 +126,13 @@ let users = [
       email: "mikebrown@example.com",
       user: "mikebrown",
       password: "123456",
-      city: "Dallas",
       phone: 1234567896,
-      address: "1414 Pine St",
-      role: "comun"
+      role: "comun",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
     },
     jobs: [6, 10]
   },
@@ -120,10 +143,13 @@ let users = [
       email: "amygarcia@example.com",
       user: "amygarcia",
       password: "123456",
-      city: "Seattle",
       phone: 1234567897,
-      address: "1515 Oak St",
-      role: "professional"
+      role: "professional",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
     },
     jobs: [5, 8]
   }
