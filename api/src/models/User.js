@@ -43,7 +43,7 @@ const userModel = (sequelize) => {
         type: DataTypes.STRING
     },
     phone: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
 

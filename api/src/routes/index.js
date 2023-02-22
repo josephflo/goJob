@@ -12,6 +12,9 @@ const cloudinary = require("./cloudinary")
 /////
 const app = Router();
 
+
+
+
 // configurar las routes(app)
 
 app.use('/user', user)

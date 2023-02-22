@@ -122,6 +122,8 @@ const actulizarJob = async(req, res)=>{
   }
 }
 
+
+
 module.exports = {
   getAllJobs,
   getIdJob,
