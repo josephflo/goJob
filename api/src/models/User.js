@@ -32,10 +32,6 @@ const userModel = (sequelize) => {
         unique: true,
 
     },
-    city: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     imageurl: {
         type: DataTypes.STRING
     },
@@ -48,10 +44,6 @@ const userModel = (sequelize) => {
         unique: true,
 
     },
-    address: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     role: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -59,6 +51,19 @@ const userModel = (sequelize) => {
             isIn: [['comun', 'professional', 'admin']]
           }
     },
+    //si es profesional
+    provincia: {
+        type: DataTypes.STRING,
+    },
+    ciudad: {
+        type: DataTypes.STRING,
+    },
+    direccion: {
+        type: DataTypes.STRING,
+    },
+    horario: {
+        type: DataTypes.STRING,
+    }
 
   },{timestamps: false });
 };

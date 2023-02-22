@@ -25,9 +25,16 @@ const serviceModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      location: {
-        type: DataTypes.TEXT,
+      provincia: {
+        type: DataTypes.STRING,
         allowNull: false,
+      },
+      ciudad: {
+          type: DataTypes.STRING,
+          allowNull: false,
+      },
+      direccion: {
+          type: DataTypes.STRING,
       },
       presupuesto: {
         type: DataTypes.INTEGER,
@@ -40,10 +47,8 @@ const serviceModel = (sequelize) => {
       score: {
         type: DataTypes.INTEGER,
         default: 0,
-      },
-      // UserId: {
-      //   type: DataTypes.INTEGER
-      // }
+      }
+
     },
     { timestamps: false }
   );
