@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers, orderByName } from "../../redux/actions/actions";
+import {
+  getService,
+  getUsers,
+  orderByName,
+  serviceFilter,
+} from "../../redux/actions/actions";
 import Card from "../Card/Card";
 import Filter from "../Filter/Filter";
 import NavBar from "../navbarPortada/NavBar";
@@ -8,10 +13,12 @@ import NavBar from "../navbarPortada/NavBar";
 import User from "../User/User";
 
 function Professionals() {
-
   let users2 = useSelector((state) => state.users2);
-  console.log(users2, "users aca");
+  let service = useSelector((state) => state.service);
 
+  let id = useState(null);
+
+  console.log(users2, "users aca");
 
   const dispatch = useDispatch();
 
@@ -19,6 +26,7 @@ function Professionals() {
     // if (users.lenght === 0) {
     dispatch(getUsers());
     console.log(users2);
+    dispatch(getService());
   }, []);
 
   // function handleSort(e) {
@@ -44,7 +52,6 @@ function Professionals() {
           Profesionales que se ajustan a tus necesidades
         </h1>
       </div>
-
 
       <div className="flex flex-wrap pt-80 w-[50%] mx-auto">
         {users2?.length > 0 ? (

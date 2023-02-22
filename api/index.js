@@ -1,7 +1,7 @@
-const { conn } = require('./src/connection/db');
-const app = require("./src/App")
+const { conn } = require("./src/connection/db");
+const app = require("./src/App");
 
-require('dotenv').config();
+require("dotenv").config();
 const { PORT } = process.env;
 
   //////////////////////////////////////////////////////////////////////
@@ -34,11 +34,12 @@ conn.sync({ force: true }).then(() => {
   automatic().then(res=>resultado = res).catch(error=>console.log("mall"))
 
     app.listen(PORT, () => {
-    //conn.drop();    //ESTO ES PARA ELIMINAR TODAS LAS TABLAS
-    console.log("************* BIEN ****************");
-    console.log(`UUU listening at ${PORT}`); // eslint-disable-line no-console
+      //conn.drop();    //ESTO ES PARA ELIMINAR TODAS LAS TABLAS
+      console.log("************* BIEN ****************");
+      console.log(`UUU listening at ${PORT}`); // eslint-disable-line no-console
+    });
   })
-}).catch((err)=>{
-    console.log("*********************  ERROR ****************************")
+  .catch((err) => {
+    console.log("*********************  ERROR ****************************");
     console.log(err.message);
-})
+  });
