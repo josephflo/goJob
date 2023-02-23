@@ -48,6 +48,14 @@ post( http://localhost:3005/user/login )
 }
 ```
 
+## Delete User
+
+delete( http://localhost:3005/user/delete )
+```
+//en esta ruta eliminamos un usuario
+//requiere del token
+```
+
 
 ## Get
 get ( http://localhost:3005/user?page=1&page_size=2 )
@@ -152,10 +160,13 @@ put ( http://localhost:3005/user/service/"idService" )
 //Body
 {
 	service: {
-        tittle: "construccion techo MODIFY3",
-        description: "techo construccion MODIFY",
-        location: "Paris",
-        presupuesto: "200"
+            tittle: "reparacion carro MODIFY",
+            description: "techo construccion MODIFY",
+            location: "Paris MODIFY",
+            presupuesto: "200 MODIFY",
+            provincia: "Buenos Aires MODIFY",
+            ciudad: "Rand MODIFY",
+            direccion: "Av. Napoelon MODIFY"
 	},
 	jobs: [2]
 }

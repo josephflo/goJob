@@ -26,7 +26,7 @@ const serviceModel = (sequelize) => {
         allowNull: false,
       },
       presupuesto: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       // stripepriceId:{

@@ -148,7 +148,7 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
 const getUserByID = async (id) =>{
   try{
     const result = await User.findOne({
-      where: {id: id},
+      where: {id: id, state: true},
       attributes: { exclude: ['password'] },
       include: [
         {

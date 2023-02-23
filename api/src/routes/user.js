@@ -41,7 +41,8 @@ router.put("/service/calificar/:idService", auth, userHandlers.calificarService)
 
 /******* DELETE ******* */
 router.delete("/friend", auth, userHandlers.deleteFriend)
-router.delete   ("/job", auth, userHandlers.deleteJob)
+router.delete("/job", auth, userHandlers.deleteJob)
+router.delete("/delete", auth, userHandlers.deleteUser)
 
 router.delete("/service/:idService", auth, userHandlers.deleteService)//
 

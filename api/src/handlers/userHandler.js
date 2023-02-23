@@ -26,7 +26,9 @@ const getAllUser = async (req, res) => {
   let querys = {}
 
   //configuraciones para filtrado
-  let statementUser = {}
+  let statementUser = {
+    state: true
+  }
   if(name){
     statementUser[Op.or] =  {
       firstName: {[Op.iLike]:`%${name}%`},
@@ -193,7 +195,26 @@ const createUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res)=>{
+  let idUser = req.user.id
+  try {
 
+    let deleteUser = await User.update(
+      {state: false},
+      {where: {id: idUser}}
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Elimino correctamente el usuario"
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+}
 
 const login = async(req, res)=>{
   const userLogin = req.body
@@ -822,6 +843,7 @@ module.exports = {
   getAllUser,
   getUserID,
   createUser,
+  deleteUser,
   login,
   decifrarToken,
   addFriend,
