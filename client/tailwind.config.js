@@ -18,10 +18,10 @@ module.exports = {
       "2xl": "1536px",
       // => @media (min-width: 1536px) { ... }
     },
+    backgroundImage: {
+      landingBackground: "url('./assets/landing.svg')",
+    },
     extend: {
-      backgroundImage: {
-        landingBackground: "url('./assets/landing.svg')",
-      },
       colors: {
         color1: "#112240",
         color2: "#1fa2aa",
@@ -36,24 +36,17 @@ module.exports = {
       },
     },
   },
+  // plugins: [],
+  // content: ["./node_modules/flowbite/**/*.js"],
+  // plugins: [require("flowbite/plugin")],
+  // content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  // theme: {
+  //   extend: {
+  //     colors: {
+  //       glass: "rgba(255,255,255,0.25)",
+  //       brown: "rgb(30, 30, 17);",
+  //     },
+  //   },
+  // },
   plugins: [],
-  content: [
-        "./node_modules/flowbite/**/*.js"
-    ],
-  plugins: [
-    require('flowbite/plugin')
-],
-content: [
-  "./src/**/*.{js,jsx,ts,tsx}",
-
-],
-theme: {
-  extend: {
-    colors: {
-      glass: "rgba(255,255,255,0.25)",
-      brown: "rgb(30, 30, 17);"
-    }
-  },
-},
-plugins: [],
 };
