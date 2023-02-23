@@ -1,10 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { filterModel } from "../../../redux/actions/serviceActions";
 // import { filterByJobs } from "../../redux/actions/actions";
 
 function JobCard({ id, name }) {
+  const dispatch = useDispatch();
+
   const handleJob = () => {
-    // dispatch(filterByJobs(id));
+    dispatch(filterModel(1, 10, id));
   };
 
   return (
