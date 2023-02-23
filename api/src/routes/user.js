@@ -12,7 +12,7 @@ router.get("/", userHandlers.getAllUser);
 router.get("/get/:id", userHandlers.getUserID);
 router.get("/friend", auth, userHandlers.getFriends)
 
-router.get("/services", auth, userHandlers.getAllService)
+router.get("/services", auth, userHandlers.getAllMyService)
 
 router.get("/token", auth, userHandlers.decifrarToken);
 

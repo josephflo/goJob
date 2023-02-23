@@ -1,33 +1,18 @@
 import React from "react";
 import { detail } from "../../constants/detailCard";
-import Navbar from "../navbarPortada/NavBar";
+import reviwToDetailUser from "../../helpers/reviewToDetailUser";
+// import Navbar from "../navbarPortada/NavBar";
 
 export default function DetailUser({ id }) {
-  const array = detail.ratings;
-  //* in: array of ratings -> out: arr[0]=1's, arr[1]=2's, ..., arr[5]=average*/
-  // in: [1, 2, 5, 5, 2, 3, 1, 4, 4, 4]
-  // out: [2, 2, 1, 3, 2, avg ]
-  const arr = [];
-  let arr2 = [];
+  const array = detail.reviews.map((obj) => obj.rating);
 
-  (() => {
-    for (let i = 1; i <= 5; i++) arr.push(array.filter((x) => x === i).length);
-    arr2 = arr.map((num) =>
-      ((num * 100) / arr.reduce((a, b) => a + b, 0)).toFixed(0)
-    );
-    const avg = array.reduce((a, b) => a + b, 0) / array.length || 0;
-    arr2.push(avg.toFixed(0));
-    return;
-  })();
+  const [arr, arr2] = reviwToDetailUser(array);
 
   const items1 = Array.from({ length: arr2[5] });
   const items2 = Array.from({ length: 5 - arr2[5] });
 
   return (
     <>
-      <div class="p-3 sticky top-0 z-50 bg-white ">
-        <Navbar />
-      </div>
       <div class="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
         <div class="col-span-2">
           <div class="border-2 rounded flex m-3 p-4 bg-white">
@@ -92,7 +77,7 @@ export default function DetailUser({ id }) {
                 ))}
               </div>
               <p class="text-center text-sm font-medium text-gray-500 dark:text-gray-400">
-                {detail.ratings.length} valoraciones
+                {array.length} valoraciones
               </p>
             </div>
             <div class="w-[65%]  ">
@@ -174,18 +159,26 @@ export default function DetailUser({ id }) {
             </h1>
             <ul className="">
               {detail.reviews.map((rev, index) => (
-                <li className=" flex grid grid-cols-4 p-2">
-                  <div className="col-span-1">
-                    <img src={rev.image} className=" h-32" alt="" />
-                  </div>
-                  <div className="col-span-3">
-                    <p class="text-2xl font-medium">{rev.name}</p>
-                    <p class="text-base font-medium text-gray-500 ">
-                      {rev.date}
-                    </p>
-                    <p className=" pt-2 font-medium">{rev.review}</p>
-                  </div>
-                </li>
+                <>
+                  {rev.name ? (
+                    <>
+                      <li className=" flex grid grid-cols-4 p-2">
+                        <div className="col-span-1">
+                          <img src={rev.image} className=" h-32" alt="" />
+                        </div>
+                        <div className="col-span-3">
+                          <p class="text-2xl font-medium">{rev.name}</p>
+                          <p class="text-base font-medium text-gray-500 ">
+                            {rev.date}
+                          </p>
+                          <p className=" pt-2 font-medium">{rev.review}</p>
+                        </div>
+                      </li>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </>
               ))}
             </ul>
           </div>
