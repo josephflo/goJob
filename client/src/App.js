@@ -17,9 +17,6 @@ import AddJob from "./containers/addJob/AddJob";
 
 import axios from "axios";
 import Users from "./components/Users/Users";
-import { useEffect } from "react";
-import { getService, getUsers } from "./redux/actions/actions";
-import { useDispatch } from "react-redux";
 import Services from "./components/services/Services";
 import FormCreateUser from "./components/FormCreateUser/FormCreateUser";
 import Jobs from "./components/jobs/Jobs";
@@ -31,12 +28,7 @@ axios.defaults.headers.common["Authorization"] =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiQXoiLCJsYXN0TmFtZSI6IkFtZWZnY2EiLCJlbWFpbCI6ImZkYWZmc2ZwQGVtYWlsLmNvbSIsInVzZXIiOiJjYXAyMzMyIiwiY2l0eSI6IkR1YmFpIiwicGhvbmUiOjM0ODczNTM1LCJhZGRyZXNzIjoiQXYuIFRyb3lhIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjc3MDA5ODY5LCJleHAiOjE2Nzk2MDE4Njl9.Y8goayh2w8lbZt1qqZDq9hYwkxIIAKnw9dFo74sakUA";
 
 function App() {
-  const dispatch = useDispatch();
-  // let users = useSelector((state) => state.users);
-  // useEffect(() => {
-  //   // dispatch(getUsers()); // Cambiar cuando está posisionado en admin
-  //   // dispatch(getService(1, 5)); // Cambiar cuando se presiona onClick() en boton Services (NavBar)
-  // }, []);
+
 
   return (
     <>
@@ -71,7 +63,7 @@ function App() {
           <Route exact path="/user/register" element={<Register />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/job" element={<AddJob />} />
-          <Route exact path="/user/register" component={Register} />
+          <Route exact path="/user/register" element={Register} />
           <Route path="/user/login" element={Login} />
         </Routes>
       </BrowserRouter>
