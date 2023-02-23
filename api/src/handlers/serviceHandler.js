@@ -22,7 +22,9 @@ const getAllServices = async (req, res)=>{
   let querys = {}
 
   //configuraciones para filtrado
-  let statementService = {}
+  let statementService = {
+    active: true
+  }
 
   if(state){
     statementService.state = state

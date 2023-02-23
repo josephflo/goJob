@@ -18,7 +18,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob) 
         order: [['firstName', 'ASC']],
         limit: page_size,
         offset: offset,
-        attributes: { exclude: ['password'] },
+        attributes: { exclude: ['password', "state"] },
         include: [
           {
             model: Job,
@@ -36,7 +36,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob) 
         order: [['firstName', 'ASC']],
         limit: page_size,
         offset: offset,
-        attributes: { exclude: ['password'] },
+        attributes: { exclude: ['password', "state"] },
         include: [
           {
             model: Job,

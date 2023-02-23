@@ -10,6 +10,10 @@ const serviceModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
       tittle: {
         type: DataTypes.STRING,
         allowNull: false,
