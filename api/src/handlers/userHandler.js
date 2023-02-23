@@ -16,6 +16,7 @@ const getAllUser = async (req, res) => {
   let page_size = Number(req.query.page_size || 15)
 
   let name = req.query.name
+  let role = req.query.role
   let job = Number(req.query.job)
   let provincia = req.query.provincia
   let ciudad = req.query.ciudad
@@ -33,6 +34,10 @@ const getAllUser = async (req, res) => {
       user: {[Op.iLike]:`%${name}%`}
     }
     querys.name = name
+  }
+  if(role){
+    statementUser.role = role
+    querys.role = role
   }
   if(provincia) {
     statementUser.provincia = provincia

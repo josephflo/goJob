@@ -19,7 +19,8 @@ Ejemplo
     provincia: "Buenos Aires",
     ciudad: "random", 
     dias: "lunes",
-    horario: "tarde"
+    horario: "tarde",
+    role: "comun"
 
 }
 

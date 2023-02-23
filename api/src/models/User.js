@@ -54,6 +54,11 @@ const userModel = (sequelize) => {
             isIn: [['comun', 'professional', 'admin']]
           }
     },
+    rating: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        defaultValue: [],
+    },
+
     //si es profesional
     provincia: {
         type: DataTypes.STRING,
