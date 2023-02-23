@@ -40,7 +40,9 @@ Ejemplo:
     page_size: 2,
     state: "pendiente
     job: 1 (id del Job),
-    name: cortinas
+    tittle: cortinas,
+    
+
 }
 
 //este es un filtro doble, state y job

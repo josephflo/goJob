@@ -9,15 +9,19 @@ const {
   getUserByID
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
-const { Op } = require("sequelize");
+const { Op, STRING } = require("sequelize");
 
 const getAllUser = async (req, res) => {
-  let name = req.query.name
-  let job = Number(req.query.job)
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
 
-  let userTotal
+  let name = req.query.name
+  let job = Number(req.query.job)
+  let provincia = req.query.provincia
+  let ciudad = req.query.ciudad
+  let dias = req.query.dias
+  let horario = req.query.horario
+
   let querys = {}
 
   //configuraciones para filtrado
@@ -30,17 +34,38 @@ const getAllUser = async (req, res) => {
     }
     querys.name = name
   }
+  if(provincia) {
+    statementUser.provincia = provincia
+    querys.provincia = provincia
+  }
+  if(ciudad) {
+    statementUser.ciudad = ciudad
+    querys.ciudad = ciudad
+  }
+  if(dias) {
+    statementUser.dias = {[Op.contains]: [dias]}
+    querys.dias = dias
+  }
+  if(horario) {
+    statementUser.horario = horario
+    querys.horario = horario
 
-  let statmenteJob = {}
+  }
+
+  console.log("--------------------------------------");
+  console.log(statementUser);
+
+
+  let statementeJob = {}
   if(job){
-    statmenteJob.id = job
+    statementeJob.id = job
     querys.job = job
   }
   
 
   try {
   
-    userTotal = await getDbUser(page, page_size, querys, statementUser, statmenteJob);
+    let userTotal = await getDbUser(page, page_size, querys, statementUser, statementeJob);
     
 
     if(!userTotal.result.length) throw Error("Sin resultados")

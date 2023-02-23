@@ -13,7 +13,7 @@ const getAllServices = async (req, res)=>{
   const offset = (page - 1) * page_size;
 
   let state = req.query.state
-  let tittle = req.query.name
+  let tittle = req.query.tittle
   let jobId = Number(req.query.job)
 
   console.log(state);
