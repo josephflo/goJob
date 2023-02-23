@@ -5,43 +5,77 @@ require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
 
 
-const getDbUser = async (page, page_size, querys, statementUser, statmenteJob) =>{
+const getDbUser = async (page, page_size, querys, statementUser, statementeJob) =>{
   const offset = (page - 1) * page_size;
+  console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+  console.log(statementUser);
+  console.log("ssssssssssssssssssssssssssssssssssssssssssssssss");
+  console.log(statementeJob);
+
+  let verifyStatementeJob = Object.keys(statementeJob)
+  console.log(verifyStatementeJob);
 
   try{
-    let result = await User.findAll({
-      where: statementUser,
-      order: [['firstName', 'ASC']],
-      limit: page_size,
-      offset: offset,
-      attributes: { exclude: ['password'] },
-      include: [
-        {
-          model: Job,
-          where: statmenteJob,
-          through: { 
-            attributes:[]
+    let result
+    if(verifyStatementeJob.length){
+      result = await User.findAll({
+        where: statementUser,
+        order: [['firstName', 'ASC']],
+        limit: page_size,
+        offset: offset,
+        attributes: { exclude: ['password'] },
+        include: [
+          {
+            model: Job,
+            where: statementeJob,
+            through: { 
+              attributes:[]
+            }
           }
-        }
-      ],
-    });
-
-    //contamos el total de paginas
-    let totalCount = await User.count({
-      where: {...statementUser},
-      include: [
-        {
-          model: Job,
-          where: statmenteJob,
-          through: { 
-            attributes:[]
+        ],
+      });
+  
+    }else{
+      result = await User.findAll({
+        where: statementUser,
+        order: [['firstName', 'ASC']],
+        limit: page_size,
+        offset: offset,
+        attributes: { exclude: ['password'] },
+        include: [
+          {
+            model: Job,
+            through: { 
+              attributes:[]
+            }
           }
-        }
-      ],
-    });
-    if(!statmenteJob.id){
-      totalCount = totalCount/2
+        ],
+      });
+  
     }
+  
+  
+    //contamos el total de paginas
+    let totalCount
+    if(verifyStatementeJob.length){
+      totalCount = await User.count({
+        where: {...statementUser},
+        include: [
+          {
+            model: Job,
+            where: statementeJob,
+            through: { 
+              attributes:[]
+            }
+          }
+        ],
+      });
+    }else{
+      totalCount = await User.count({
+        where: {...statementUser},
+      });
+    }
+
     const totalPages = Math.ceil(totalCount / page_size);
 
     let paginado = paginacion(page, page_size, totalPages, totalCount, querys)

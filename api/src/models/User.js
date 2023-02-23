@@ -33,10 +33,14 @@ const userModel = (sequelize) => {
 
     },
     imageurl: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        defaultValue: "sin foto",
+
     },
     imagePublicId:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        defaultValue: "sin foto",
+
     },
     phone: {
         type: DataTypes.STRING,
@@ -59,6 +63,9 @@ const userModel = (sequelize) => {
     },
     direccion: {
         type: DataTypes.STRING,
+    },
+    dias:{
+        type: DataTypes.ARRAY(DataTypes.STRING),
     },
     horario: {
         type: DataTypes.STRING,

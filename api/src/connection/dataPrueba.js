@@ -26,9 +26,11 @@ let users = [
       role: "comun",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "ica",
       direccion: "Av. Lorenzo",
-      horario: "Mañana",
+      horario: "mañana",
+      dias: ["1","2","4","7"]
+
     },
     jobs: [1, 3, 5]
   },
@@ -44,9 +46,10 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "chicago",
       direccion: "456 Elm St",
-      horario: "Tarde",
+      horario: "noche",
+      dias: ["1","2"]
 
     },
     jobs: [2, 4]
@@ -62,9 +65,11 @@ let users = [
       role: "comun",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "mexico",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "tarde",
+      dias: ["1","5"]
+
     },
     jobs: [1, 2]
   },
@@ -79,9 +84,11 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "london",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "noche",
+      dias: ["4","7"]
+
     },
     jobs: [7]
   },
@@ -96,9 +103,11 @@ let users = [
       role: "comun",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "Roma",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "mañana",
+      dias: ["2","4","7"]
+
     },
     jobs: [3, 8, 10]
   },
@@ -113,9 +122,11 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "londres",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "noche",
+      dias: ["2","5","6"]
+
     },
     jobs: [9]
   },
@@ -130,9 +141,11 @@ let users = [
       role: "comun",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "paris",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "tarde",
+      dias: ["1"]
+
     },
     jobs: [6, 10]
   },
@@ -147,9 +160,11 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "paris",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "tarde",
+      dias: ["4"]
+
     },
     jobs: [5, 8]
   }

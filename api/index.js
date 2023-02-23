@@ -8,7 +8,7 @@ const { PORT } = process.env;
 
   //////////////////////////////////////////////////////////////////////
   let {jobs, users} = require("./src/connection/dataPrueba")
-  const {Job, User} = require("./src/connection/db")
+  let {Job, User} = require("./src/connection/db")
   //creacion automatica de Jobs y Users para pruebas
   let automatic = async()=>{
     let creaJob = jobs.map(async(job)=>{
@@ -32,8 +32,7 @@ const { PORT } = process.env;
 
 conn.sync({ force: true }).then(() => {
 //conn.sync().then(() => {
-  let resultado
-  automatic().then(res=>resultado = res).catch(error=>console.log("mall"))
+    automatic().then(res=>resultado = res).catch(error=>console.log("mall"))
 
     app.listen(PORT, () => {
       //conn.drop();    //ESTO ES PARA ELIMINAR TODAS LAS TABLAS

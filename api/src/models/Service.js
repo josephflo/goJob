@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 
 const serviceModel = (sequelize) => {
   // defino el modelo
@@ -25,17 +25,6 @@ const serviceModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      provincia: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      ciudad: {
-          type: DataTypes.STRING,
-          allowNull: false,
-      },
-      direccion: {
-          type: DataTypes.STRING,
-      },
       presupuesto: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -47,7 +36,25 @@ const serviceModel = (sequelize) => {
       score: {
         type: DataTypes.INTEGER,
         default: 0,
-      }
+      },
+      fecha_publicacion: {
+        type: DataTypes.DATEONLY,
+        defaultValue: sequelize.fn('NOW'),
+        allowNull: false   
+      },
+      
+      //ubicacion
+      provincia: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      ciudad: {
+          type: DataTypes.STRING,
+          allowNull: false,
+      },
+      direccion: {
+          type: DataTypes.STRING,
+      },
 
     },
     { timestamps: false }
