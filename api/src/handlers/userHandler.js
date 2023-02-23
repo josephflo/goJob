@@ -510,7 +510,7 @@ const createServer = async (req, res) => {
   }
 };
 
-const getAllService = async (req, res) => {
+const getAllMyService = async (req, res) => {
   let idUser = req.user.id;
 
   // let page = Number(req.query.page || 1)
@@ -552,7 +552,7 @@ const getAllService = async (req, res) => {
       ]
     })
 
-    return res.status(400).json({
+    return res.status(200).json({
       status: "error",
       message: "Extraccion exitosa",
       result: allServices
@@ -567,10 +567,15 @@ const getAllService = async (req, res) => {
 };
 
 const actualizarService = async(req, res)=>{
-  let putService = req.body.service;
+  let putService = {...req.body};
   let idUser = req.user.id;
   let idService = Number(req.params.idService)
-  let putJobs = req.body.jobs
+
+  let putJobs = []
+  if(req.body.jobs){
+    putJobs = [...req.body.jobs]
+    delete putService.jobs
+  }
 
   try {
     //actualizamos datos de service
@@ -584,9 +589,12 @@ const actualizarService = async(req, res)=>{
       }
     )
     //actualizamos relacion Service Jobs
-    if(putJobs.length){
+    if(putJobs && putJobs.length && req.body.jobs){
       let actService = await Service.findOne({where: {id: idService}})
       await actService.setJobs(putJobs)
+    }else if(putJobs && !putJobs.length && req.body.jobs){
+      let actService = await Service.findOne({where: {id: idService}})
+      await actService.setJobs([])
     }
 
 
@@ -595,6 +603,43 @@ const actualizarService = async(req, res)=>{
       status: "success",
       message: "Se actualizo correctamente",  
     });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+const actualizarStateService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+  let activeService = req.body.active
+
+  try {
+    //actualizamos datos de service
+    let serviceState = await Service.update(
+      { active: activeService }, 
+      {
+        where: {
+          id: idService,
+          UserId: idUser  
+        }
+      }
+    )
+
+    if(serviceState[0] == 0){
+      return res.status(400).json({
+        status: "error",
+        message: "No se pudo actualizar",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Se actualizo correctamente",
+    });
+
   } catch (error) {
     return res.status(400).json({
       status: "error",
@@ -851,7 +896,7 @@ module.exports = {
   addJob,
   deleteJob,
   getFriends,
-  getAllService,
+  getAllMyService,
   createServer,
   actualizarService,
   deleteService,

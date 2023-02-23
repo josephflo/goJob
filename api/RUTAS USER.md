@@ -145,7 +145,7 @@ post ( http://localhost:3005/user/service )
   provincia: "Buenos Aires",
 	ciudad: "Rand",
 	direccion: "Av. Napoelon"
-	jobs: []
+	jobs: [1]
   
 }
 //en "jobs" enviamos los id de los Jobs
@@ -159,19 +159,20 @@ put ( http://localhost:3005/user/service/"idService" )
 
 //Body
 {
-	service: {
-            tittle: "reparacion carro MODIFY",
-            description: "techo construccion MODIFY",
-            location: "Paris MODIFY",
-            presupuesto: "200 MODIFY",
-            provincia: "Buenos Aires MODIFY",
-            ciudad: "Rand MODIFY",
-            direccion: "Av. Napoelon MODIFY"
-	},
-	jobs: [2]
+  active: false,   //este apartado sirve para ocultar el service
+
+	tittle: "reparacion carro",
+	description: "techo construccion",
+	location: "Paris",
+	presupuesto: "200",
+  provincia: "Buenos Aires",
+	ciudad: "Rand",
+	direccion: "Av. Napoelon"
+	jobs: []
 }
-//En "service" enviamos los nuevos datos
-//En job enviamos los id de los "Job", importante enviar todos los id ya que se elimina todo y se vuelve a crear
+//Enviamos solo las propiedades que deseamos actualizar
+//en el caso de jobs enviamos los "id" de los Jobs
+//Si deseamos eliminar todos los jobs enviamos array vacio
 
 ```
 
