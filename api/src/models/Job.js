@@ -18,6 +18,7 @@ const jobModel = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false
     }
+     
 
   },{timestamps: false });
 };

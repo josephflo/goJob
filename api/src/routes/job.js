@@ -8,7 +8,7 @@ router.get("/", jobHandlers.getAllJobs);
 router.get("/:id", jobHandlers.getIdJob);
 
 /***** POST ******* */
-router.post("/", jobHandlers.createJob);
+router.post("/create", jobHandlers.createJob);
 
 /****** DELETE ******** */
 router.delete("/:id", jobHandlers.deleteJob);

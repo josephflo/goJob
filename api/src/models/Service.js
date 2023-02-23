@@ -12,6 +12,13 @@ const serviceModel = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    state: {
+      type: DataTypes.STRING,
+      defaultValue: 'pendiente',
+      validate: {
+          isIn: [['pendiente', 'proceso', 'terminado']]
+        }
+    },
     description: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -23,9 +30,21 @@ const serviceModel = (sequelize) => {
     presupuesto: {
       type: DataTypes.INTEGER,
       allowNull: false
-    }
+    },
+    priceIdStripe:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    productIdStripe :{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    score:{
+      type: DataTypes.INTEGER,
+      default: 0
+    },
   
-
+  
   },{timestamps: false });
 };
 
