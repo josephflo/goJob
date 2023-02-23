@@ -8,7 +8,6 @@ export default function Register() {
 
   useEffect(() => {
     dispatch(getJobs());
-    //   console.log(jobs);
   }, []);
 
   const jobsDB = useSelector((state) => state.jobs);
@@ -24,9 +23,6 @@ export default function Register() {
     role: "",
   });
   const [inputJob, setInputJob] = useState([]);
-
-  //   const _jobs = ["Albañil", "Pintor", "Carpintero"];
-  //   let _jobs = jobs;
 
   const changeInput = (e) => {
     const name = e.target.name;
@@ -44,11 +40,6 @@ export default function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // validate();
-    // console.log({
-    //   user: input,
-    //   jobs: inputJob,
-    // });
     dispatch(
       createUser({
         user: input,
