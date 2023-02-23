@@ -21,7 +21,7 @@ const Navbar = () => {
           <h2>Inicio</h2>
         </Link>
         <Link to={"/job"} className={n.link}>
-          <h2>Jobs</h2>
+          <h2>Categorias</h2>
         </Link>
         <Link to={"/service"} className={n.link}>
           <h2>Services</h2>
