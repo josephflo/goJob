@@ -19,10 +19,12 @@ import FormContact from "./containers/forms/formContact/FormContact";
 import FormCreateService from "./containers/forms/formCreateService/FormCreateService";
 import CreateJob from "./containers/createJob/CreateJob";
 import FormCreateUser from "./containers/forms/formCreateUser/FormCreateUser";
+import FilterService from "./containers/filters/FilterService";
 
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
+import DetailUser from "./components/detailUserCard/DetailUserCard";
 
 // Default axios
 axios.defaults.baseURL = "http://localhost:3005/";
@@ -55,6 +57,8 @@ function App() {
 
           {/* Pruebas- testeos ***********************************************/}
           <Route exact path="/users" element={<UsersPage />} />
+          <Route path="/job/:id" element={<FilterService />} />
+          <Route path="/detail" element={<DetailUser />} />
         </Routes>
       </BrowserRouter>
     </>
