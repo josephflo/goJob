@@ -57,6 +57,7 @@ function App() {
           <Route exact path="/user/register" element={<Register />} />
           <Route path="/user/login" element={<Login />} />
           <Route path="/job" element={<AddJob />} />
+          <Route exact path="/user/register" element={Register} />
           <Route path="/user/login" element={Login} />
         </Routes>
       </BrowserRouter>
