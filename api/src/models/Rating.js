@@ -8,10 +8,18 @@ const ratingModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
       },
-      rating: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-      }
+    rating: {
+      type: DataTypes.INTEGER,
+
+    },
+    review: {
+      type: DataTypes.TEXT,
+    },
+    fecha_review: {
+      type: DataTypes.DATEONLY,
+      defaultValue: sequelize.fn('NOW'),
+      allowNull: false   
+    }
   },{timestamps: false });
 };
 
