@@ -9,6 +9,10 @@ const userModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
     },
+    state: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
