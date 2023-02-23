@@ -7,13 +7,8 @@ const { DB_HOST, PORT } = process.env;
 
 const getDbUser = async (page, page_size, querys, statementUser, statementeJob) =>{
   const offset = (page - 1) * page_size;
-  console.log("+++++++++++++++++++++++++++++++++++++++++++++");
-  console.log(statementUser);
-  console.log("ssssssssssssssssssssssssssssssssssssssssssssssss");
-  console.log(statementeJob);
 
   let verifyStatementeJob = Object.keys(statementeJob)
-  console.log(verifyStatementeJob);
 
   try{
     let result
@@ -119,17 +114,17 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
   }else if(page == 1){
     previousPage = null
 
-    nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
+    nextPage = `/user?page=${page+1}&page_size=${page_size}`
     nextPage = nextPage.concat(query)
   }else if(page > 1 && page < totalPages){
-    previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
+    previousPage = `/user?page=${page-1}&page_size=${page_size}`
     previousPage = previousPage.concat(query)
 
-    nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
+    nextPage = `/user?page=${page+1}&page_size=${page_size}`
     nextPage = nextPage.concat(query)
 
   }else if(page = totalPages){
-    previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
+    previousPage = `/user?page=${page-1}&page_size=${page_size}`
     previousPage = previousPage.concat(query)
 
     nextPage = null
@@ -197,13 +192,8 @@ const getUserByID = async (id) =>{
     //verificamos si trae resultados
     if(result == undefined)throw new Error("No se encontraron resultados")
 
-    //traemos el score
-     
-
-    let rating = await getRating(result)
-
+ 
     let merge = {
-      rating,
       ...result.dataValues
     }
 
@@ -213,32 +203,6 @@ const getUserByID = async (id) =>{
     throw Error(error.message)
 
   }
-}
-
-const getRating = async(user)=>{
-
-  let scores = await user.getMyTrabajos({
-    where: {
-      state: "terminado",
-      score: {
-        [Op.gt]: 0
-      }
-    },
-  })
-
-  scores = scores.map(sc=>{
-    return sc.score
-  })
-
-  if(!scores.length){
-    return "none"
-  }
-
-  const suma = scores.reduce((acumulador, valorActual) => acumulador + valorActual);
-  const promedio = suma / scores.length;
-
-  return parseFloat(promedio.toFixed(1));
-
 }
 
 

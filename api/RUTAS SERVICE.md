@@ -33,16 +33,17 @@ get ( http://localhost:3005/service?page=1&page_size=5 )
 
 Ejemplo:
 
-//este es un filtro triple, state, job y name
+//este es un filtro de 4, job, state, tittle, provincia, ciudad
 //Query
 {
     page: 1,
     page_size: 2,
-    state: "pendiente
     job: 1 (id del Job),
-    tittle: cortinas,
-    
-
+    state: "pendiente",
+    tittle: "cortinas",
+    provincia: "Buenos Aires",
+    ciudad: "random"
+ 
 }
 
 //este es un filtro doble, state y job
