@@ -24,6 +24,8 @@ const getAllUser = async (req, res) => {
   let ciudad = req.query.ciudad
   let dias = req.query.dias
   let horario = req.query.horario
+  let orderRating = req.query.orderRating
+  let orderName = req.query.orderName
 
   let querys = {}
 
@@ -58,11 +60,30 @@ const getAllUser = async (req, res) => {
   if(horario) {
     statementUser.horario = horario
     querys.horario = horario
-
   }
 
-  console.log("--------------------------------------");
-  console.log(statementUser);
+  //order
+  let stamentOrder = {}
+
+  if(orderRating){
+    stamentOrder.order = [['rating_promedio', orderRating]]
+    querys.orderRating = orderRating
+  }else if(orderName){
+    if(orderName == "ASC" ){
+      stamentOrder.order = [['lastName', 'ASC']]
+      querys.orderName = orderName
+    }
+    else if(orderName == "DESC" ) {
+      stamentOrder.order = [['lastName', 'DESC']]
+      querys.orderName = orderName
+
+    }
+
+  }else{
+    stamentOrder.order = [['rating_promedio', 'DESC']]
+  }
+
+
 
 
   let statementeJob = {}
@@ -74,7 +95,7 @@ const getAllUser = async (req, res) => {
 
   try {
   
-    let userTotal = await getDbUser(page, page_size, querys, statementUser, statementeJob);
+    let userTotal = await getDbUser(page, page_size, querys, statementUser, statementeJob, stamentOrder);
     
 
     if(!userTotal.result.length) throw Error("Sin resultados")
@@ -364,19 +385,34 @@ const putUser = async(req, res)=>{
     //actualizamos el user
 
     //ciframos contraseña
-    let pwd = await bcrypt.hash(putUser.password, 10);
-    putUser.password = pwd
-    
+    if(putUser.password){
+      let pwd = await bcrypt.hash(putUser.password, 10);
+      putUser.password = pwd
+    }
+
+    //actualizamos el user
     let newUser = await User.update(
       putUser,
       {where: {id: idUser}}
     )
 
     //actualizamos sus Jobs
-    let user = await User.findOne({
-      where: {id: idUser}
-    })
-    await user.setJobs(jobsUser)
+    let user
+    if(jobsUser){
+      user = await User.findOne({
+        where: {id: idUser}
+      })
+    }
+
+    console.log("+++++++++++++++++++++++++++++++");
+    console.log(jobsUser);
+
+    if(jobsUser && jobsUser.length){
+      await user.setJobs(jobsUser)
+    }else if(jobsUser && jobsUser.length == 0){
+      await user.setJobs([])
+    }
+
     
 
     return res.status(400).json({
@@ -790,6 +826,7 @@ const calificarService = async (req, res)=>{
       state: "terminado"
     }
     if(scoreService) stamentUpdate.score = Number(scoreService)
+    if(review) stamentUpdate.review = review
 
     //actualizamos el state del service
     let actStateSer = await Service.update(

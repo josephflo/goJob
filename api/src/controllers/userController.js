@@ -5,17 +5,21 @@ require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
 
 
-const getDbUser = async (page, page_size, querys, statementUser, statementeJob) =>{
+const getDbUser = async (page, page_size, querys, statementUser, statementeJob, stamentOrder) =>{
   const offset = (page - 1) * page_size;
 
   let verifyStatementeJob = Object.keys(statementeJob)
+
+  
+  console.log("-------------------------aaaaaaaaaa-------------");
+  console.log(stamentOrder.order);
 
   try{
     let result
     if(verifyStatementeJob.length){
       result = await User.findAll({
         where: statementUser,
-        order: [['firstName', 'ASC']],
+        order: stamentOrder.order,
         limit: page_size,
         offset: offset,
         attributes: { exclude: ['password', "state"] },
@@ -33,7 +37,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob) 
     }else{
       result = await User.findAll({
         where: statementUser,
-        order: [['firstName', 'ASC']],
+        order: stamentOrder.order,
         limit: page_size,
         offset: offset,
         attributes: { exclude: ['password', "state"] },

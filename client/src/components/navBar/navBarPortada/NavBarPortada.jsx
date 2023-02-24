@@ -1,11 +1,16 @@
 import n from "./navBar.module.css";
 import { Link } from "react-router-dom";
-import { logo } from "../../../assets";
+import GoJobLogo from "../../../assets/GoJobLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtons from "../../../authentication/components/LoginButtons";
+import { useState } from "react";
+import Button from "./Button";
+import NavLinks from "./NavLinks";
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
+  const [open, setOpen] = useState(false);
+
   return (
     <div className={n.container}>
       <div className={n.logo}>
@@ -44,8 +49,9 @@ const NavBarPortada = () => {
           <LoginButtons />
         )}
       </div>
-    </div>
+    </nav>
   );
 };
+
 
 export default NavBarPortada;
