@@ -6,7 +6,8 @@ const initialState = {
   jobs: [],
   jobById: {},
   service: [],
-  filter: [],
+  filterService: [],
+  userDetail: {},
   state: "",
   job: "",
   provincias: "",
@@ -41,10 +42,22 @@ export default function reducer(state = initialState, action) {
         service: action.payload,
       };
 
+    case ActionTypes.USER_DETAIL:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
+
+    case ActionTypes.CLEAN_USER_DETAIL:
+      return {
+        ...state,
+        userDetail: {},
+      };
+
     case ActionTypes.FILTER_MODEL:
       return {
         ...state,
-        filter: action.payload.result,
+        filterService: action.payload.result,
         state: action.payload.state,
         job: action.payload.job,
         provincias: action.payload.provincias,

@@ -31,6 +31,15 @@ export const getUsers = () => {
     });
   };
 };
+export const getUsersPaginate = () => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/page=1&page_size=3`);
+    return dispatch({
+      type: ActionTypes.GET_USERS,
+      payload: result.data.result,
+    });
+  };
+};
 
 export const userLogin = (input) => {
   return async (dispatch) => {
@@ -45,6 +54,24 @@ export const userLogin = (input) => {
     return dispatch({
       type: ActionTypes.USER_LOGIN,
       payload: result.data,
+    });
+  };
+};
+
+export const getUserDetail = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: ActionTypes.USER_DETAIL,
+      payload: result.data.result,
+    });
+  };
+};
+
+export const cleanUserDetail = () => {
+  return (dispatch) => {
+    return dispatch({
+      type: ActionTypes.CLEAN_USER_DETAIL,
     });
   };
 };
