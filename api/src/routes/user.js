@@ -33,9 +33,10 @@ router.post("/login", userHandlers.login)
 router.post("/friend", auth, userHandlers.addFriend)
 
 /****** PUT ******* */
-router.put("/service/:idService", auth, userHandlers.actualizarService)
+router.put("/service/:idService", auth, userHandlers.actualizarService)//
 
-router.put("/service/calificar/:idService", auth, userHandlers.calificarService)
+router.put("/service/calificar/:idService", auth, userHandlers.calificarService)//
+router.put("/update", auth, userHandlers.putUser)
 
 
 /******* DELETE ******* */

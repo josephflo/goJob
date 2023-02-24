@@ -385,19 +385,34 @@ const putUser = async(req, res)=>{
     //actualizamos el user
 
     //ciframos contraseña
-    let pwd = await bcrypt.hash(putUser.password, 10);
-    putUser.password = pwd
-    
+    if(putUser.password){
+      let pwd = await bcrypt.hash(putUser.password, 10);
+      putUser.password = pwd
+    }
+
+    //actualizamos el user
     let newUser = await User.update(
       putUser,
       {where: {id: idUser}}
     )
 
     //actualizamos sus Jobs
-    let user = await User.findOne({
-      where: {id: idUser}
-    })
-    await user.setJobs(jobsUser)
+    let user
+    if(jobsUser){
+      user = await User.findOne({
+        where: {id: idUser}
+      })
+    }
+
+    console.log("+++++++++++++++++++++++++++++++");
+    console.log(jobsUser);
+
+    if(jobsUser && jobsUser.length){
+      await user.setJobs(jobsUser)
+    }else if(jobsUser && jobsUser.length == 0){
+      await user.setJobs([])
+    }
+
     
 
     return res.status(400).json({
