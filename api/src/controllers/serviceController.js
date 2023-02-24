@@ -2,7 +2,7 @@ const {Job, Service, User} = require("../connection/db")
 require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
 
-const getServices = async (page, page_size, querys, statementService, statementeJob) =>{
+const getServices = async (page, page_size, querys, statementService, statementeJob, statementFecha) =>{
   const offset = (page - 1) * page_size;
 
   let verifyStatementeJob = Object.keys(statementeJob)
@@ -12,6 +12,7 @@ const getServices = async (page, page_size, querys, statementService, statemente
     if(verifyStatementeJob.length){
       service = await Service.findAll({
         where: {...statementService},
+        order: statementFecha.order,
         limit: page_size,
         offset: offset,
         attributes: { exclude: ['UserId'] },
@@ -50,6 +51,7 @@ const getServices = async (page, page_size, querys, statementService, statemente
     }else{
       service = await Service.findAll({
         where: {...statementService},
+        order: statementFecha.order,
         limit: page_size,
         offset: offset,
         attributes: { exclude: ['UserId'] },

@@ -17,6 +17,8 @@ const getAllServices = async (req, res)=>{
   let provincia = req.query.provincia
   let ciudad = req.query.ciudad
 
+  let orderFecha = req.query.orderFecha
+
   console.log(state);
 
   let querys = {}
@@ -51,10 +53,19 @@ const getAllServices = async (req, res)=>{
 
   }
 
+  //order
+  let statementFecha = {}
+
+  if(orderFecha){
+    statementFecha.order = [['fecha_publicacion', orderFecha]] 
+    querys.orderFecha = orderFecha
+  }else{
+    statementFecha.order = [['fecha_publicacion', 'DESC']] 
+  }
  
 
   try {
-    let totalServices = await getServices(page, page_size, querys, statementService, statementeJob)
+    let totalServices = await getServices(page, page_size, querys, statementService, statementeJob, statementFecha)
 
     return res.status(200).json({
       status: "success",
