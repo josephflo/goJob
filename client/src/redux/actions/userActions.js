@@ -48,3 +48,14 @@ export const userLogin = (input) => {
     });
   };
 };
+
+export const updateUser = (payload) => {
+	return async () => {
+		try {
+			await axios.put(`/users`, payload)
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+

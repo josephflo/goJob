@@ -19,10 +19,13 @@ import FormContact from "./containers/forms/formContact/FormContact";
 import FormCreateService from "./containers/forms/formCreateService/FormCreateService";
 import CreateJob from "./containers/createJob/CreateJob";
 import FormCreateUser from "./containers/forms/formCreateUser/FormCreateUser";
+import UsersAdmin from './components/DashboardPrueba/UsersAdmin.jsx'
+
 
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
+import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 
 // Default axios
 axios.defaults.baseURL = "http://localhost:3005/";
@@ -42,7 +45,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
-          <Route exact path="admin/create/job" element={<CreateJob />} />
+          <Route exact path="admin/jobs/create" element={<CreateJob />} />
+          <Route exact path='admin/users' element={<UsersAdmin/>} />
+          <Route exact path='admin/jobs' element={<JobAdmin/>} />
+
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
