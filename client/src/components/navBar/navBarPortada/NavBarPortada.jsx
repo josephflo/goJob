@@ -26,6 +26,9 @@ const NavBarPortada = () => {
         <Link to={"/create/service"} className={n.link}>
           <h2>Crear servicio</h2>
         </Link>
+        <Link to={"/users"} className={n.link}>
+          <h2>Usuarios</h2>
+        </Link>
         <Link to={"/user/register"} className={n.link}>
           <h2>Create una cuenta YA</h2>
         </Link>
