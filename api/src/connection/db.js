@@ -90,21 +90,6 @@ User.belongsToMany(User, {
   as: 'friends', // nombre de la columna en el modelo
 });
 
-//rating
-// User.belongsToMany(Service, {
-//   through: 'ServicePostulantesUser',
-//   foreignKey: 'userId',
-//   timestamps: false,
-//   as: "postulantes"
-// });
-// Service.belongsToMany(User, {
-//   through: 'ServicePostulantesUser',
-//   foreignKey: 'serviceId',
-//   timestamps: false,
-//   as: "postulantes"
-// });
-
-
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
