@@ -25,12 +25,8 @@ let users = [
       phone: 1234567890,
       role: "comun",
 
-      provincia: "Buenos Aires",
-      ciudad: "Random",
-      direccion: "Av. Lorenzo",
-      horario: "Mañana",
     },
-    jobs: [1, 3, 5]
+    jobs: []
   },
   {
     user: {
@@ -44,12 +40,13 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "chicago",
       direccion: "456 Elm St",
-      horario: "Tarde",
+      horario: "noche",
+      dias: ["1","2"]
 
     },
-    jobs: [2, 4]
+    jobs: [1,2,3]
   },
   {
     user: {
@@ -59,14 +56,16 @@ let users = [
       user: "bobsmith",
       password: "123456",
       phone: 1234567892,
-      role: "comun",
+      role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "mexico",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "tarde",
+      dias: ["1","7"]
+
     },
-    jobs: [1, 2]
+    jobs: [1,2,3]
   },
   {
     user: {
@@ -79,11 +78,13 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "london",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "noche",
+      dias: ["4","7"]
+
     },
-    jobs: [7]
+    jobs: [4,5,6]
   },
   {
     user: {
@@ -93,14 +94,16 @@ let users = [
       user: "tomwilson",
       password: "123456",
       phone: 1234567894,
-      role: "comun",
+      role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "Roma",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "mañana",
+      dias: ["2","4","7"]
+
     },
-    jobs: [3, 8, 10]
+    jobs: [1,4,5,6]
   },
   {
     user: {
@@ -113,11 +116,13 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "londres",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "noche",
+      dias: ["2","5","6"]
+
     },
-    jobs: [9]
+    jobs: [7,8,9]
   },
   {
     user: {
@@ -127,14 +132,16 @@ let users = [
       user: "mikebrown",
       password: "123456",
       phone: 1234567896,
-      role: "comun",
+      role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "paris",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "tarde",
+      dias: ["1"]
+
     },
-    jobs: [6, 10]
+    jobs: [7,8,9,10]
   },
   {
     user: {
@@ -147,11 +154,13 @@ let users = [
       role: "professional",
 
       provincia: "Buenos Aires",
-      ciudad: "Random",
+      ciudad: "paris",
       direccion: "789 Oak St",
-      horario: "Tarde",
+      horario: "tarde",
+      dias: ["4"]
+
     },
-    jobs: [5, 8]
+    jobs: [4,7,8,3,1,2]
   }
 ]
        

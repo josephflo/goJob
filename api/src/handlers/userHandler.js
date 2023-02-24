@@ -6,22 +6,31 @@ const bienvenidaMail = require('../templatesEmails/singupEmail');
 
 const { 
   getDbUser,
-  getUserByID
+  getUserByID,
+  promedioRating
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
-const { Op } = require("sequelize");
+const { Op, STRING } = require("sequelize");
+const { fechaActual } = require("../helpers/fechaActual");
 
 const getAllUser = async (req, res) => {
-  let name = req.query.name
-  let job = Number(req.query.job)
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
 
-  let userTotal
+  let name = req.query.name
+  let role = req.query.role
+  let job = Number(req.query.job)
+  let provincia = req.query.provincia
+  let ciudad = req.query.ciudad
+  let dias = req.query.dias
+  let horario = req.query.horario
+
   let querys = {}
 
   //configuraciones para filtrado
-  let statementUser = {}
+  let statementUser = {
+    state: true
+  }
   if(name){
     statementUser[Op.or] =  {
       firstName: {[Op.iLike]:`%${name}%`},
@@ -30,17 +39,42 @@ const getAllUser = async (req, res) => {
     }
     querys.name = name
   }
+  if(role){
+    statementUser.role = role
+    querys.role = role
+  }
+  if(provincia) {
+    statementUser.provincia = provincia
+    querys.provincia = provincia
+  }
+  if(ciudad) {
+    statementUser.ciudad = ciudad
+    querys.ciudad = ciudad
+  }
+  if(dias) {
+    statementUser.dias = {[Op.contains]: [dias]}
+    querys.dias = dias
+  }
+  if(horario) {
+    statementUser.horario = horario
+    querys.horario = horario
 
-  let statmenteJob = {}
+  }
+
+  console.log("--------------------------------------");
+  console.log(statementUser);
+
+
+  let statementeJob = {}
   if(job){
-    statmenteJob.id = job
+    statementeJob.id = job
     querys.job = job
   }
   
 
   try {
   
-    userTotal = await getDbUser(page, page_size, querys, statementUser, statmenteJob);
+    let userTotal = await getDbUser(page, page_size, querys, statementUser, statementeJob);
     
 
     if(!userTotal.result.length) throw Error("Sin resultados")
@@ -163,7 +197,26 @@ const createUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res)=>{
+  let idUser = req.user.id
+  try {
 
+    let deleteUser = await User.update(
+      {state: false},
+      {where: {id: idUser}}
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Elimino correctamente el usuario"
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+}
 
 const login = async(req, res)=>{
   const userLogin = req.body
@@ -459,7 +512,7 @@ const createServer = async (req, res) => {
   }
 };
 
-const getAllService = async (req, res) => {
+const getAllMyService = async (req, res) => {
   let idUser = req.user.id;
 
   // let page = Number(req.query.page || 1)
@@ -501,7 +554,7 @@ const getAllService = async (req, res) => {
       ]
     })
 
-    return res.status(400).json({
+    return res.status(200).json({
       status: "error",
       message: "Extraccion exitosa",
       result: allServices
@@ -516,10 +569,15 @@ const getAllService = async (req, res) => {
 };
 
 const actualizarService = async(req, res)=>{
-  let putService = req.body.service;
+  let putService = {...req.body};
   let idUser = req.user.id;
   let idService = Number(req.params.idService)
-  let putJobs = req.body.jobs
+
+  let putJobs = []
+  if(req.body.jobs){
+    putJobs = [...req.body.jobs]
+    delete putService.jobs
+  }
 
   try {
     //actualizamos datos de service
@@ -533,9 +591,12 @@ const actualizarService = async(req, res)=>{
       }
     )
     //actualizamos relacion Service Jobs
-    if(putJobs.length){
+    if(putJobs && putJobs.length && req.body.jobs){
       let actService = await Service.findOne({where: {id: idService}})
       await actService.setJobs(putJobs)
+    }else if(putJobs && !putJobs.length && req.body.jobs){
+      let actService = await Service.findOne({where: {id: idService}})
+      await actService.setJobs([])
     }
 
 
@@ -544,6 +605,43 @@ const actualizarService = async(req, res)=>{
       status: "success",
       message: "Se actualizo correctamente",  
     });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
+const actualizarStateService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+  let activeService = req.body.active
+
+  try {
+    //actualizamos datos de service
+    let serviceState = await Service.update(
+      { active: activeService }, 
+      {
+        where: {
+          id: idService,
+          UserId: idUser  
+        }
+      }
+    )
+
+    if(serviceState[0] == 0){
+      return res.status(400).json({
+        status: "error",
+        message: "No se pudo actualizar",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Se actualizo correctamente",
+    });
+
   } catch (error) {
     return res.status(400).json({
       status: "error",
@@ -680,110 +778,86 @@ const elegirTrabajador = async (req, res)=>{
   }
 }
 
-const serviceFinalizado = async (req, res)=>{
-  let idUser = req.user.id
-  let idService = Number(req.params.idService)
-
-
-  try {
-
-    //actualizamos el state del service
-    let actStateSer = await Service.update(
-      {
-        state: "terminado"
-      },
-      {
-        where: {id: idService, UserId: idUser}
-      }
-    )
-
-    return res.status(200).json({
-      status: "success",
-      message: "Servicio finalizado",
-      idUser,
-      idService
-    });
-
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
-      idUser,
-      idService,
-      lala: "asasas"
-    });
-  }
-
- 
-}
 
 const calificarService = async (req, res)=>{
   let idUser = req.user.id
   let idService = Number(req.params.idService)
-  let scoreService = Number(req.body.score)
+  let scoreService = req.body.score
+  let review = req.body.review
 
   try {
-    //verificamos el estado del servicio
-    let service = await Service.findOne({
-      where: {id: idService}
-    })
-    if(service.state != "terminado"){
-      return res.status(400).json({
-        status: "error",
-        message: "El servicio no se encuentra finalizado"
-      })
+    let stamentUpdate = {
+      state: "terminado"
     }
+    if(scoreService) stamentUpdate.score = Number(scoreService)
 
     //actualizamos el state del service
     let actStateSer = await Service.update(
-      {
-        score: scoreService
-      },
+      stamentUpdate,
       {
         where: {id: idService, UserId: idUser}
       }
     )
 
+    //extraemos la informacion del servicio para el rating
+    let service = await Service.findOne({
+      where: {id: idService},
+      include: {
+        model: User,
+        as: "trabajadorId",
+        attributes:["id","user", "rating"],
+        through: { 
+          attributes:[]
+        }
+      }
+    }) 
+
+    //guardamos en el trabajador su nuevo rating
+    if(scoreService){
+      service.trabajadorId.forEach(async(traba)=>{
+        let trabajador = await User.findOne({
+          where: {id: traba.id}
+        })
+  
+        let newRating = [...trabajador.rating, {
+          idUser,
+          idService,
+          rating: Number(scoreService) || 0,
+          date: fechaActual(),
+          review: review || ""
+        }]
+       
+        //sacamos promedio del rating
+        let promRating = promedioRating(newRating)
+
+        //actualizamos el user
+        let actualizar = await User.update(
+          {
+            rating: newRating,
+            rating_promedio: promRating 
+          },
+          {
+            where: {id: traba.id}
+          }
+        )
+
+      })
+    }
+
     return res.status(200).json({
       status: "success",
-      message: "Calificion del servicio exitoso"
+      message: "Calificacion del servicio exitosa"
     });
 
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message,
-      idUser,
-      idService,
-      lala: "asasas"
+      message: error.message
     });
   }
 }
 
-//rating
-const createRating = async(req, res)=>{
-  let idUser = req.user.id
-  let idUserCalificado = Number(req.query.id)
-  let rating = Number(req.query.rating)
 
-  try {
-    const user1 = await User.findByPk(idUser);
-
-    const newRating = await user1.rateUser(idUserCalificado, rating);
-
-    //si todo sale bien
-    return res.status(400).json({
-      status: "success",
-      message: "Calificacion exitosa",
-      newRating
-    });
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-}
 
 
 
@@ -792,6 +866,7 @@ module.exports = {
   getAllUser,
   getUserID,
   createUser,
+  deleteUser,
   login,
   decifrarToken,
   addFriend,
@@ -799,16 +874,14 @@ module.exports = {
   addJob,
   deleteJob,
   getFriends,
-  getAllService,
+  getAllMyService,
   createServer,
   actualizarService,
   deleteService,
   putUser,
-  createRating,
   postularService,
   deletePostuleService,
   elegirTrabajador,
-  serviceFinalizado,
   calificarService
 };
 

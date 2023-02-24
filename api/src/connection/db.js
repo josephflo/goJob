@@ -48,16 +48,6 @@ Service.belongsTo(User, {
   as: "userId"
 });
 
-//=>
-// User.hasMany(Service, {
-//   foreignKey: 'idTrabajador',
-//   as: "myTrabajos"
-// });
-// Service.belongsTo(User, {
-//   foreignKey: 'idTrabajador',
-//   as: "trabajadorId"
-// });
-
 User.belongsToMany(Service, {
   through: 'ServiceMyTrabajo',
   foreignKey: 'userId',
@@ -99,7 +89,6 @@ User.belongsToMany(User, {
   otherKey: 'friendId',
   as: 'friends', // nombre de la columna en el modelo
 });
-
 
 
 module.exports = {

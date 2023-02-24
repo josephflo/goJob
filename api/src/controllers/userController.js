@@ -5,43 +5,72 @@ require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
 
 
-const getDbUser = async (page, page_size, querys, statementUser, statmenteJob) =>{
+const getDbUser = async (page, page_size, querys, statementUser, statementeJob) =>{
   const offset = (page - 1) * page_size;
 
-  try{
-    let result = await User.findAll({
-      where: statementUser,
-      order: [['firstName', 'ASC']],
-      limit: page_size,
-      offset: offset,
-      attributes: { exclude: ['password'] },
-      include: [
-        {
-          model: Job,
-          where: statmenteJob,
-          through: { 
-            attributes:[]
-          }
-        }
-      ],
-    });
+  let verifyStatementeJob = Object.keys(statementeJob)
 
-    //contamos el total de paginas
-    let totalCount = await User.count({
-      where: {...statementUser},
-      include: [
-        {
-          model: Job,
-          where: statmenteJob,
-          through: { 
-            attributes:[]
+  try{
+    let result
+    if(verifyStatementeJob.length){
+      result = await User.findAll({
+        where: statementUser,
+        order: [['firstName', 'ASC']],
+        limit: page_size,
+        offset: offset,
+        attributes: { exclude: ['password', "state"] },
+        include: [
+          {
+            model: Job,
+            where: statementeJob,
+            through: { 
+              attributes:[]
+            }
           }
-        }
-      ],
-    });
-    if(!statmenteJob.id){
-      totalCount = totalCount/2
+        ],
+      });
+  
+    }else{
+      result = await User.findAll({
+        where: statementUser,
+        order: [['firstName', 'ASC']],
+        limit: page_size,
+        offset: offset,
+        attributes: { exclude: ['password', "state"] },
+        include: [
+          {
+            model: Job,
+            through: { 
+              attributes:[]
+            }
+          }
+        ],
+      });
+  
     }
+  
+  
+    //contamos el total de paginas
+    let totalCount
+    if(verifyStatementeJob.length){
+      totalCount = await User.count({
+        where: {...statementUser},
+        include: [
+          {
+            model: Job,
+            where: statementeJob,
+            through: { 
+              attributes:[]
+            }
+          }
+        ],
+      });
+    }else{
+      totalCount = await User.count({
+        where: {...statementUser},
+      });
+    }
+
     const totalPages = Math.ceil(totalCount / page_size);
 
     let paginado = paginacion(page, page_size, totalPages, totalCount, querys)
@@ -85,17 +114,17 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
   }else if(page == 1){
     previousPage = null
 
-    nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
+    nextPage = `/user?page=${page+1}&page_size=${page_size}`
     nextPage = nextPage.concat(query)
   }else if(page > 1 && page < totalPages){
-    previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
+    previousPage = `/user?page=${page-1}&page_size=${page_size}`
     previousPage = previousPage.concat(query)
 
-    nextPage = `http://${DB_HOST}:${PORT}/user?page=${page+1}&page_size=${page_size}`
+    nextPage = `/user?page=${page+1}&page_size=${page_size}`
     nextPage = nextPage.concat(query)
 
   }else if(page = totalPages){
-    previousPage = `http://${DB_HOST}:${PORT}/user?page=${page-1}&page_size=${page_size}`
+    previousPage = `/user?page=${page-1}&page_size=${page_size}`
     previousPage = previousPage.concat(query)
 
     nextPage = null
@@ -119,7 +148,7 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
 const getUserByID = async (id) =>{
   try{
     const result = await User.findOne({
-      where: {id: id},
+      where: {id: id, state: true},
       attributes: { exclude: ['password'] },
       include: [
         {
@@ -163,13 +192,8 @@ const getUserByID = async (id) =>{
     //verificamos si trae resultados
     if(result == undefined)throw new Error("No se encontraron resultados")
 
-    //traemos el score
-     
-
-    let rating = await getRating(result)
-
+ 
     let merge = {
-      rating,
       ...result.dataValues
     }
 
@@ -181,34 +205,25 @@ const getUserByID = async (id) =>{
   }
 }
 
-const getRating = async(user)=>{
+const promedioRating = (ratings)=>{
 
-  let scores = await user.getMyTrabajos({
-    where: {
-      state: "terminado",
-      score: {
-        [Op.gt]: 0
-      }
-    },
+  let suma = 0
+  let values = ratings.forEach((regi)=>{
+    suma += Number(regi.rating)
   })
 
-  scores = scores.map(sc=>{
-    return sc.score
-  })
+  let promedio = (suma / ratings.length).toFixed(1);
 
-  if(!scores.length){
-    return "none"
-  }
+  console.log(promedio);
 
-  const suma = scores.reduce((acumulador, valorActual) => acumulador + valorActual);
-  const promedio = suma / scores.length;
+  return Number(promedio)
 
-  return parseFloat(promedio.toFixed(1));
 
 }
 
 
 module.exports = {
   getDbUser,
-  getUserByID
+  getUserByID,
+  promedioRating
 }

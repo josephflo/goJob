@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 
 const serviceModel = (sequelize) => {
   // defino el modelo
@@ -9,6 +9,10 @@ const serviceModel = (sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       },
       tittle: {
         type: DataTypes.STRING,
@@ -25,6 +29,25 @@ const serviceModel = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
+      presupuesto: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      // stripepriceId:{
+      //   type: DataTypes.STRING,
+      //   //allowNull: false
+      // },
+      score: {
+        type: DataTypes.INTEGER,
+        default: 0,
+      },
+      fecha_publicacion: {
+        type: DataTypes.DATEONLY,
+        defaultValue: sequelize.fn('NOW'),
+        allowNull: false   
+      },
+      
+      //ubicacion
       provincia: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -36,18 +59,6 @@ const serviceModel = (sequelize) => {
       direccion: {
           type: DataTypes.STRING,
       },
-      presupuesto: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      // stripepriceId:{
-      //   type: DataTypes.STRING,
-      //   //allowNull: false
-      // },
-      score: {
-        type: DataTypes.INTEGER,
-        default: 0,
-      }
 
     },
     { timestamps: false }
