@@ -10,6 +10,7 @@ const {
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
 const { Op, STRING } = require("sequelize");
+const { fechaActual } = require("../helpers/fechaActual");
 
 const getAllUser = async (req, res) => {
   let page = Number(req.query.page || 1)
@@ -817,11 +818,20 @@ const calificarService = async (req, res)=>{
   let idUser = req.user.id
   let idService = Number(req.params.idService)
   let scoreService = Number(req.body.score)
+  let review = req.body.review
 
   try {
     //verificamos el estado del servicio
     let service = await Service.findOne({
-      where: {id: idService}
+      where: {id: idService},
+      include: {
+        model: User,
+        as: "trabajadorId",
+        attributes:["id","user", "rating"],
+        through: { 
+          attributes:[]
+        }
+      }
     })
     if(service.state != "terminado"){
       return res.status(400).json({
@@ -840,6 +850,33 @@ const calificarService = async (req, res)=>{
       }
     )
 
+    //guardamos en el trabajador su nuevo rating
+
+    let idTrabajador = Number(service.trabajadorId[0].id)
+    let trabajador = await User.findOne({
+      where: {id: idTrabajador}
+    })
+
+    let newRating = [...trabajador.rating, {
+      idUser,
+      idService,
+      rating: scoreService,
+      date: fechaActual(),
+      review: review || ""
+    }]
+   
+
+    let actualizar = await User.update(
+      {
+        rating: newRating
+      },
+      {
+        where: {id: idTrabajador}
+      }
+    )
+    
+
+
     return res.status(200).json({
       status: "success",
       message: "Calificion del servicio exitoso"
@@ -848,10 +885,7 @@ const calificarService = async (req, res)=>{
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message,
-      idUser,
-      idService,
-      lala: "asasas"
+      message: error.message
     });
   }
 }
