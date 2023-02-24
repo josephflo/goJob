@@ -58,6 +58,18 @@ export const userLogin = (input) => {
   };
 };
 
+
+export const updateUser = (payload) => {
+	return async () => {
+		try {
+			await axios.put(`/users`, payload)
+		} catch (error) {
+			console.log(error);
+		}
+	};
+};
+
+
 export const getUserDetail = (id) => {
   return async (dispatch) => {
     const result = await axios.get(`/user/get/${id}`);
@@ -75,3 +87,4 @@ export const cleanUserDetail = () => {
     });
   };
 };
+
