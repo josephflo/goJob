@@ -30,7 +30,6 @@ import FilterService from "./containers/filters/FilterService";
 import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
-import DetailUser from "./components/detailUserCard/DetailUserCard";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
 
 
