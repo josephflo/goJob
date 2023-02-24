@@ -1,5 +1,6 @@
 //** Dependencies */
 import axios from "axios";
+import { combineReducers } from "redux";
 //** Constants */
 import { ActionTypes } from "../constants/actions-types";
 
@@ -17,36 +18,58 @@ export const createUser = (input) => {
     const result = await axios.post("user/register", json, customConfig);
     return dispatch({
       type: ActionTypes.CREATE_USER,
-      payload: result.data,
+      // payload: result.data,
     });
   };
 };
 
-//ruta modificada de create user para enviar imagens
-//
-export let createUserImg = (input)=> async(dispatch)=> {
+export const uploadImage = (input) => async (dispatch) => {
   try {
-    // Crea un objeto FormData
     const formData = new FormData();
+    formData.append("img", input.image);
 
-    // Agrega los datos JSON al FormData
-    formData.append('user', JSON.stringify(input.user));
-    formData.append('jobs', JSON.stringify(input.jobs));
-
-    // Agrega la imagen al FormData, asegúrate de que el nombre del campo sea "image"
-    //formData.append('image', fileInput.files[0], fileInput.files[0].name);
-
-    // Envía la solicitud POST usando axios.post() y async/await
-    const result = await axios.post('user/register', formData);
-    return dispatch({
-      type: ActionTypes.CREATE_USER,
-      payload: result.data,
-    });
+    const customConfig = {
+      headers: {
+        "Content-Type":
+          "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
+      },
+    };
+    const result = await axios.post(
+      "/user/register/image",
+      formData,
+      customConfig
+    );
   } catch (error) {
     console.error(error.message);
   }
-}
+};
 
+// export const createUserImageV2 = (input) => {
+//   return async (dispatch) => {
+//     // const json = JSON.stringify(input);
+//     const formData = new FormData();
+
+//     formData.append("user", JSON.stringify(input.user));
+//     formData.append("jobs", JSON.stringify(input.jobs));
+//     formData.append("image", input.image);
+//     console.log(formData);
+//     const customConfig = {
+//       headers: {
+//         // Accept: "application/json",
+//         // "Content-Type": "application/json",
+//         "content-type": "multipart/form-data",
+//       },
+//     };
+//     const result = await axios.post("user/register", formData, customConfig);
+//     return dispatch({
+//       type: ActionTypes.CREATE_USER,
+//       payload: result.data,
+//     });
+//   };
+// };
+
+//ruta modificada de create user para enviar imagens
+//
 
 //
 
@@ -86,17 +109,15 @@ export const userLogin = (input) => {
   };
 };
 
-
 export const updateUser = (payload) => {
-	return async () => {
-		try {
-			await axios.put(`/users`, payload)
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  return async () => {
+    try {
+      await axios.put(`/users`, payload);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
-
 
 export const getUserDetail = (id) => {
   return async (dispatch) => {
@@ -115,4 +136,3 @@ export const cleanUserDetail = () => {
     });
   };
 };
-
