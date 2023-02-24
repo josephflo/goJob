@@ -6,10 +6,12 @@ const bienvenidaMail = require('../templatesEmails/singupEmail');
 
 const { 
   getDbUser,
-  getUserByID
+  getUserByID,
+  promedioRating
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
 const { Op, STRING } = require("sequelize");
+const { fechaActual } = require("../helpers/fechaActual");
 
 const getAllUser = async (req, res) => {
   let page = Number(req.query.page || 1)
@@ -776,110 +778,86 @@ const elegirTrabajador = async (req, res)=>{
   }
 }
 
-const serviceFinalizado = async (req, res)=>{
-  let idUser = req.user.id
-  let idService = Number(req.params.idService)
-
-
-  try {
-
-    //actualizamos el state del service
-    let actStateSer = await Service.update(
-      {
-        state: "terminado"
-      },
-      {
-        where: {id: idService, UserId: idUser}
-      }
-    )
-
-    return res.status(200).json({
-      status: "success",
-      message: "Servicio finalizado",
-      idUser,
-      idService
-    });
-
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
-      idUser,
-      idService,
-      lala: "asasas"
-    });
-  }
-
- 
-}
 
 const calificarService = async (req, res)=>{
   let idUser = req.user.id
   let idService = Number(req.params.idService)
-  let scoreService = Number(req.body.score)
+  let scoreService = req.body.score
+  let review = req.body.review
 
   try {
-    //verificamos el estado del servicio
-    let service = await Service.findOne({
-      where: {id: idService}
-    })
-    if(service.state != "terminado"){
-      return res.status(400).json({
-        status: "error",
-        message: "El servicio no se encuentra finalizado"
-      })
+    let stamentUpdate = {
+      state: "terminado"
     }
+    if(scoreService) stamentUpdate.score = Number(scoreService)
 
     //actualizamos el state del service
     let actStateSer = await Service.update(
-      {
-        score: scoreService
-      },
+      stamentUpdate,
       {
         where: {id: idService, UserId: idUser}
       }
     )
 
+    //extraemos la informacion del servicio para el rating
+    let service = await Service.findOne({
+      where: {id: idService},
+      include: {
+        model: User,
+        as: "trabajadorId",
+        attributes:["id","user", "rating"],
+        through: { 
+          attributes:[]
+        }
+      }
+    }) 
+
+    //guardamos en el trabajador su nuevo rating
+    if(scoreService){
+      service.trabajadorId.forEach(async(traba)=>{
+        let trabajador = await User.findOne({
+          where: {id: traba.id}
+        })
+  
+        let newRating = [...trabajador.rating, {
+          idUser,
+          idService,
+          rating: Number(scoreService) || 0,
+          date: fechaActual(),
+          review: review || ""
+        }]
+       
+        //sacamos promedio del rating
+        let promRating = promedioRating(newRating)
+
+        //actualizamos el user
+        let actualizar = await User.update(
+          {
+            rating: newRating,
+            rating_promedio: promRating 
+          },
+          {
+            where: {id: traba.id}
+          }
+        )
+
+      })
+    }
+
     return res.status(200).json({
       status: "success",
-      message: "Calificion del servicio exitoso"
+      message: "Calificacion del servicio exitosa"
     });
 
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message,
-      idUser,
-      idService,
-      lala: "asasas"
+      message: error.message
     });
   }
 }
 
-//rating
-const createRating = async(req, res)=>{
-  let idUser = req.user.id
-  let idUserCalificado = Number(req.query.id)
-  let rating = Number(req.query.rating)
 
-  try {
-    const user1 = await User.findByPk(idUser);
-
-    const newRating = await user1.rateUser(idUserCalificado, rating);
-
-    //si todo sale bien
-    return res.status(400).json({
-      status: "success",
-      message: "Calificacion exitosa",
-      newRating
-    });
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-}
 
 
 
@@ -901,11 +879,9 @@ module.exports = {
   actualizarService,
   deleteService,
   putUser,
-  createRating,
   postularService,
   deletePostuleService,
   elegirTrabajador,
-  serviceFinalizado,
   calificarService
 };
 

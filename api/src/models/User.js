@@ -58,11 +58,15 @@ const userModel = (sequelize) => {
             isIn: [['comun', 'professional', 'admin']]
           }
     },
+    rating_promedio: {
+        type: DataTypes.FLOAT,
+
+    },
     rating: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.ARRAY(DataTypes.JSON),
         defaultValue: [],
     },
-
+ 
     //si es profesional
     provincia: {
         type: DataTypes.STRING,

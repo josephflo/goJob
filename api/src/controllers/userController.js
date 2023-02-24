@@ -205,8 +205,25 @@ const getUserByID = async (id) =>{
   }
 }
 
+const promedioRating = (ratings)=>{
+
+  let suma = 0
+  let values = ratings.forEach((regi)=>{
+    suma += Number(regi.rating)
+  })
+
+  let promedio = (suma / ratings.length).toFixed(1);
+
+  console.log(promedio);
+
+  return Number(promedio)
+
+
+}
+
 
 module.exports = {
   getDbUser,
-  getUserByID
+  getUserByID,
+  promedioRating
 }

@@ -24,7 +24,7 @@ router.post("/service", auth, userHandlers.createServer)//
 router.post("/login", userHandlers.login)//
 router.post("/friend", auth, userHandlers.addFriend)//
 
-router.post("/service/postulate/:idService", auth, userHandlers.postularService)
+router.post("/service/postular/:idService", auth, userHandlers.postularService)
 
 router.post("/service/elegir/trabajador", auth, userHandlers.elegirTrabajador)
 
@@ -35,7 +35,6 @@ router.post("/friend", auth, userHandlers.addFriend)
 /****** PUT ******* */
 router.put("/service/:idService", auth, userHandlers.actualizarService)
 
-router.put("/service/finalizar/:idService", auth, userHandlers.serviceFinalizado)
 router.put("/service/calificar/:idService", auth, userHandlers.calificarService)
 
 
@@ -46,7 +45,7 @@ router.delete("/delete", auth, userHandlers.deleteUser)
 
 router.delete("/service/:idService", auth, userHandlers.deleteService)//
 
-router.delete("/service/postulate/:idService", auth, userHandlers.deletePostuleService)
+router.delete("/service/postular/:idService", auth, userHandlers.deletePostuleService)
 
 
 // probando

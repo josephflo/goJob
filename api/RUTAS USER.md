@@ -185,3 +185,69 @@ delete ( http://localhost:3005/user/service/"idService" )
 
 //el "id" del service se envia por el params (ruta)
 ```
+
+
+## postular a un servicio
+
+post ( http://localhost:3005/user/service/postular/"idService" )
+```
+En esta ruta postulamos a un servicio
+Requiere del token
+Enviar el "id" del servicio en el parametro "idService"
+
+Params
+{
+  idService: id (id del servicio)
+}
+```
+
+## Eliminar postulacion a un servicio
+
+delete ( http://localhost:3005/user/service/postular/"idService" )
+```
+En esta ruta eliminamos la postulacion a un servicio
+Requiere del token
+Enviar el "id" del servicio en el parametro "idService"
+
+Params
+{
+  idService: id (id del servicio)
+}
+```
+
+## Elegir trabajador de un servicio
+
+post ( http://localhost:3005/user/service/elegir/trabajador )
+```
+En esta ruta elegimos a un trabajador de un servicio
+requiere del token
+Los datos se envian por el body
+
+Body
+{
+  trabajador: idUser (id del User quien sera el trabajador),
+  service: idService (id del servicio a cual elegiremos un trabajador)
+}
+
+```
+
+## Finalizar y calificar servicio
+
+put ( http://localhost:3005/user/service/calificar/"idService" )
+```
+En esta ruta finalizamos un servicio, y si hay una review lo agregamos
+Requiere del token
+Enviar el "id" del servicio en el parametro "idService"
+
+Params
+{
+  idService: id (id del servicio)
+}
+
+Body
+{
+  score: 4,
+  review: "Es professional es muy respetuoso y talentoso haciendo su trabajo"
+}
+```
+
