@@ -769,4 +769,3 @@ module.exports = {
   deletePostuleService,
   elegirTrabajador
 };
-

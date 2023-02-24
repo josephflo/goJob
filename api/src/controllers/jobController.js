@@ -9,6 +9,7 @@ const getDbJob = async () =>{
   }
 }
 
+
 module.exports = {
   getDbJob
 }

@@ -1,6 +1,8 @@
 const { Service, User, Job } = require("../connection/db");
-const { getDbService } = require("../controllers/serviceController");
+const { getDbService, paginacion } = require("../controllers/serviceController");
 const axios = require("axios");
+const { Op } = require("sequelize");
+const { query } = require("express");
 
 require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
@@ -10,14 +12,71 @@ const getAllServices = async (req, res)=>{
   let page_size = Number(req.query.page_size || 15)
   const offset = (page - 1) * page_size;
 
+  let state = req.query.state
+  let tittle = req.query.tittle
+  let jobId = Number(req.query.job)
+
+  console.log(state);
+
+  let querys = {}
+
+  //configuraciones para filtrado
+  let statementService = {}
+
+  if(state){
+    statementService.state = state
+    querys.state = state
+  }
+  if(tittle){
+    statementService.tittle = {[Op.iLike]:`%${tittle}%`}
+    querys.tittle = tittle
+  }
+
+  console.log("11111111111111111111111111111111111");
+  console.log(statementService);
+
+  let statmenteJob = {}
+  if(jobId){
+    statmenteJob.id = jobId
+
+    querys.job = jobId
+
+  }
+
+ 
+
   try {
     let service = await Service.findAll({
+      where: {...statementService},
       limit: page_size,
       offset: offset,
       attributes: { exclude: ['UserId'] },
       include: [
         {
           model: Job,
+          where: {...statmenteJob},
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as:"userId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
+
+        },
+        {
+          model: User,
+          as: "postulantes",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as: "trabajadorId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
           through: { 
             attributes:[]
           }
@@ -48,33 +107,30 @@ const getAllServices = async (req, res)=>{
     });
 
     //contamos el total de paginas
-    const totalCount = await Service.count();
+    const totalCount = await Service.count({
+      where: statementService,
+      include : {
+          model: Job,
+          where: statmenteJob,
+          through: { 
+          attributes:[]
+        }
+      },
+    });
     const totalPages = Math.ceil(totalCount / page_size);
-
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    console.log(totalCount);
     //paginacion
-    let nextPage
-    let previousPage
-    if(page == totalPages && page == 1 || totalCount <= 0){
-      nextPage = null
-      previousPage = null
-    }else if(page == 1){
-      previousPage = null
-      nextPage = `http://${DB_HOST}:${PORT}/service?page=${page+1}&page_size=${page_size}`
-    }else if(page > 1 && page < totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/service?page=${page-1}&page_size=${page_size}`
-      nextPage = `http://${DB_HOST}:${PORT}/service?page=${page+1}&page_size=${page_size}`
-    }else if(page = totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/service?page=${page-1}&page_size=${page_size}`
-      nextPage = null
-    }
+    let paginado = paginacion(page, page_size, totalPages, totalCount, querys)
+
+    //agregando los demas querys
+    
 
 
     return res.status(200).json({
       status: "success",
       message: "Extraccion exitosa",
-      nextPage,
-      previousPage,
-      totalPages,
+      ...paginado,
       result: service,
       
 

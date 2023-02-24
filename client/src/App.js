@@ -11,6 +11,7 @@ import Private from "./authentication/Private";
 import HomePage from "./pages/homePage/HomePage";
 import ServicesPage from "./pages/servicesPage/ServicesPage";
 import UsersPage from "./pages/usersPage/UsersPage";
+import Dashboard from "./pages/AdminDashboard/dashboard";
 
 // Components
 
@@ -43,6 +44,7 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
           <Route exact path="admin/create/job" element={<CreateJob />} />
+          <Route exact path="/dashboard" element={<Dashboard />} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />

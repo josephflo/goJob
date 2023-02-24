@@ -9,8 +9,7 @@ const {createCheckoutHandler,
         allPriceProductHandler} = require("../handlers/stripeHandler")
 
 
-//estas rutas solo son para ver como funciona el api, las rutas funcionales vienen dentro de createservice 
-//actualizarService y deleteService
+//estas rutas solo son para ver como funciona el api, las rutas funcionales vienen dentro de createservice y createjob
 
 router.post("/checkout", createCheckoutHandler) // creas un checkout
 
