@@ -13,6 +13,9 @@ import ServicesPage from "./pages/servicesPage/ServicesPage";
 import UsersPage from "./pages/usersPage/UsersPage";
 
 // Components
+import DetailProfessional from "./components/detailProfessional/DetailProfessional";
+import DetailComun from "./components/detailComun/DetailComun";
+import ModalUser from "./pages/usersPage/modalUser/ModalUser";
 
 // Containers
 import FormContact from "./containers/forms/formContact/FormContact";
@@ -28,6 +31,8 @@ import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import DetailUser from "./components/detailUserCard/DetailUserCard";
+import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
+
 
 
 // Default axios
@@ -63,9 +68,12 @@ function App() {
           <Route exact path="/user/register" element={<FormCreateUser />} />
 
           {/* Pruebas- testeos ***********************************************/}
-          <Route exact path="/users" element={<UsersPage />} />
           <Route path="/job/:id" element={<FilterService />} />
-          <Route path="/detail" element={<DetailUser />} />
+          <Route
+            path="/detail/professional/:id"
+            element={<DetailProfessional />}
+          />
+          <Route path="/formsss" element={<FormCreateProfessional />} />
         </Routes>
       </BrowserRouter>
     </>

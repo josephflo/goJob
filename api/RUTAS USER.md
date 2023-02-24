@@ -99,7 +99,7 @@ put ( http://localhost:3005/user/update )
 
 //Body
 
-//En la propiedad "jobs" agregamos los todos los id de los Jobs
+//En la propiedad "jobs" agregamos los todos los id de los Jobs, no queremos modificar jobs no enviamos ese parametro
 {
 	user:{
 		    firstName: "Cap MODIFY",
@@ -114,6 +114,7 @@ put ( http://localhost:3005/user/update )
 	},
 	jobs: []  
 }
+si queremos eliminar todos los jobs, enviamos array vacio
 ```
 
 "**********************************************************************"

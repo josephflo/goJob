@@ -30,6 +30,7 @@ get ( http://localhost:3005/service?page=1&page_size=5 )
 //Contiene una paginacion
 
 //pueden hacer peticiones con Querys, pueden combiar los filtros a travez de esos querys, si no desean incluir un filtro no envian el query
+//Tambien podemos ordenar el resultado de acuerdo al rating
 
 Ejemplo:
 
@@ -42,9 +43,13 @@ Ejemplo:
     state: "pendiente",
     tittle: "cortinas",
     provincia: "Buenos Aires",
-    ciudad: "random"
- 
+    ciudad: "random",
+
+    orderFecha: "DESC"
 }
+//El "orderFecha" tiene dos posibles valores:
+//  "DESC" : Trae los mas recientes
+// "ASC" : Trae los mas antiguos
 
 //este es un filtro doble, state y job
 //Query

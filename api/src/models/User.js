@@ -60,7 +60,7 @@ const userModel = (sequelize) => {
     },
     rating_promedio: {
         type: DataTypes.FLOAT,
-
+        defaultValue: 0.0
     },
     rating: {
         type: DataTypes.ARRAY(DataTypes.JSON),

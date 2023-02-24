@@ -41,10 +41,14 @@ const serviceModel = (sequelize) => {
         type: DataTypes.INTEGER,
         default: 0,
       },
+      review: {
+        type: DataTypes.TEXT,
+        defaultValue: "none",
+      },
       fecha_publicacion: {
-        type: DataTypes.DATEONLY,
-        defaultValue: sequelize.fn('NOW'),
-        allowNull: false   
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
+        allowNull: false,   
       },
       
       //ubicacion
