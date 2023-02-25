@@ -1,89 +1,90 @@
-import { useSelector } from "react-redux";
-import JobPage from "../../../../pages/jobPage/JobPage";
+import { useState } from "react";
+import { provincias } from "../../../../constants/ciudadesObject";
 
 export default function FormCreateProfessional({
   changeInput,
   handleCloseFormByRol,
+  handleRegister,
 }) {
-  const jobs_ = useSelector((state) => state.jobs);
+  const [provState, setProvState] = useState("");
+  const [ciudState, setCiudState] = useState();
+
+  const handleOption = (e) => {
+    const value = e.target.value;
+    setProvState(value);
+    setCiudState(provincias.find((p) => p.name === value).ciudad);
+  };
+
+  function handleInputChange(e) {
+    changeInput(e);
+    handleOption(e);
+  }
 
   return (
     <>
       <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
-        <div className="text-center pl-8 lg:text-left">
-          <h2 className=" text-2xl font-extrabold text-blue-900">
-            Profesional
-          </h2>
-        </div>
+
         <div className="mt-2">
           <form className="space-y-1">
-            <div className="grid grid-cols-1 lg:gap-3">
-              <h2 className="mt-1 text-xl pl-8 font-extrabold text-blue-900 lg:text-left">
-                Crea un usuario
-              </h2>
-              <div>
-                <label
-                  htmlFor="user"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  User
-                </label>
-                <input
-                  type="text"
-                  name="user"
-                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="User"
-                  onChange={changeInput}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese password
-                </label>
-                <input
-                  type="text"
-                  name="password"
-                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Password"
-                  onChange={changeInput}
-                />
-              </div>
+            <div className="grid grid-cols-1  lg:gap-3">
               <h2 className="mt-4 text-xl pl-8 font-extrabold text-blue-900 lg:text-left">
                 Localidad
               </h2>
-              <div>
-                <label
-                  htmlFor="provincia"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese Provincia
-                </label>
-                <input
-                  type="text"
-                  name="provincia"
-                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Provincia"
-                  onChange={changeInput}
-                />
+              <div className=" flex justify-center">
+                <form action="#">
+                  <label
+                    htmlFor="direccion"
+                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                  >
+                    Ingrese Provincia
+                  </label>
+                  <select
+                    name="provincia"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    onChange={handleInputChange}
+                  >
+                    <option value="" selected>
+                      Selecciona una provincia
+                    </option>
+                    {provincias.map((provincia) => (
+                      <option value={provincia.name} key={provincia.id}>
+                        {provincia.name}
+                      </option>
+                    ))}
+                  </select>
+                  <input type="submit" value="Enviar" />
+                </form>
               </div>
-              <div>
-                <label
-                  htmlFor="city"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese Ciudad
-                </label>
-                <input
-                  type="text"
-                  name="ciudad"
-                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Ciudad"
-                  onChange={changeInput}
-                />
-              </div>
+              {provState.length ? (
+                <div className=" flex justify-center">
+                  <form action="#">
+                    <label
+                      htmlFor="direccion"
+                      className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                    >
+                      Ingrese Ciudad
+                    </label>
+                    <select
+                      name="ciudad"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      onChange={changeInput}
+                    >
+                      <option value="" selected>
+                        Selecciona una ciudad
+                      </option>
+                      {ciudState?.map((provincia) => (
+                        <option value={provincia.name} key={provincia.id}>
+                          {provincia.name}
+                        </option>
+                      ))}
+                    </select>
+                    <input type="submit" value="Enviar" />
+                  </form>
+                </div>
+              ) : (
+                <></>
+              )}
+
               <div>
                 <label
                   htmlFor="direccion"
@@ -114,21 +115,6 @@ export default function FormCreateProfessional({
                   onChange={changeInput}
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="Phone"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese número de telefono
-                </label>
-                <input
-                  type="text"
-                  name="phone"
-                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-sky-700 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Telefono - Cel"
-                  onChange={changeInput}
-                />
-              </div>
             </div>
             <div>
               <button
@@ -138,6 +124,15 @@ export default function FormCreateProfessional({
                 Regresar
               </button>
             </div>
+            <div>
+              <button
+                className="mt-3 w-[80%] py-3 bg-blue-900 text-white"
+                onClick={handleRegister}
+              >
+                Registrarse
+              </button>
+            </div>
+
           </form>
         </div>
       </div>
