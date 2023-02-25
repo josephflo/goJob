@@ -19,7 +19,7 @@ export let getAllServices = (objQuery) => async (dispatch) => {
 
   try {
     let result = await axios.get(`/service?${concatQuery}`);
-    let respuesta = result.data.result;
+    let respuesta = result.data;
 
     console.log("Nueva peticion de services");
 

@@ -7,7 +7,7 @@ const initialState = {
   jobs: [],
   allJobs:[],
   jobById: {},
-  service: [],
+  service: {},
   filterService: [],
   userDetail: {},
   state: "",
@@ -22,7 +22,7 @@ const initialState = {
     state: "pendiente",
     tittle: "",
     orderFecha: "DESC",
-    provincia: false,
+    provincia: "Buenos Aires",
     ciudad: false,
 
     job: false
