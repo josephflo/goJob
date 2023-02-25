@@ -46,10 +46,10 @@ function ServicesPage() {
       </div>
 
       <div className="flex flex-wrap pt-80 w-[50%] mx-auto">
-        {service?.length > 0 ? (
-          <Services services={service} />
+        {service.result && service.result.length > 0 ? (
+          <Services services={service.result} />
         ) : (
-          <p> ups! no hay profesionales </p>
+          <p> ups! no hay servicios </p>
         )}
       </div>
     </div>
