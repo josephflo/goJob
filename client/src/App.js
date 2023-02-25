@@ -24,6 +24,9 @@ import FormCreateUser from "./containers/forms/formCreateUser/FormCreateUser";
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
+import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
+import ModifyUser  from "./pages/AdminDashboard/usermodify";
+
 
 // Default axios
 axios.defaults.baseURL = "http://localhost:3005/";
@@ -44,7 +47,9 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
           <Route exact path="admin/create/job" element={<CreateJob />} />
-          <Route exact path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
+          <Route exact path="/dashboard/users" element={<Dashboard/>} />
+          <Route exact path="/dashboard" element={<DashboardContent />} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
