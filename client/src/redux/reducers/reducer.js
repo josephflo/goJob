@@ -14,6 +14,19 @@ const initialState = {
   job: "",
   provincias: "",
   localidades: "  ",
+
+  //config para filtros
+  configFilterServices: {
+    page: 1,
+    page_size: 20,
+    state: "pendiente",
+    tittle: false,
+    orderFecha: "DESC",
+    provincia: false,
+    ciudad: false,
+
+    job: false
+  }
 };
 
 export default function reducer(state = initialState, action) {
@@ -67,92 +80,17 @@ export default function reducer(state = initialState, action) {
         provincias: action.payload.provincias,
         localidades: action.payload.localidades,
       };
- case ActionTypes.ORDER_BY_NAME:
-   const sort =
-    action.payload === "A-Z"
-      ? state.users.sort(function (a, b) {
-           if (a.firstName  > b.firstName ) {
-             return 1;
-           }          if (b.firstName  > a.firstName) {
-             return -1;
-           }
-           return 0;
-         })
-       : state.users.sort(function (a, b) {
-           if (a.firstName > b.firstName ) {
-             return -1;
-           }
-           if (b.firstName  > a.firstName ) {
-             return 1;
-           }
-           return 0;
-         });
-            return {
-     ...state,
-     users: sort,
-    
-  };
-  case ActionTypes.ORDER_BY_NAME_JOB:
-   const sortJob =
-    action.payload === "A-Z"
-      ? state.jobs.sort(function (a, b) {
-           if ( a.name > b.name) {
-             return 1;
-           }          if ( b.name >  a.name) {
-             return -1;
-           }
-           return 0;
-         })
-       : state.jobs.sort(function (a, b) {
-           if ( a.name > b.name) {
-             return -1;
-           }
-           if ( b.name >  a.name) {
-             return 1;
-           }
-           return 0;
-         });
-            return {
-     ...state,
-     jobs: sortJob,
-    };
-  case ActionTypes.ORDER_BY_ROLE:
-    const allUsers = [...state.allUsers];
-    const sortByRol =
-    action.payload === 'all' 
-    ? allUsers 
-    : allUsers.filter((u) => u.role === action.payload
-    );
-    return{
-      ...state,
-      users: sortByRol,
-     
-    }
-    case ActionTypes.ORDER_BY_STATE:
-    const allUsers2 = [...state.allUsers];
-    const sortByState =
-    action.payload === 'all' 
-    ? allUsers2 
-    : allUsers2.filter((u) => u.state === action.payload
-    );
-    return{
-      ...state,
-      users: sortByState,
-     
-    }
-    case ActionTypes.ORDER_BY_STATE_JOB:
-    const allJob2 = [...state.allJobs];
-    const sortByStateJobs =
-    action.payload === 'all' 
-    ? allJob2 
-    : allJob2.filter((u) => u.state === action.payload
-    );
-    return{
-      ...state,
-      jobs: sortByStateJobs,
-     
-    }
-     default:
-    return state;
+
+    /**************************************** */
+    //FILTROS
+    case ActionTypes.CONFIG_FILTER_SERVICES:
+      return{
+        ...state,
+        configFilterServices: action.payload
+      }
+
+    default:
+      return state;
+  }
 }
-}
+
