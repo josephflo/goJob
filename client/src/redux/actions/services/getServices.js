@@ -22,9 +22,11 @@ export let getAllServices = (objQuery) => async (dispatch) => {
     let respuesta = result.data;
 
     console.log("Nueva peticion de services");
+    console.log(respuesta.result);
 
     return dispatch({ type: ActionTypes.GET_SERVICE, payload: respuesta });
   } catch (error) {
+    console.log("No trajo services");
     throw Error("mallllllllllllll");
   }
 };
