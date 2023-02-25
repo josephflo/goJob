@@ -151,38 +151,24 @@ const getUserID = async (req, res) => {
 const createUser = async (req, res) => {
   let newUser = req.body.user;
   let idJobs = req.body.jobs;
-  let error = false;
-  let nombre = newUser.firstName;
-  let apellido = newUser.lastName;
-  let correo = newUser.email;
 
-
+  let nombre = req.body.firstName;
+  let apellido = req.body.lastName;
+  let correo = req.body.email;
 
   try {
     if(!newUser) throw new Error("Mising data");
     
-    if(req.files?.image){
-      let pwd = await bcrypt.hash(newUser.password, 10);
-      newUser.password = pwd;
-      const result = await uploadImage(req.files.image.tempFilePath);
-      if(result.error) error = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
-      newUser.imageurl = result.secure_url;
-      newUser.imagePublicId = result.public_id;
+  
 
-      await fs.unlink(req.files.image.tempFilePath) // borra el archivo despues de subirlo a cloudinary
-
-    } else {
-      let pwd = await bcrypt.hash(newUser.password, 10);
-      newUser.password = pwd;
-      newUser.imageurl = "sin foto";
-      newUser.imagePublicId = "sin foto";
-    }
+    //ciframos contraseña
+    let pwd = await bcrypt.hash(newUser.password, 10);
+    newUser.password = pwd;
 
     let userCreated = await User.create(newUser);
     delete userCreated.dataValues.password;
 
     await userCreated.addJobs(idJobs);
-
   
     // agregar nuevo usuario a Jobs
     delete userCreated.dataValues.password
@@ -217,6 +203,62 @@ const createUser = async (req, res) => {
     });
   }
 };
+
+const uploadImg = async (req, res)=>{
+  let errors = false;
+
+  let user = req.body.user
+
+
+  let newUser = {}
+
+  console.log("Entra a post img");
+
+  try {
+    //if(req.files.image){
+        const result = await uploadImage(req.files.image.tempFilePath);
+        if(result.error) errors = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
+        newUser.imageurl = result.secure_url;
+        newUser.imagePublicId = result.public_id;
+
+        console.log("*******************************************");
+        console.log(newUser.imageurl);
+        console.log(newUser.imagePublicId);
+
+        await fs.unlink(req.files.image.tempFilePath) // borra el archivo despues de subirlo a cloudinary
+
+
+
+        //extramos el usuario
+        let updateImgUser = await User.update(
+          newUser,
+          {
+            where: {user: user}
+          }
+        )
+
+
+
+        return res.status(200).json({
+          status: "success",
+          message: "Imagen guardada correctamente"
+        })
+      //}
+
+      
+      return res.status(400).json({
+        status: "error",
+        message: "No hay imagen"
+      })
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      error: errors
+    })
+  }
+}
 
 const deleteUser = async (req, res)=>{
   let idUser = req.user.id
@@ -903,6 +945,7 @@ module.exports = {
   getAllUser,
   getUserID,
   createUser,
+  uploadImg,
   deleteUser,
   login,
   decifrarToken,
