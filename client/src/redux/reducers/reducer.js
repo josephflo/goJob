@@ -12,6 +12,19 @@ const initialState = {
   job: "",
   provincias: "",
   localidades: "  ",
+
+  //config para filtros
+  configFilterServices: {
+    page: 1,
+    page_size: 20,
+    state: "pendiente",
+    tittle: false,
+    orderFecha: "DESC",
+    provincia: false,
+    ciudad: false,
+
+    job: false
+  }
 };
 
 export default function reducer(state = initialState, action) {
@@ -63,33 +76,16 @@ export default function reducer(state = initialState, action) {
         provincias: action.payload.provincias,
         localidades: action.payload.localidades,
       };
+
+    /**************************************** */
+    //FILTROS
+    case ActionTypes.CONFIG_FILTER_SERVICES:
+      return{
+        ...state,
+        configFilterServices: action.payload
+      }
+
     default:
       return state;
   }
 }
-// case ActionTypes.ORDER_BY_NAME:
-//   let users_ = state.service.slice();
-//   const sort =
-//     action.payload === "A-Z" || action.payload === "default"
-//       ? users_.sort(function (a, b) {
-//           if (a.tittle > b.tittle) {
-//             return 1;
-//           }
-//           if (b.tittle > a.tittle) {
-//             return -1;
-//           }
-//           return 0;
-//         })
-//       : users_.sort(function (a, b) {
-//           if (a.tittle > b.tittle) {
-//             return -1;
-//           }
-//           if (b.tittle > a.tittle) {
-//             return 1;
-//           }
-//           return 0;
-//         });
-//   return {
-//     ...state,
-//     users2: sort,
-//   };
