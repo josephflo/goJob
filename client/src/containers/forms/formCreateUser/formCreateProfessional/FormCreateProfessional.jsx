@@ -23,6 +23,7 @@ export default function FormCreateProfessional({
   return (
     <>
       <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
+
         <div className="mt-2">
           <form className="space-y-1">
             <div className="grid grid-cols-1  lg:gap-3">
@@ -131,6 +132,7 @@ export default function FormCreateProfessional({
                 Registrarse
               </button>
             </div>
+
           </form>
         </div>
       </div>

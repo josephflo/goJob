@@ -3,6 +3,7 @@ import NavBarPortada from "../../../components/navBar/navBarPortada/NavBarPortad
 import Form from "./components/Form";
 import { userFormBackground } from "../../../assets";
 import FormCreateProfessional from "./formCreateProfessional/FormCreateProfessional";
+
 import Jobs from "./formCreateProfessional/Jobs";
 import { useDispatch, useSelector } from "react-redux";
 import removeItemOnce from "../../../helpers/removeItemOnce";
@@ -11,13 +12,16 @@ import { createUser } from "../../../redux/actions/userActions";
 export default function FormCreateUser() {
   const [input, setInput] = useState({});
   const [inputDay, setInputDay] = useState([]);
+
   const [inputForm, setInputForm] = useState({
     state: false,
     role: "",
   });
 
   const [inputJob, setInputJob] = useState([]);
+
   const dispatch = useDispatch();
+
 
   const jobs_ = useSelector((state) => state.jobs);
 
@@ -48,7 +52,6 @@ export default function FormCreateUser() {
     }
     console.log(inputDay);
   };
-
   const handleOpenFormByRol = () => {
     setInputForm({
       state: true,
@@ -89,6 +92,7 @@ export default function FormCreateUser() {
           <>
             {inputForm.role === "professional" ? (
               <>
+
                 <Jobs
                   jobs={jobs_}
                   handleJob={handleJob}
@@ -102,24 +106,29 @@ export default function FormCreateUser() {
           </>
         )}
         <div className="flex-1 flex flex-col justify-center  px-4 sm:px-6 lg:flex-none">
+
           <div class="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
             <div class="text-center lg-text-left">
               {!inputForm.state ? (
                 <Form
                   changeInput={changeInput}
                   handleOpenFormByRol={handleOpenFormByRol}
+
                   handleRegister={handleRegister}
+
                 />
               ) : (
                 <>
                   {inputForm.role === "professional" ? (
                     <FormCreateProfessional
                       handleCloseFormByRol={handleCloseFormByRol}
+
                       changeInput={changeInput}
                       handleRegister={handleRegister}
                     />
                   ) : (
                     <></>
+
                   )}
                 </>
               )}

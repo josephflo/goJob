@@ -136,6 +136,7 @@ export default function Form({
                   onChange={changeInput}
                 />
               </div>
+
               <div>
                 <label
                   htmlFor="Role"
@@ -154,6 +155,7 @@ export default function Form({
                         class="hidden peer"
                         required
                         onChange={handleInputChange}
+
                       />
                       <label
                         for="hosting-small"

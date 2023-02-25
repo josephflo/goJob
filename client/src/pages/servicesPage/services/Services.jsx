@@ -1,6 +1,6 @@
 import ServiceCard from "../serviceCard/ServiceCard";
 
-export default function Services({ services }) {
+export default function Services({services}) {
   return (
     <>
       {services.map((e, index) => (

@@ -13,18 +13,26 @@ import ServicesPage from "./pages/servicesPage/ServicesPage";
 import UsersPage from "./pages/usersPage/UsersPage";
 
 // Components
+import DetailProfessional from "./components/detailProfessional/DetailProfessional";
+import DetailComun from "./components/detailComun/DetailComun";
+import ModalUser from "./pages/usersPage/modalUser/ModalUser";
 
 // Containers
 import FormContact from "./containers/forms/formContact/FormContact";
 import FormCreateService from "./containers/forms/formCreateService/FormCreateService";
 import CreateJob from "./containers/createJob/CreateJob";
 import FormCreateUser from "./containers/forms/formCreateUser/FormCreateUser";
+import UsersAdmin from './components/DashboardPrueba/UsersAdmin.jsx'
 import FilterService from "./containers/filters/FilterService";
+
 
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
-import DetailUser from "./components/detailUserCard/DetailUserCard";
+import JobAdmin from "./components/DashboardPrueba/JobAdmin";
+import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
+
+
 
 // Default axios
 axios.defaults.baseURL = "http://localhost:3005/";
@@ -44,7 +52,10 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
-          <Route exact path="admin/create/job" element={<CreateJob />} />
+          <Route exact path="admin/jobs/create" element={<CreateJob />} />
+          <Route exact path='admin/users' element={<UsersAdmin/>} />
+          <Route exact path='admin/jobs' element={<JobAdmin/>} />
+
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
@@ -56,9 +67,12 @@ function App() {
           <Route exact path="/user/register" element={<FormCreateUser />} />
 
           {/* Pruebas- testeos ***********************************************/}
-          <Route exact path="/users" element={<UsersPage />} />
           <Route path="/job/:id" element={<FilterService />} />
-          <Route path="/detail" element={<DetailUser />} />
+          <Route
+            path="/detail/professional/:id"
+            element={<DetailProfessional />}
+          />
+          <Route path="/formsss" element={<FormCreateProfessional />} />
         </Routes>
       </BrowserRouter>
     </>
