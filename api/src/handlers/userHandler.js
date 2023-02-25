@@ -8,22 +8,97 @@ const {createPrice, createProduct, updatePrice, deleteProduct} = require("../ser
 const { 
   getDbUser,
   getUserByID,
-  getUserName
+  promedioRating
  } = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
+const { Op, STRING } = require("sequelize");
+const { fechaActual } = require("../helpers/fechaActual");
 
 const getAllUser = async (req, res) => {
   let {name} = req.query
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
 
-  let userTotal
-  try {
-    if(name){
-      userTotal = await getUserName(name, page, page_size)
-    }else{
-      userTotal = await getDbUser(page, page_size);
+  let name = req.query.name
+  let role = req.query.role
+  let job = Number(req.query.job)
+  let provincia = req.query.provincia
+  let ciudad = req.query.ciudad
+  let dias = req.query.dias
+  let horario = req.query.horario
+  let orderRating = req.query.orderRating
+  let orderName = req.query.orderName
+
+  let querys = {}
+
+  //configuraciones para filtrado
+  let statementUser = {
+    state: true
+  }
+  if(name){
+    statementUser[Op.or] =  {
+      firstName: {[Op.iLike]:`%${name}%`},
+      lastName: {[Op.iLike]:`%${name}%`},
+      user: {[Op.iLike]:`%${name}%`}
     }
+    querys.name = name
+  }
+  if(role){
+    statementUser.role = role
+    querys.role = role
+  }
+  if(provincia) {
+    statementUser.provincia = provincia
+    querys.provincia = provincia
+  }
+  if(ciudad) {
+    statementUser.ciudad = ciudad
+    querys.ciudad = ciudad
+  }
+  if(dias) {
+    statementUser.dias = {[Op.contains]: [dias]}
+    querys.dias = dias
+  }
+  if(horario) {
+    statementUser.horario = horario
+    querys.horario = horario
+  }
+
+  //order
+  let stamentOrder = {}
+
+  if(orderRating){
+    stamentOrder.order = [['rating_promedio', orderRating]]
+    querys.orderRating = orderRating
+  }else if(orderName){
+    if(orderName == "ASC" ){
+      stamentOrder.order = [['lastName', 'ASC']]
+      querys.orderName = orderName
+    }
+    else if(orderName == "DESC" ) {
+      stamentOrder.order = [['lastName', 'DESC']]
+      querys.orderName = orderName
+
+    }
+
+  }else{
+    stamentOrder.order = [['rating_promedio', 'DESC']]
+  }
+
+
+
+
+  let statementeJob = {}
+  if(job){
+    statementeJob.id = job
+    querys.job = job
+  }
+  
+
+  try {
+  
+    let userTotal = await getDbUser(page, page_size, querys, statementUser, statementeJob, stamentOrder);
+    
 
     if(!userTotal.result.length) throw Error("Sin resultados")
 
@@ -153,7 +228,26 @@ const createUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res)=>{
+  let idUser = req.user.id
+  try {
 
+    let deleteUser = await User.update(
+      {state: false},
+      {where: {id: idUser}}
+    )
+
+    return res.status(200).json({
+      status: "success",
+      message: "Elimino correctamente el usuario"
+    })
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message
+    })
+  }
+}
 
 const login = async(req, res)=>{
   const userLogin = req.body
@@ -301,33 +395,36 @@ const putUser = async (req, res) => {
     // obtenemos el usuario actual
     let user = await User.findOne({ where: { id: idUser } });
 
-    if (req.files?.image) {
-      // eliminamos la imagen anterior en Cloudinary
-      await deleteImage(user.imagePublicId);
-
-      // cargamos la nueva imagen en Cloudinary
-      const result = await uploadImage(req.files.image.tempFilePath);
-      if (result.error) {
-        return res.status(400).json({
-          status: "error",
-          message: "Error al cargar la imagen",
-        });
-      }
-      putUser.imageurl = result.secure_url;
-      putUser.imagePublicId = result.public_id;
-
-      await fs.unlink(req.files.image.tempFilePath); // borra el archivo despues de subirlo a cloudinary
+    //ciframos contraseña
+    if(putUser.password){
+      let pwd = await bcrypt.hash(putUser.password, 10);
+      putUser.password = pwd
     }
 
-    // ciframos contraseña
-    let pwd = await bcrypt.hash(putUser.password, 10);
-    putUser.password = pwd;
-
-    //actualizamos el usuario
-    await User.update(putUser, { where: { id: idUser } });
+    //actualizamos el user
+    let newUser = await User.update(
+      putUser,
+      {where: {id: idUser}}
+    )
 
     //actualizamos sus Jobs
-    await user.setJobs(jobsUser);
+    let user
+    if(jobsUser){
+      user = await User.findOne({
+        where: {id: idUser}
+      })
+    }
+
+    console.log("+++++++++++++++++++++++++++++++");
+    console.log(jobsUser);
+
+    if(jobsUser && jobsUser.length){
+      await user.setJobs(jobsUser)
+    }else if(jobsUser && jobsUser.length == 0){
+      await user.setJobs([])
+    }
+
+    
 
     return res.status(400).json({
       status: "success",
@@ -478,6 +575,8 @@ const createService = async (req, res) => {
   }
 };
 
+const getAllMyService = async (req, res) => {
+  let idUser = req.user.id;
 
 
 const getAllService = async (req, res) => {
@@ -510,7 +609,7 @@ const getAllService = async (req, res) => {
       ]
     })
 
-    return res.status(400).json({
+    return res.status(200).json({
       status: "error",
       message: "Extraccion exitosa",
       result: allServices
@@ -524,12 +623,16 @@ const getAllService = async (req, res) => {
   }
 };
 
+const actualizarService = async(req, res)=>{
+  let putService = {...req.body};
+  let idUser = req.user.id;
+  let idService = Number(req.params.idService)
 
-const actualizarService = async (req, res) => {
-  const putService = req.body.service;
-  const idUser = req.user.id;
-  const idService = Number(req.params.idService);
-  const putJobs = req.body.jobs;
+  let putJobs = []
+  if(req.body.jobs){
+    putJobs = [...req.body.jobs]
+    delete putService.jobs
+  }
 
   try {
     // actualizamos datos de service
@@ -538,16 +641,17 @@ const actualizarService = async (req, res) => {
       {
         where: {
           id: idService,
-          UserId: idUser
-        },
-        returning: true
+          UserId: idUser  
+        }
       }
-    );
-    
-    // actualizamos relación Service Jobs
-    if (putJobs.length) {
-      const actService = await Service.findOne({ where: { id: idService } });
-      await actService.setJobs(putJobs);
+    )
+    //actualizamos relacion Service Jobs
+    if(putJobs && putJobs.length && req.body.jobs){
+      let actService = await Service.findOne({where: {id: idService}})
+      await actService.setJobs(putJobs)
+    }else if(putJobs && !putJobs.length && req.body.jobs){
+      let actService = await Service.findOne({where: {id: idService}})
+      await actService.setJobs([])
     }
 
     // actualizamos precio del producto en Stripe
@@ -569,7 +673,44 @@ const actualizarService = async (req, res) => {
       message: error.message,
     });
   }
-};
+}
+
+const actualizarStateService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = req.params.idService
+  let activeService = req.body.active
+
+  try {
+    //actualizamos datos de service
+    let serviceState = await Service.update(
+      { active: activeService }, 
+      {
+        where: {
+          id: idService,
+          UserId: idUser  
+        }
+      }
+    )
+
+    if(serviceState[0] == 0){
+      return res.status(400).json({
+        status: "error",
+        message: "No se pudo actualizar",
+      });
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Se actualizo correctamente",
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
 
 const deleteService = async (req, res) => {
   const idUser = req.user.id;
@@ -703,47 +844,87 @@ const elegirTrabajador = async (req, res)=>{
 
 
 
-    return res.status(400).json({
+
+const calificarService = async (req, res)=>{
+  let idUser = req.user.id
+  let idService = Number(req.params.idService)
+  let scoreService = req.body.score
+  let review = req.body.review
+
+  try {
+    let stamentUpdate = {
+      state: "terminado"
+    }
+    if(scoreService) stamentUpdate.score = Number(scoreService)
+    if(review) stamentUpdate.review = review
+
+    //actualizamos el state del service
+    let actStateSer = await Service.update(
+      stamentUpdate,
+      {
+        where: {id: idService, UserId: idUser}
+      }
+    )
+
+    //extraemos la informacion del servicio para el rating
+    let service = await Service.findOne({
+      where: {id: idService},
+      include: {
+        model: User,
+        as: "trabajadorId",
+        attributes:["id","user", "rating"],
+        through: { 
+          attributes:[]
+        }
+      }
+    }) 
+
+    //guardamos en el trabajador su nuevo rating
+    if(scoreService){
+      service.trabajadorId.forEach(async(traba)=>{
+        let trabajador = await User.findOne({
+          where: {id: traba.id}
+        })
+  
+        let newRating = [...trabajador.rating, {
+          idUser,
+          idService,
+          rating: Number(scoreService) || 0,
+          date: fechaActual(),
+          review: review || ""
+        }]
+       
+        //sacamos promedio del rating
+        let promRating = promedioRating(newRating)
+
+        //actualizamos el user
+        let actualizar = await User.update(
+          {
+            rating: newRating,
+            rating_promedio: promRating 
+          },
+          {
+            where: {id: traba.id}
+          }
+        )
+
+      })
+    }
+
+    return res.status(200).json({
       status: "success",
-      message: "Pruebaaaa",
-      service,
-      idTrabajador,
-      idService,
-      idUser,
-      addTraba: addTraba
-    })
+      message: "Calificacion del servicio exitosa"
+    });
+
   } catch (error) {
     return res.status(400).json({
       status: "error",
       message: error.message
-    })
-  }
-}
-
-//rating
-const createRating = async(req, res)=>{
-  let idUser = req.user.id
-  let idUserCalificado = Number(req.query.id)
-  let rating = Number(req.query.rating)
-
-  try {
-    const user1 = await User.findByPk(idUser);
-
-    const newRating = await user1.rateUser(idUserCalificado, rating);
-
-    //si todo sale bien
-    return res.status(400).json({
-      status: "success",
-      message: "Calificacion exitosa",
-      newRating
-    });
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
     });
   }
 }
+
+
 
 
 
@@ -752,6 +933,7 @@ module.exports = {
   getAllUser,
   getUserID,
   createUser,
+  deleteUser,
   login,
   decifrarToken,
   addFriend,
@@ -759,13 +941,13 @@ module.exports = {
   addJob,
   deleteJob,
   getFriends,
-  getAllService,
-  createService,
+  getAllMyService,
+  createServer,
   actualizarService,
   deleteService,
   putUser,
-  createRating,
   postularService,
   deletePostuleService,
-  elegirTrabajador
+  elegirTrabajador,
+  calificarService
 };

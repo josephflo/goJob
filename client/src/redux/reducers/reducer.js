@@ -3,14 +3,30 @@ import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
   users: [],
+  allUsers:[],
   jobs: [],
+  allJobs:[],
   jobById: {},
-  service: [],
-  filter: [],
+  service: {},
+  filterService: [],
+  userDetail: {},
   state: "",
   job: "",
   provincias: "",
   localidades: "  ",
+
+  //config para filtros
+  configFilterServices: {
+    page: 1,
+    page_size: 20,
+    state: "pendiente",
+    tittle: "",
+    orderFecha: "DESC",
+    provincia: "Buenos Aires",
+    ciudad: false,
+
+    job: false
+  }
 };
 
 export default function reducer(state = initialState, action) {
@@ -19,6 +35,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         jobs: action.payload,
+        allJobs: action.payload,
       };
     case ActionTypes.GET_JOB_BY_ID:
       return {
@@ -34,6 +51,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
+        allUsers:action.payload,
       };
     case ActionTypes.GET_SERVICE:
       return {
@@ -41,42 +59,38 @@ export default function reducer(state = initialState, action) {
         service: action.payload,
       };
 
+    case ActionTypes.USER_DETAIL:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
+
+    case ActionTypes.CLEAN_USER_DETAIL:
+      return {
+        ...state,
+        userDetail: {},
+      };
+
     case ActionTypes.FILTER_MODEL:
       return {
         ...state,
-        filter: action.payload.result,
+        filterService: action.payload.result,
         state: action.payload.state,
         job: action.payload.job,
         provincias: action.payload.provincias,
         localidades: action.payload.localidades,
       };
+
+    /**************************************** */
+    //FILTROS
+    case ActionTypes.CONFIG_FILTER_SERVICES:
+      return{
+        ...state,
+        configFilterServices: action.payload
+      }
+
     default:
       return state;
   }
 }
-// case ActionTypes.ORDER_BY_NAME:
-//   let users_ = state.service.slice();
-//   const sort =
-//     action.payload === "A-Z" || action.payload === "default"
-//       ? users_.sort(function (a, b) {
-//           if (a.tittle > b.tittle) {
-//             return 1;
-//           }
-//           if (b.tittle > a.tittle) {
-//             return -1;
-//           }
-//           return 0;
-//         })
-//       : users_.sort(function (a, b) {
-//           if (a.tittle > b.tittle) {
-//             return -1;
-//           }
-//           if (b.tittle > a.tittle) {
-//             return 1;
-//           }
-//           return 0;
-//         });
-//   return {
-//     ...state,
-//     users2: sort,
-//   };
+

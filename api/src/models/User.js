@@ -9,6 +9,10 @@ const userModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
     },
+    state: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -54,6 +58,15 @@ const userModel = (sequelize) => {
             isIn: [['comun', 'professional', 'admin']]
           }
     },
+    rating_promedio: {
+        type: DataTypes.FLOAT,
+        defaultValue: 0.0
+    },
+    rating: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        defaultValue: [],
+    },
+ 
     //si es profesional
     provincia: {
         type: DataTypes.STRING,
@@ -69,6 +82,9 @@ const userModel = (sequelize) => {
     },
     horario: {
         type: DataTypes.STRING,
+    },
+    description: {
+        type: DataTypes.TEXT,
     }
 
   },{timestamps: false });

@@ -10,6 +10,10 @@ const serviceModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true,
       },
+      active: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
       tittle: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,7 +30,7 @@ const serviceModel = (sequelize) => {
         allowNull: false,
       },
       presupuesto: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       // stripepriceId:{
@@ -37,10 +41,14 @@ const serviceModel = (sequelize) => {
         type: DataTypes.INTEGER,
         default: 0,
       },
+      review: {
+        type: DataTypes.TEXT,
+        defaultValue: "none",
+      },
       fecha_publicacion: {
-        type: DataTypes.DATEONLY,
-        defaultValue: sequelize.fn('NOW'),
-        allowNull: false   
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
+        allowNull: false,   
       },
       
       //ubicacion

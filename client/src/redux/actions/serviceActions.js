@@ -39,18 +39,18 @@ export const createService = (input) => {
 export const filterModel = (
   page,
   page_size,
-  state,
-  name,
   job,
-  provincias,
-  localidades
+  state,
+  tittle,
+  provincia,
+  ciudad
 ) => {
   let queries = {};
   if (state) queries.state = state;
-  if (name) queries.name = name;
+  if (tittle) queries.tittle = tittle;
   if (job) queries.job = job;
-  if (provincias) queries.provincias = provincias;
-  if (localidades) queries.localidades = localidades;
+  if (provincia) queries.provincia = provincia;
+  if (ciudad) queries.ciudad = ciudad;
 
   const concatQuery = convertObjToQuery(queries);
 
@@ -63,9 +63,10 @@ export const filterModel = (
       type: ActionTypes.FILTER_MODEL,
       payload: {
         state,
+        tittle,
         job,
-        provincias,
-        localidades,
+        provincia,
+        ciudad,
         result: result.data.result,
       },
     });

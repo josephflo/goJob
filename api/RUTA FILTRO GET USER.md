@@ -10,6 +10,8 @@ get ( http://localhost:3005/user?page=1&page_size=2 )
 Ejemplo
 
 //En este filtro filtramos por name, job, provincia, ciudad, dias, horario
+//tambien podemos ordenar los resultados, por lastName o rating, solo incluir un query de ordenamiento
+
 //Query
 {
     page: 1,
@@ -19,9 +21,18 @@ Ejemplo
     provincia: "Buenos Aires",
     ciudad: "random", 
     dias: "lunes",
-    horario: "tarde"
+    horario: "tarde",
+    role: "comun"
+
+    orderName: "DESC",
+    //    O 
+    orderRating: "ASC"
 
 }
+//los ordenamientos los pueden tener dos valores: 
+    "DESC" : de mayor a menor
+    "ASC" : de menor a mayor
+
 
 //En este filtro filtramos solo por name y ciudad
 //Query

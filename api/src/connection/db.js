@@ -48,16 +48,6 @@ Service.belongsTo(User, {
   as: "userId"
 });
 
-//=>
-// User.hasMany(Service, {
-//   foreignKey: 'idTrabajador',
-//   as: "myTrabajos"
-// });
-// Service.belongsTo(User, {
-//   foreignKey: 'idTrabajador',
-//   as: "trabajadorId"
-// });
-
 User.belongsToMany(Service, {
   through: 'ServiceMyTrabajo',
   foreignKey: 'userId',
@@ -103,7 +93,6 @@ User.belongsToMany(User, {
 //Relacion para el Rating
 User.hasMany(Rating, { as: 'ratings' });
 Rating.belongsTo(Service, { as: 'service' });
-
 
 
 
