@@ -10,7 +10,7 @@ export let getAllServices = (objQuery) => async (dispatch) => {
   if(objQuery.state) queries.state = objQuery.state
   if(objQuery.orderFecha) queries.orderFecha = objQuery.orderFecha
 
-  if(objQuery.tittle) queries.tittle = objQuery.tittle
+  if(objQuery.tittle && objQuery.tittle != "") queries.tittle = objQuery.tittle
   if(objQuery.provincia) queries.provincia = objQuery.provincia
   if(objQuery.ciudad) queries.ciudad = objQuery.ciudad
   if(objQuery.job) queries.job = objQuery.job

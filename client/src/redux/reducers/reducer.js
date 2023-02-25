@@ -20,7 +20,7 @@ const initialState = {
     page: 1,
     page_size: 20,
     state: "pendiente",
-    tittle: false,
+    tittle: "",
     orderFecha: "DESC",
     provincia: false,
     ciudad: false,
