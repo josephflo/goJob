@@ -82,6 +82,9 @@ const userModel = (sequelize) => {
     },
     horario: {
         type: DataTypes.STRING,
+    },
+    description: {
+        type: DataTypes.TEXT,
     }
 
   },{timestamps: false });
