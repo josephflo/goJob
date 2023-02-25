@@ -3,7 +3,9 @@ import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
   users: [],
+  allUsers:[],
   jobs: [],
+  allJobs:[],
   jobById: {},
   service: [],
   filterService: [],
@@ -33,6 +35,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         jobs: action.payload,
+        allJobs: action.payload,
       };
     case ActionTypes.GET_JOB_BY_ID:
       return {
@@ -48,6 +51,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
+        allUsers:action.payload,
       };
     case ActionTypes.GET_SERVICE:
       return {
@@ -89,3 +93,4 @@ export default function reducer(state = initialState, action) {
       return state;
   }
 }
+
