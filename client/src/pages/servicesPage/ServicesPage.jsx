@@ -24,7 +24,7 @@ function ServicesPage() {
   useEffect(()=>{
     dispatch(getJobs())
     dispatch(getAllServices(configFilterServices))
-  }, [])
+  }, [])  
 
   return (
     <div>
