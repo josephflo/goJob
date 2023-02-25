@@ -12,6 +12,8 @@ import people08 from "./people08.svg";
 
 import detailProfile from "./detailProfile.svg";
 
+import userFormBackground from "./userFormBackground.jpg";
+
 export {
   lupa,
   logo,
@@ -24,4 +26,5 @@ export {
   people07,
   people08,
   detailProfile,
+  userFormBackground,
 };
