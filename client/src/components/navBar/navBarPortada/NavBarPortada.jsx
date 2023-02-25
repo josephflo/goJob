@@ -40,6 +40,11 @@ const NavBarPortada = () => {
             Crear Servicio
           </Link>
         </li>
+        <li>
+          <Link to="/user/register" class="py-7 px-3 inline-block">
+            Crear User
+          </Link>
+        </li>
         <div class="py-5">
           {isAuthenticated ? (
             <Link to={"/user/profile"}>
@@ -83,6 +88,11 @@ const NavBarPortada = () => {
         <li>
           <Link to="/create/service" class="py-7 px-3 inline-block">
             Crear Servicio
+          </Link>
+        </li>
+        <li>
+          <Link to="/user/register" class="py-7 px-3 inline-block">
+            Crear User
           </Link>
         </li>
         <div class="py-5">
