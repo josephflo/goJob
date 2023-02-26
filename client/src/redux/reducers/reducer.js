@@ -22,7 +22,7 @@ const initialState = {
   //config para filtros
   configFilterServices: {
     page: 1,
-    page_size: 3,
+    page_size: 15,
     state: "pendiente",
     tittle: "",
     orderFecha: "DESC",

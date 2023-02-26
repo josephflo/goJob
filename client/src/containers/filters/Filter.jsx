@@ -37,7 +37,7 @@ function Filter({ totalPages }) {
 
   // Estados de la paginacion
   const [page, setPage] = useState(1);
-  const [page_size, setPage_size] = useState(3);
+  const [page_size, setPage_size] = useState(15);
 
   // useEffect(() => {
   //   configFilterService({
@@ -242,7 +242,7 @@ function Filter({ totalPages }) {
           totalPages={totalPages}
         />
       </div>
-      <div>
+      {/* <div>
         <select name="select" onChange={fn}>
           <option value="3" selected>
             3
@@ -250,7 +250,7 @@ function Filter({ totalPages }) {
           <option value="5">5</option>
           <option value="7">7</option>
         </select>
-      </div>
+      </div> */}
     </div>
   );
 }
