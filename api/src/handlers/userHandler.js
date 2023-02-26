@@ -1,184 +1,171 @@
-const {Job, Service, User} = require("../connection/db")
+const { Job, Service, User } = require("../connection/db");
 const bcrypt = require("bcrypt");
+<<<<<<< HEAD
 const {uploadImage,deleteImage} = require("../services/cloudinary")
 const fs = require("fs-extra")
 const bienvenidaMail = require('../templatesEmails/singupEmail');
 const {createPrice, createProduct, updatePrice, deleteProduct} = require("../services/stripe")
+=======
+const { uploadImage } = require("../services/cloudinary");
+const fs = require("fs-extra");
+const bienvenidaMail = require("../templatesEmails/singupEmail");
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
-const { 
+const {
   getDbUser,
   getUserByID,
-  promedioRating
- } = require("../controllers/userController");
+  promedioRating,
+} = require("../controllers/userController");
 const { createToken } = require("../services/jwt");
 const { Op, STRING } = require("sequelize");
 const { fechaActual } = require("../helpers/fechaActual");
 
 const getAllUser = async (req, res) => {
+<<<<<<< HEAD
   let {name} = req.query
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
+=======
+  let page = Number(req.query.page || 1);
+  let page_size = Number(req.query.page_size || 15);
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
-  let name = req.query.name
-  let role = req.query.role
-  let job = Number(req.query.job)
-  let provincia = req.query.provincia
-  let ciudad = req.query.ciudad
-  let dias = req.query.dias
-  let horario = req.query.horario
-  let orderRating = req.query.orderRating
-  let orderName = req.query.orderName
+  let name = req.query.name;
+  let role = req.query.role;
+  let job = Number(req.query.job);
+  let provincia = req.query.provincia;
+  let ciudad = req.query.ciudad;
+  let dias = req.query.dias;
+  let horario = req.query.horario;
+  let orderRating = req.query.orderRating;
+  let orderName = req.query.orderName;
 
-  let querys = {}
+  let querys = {};
 
   //configuraciones para filtrado
   let statementUser = {
-    state: true
+    state: true,
+  };
+  if (name) {
+    statementUser[Op.or] = {
+      firstName: { [Op.iLike]: `%${name}%` },
+      lastName: { [Op.iLike]: `%${name}%` },
+      user: { [Op.iLike]: `%${name}%` },
+    };
+    querys.name = name;
   }
-  if(name){
-    statementUser[Op.or] =  {
-      firstName: {[Op.iLike]:`%${name}%`},
-      lastName: {[Op.iLike]:`%${name}%`},
-      user: {[Op.iLike]:`%${name}%`}
-    }
-    querys.name = name
+  if (role) {
+    statementUser.role = role;
+    querys.role = role;
   }
-  if(role){
-    statementUser.role = role
-    querys.role = role
+  if (provincia) {
+    statementUser.provincia = provincia;
+    querys.provincia = provincia;
   }
-  if(provincia) {
-    statementUser.provincia = provincia
-    querys.provincia = provincia
+  if (ciudad) {
+    statementUser.ciudad = ciudad;
+    querys.ciudad = ciudad;
   }
-  if(ciudad) {
-    statementUser.ciudad = ciudad
-    querys.ciudad = ciudad
+  if (dias) {
+    statementUser.dias = { [Op.contains]: [dias] };
+    querys.dias = dias;
   }
-  if(dias) {
-    statementUser.dias = {[Op.contains]: [dias]}
-    querys.dias = dias
-  }
-  if(horario) {
-    statementUser.horario = horario
-    querys.horario = horario
+  if (horario) {
+    statementUser.horario = horario;
+    querys.horario = horario;
   }
 
   //order
-  let stamentOrder = {}
+  let stamentOrder = {};
 
-  if(orderRating){
-    stamentOrder.order = [['rating_promedio', orderRating]]
-    querys.orderRating = orderRating
-  }else if(orderName){
-    if(orderName == "ASC" ){
-      stamentOrder.order = [['lastName', 'ASC']]
-      querys.orderName = orderName
+  if (orderRating) {
+    stamentOrder.order = [["rating_promedio", orderRating]];
+    querys.orderRating = orderRating;
+  } else if (orderName) {
+    if (orderName == "ASC") {
+      stamentOrder.order = [["lastName", "ASC"]];
+      querys.orderName = orderName;
+    } else if (orderName == "DESC") {
+      stamentOrder.order = [["lastName", "DESC"]];
+      querys.orderName = orderName;
     }
-    else if(orderName == "DESC" ) {
-      stamentOrder.order = [['lastName', 'DESC']]
-      querys.orderName = orderName
-
-    }
-
-  }else{
-    stamentOrder.order = [['rating_promedio', 'DESC']]
+  } else {
+    stamentOrder.order = [["rating_promedio", "DESC"]];
   }
 
-
-
-
-  let statementeJob = {}
-  if(job){
-    statementeJob.id = job
-    querys.job = job
+  let statementeJob = {};
+  if (job) {
+    statementeJob.id = job;
+    querys.job = job;
   }
-  
 
   try {
-  
-    let userTotal = await getDbUser(page, page_size, querys, statementUser, statementeJob, stamentOrder);
-    
+    let userTotal = await getDbUser(
+      page,
+      page_size,
+      querys,
+      statementUser,
+      statementeJob,
+      stamentOrder
+    );
 
-    if(!userTotal.result.length) throw Error("Sin resultados")
-
-   
+    if (!userTotal.result.length) throw Error("Sin resultados");
 
     //si todo salio bien
     return res.status(200).json({
       status: "success",
       message: "Extraccion exitosa",
-      ...userTotal
-
+      ...userTotal,
     });
-
   } catch (error) {
     return res.status(404).json({
       status: "error",
-      message: error.message
+      message: error.message,
     });
   }
 };
-
 
 const getUserID = async (req, res) => {
   const id = req.params.id;
   let userTotal;
 
   try {
-    if (!id) throw Error("Mising data")
+    if (!id) throw Error("Mising data");
 
     //extraemos datos y comprobamos si hay datos
     userTotal = await getUserByID(id);
-    
-   
+
     //si todo salio bien
     return res.status(200).json({
       status: "success",
       message: "Extraccion exitosa",
-      result: userTotal
+      result: userTotal,
     });
-
   } catch (error) {
     return res.status(404).json({
       status: "error",
-      message: error.message
+      message: error.message,
     });
   }
-
 };
-
-
 
 const createUser = async (req, res) => {
   let newUser = req.body.user;
   let idJobs = req.body.jobs;
-  let error = false;
+
+  // let nombre = req.body.firstName;
+  // let apellido = req.body.lastName;
+  // let correo = req.body.email;
   let nombre = newUser.firstName;
   let apellido = newUser.lastName;
   let correo = newUser.email;
 
-
-
   try {
-    if(!newUser) throw new Error("Mising data");
-    
-    if(req.files?.image){
-      let pwd = await bcrypt.hash(newUser.password, 10);
-      newUser.password = pwd;
-      const result = await uploadImage(req.files.image.tempFilePath);
-      if(result.error) error = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
-      newUser.imageurl = result.secure_url;
-      newUser.imagePublicId = result.public_id;
+    if (!newUser) throw new Error("Mising data");
 
-      await fs.unlink(req.files.image.tempFilePath) // borra el archivo despues de subirlo a cloudinary
-
-    } else {
-      let pwd = await bcrypt.hash(newUser.password, 10);
-      newUser.password = pwd;
-      newUser.imageurl = "sin foto";
-      newUser.imagePublicId = "sin foto";
-    }
+    //ciframos contraseña
+    let pwd = await bcrypt.hash(newUser.password, 10);
+    newUser.password = pwd;
 
     let userCreated = await User.create(newUser);
     delete userCreated.dataValues.password;
@@ -193,23 +180,22 @@ const createUser = async (req, res) => {
 
     await userCreated.addJobs(idJobs);
 
-  
     // agregar nuevo usuario a Jobs
-    delete userCreated.dataValues.password
+    delete userCreated.dataValues.password;
 
     //mandomos email de bienvenida
     bienvenidaMail(nombre, apellido, correo);
 
     //verificamos si agregamos Jobs
-    let jobs
-    let jobId
-    if(idJobs.length){
-      jobs = await userCreated.addJobs(idJobs)
-    }else{
+    let jobs;
+    let jobId;
+    if (idJobs.length) {
+      jobs = await userCreated.addJobs(idJobs);
+    } else {
       return res.status(200).json({
         status: "success",
         message: "Registro exitoso sin Jobs",
-        user: userCreated
+        user: userCreated,
       });
     }
     return res.status(200).json({
@@ -217,112 +203,169 @@ const createUser = async (req, res) => {
       message: "Usuario creado correctamente",
       result: userCreated,
       jobs: "Jobs agregados correctamente",
-      error: error // Agregamos la variable de estado a la respuesta
+      error: error, // Agregamos la variable de estado a la respuesta
     });
   } catch (error) {
     return res.status(404).json({
       status: "error",
+      user: newUser,
       message: error.message,
-      error: error || true // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
+      error: error || true, // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
     });
   }
 };
 
-const deleteUser = async (req, res)=>{
-  let idUser = req.user.id
-  try {
+const uploadImg = async (req, res) => {
+  let errors = false;
 
-    let deleteUser = await User.update(
-      {state: false},
-      {where: {id: idUser}}
-    )
+  let user = req.body.user;
+
+  let newUser = {};
+
+  console.log("Entra a post img");
+
+  try {
+    //if(req.files.image){
+    const result = await uploadImage(req.files.image.tempFilePath);
+    if (result.error) errors = true; // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
+    newUser.imageurl = result.secure_url;
+    newUser.imagePublicId = result.public_id;
+
+    console.log("*******************************************");
+    console.log(newUser.imageurl);
+    console.log(newUser.imagePublicId);
+
+    await fs.unlink(req.files.image.tempFilePath); // borra el archivo despues de subirlo a cloudinary
+
+    //extramos el usuario
+    let updateImgUser = await User.update(newUser, {
+      where: { user: user },
+    });
 
     return res.status(200).json({
       status: "success",
-      message: "Elimino correctamente el usuario"
-    })
+      message: "Imagen guardada correctamente",
+    });
+    //}
+
+    return res.status(400).json({
+      status: "error",
+      message: "No hay imagen",
+    });
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
-    })
+      message: error.message,
+      error: errors,
+    });
   }
-}
+};
 
-const login = async(req, res)=>{
-  const userLogin = req.body
+const deleteUser = async (req, res) => {
+  let idUser = req.user.id;
   try {
-    if(!userLogin.user || !userLogin.password) throw new Error("Mising data")
+    let deleteUser = await User.update(
+      { state: false },
+      { where: { id: idUser } }
+    );
+
+    return res.status(200).json({
+      status: "success",
+      message: "Elimino correctamente el usuario",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+const login = async (req, res) => {
+  const userLogin = req.body;
+  try {
+    if (!userLogin.user || !userLogin.password) throw new Error("Mising data");
     //verificamos si existe el usuario
     let resultUser = await User.findOne({
-      where: {user: userLogin.user},
+      where: { user: userLogin.user },
       include: [
         {
           model: User,
-          as: 'friends',
-          attributes: { exclude: ['password', 'role'] },
-          through: { 
-            attributes:[]
-          }
+          as: "friends",
+          attributes: { exclude: ["password", "role"] },
+          through: {
+            attributes: [],
+          },
         },
         {
           model: Job,
-          through: { 
-            attributes:[]
-          }
+          through: {
+            attributes: [],
+          },
         },
         {
           model: Service,
           as: "myServices",
-          include:[         
+          include: [
             {
               model: User,
               as: "postulantes",
-              attributes:["id", "firstName", "lastName", "user", "email", "phone"],
-              through: { 
-                attributes:[]
+              attributes: [
+                "id",
+                "firstName",
+                "lastName",
+                "user",
+                "email",
+                "phone",
+              ],
+              through: {
+                attributes: [],
               },
-
             },
             {
               model: User,
               as: "trabajadorId",
-              attributes:["id", "firstName", "lastName", "user", "email", "phone"],
-              through: { 
-                attributes:[]
-              }
-            }
-          ]
+              attributes: [
+                "id",
+                "firstName",
+                "lastName",
+                "user",
+                "email",
+                "phone",
+              ],
+              through: {
+                attributes: [],
+              },
+            },
+          ],
         },
         {
           model: Service,
           as: "myTrabajos",
-          through: { 
-            attributes:[]
-          }
-        }   
-  
+          through: {
+            attributes: [],
+          },
+        },
       ],
-    })
-    if(!resultUser) throw new Error("El usuario no existe")
-  
+    });
+    if (!resultUser) throw new Error("El usuario no existe");
+
     //comprobamos contraseña
     let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
-    if(!pwd)throw new Error("Contraseña incorrecta")
-  
-    //creamos token
-    let token = createToken(resultUser.dataValues)
-  
-    //eliminamos contraseña
-    delete resultUser.dataValues.password
+    if (!pwd) throw new Error("Contraseña incorrecta");
 
+    //creamos token
+    let token = createToken(resultUser.dataValues);
+
+    //eliminamos contraseña
+    delete resultUser.dataValues.password;
 
     //si todo salio bien
     return res.status(200).json({
       status: "success",
       message: "Login correctamente",
       result: resultUser,
-      token: token
+      token: token,
     });
   } catch (error) {
     return res.status(400).json({
@@ -330,18 +373,18 @@ const login = async(req, res)=>{
       message: error.message,
     });
   }
-}
+};
 //job
-const addJob = async(req, res)=>{
-  let idUser = req.user.id
-  let idJob = req.body.id
+const addJob = async (req, res) => {
+  let idUser = req.user.id;
+  let idJob = req.body.id;
 
   try {
-    if(!idJob) throw new Error("Mising data")
+    if (!idJob) throw new Error("Mising data");
 
     //traemos el model para agregar
-    let user = await User.findOne({where: {id: idUser}})
-    await user.addJob(idJob)
+    let user = await User.findOne({ where: { id: idUser } });
+    await user.addJob(idJob);
 
     // let job = await Job.findOne({where: {id: idJob}})
     // await job.addUser(idUser)
@@ -352,7 +395,6 @@ const addJob = async(req, res)=>{
       idUser,
       idJob,
       user,
-  
     });
   } catch (error) {
     return res.status(400).json({
@@ -360,22 +402,22 @@ const addJob = async(req, res)=>{
       message: error.message,
     });
   }
-}
+};
 
-const deleteJob = async(req, res)=>{
-  let idUser = req.user.id
-  let idJob = req.body.id
+const deleteJob = async (req, res) => {
+  let idUser = req.user.id;
+  let idJob = req.body.id;
 
   try {
-    if(!idJob) throw new Error("Mising data")
+    if (!idJob) throw new Error("Mising data");
 
     //traemos el model para agregar
-    let user = await User.findOne({where: {id: idUser}})
-    await user.removeJob(idJob)
+    let user = await User.findOne({ where: { id: idUser } });
+    await user.removeJob(idJob);
 
     return res.status(400).json({
       status: "success",
-      message: "Job eliminado correctamente"
+      message: "Job eliminado correctamente",
     });
   } catch (error) {
     return res.status(400).json({
@@ -383,48 +425,50 @@ const deleteJob = async(req, res)=>{
       message: error.message,
     });
   }
-}
-
+};
 
 const putUser = async (req, res) => {
   let idUser = req.user.id;
   let putUser = req.body.user;
   let jobsUser = req.body.jobs;
 
+<<<<<<< HEAD
+const putUser = async (req, res) => {
+  let idUser = req.user.id;
+  let putUser = req.body.user;
+  let jobsUser = req.body.jobs;
+
+=======
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
   try {
     // obtenemos el usuario actual
     let user = await User.findOne({ where: { id: idUser } });
 
     //ciframos contraseña
-    if(putUser.password){
+    if (putUser.password) {
       let pwd = await bcrypt.hash(putUser.password, 10);
-      putUser.password = pwd
+      putUser.password = pwd;
     }
 
     //actualizamos el user
-    let newUser = await User.update(
-      putUser,
-      {where: {id: idUser}}
-    )
+    let newUser = await User.update(putUser, { where: { id: idUser } });
 
     //actualizamos sus Jobs
-    let user
-    if(jobsUser){
+    let user;
+    if (jobsUser) {
       user = await User.findOne({
-        where: {id: idUser}
-      })
+        where: { id: idUser },
+      });
     }
 
     console.log("+++++++++++++++++++++++++++++++");
     console.log(jobsUser);
 
-    if(jobsUser && jobsUser.length){
-      await user.setJobs(jobsUser)
-    }else if(jobsUser && jobsUser.length == 0){
-      await user.setJobs([])
+    if (jobsUser && jobsUser.length) {
+      await user.setJobs(jobsUser);
+    } else if (jobsUser && jobsUser.length == 0) {
+      await user.setJobs([]);
     }
-
-    
 
     return res.status(400).json({
       status: "success",
@@ -437,102 +481,104 @@ const putUser = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
 
 
 
 
 const decifrarToken = async(req, res)=>{
+=======
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
+const decifrarToken = async (req, res) => {
   return res.status(200).json({
     status: "success",
-    token: req.user
-  })
-}
+    token: req.user,
+  });
+};
 //amigos
-const addFriend = async(req, res)=>{
+const addFriend = async (req, res) => {
   //extraemos datos
-  let idUser = req.user.id
-  let idFriend = req.body.idFriend
-  
-  try {
-    if(!idUser || !idFriend) throw new Error("Mising data")
+  let idUser = req.user.id;
+  let idFriend = req.body.idFriend;
 
-    let user = await User.findOne({where: {id: idUser}})
-    await user.addFriend(idFriend)
+  try {
+    if (!idUser || !idFriend) throw new Error("Mising data");
+
+    let user = await User.findOne({ where: { id: idUser } });
+    await user.addFriend(idFriend);
 
     return res.status(200).json({
       status: "success",
       message: `Amigo "${user.dataValues.user}" agregado correctamente`,
-    })
+    });
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-  
-}
+};
 
-const deleteFriend = async(req, res)=>{
+const deleteFriend = async (req, res) => {
   //extraemos datos
-  let idUser = req.user.id
-  let idFriend = req.body.idFriend
-  
-  try {
-    if(!idUser || !idFriend) throw new Error("Mising data")
+  let idUser = req.user.id;
+  let idFriend = req.body.idFriend;
 
-    let user = await User.findOne({where: {id: idUser}})
-    await user.removeFriend(idFriend)
+  try {
+    if (!idUser || !idFriend) throw new Error("Mising data");
+
+    let user = await User.findOne({ where: { id: idUser } });
+    await user.removeFriend(idFriend);
 
     return res.status(200).json({
       status: "success",
       message: `Amigo "${user.dataValues.user}" eliminado correctamente`,
-    })
+    });
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 
-const getFriends = async(req, res)=>{
-  let idUser = req.user.id
+const getFriends = async (req, res) => {
+  let idUser = req.user.id;
 
   try {
     let user = await User.findOne({
-      where: {id: idUser},
+      where: { id: idUser },
       include: {
         model: User,
-        as: 'friends',
-        attributes: { exclude: ['password', 'role'] },
-        through: { 
-          attributes:[]
-        }
-      }
-    })
+        as: "friends",
+        attributes: { exclude: ["password", "role"] },
+        through: {
+          attributes: [],
+        },
+      },
+    });
 
-    if(!user.dataValues.friends.length){
+    if (!user.dataValues.friends.length) {
       return res.status(200).json({
         status: "success",
         message: `No se encontraron amigos de este usuario`,
-        result: user.dataValues.friends
-      })
+        result: user.dataValues.friends,
+      });
     }
-
 
     return res.status(200).json({
       status: "success",
       message: `Extraccion de amigos exitosa`,
-      result: user.dataValues.friends
-    })
+      result: user.dataValues.friends,
+    });
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
-    })
+      message: error.message,
+    });
   }
-}
+};
 //service
 const createService = async (req, res) => {
   let newService = req.body;
@@ -549,6 +595,7 @@ const createService = async (req, res) => {
     const priceIdStripe = price.id;
 
     //agregamos servicio
+<<<<<<< HEAD
     let service = await getUser.createMyService({
       title: newService.title,
       state: newService.state,
@@ -561,6 +608,12 @@ const createService = async (req, res) => {
       JobId: newService.jobs,
       UserId: getUser.id, // Agregamos el ID del usuario al servicio
     });
+=======
+    let service = await await getUser.createMyService(newService);
+
+    //vinculamos el servicio con los jobs
+    let addJob = await service.addJobs(newService.jobs);
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
     return res.status(200).json({
       status: "success",
@@ -584,34 +637,39 @@ const getAllService = async (req, res) => {
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
     let allServices = await getUser.getMyServices({
+<<<<<<< HEAD
       attributes: { exclude: ['UserId'] },
+=======
+      //where: {state},
+      attributes: { exclude: ["UserId"] },
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
       include: [
         {
           model: Job,
-          through: { 
-            attributes:[]
-          }
+          through: {
+            attributes: [],
+          },
         },
         {
           model: User,
-          as:"userId",
-          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
-
+          as: "userId",
+          attributes: ["id", "firstName", "lastName", "user", "email", "phone"],
         },
         {
           model: User,
           as: "postulantes",
-          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
-          through: { 
-            attributes:[]
-          }
-        }
-      ]
-    })
+          attributes: ["id", "firstName", "lastName", "user", "email", "phone"],
+          through: {
+            attributes: [],
+          },
+        },
+      ],
+    });
 
     return res.status(200).json({
       status: "error",
       message: "Extraccion exitosa",
+<<<<<<< HEAD
       result: allServices
     })
 
@@ -666,6 +724,9 @@ const actualizarService = async(req, res)=>{
         service: updatedService,
         price: price
       }
+=======
+      result: allServices,
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
     });
   } catch (error) {
     return res.status(400).json({
@@ -673,26 +734,66 @@ const actualizarService = async(req, res)=>{
       message: error.message,
     });
   }
-}
+};
 
-const actualizarStateService = async (req, res)=>{
-  let idUser = req.user.id
-  let idService = req.params.idService
-  let activeService = req.body.active
+const actualizarService = async (req, res) => {
+  let putService = { ...req.body };
+  let idUser = req.user.id;
+  let idService = Number(req.params.idService);
+
+  let putJobs = [];
+  if (req.body.jobs) {
+    putJobs = [...req.body.jobs];
+    delete putService.jobs;
+  }
+
+  try {
+    //actualizamos datos de service
+    let service = await Service.update(putService, {
+      where: {
+        id: idService,
+        UserId: idUser,
+      },
+    });
+    //actualizamos relacion Service Jobs
+    if (putJobs && putJobs.length && req.body.jobs) {
+      let actService = await Service.findOne({ where: { id: idService } });
+      await actService.setJobs(putJobs);
+    } else if (putJobs && !putJobs.length && req.body.jobs) {
+      let actService = await Service.findOne({ where: { id: idService } });
+      await actService.setJobs([]);
+    }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Se actualizo correctamente",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+
+const actualizarStateService = async (req, res) => {
+  let idUser = req.user.id;
+  let idService = req.params.idService;
+  let activeService = req.body.active;
 
   try {
     //actualizamos datos de service
     let serviceState = await Service.update(
-      { active: activeService }, 
+      { active: activeService },
       {
         where: {
           id: idService,
-          UserId: idUser  
-        }
+          UserId: idUser,
+        },
       }
-    )
+    );
 
-    if(serviceState[0] == 0){
+    if (serviceState[0] == 0) {
       return res.status(400).json({
         status: "error",
         message: "No se pudo actualizar",
@@ -703,16 +804,16 @@ const actualizarStateService = async (req, res)=>{
       status: "success",
       message: "Se actualizo correctamente",
     });
-
   } catch (error) {
     return res.status(400).json({
       status: "error",
       message: error.message,
     });
   }
-}
+};
 
 const deleteService = async (req, res) => {
+<<<<<<< HEAD
   const idUser = req.user.id;
   const idService = Number(req.params.idService);
 
@@ -743,6 +844,21 @@ const deleteService = async (req, res) => {
         message: "El service no existe"
       });
     }
+=======
+  let idUser = req.user.id;
+  let idService = Number(req.params.idService);
+
+  try {
+    let deleteService = await Service.destroy({
+      where: { id: idService, UserId: idUser },
+    });
+
+    //si todo sale bien
+    return res.status(200).json({
+      status: "success",
+      message: "Service Eliminado correctamente",
+    });
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
   } catch (error) {
     return res.status(400).json({
       status: "error",
@@ -750,6 +866,7 @@ const deleteService = async (req, res) => {
     });
   }
 };
+<<<<<<< HEAD
 
 
 
@@ -757,18 +874,24 @@ const deleteService = async (req, res) => {
 const postularService = async (req, res)=>{
   let idUser = req.user.id
   let idService = req.params.idService
+=======
+
+const postularService = async (req, res) => {
+  let idUser = req.user.id;
+  let idService = req.params.idService;
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
   try {
-    if (isNaN(idService)){
+    if (isNaN(idService)) {
       return res.status(400).json({
         status: "error",
-        message: "Datos de entrada invalidos"
+        message: "Datos de entrada invalidos",
       });
     }
 
-    const service = await Service.findOne({where: {id: idService}});
+    const service = await Service.findOne({ where: { id: idService } });
 
-    let postulate = await service.addPostulante(idUser)
+    let postulate = await service.addPostulante(idUser);
 
     //si todo salio bien
     return res.status(200).json({
@@ -776,163 +899,176 @@ const postularService = async (req, res)=>{
       message: "Postulo correctamente ",
       idPostulantes: service.dataValues.idPostulantes,
     });
-
   } catch (error) {
     return res.status(400).json({
       status: "error",
       message: error.message,
     });
   }
-}
+};
 
-const deletePostuleService = async (req, res)=>{
-  let idUser = req.user.id
-  let idService = req.params.idService
+const deletePostuleService = async (req, res) => {
+  let idUser = req.user.id;
+  let idService = req.params.idService;
 
   try {
-    if (isNaN(idService)){
+    if (isNaN(idService)) {
       return res.status(400).json({
         status: "error",
-        message: "Datos de entrada invalidos"
+        message: "Datos de entrada invalidos",
       });
     }
 
     const service = await Service.findByPk(idService);
 
-    let postulate = await service.removePostulante(idUser)
+    let postulate = await service.removePostulante(idUser);
 
     //si todo salio bien
     return res.status(200).json({
       status: "success",
-      message: "Elimino la postulacion correctamente "
+      message: "Elimino la postulacion correctamente ",
     });
-
   } catch (error) {
     return res.status(400).json({
       status: "error",
       message: error.message,
-      postulate
+      postulate,
     });
   }
-}
+};
 
-const elegirTrabajador = async (req, res)=>{
-  let idUser = req.user.id
+const elegirTrabajador = async (req, res) => {
+  let idUser = req.user.id;
 
+<<<<<<< HEAD
   let idTrabajador = Number(req.query.trabajador)
   let idService = Number(req.query.service)
+=======
+  let idTrabajador = Number(req.body.trabajador);
+  let idService = Number(req.body.service);
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
   try {
-    if(!idTrabajador || !idService)throw Error("Mising data")
+    if (!idTrabajador || !idService) throw Error("Mising data");
 
     //elegimos el trabajador
-    let service = await Service.findOne({where: {id: idService, UserId: idUser}})
-    let addTraba = await service.addTrabajadorId(idTrabajador)
+    let service = await Service.findOne({
+      where: { id: idService, UserId: idUser },
+    });
+    let addTraba = await service.addTrabajadorId(idTrabajador);
 
     //eliminamos al trabajdor de la lista postulantes
-    let deletePostu = await service.removePostulante(idTrabajador)
+    let deletePostu = await service.removePostulante(idTrabajador);
 
     //actualizamos el state del service
     let actStateSer = await Service.update(
       {
-        state: "proceso"
+        state: "proceso",
       },
       {
-        where: {id: idService, UserId: idUser}
+        where: { id: idService, UserId: idUser },
       }
-    )
+    );
 
+<<<<<<< HEAD
 
+=======
+    //Si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Se agrego trabjador al servicio exitosamente",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+};
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
-
-const calificarService = async (req, res)=>{
-  let idUser = req.user.id
-  let idService = Number(req.params.idService)
-  let scoreService = req.body.score
-  let review = req.body.review
+const calificarService = async (req, res) => {
+  let idUser = req.user.id;
+  let idService = Number(req.params.idService);
+  let scoreService = req.body.score;
+  let review = req.body.review;
 
   try {
     let stamentUpdate = {
-      state: "terminado"
-    }
-    if(scoreService) stamentUpdate.score = Number(scoreService)
-    if(review) stamentUpdate.review = review
+      state: "terminado",
+    };
+    if (scoreService) stamentUpdate.score = Number(scoreService);
+    if (review) stamentUpdate.review = review;
 
     //actualizamos el state del service
-    let actStateSer = await Service.update(
-      stamentUpdate,
-      {
-        where: {id: idService, UserId: idUser}
-      }
-    )
+    let actStateSer = await Service.update(stamentUpdate, {
+      where: { id: idService, UserId: idUser },
+    });
 
     //extraemos la informacion del servicio para el rating
     let service = await Service.findOne({
-      where: {id: idService},
+      where: { id: idService },
       include: {
         model: User,
         as: "trabajadorId",
-        attributes:["id","user", "rating"],
-        through: { 
-          attributes:[]
-        }
-      }
-    }) 
+        attributes: ["id", "user", "rating"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
 
     //guardamos en el trabajador su nuevo rating
-    if(scoreService){
-      service.trabajadorId.forEach(async(traba)=>{
+    if (scoreService) {
+      service.trabajadorId.forEach(async (traba) => {
         let trabajador = await User.findOne({
-          where: {id: traba.id}
-        })
-  
-        let newRating = [...trabajador.rating, {
-          idUser,
-          idService,
-          rating: Number(scoreService) || 0,
-          date: fechaActual(),
-          review: review || ""
-        }]
-       
+          where: { id: traba.id },
+        });
+
+        let newRating = [
+          ...trabajador.rating,
+          {
+            idUser,
+            idService,
+            rating: Number(scoreService) || 0,
+            date: fechaActual(),
+            review: review || "",
+          },
+        ];
+
         //sacamos promedio del rating
-        let promRating = promedioRating(newRating)
+        let promRating = promedioRating(newRating);
 
         //actualizamos el user
         let actualizar = await User.update(
           {
             rating: newRating,
-            rating_promedio: promRating 
+            rating_promedio: promRating,
           },
           {
-            where: {id: traba.id}
+            where: { id: traba.id },
           }
-        )
-
-      })
+        );
+      });
     }
 
     return res.status(200).json({
       status: "success",
-      message: "Calificacion del servicio exitosa"
+      message: "Calificacion del servicio exitosa",
     });
-
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
+      message: error.message,
     });
   }
-}
-
-
-
-
-
+};
 
 module.exports = {
   getAllUser,
   getUserID,
   createUser,
+  uploadImg,
   deleteUser,
   login,
   decifrarToken,
@@ -949,5 +1085,10 @@ module.exports = {
   postularService,
   deletePostuleService,
   elegirTrabajador,
+<<<<<<< HEAD
   calificarService
 };
+=======
+  calificarService,
+};
+>>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e

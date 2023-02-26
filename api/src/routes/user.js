@@ -19,6 +19,8 @@ router.get("/token", auth, userHandlers.decifrarToken);
 
 /****** POST ****** */
 router.post("/register", userHandlers.createUser);//
+router.post("/register/img", userHandlers.uploadImg);//
+
 router.post("/service", auth, userHandlers.createServer)//
 
 router.post("/login", userHandlers.login)//

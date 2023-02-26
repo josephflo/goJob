@@ -34,6 +34,18 @@ post( http://localhost:3005/user/register )
     },
 	jobs: []  
 }
+
+//subir imagen 
+post( http://localhost:3005/user/register/img )
+
+//enviamos la imagen por form data
+
+{
+  user: mismo nombre que el register
+  image: (file)
+}
+
+
 ```
 
 post( http://localhost:3005/user/login )

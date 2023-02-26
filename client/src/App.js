@@ -85,6 +85,9 @@ function App() {
             element={<DetailProfessional />}
           />
           <Route path="/formsss" element={<FormCreateProfessional />} />
+
+          <Route path="/professional" element={<UsersPage/>}/>
+
         </Routes>
       </BrowserRouter>
     </>
