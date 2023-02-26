@@ -40,6 +40,7 @@ import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
 import ModifyUser  from "./pages/AdminDashboard/usermodify";
 import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
+import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 
 
 // Default axios
@@ -87,7 +88,7 @@ function App() {
           />
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
-          <Route path="/professional" element={<UsersPage/>}/>
+          <Route path="/professional" element={<ProfesionalPage/>}/>
 
           {/*Profesionales */}
           {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
