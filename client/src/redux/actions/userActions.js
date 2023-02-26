@@ -38,7 +38,8 @@ export const createUser = (input) => {
         // payload: result.data,
       });
     } catch (error) {
-      console.log({ error: error.message });
+      console.log("Hubo errorrrrrrrrrrrrrr");
+      console.log(error);
     }
   };
 };

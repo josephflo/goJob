@@ -1,14 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { userFormBackground } from "../../../assets";
 
 function ServiceCard({
   tittle,
   id,
   presupuesto,
-  reviews,
   description,
-  ratings,
   tarif_min,
+  userId,
 }) {
   const Swal = require("sweetalert2");
   function handleClick() {
@@ -19,59 +19,47 @@ function ServiceCard({
     });
   }
 
+  function capitalizarPrimeraLetra(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  tittle = capitalizarPrimeraLetra(tittle);
+  description = capitalizarPrimeraLetra(description);
+
   return (
-    <div className=" sticky absolute">
-      <div className="grid grid-cols-4 box-border  h-72 w-70 top-96 left-56 bg-white border-solid-gray-300 rounded-2xl">
-        <div className=" flex col-span-1 w-56">
-          <p>
-            <button
-              onClick={() => {
-                handleClick();
-              }}
-            >
-              <i className="fa fa-heart text-red-500"></i>
-            </button>
-          </p>
-        </div>
+    <div className="bg-gray-100 p-4">
+      <div class="h-100 overflow-hidden">
+        <img src={userFormBackground} className="object-fill" alt="" />
+      </div>
 
+      <div className="box-border grid grid-cols-3 bg-white border-solid-gray-300 rounded-sm p-4">
         <div className="col-span-2 w-72">
-          <h1 className=" w-38 h-7 left-96 top-9 font-sans text-xl not-italic text-black">
+          <h1 className=" w-38 h-7 top-9 font-sans font-semibold text-xl not-italic text-black">
             {tittle}
-            <i className="fa-regular fa-square-check text-green-700"></i>
           </h1>
-
-          <p className="font-sans not-italic font-normal text-base text-black">
+          <p className="font-sans pt-1 not-italic font-medium text-gray-700">
             Descripción del trabajo:
-            {description}
           </p>
-          <h1>Datos del cliente</h1>
+          <p className="text-sm">{description}</p>
+          <p className="font-sans pt-1 not-italic font-medium text-gray-700">
+            Datos del cliente
+          </p>
+          <p className="text-sm">Name: {userId.firstName}</p>
         </div>
-        <div className=" col-span-1 w-72">
-          <p className="  h-9 left-2/3 top-9 font-sans not-italic font-normal text-2xl text-black">
-            <i className="fa-solid fa-star text-yellow-400"></i>
-            {ratings}4.5
-          </p>
-
-          <p className=" w-36 h-6 left-2/3 top-20 font-sans not-italic text-sm font-light text-gray-400">
-            {reviews}reseñas
-          </p>
-
-          <p className="h-9 left-2/3 top-9 font-sans not-italic font-normal text-2xl text-black">
+        <div className="col-span-1 gap-2 flex flex-col justify-center items-end">
+          <p className="h-9 top-9 font-sans not-italic font-normal text-2xl text-black">
             {tarif_min}${presupuesto}
           </p>
-          <p>
+          <p className="">
             <NavLink to={`/calender/${id}`}>
-              <button
-                className="  w-36 h-14 left-36 
-             top-32 bg-blue-400 rounded-2xl"
-              >
-                Reservar día de trabajo
+              <button className="w-20 h-10 bg-blue-400 rounded-lg">
+                Postular
               </button>
             </NavLink>
           </p>
           <p>
             <NavLink to={`/detail/${id}`}>
-              <button className=" w-36 h-14 left-36 top-48 rounded-2xl bg-gray-300">
+              <button className=" w-20 h-10 rounded-lg bg-gray-300">
                 Contactar
               </button>
             </NavLink>

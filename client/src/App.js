@@ -19,6 +19,7 @@ import DetailProfessional from "./components/detailProfessional/DetailProfession
 import DetailComun from "./components/detailComun/DetailComun";
 import ModalUser from "./pages/usersPage/modalUser/ModalUser";
 
+
 // Containers
 import FormContact from "./containers/forms/formContact/FormContact";
 import FormCreateService from "./containers/forms/formCreateService/FormCreateService";
@@ -62,6 +63,9 @@ function App() {
           <Route exact path="admin/jobs/create" element={<CreateJob />} />
           <Route exact path='admin/users' element={<UsersAdmin/>} />
           <Route exact path='admin/jobs' element={<JobAdmin/>} />
+          <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
+          <Route exact path="/dashboard/users" element={<Dashboard/>} />
+          <Route exact path="/dashboard" element={<DashboardContent />} />
 
           <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
           <Route exact path="/dashboard/users" element={<Dashboard/>} />
@@ -87,6 +91,9 @@ function App() {
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<UsersPage/>}/>
+
+          {/*Profesionales */}
+          <Route path="/profesionales" element={<ProfesionalPage/>} />
 
         </Routes>
       </BrowserRouter>
