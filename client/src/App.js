@@ -35,6 +35,7 @@ import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
+import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 
 
 
@@ -83,6 +84,9 @@ function App() {
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<UsersPage/>}/>
+
+          {/*Profesionales */}
+          <Route path="/profesionales" element={<ProfesionalPage/>} />
 
         </Routes>
       </BrowserRouter>

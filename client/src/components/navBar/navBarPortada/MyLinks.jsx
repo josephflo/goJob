@@ -6,23 +6,23 @@ export const links = [
       {
         Head: "Medicina",
         sublink: [
-          { name: "Médico", link: "/" },
-          { name: "Enfermero/a", link: "/" },
+          { name: "Médico", link: "/profesionales" },
+          { name: "Enfermero/a", link: "/profesionales" },
         ],
       },
       {
         Head: "Ingenieria",
         sublink: [
-          { name: "Ingeniero", link: "/" },
-          { name: "Plantos a medida", link: "/" },
+          { name: "Ingeniero", link: "/profesionales" },
+          { name: "Plantos a medida", link: "/profesionales" },
         ],
       },
       {
         Head: "Legales",
         sublink: [
-          { name: "Abogados Penalistas", link: "/" },
-          { name: "Abogados Civiles", link: "/" },
-          { name: "Abogados Administrativo", link: "/" },
+          { name: "Abogados Penalistas", link: "/profesionales" },
+          { name: "Abogados Civiles", link: "/profesionales" },
+          { name: "Abogados Administrativo", link: "/profesionales" },
         ],
       },
 
