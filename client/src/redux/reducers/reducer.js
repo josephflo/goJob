@@ -3,7 +3,7 @@ import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
   users: [],
-  allUsers: [],
+  allUsers: {},
   usersProfesionales: [],
   jobs: [],
   allJobs: [],
@@ -26,7 +26,7 @@ const initialState = {
   },
 
   //config para filtros services
-  configFilterProfesionales: {
+  configFilterUser: {
     page: 1,
     page_size: 15,
     name: false,
@@ -104,7 +104,7 @@ export default function reducer(state = initialState, action) {
     case ActionTypes.CONFIG_FILTER_USER:
       return {
         ...state,
-        configFilterProfesionales: action.payload,
+        configFilterUser: action.payload,
       };
     default:
       return state;
