@@ -8,8 +8,6 @@ import Pagination from "../pagination/Pagination";
 function Filter({ totalPages }) {
   let configFilterServices = useSelector((state) => state.configFilterServices);
 
-  let services = useSelector((state) => state.services);
-
   const jobs = useSelector((state) => state.jobs);
   const dispatch = useDispatch();
 
@@ -23,33 +21,17 @@ function Filter({ totalPages }) {
   ];
 
   //Estados para menu Jobs
-  let [selectFilter, setSelectFilter] = useState({
-    //...configFilterServices
-    page: 1,
-    page_size: 5,
-    state: "pendiente",
-    tittle: "",
-    orderFecha: "DESC",
-    provincia: "Buenos Aires",
-    ciudad: false,
-    job: false,
-  });
+  let [selectFilter, setSelectFilter] = useState(configFilterServices.tittle);
 
   // Estados de la paginacion
   const [page, setPage] = useState(1);
   const [page_size, setPage_size] = useState(15);
 
-  // useEffect(() => {
-  //   configFilterService({
-  //     ...selectFilter,
-  //     totalPages: services.totalPages,
-  //   });
-  // }, []);
 
   let handleOptionFilter = (event) => {
     let propiedadFilter = event.target.options[event.target.selectedIndex]
       .getAttribute("name")
-      .toString();
+
     let value = event.target.value;
 
     let newConfig = {
@@ -61,17 +43,13 @@ function Filter({ totalPages }) {
       newConfig.ciudad = false;
     }
 
-    setSelectFilter(newConfig);
     dispatch(configFilterService(newConfig));
   };
 
   let handlerFilterName = (event) => {
     let value = event.target.value;
 
-    setSelectFilter({
-      ...selectFilter,
-      tittle: value,
-    });
+    setSelectFilter(value);
 
     let newConfig = {};
     if (value.length >= 3) {
@@ -149,7 +127,7 @@ function Filter({ totalPages }) {
                 type="text"
                 placeholder="buqueda por nombre"
                 name={"tittle"}
-                value={selectFilter.tittle}
+                value={selectFilter}
                 className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
                 onChange={handlerFilterName}
               />
@@ -162,7 +140,7 @@ function Filter({ totalPages }) {
               Por profesion
             </p>
             <select
-              value={selectFilter.job}
+              value={configFilterServices.job}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -185,7 +163,7 @@ function Filter({ totalPages }) {
               Por lanzamiento
             </p>
             <select
-              value={selectFilter.orderFecha}
+              value={configFilterServices.orderFecha}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -206,7 +184,7 @@ function Filter({ totalPages }) {
             </p>
             <select
               defaultValue={Object.keys(provinciasObj)[0]}
-              value={selectFilter.provincia}
+              value={configFilterServices.provincia}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -228,7 +206,7 @@ function Filter({ totalPages }) {
               Por ciudad
             </p>
             <select
-              value={selectFilter.ciudad}
+              value={configFilterServices.ciudad}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -236,9 +214,9 @@ function Filter({ totalPages }) {
               <option key={1} value={false} name={"ciudad"}>
                 {"All"}
               </option>
-              {selectFilter.provincia != false &&
-                selectFilter.provincia &&
-                provinciasObj[selectFilter.provincia].map((ciudad, ind) => (
+              {configFilterServices.provincia != false &&
+                configFilterServices.provincia &&
+                provinciasObj[configFilterServices.provincia].map((ciudad, ind) => (
                   <option key={ind + 1} value={ciudad} name={"ciudad"}>
                     {ciudad}
                   </option>
