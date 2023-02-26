@@ -23,7 +23,6 @@ export default function FormCreateProfessional({
   return (
     <>
       <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
-
         <div className="mt-2">
           <form className="space-y-1">
             <div className="grid grid-cols-1  lg:gap-3">
@@ -100,21 +99,6 @@ export default function FormCreateProfessional({
                   onChange={changeInput}
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="Imagen"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Ingrese imagen de su perfil
-                </label>
-                <input
-                  type="text"
-                  name="imageurl"
-                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Imagen de perfil"
-                  onChange={changeInput}
-                />
-              </div>
             </div>
             <div>
               <button
@@ -132,7 +116,6 @@ export default function FormCreateProfessional({
                 Registrarse
               </button>
             </div>
-
           </form>
         </div>
       </div>

@@ -82,10 +82,6 @@ export default function FormCreateUser() {
       createUser({
         user: input,
         jobs: inputJob,
-      })
-    );
-    dispatch(
-      uploadImage({
         image: inputImage,
       })
     );

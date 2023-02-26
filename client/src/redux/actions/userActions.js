@@ -1,6 +1,5 @@
 //** Dependencies */
 import axios from "axios";
-import { combineReducers } from "redux";
 //** Constants */
 import { ActionTypes } from "../constants/actions-types";
 
@@ -8,37 +7,46 @@ import { ActionTypes } from "../constants/actions-types";
 
 export const createUser = (input) => {
   return async (dispatch) => {
-    const json = JSON.stringify(input);
-    const customConfig = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
-    const result = await axios.post("user/register", json, customConfig);
-    return dispatch({
-      type: ActionTypes.CREATE_USER,
-      // payload: result.data,
-    });
+    // const formData = new FormData();
+    try {
+      const json = JSON.stringify({
+        user: input.user,
+        jobs: input.jobs,
+      });
+
+      const formData2 = new FormData();
+
+      formData2.append("user", input.user.user);
+      formData2.append("image", input.image);
+      const customConfig = {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      };
+      const customConfig2 = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      await axios.post("user/register", { user: input.user, jobs: input.jobs });
+      setTimeout(() => {}, 30000);
+      await axios.post("/user/register/img", formData2, customConfig2);
+      return dispatch({
+        type: ActionTypes.CREATE_USER,
+        // payload: result.data,
+      });
+    } catch (error) {
+      console.log({ error: error.message });
+    }
   };
 };
 
 export const uploadImage = (input) => async (dispatch) => {
   try {
-    const formData = new FormData();
-    formData.append("img", input.image);
-
-    const customConfig = {
-      headers: {
-        "Content-Type":
-          "multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW",
-      },
-    };
-    const result = await axios.post(
-      "/user/register/image",
-      formData,
-      customConfig
-    );
+    console.log(input.user);
+    // console.log(result);
   } catch (error) {
     console.error(error.message);
   }
