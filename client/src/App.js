@@ -93,7 +93,7 @@ function App() {
           <Route path="/professional" element={<UsersPage/>}/>
 
           {/*Profesionales */}
-          <Route path="/profesionales" element={<ProfesionalPage/>} />
+          {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
 
         </Routes>
       </BrowserRouter>
