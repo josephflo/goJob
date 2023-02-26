@@ -4,15 +4,12 @@ import { getUsers, updateUser } from "../../redux/actions/userActions";
 import Swal from "sweetalert2";
 import {  orderAplhabetical, orderByRole, orderByState } from "../../redux/actions/adminActions";
 
-// NO SE ASUSTEN, POR EL MOMENTO LO DEJAMOS ASI, DESPUES VEMOS SI HAY TIEMPO PARA CAMBIAR,
-// VAMOS EN EFOCARNOS EN LO QE FALTA
-// LO IMPORTANTE ES QUE SI FUNCIONA 
-// NO TOQUES LOS FILTROS VICTOR :P 
+
 
 function UsersAdmin() {
-  const users = useSelector((state) => state.users);
+  /* const users = useSelector((state) => state.users);
   const dispatch = useDispatch();
-  const [/*order*/, setOrder] = useState('')
+  const [order, setOrder] = useState('')
   const [refresh, setRefresh] = useState();
 
   useEffect(() => {
@@ -24,26 +21,26 @@ function UsersAdmin() {
         dispatch(orderAplhabetical(e.target.value));
         setOrder(`Ordenado ${e.target.value}`);
         setRefresh();
-    }
-    function handleOrderByRole (e) {
+    } */
+    /* function handleOrderByRole (e) {
       e.preventDefault();
         dispatch(orderByRole(e.target.value));
         setOrder(`Ordenado ${e.target.value}`);
         setRefresh();
-    }
-    function handleOrderByState (e) {
+    } */
+    /* function handleOrderByState (e) {
       e.preventDefault();
         dispatch(orderByState(e.target.value));
         setOrder(`Ordenado ${e.target.value}`);
         setRefresh();
-    }
+    } */
 
-    function handleClick(e){
+  /*   function handleClick(e){
       e.preventDefault()
       dispatch(getUsers());
       setRefresh("default");
-    }
-
+    } */
+/* 
   function enableUser(e) {
     const users = {
       id: e.id,
@@ -91,13 +88,13 @@ function UsersAdmin() {
     )
     }
   })
-  }
+  } */
 
   return (
     <div>
       <div>
       <div>
-        <select 
+       {/*  <select 
         name="alfabetico"
         onChange={(e) => handleOrderByName(e)}
         value={refresh}>
@@ -106,8 +103,8 @@ function UsersAdmin() {
           </option>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
-        </select>    
-        <select 
+        </select>  */}   
+        {/* <select 
         name="role"
         onChange={(e) => handleOrderByRole(e)}
         value={refresh}>
@@ -116,8 +113,8 @@ function UsersAdmin() {
           <option value="comun">Comun</option>
           <option value="professional">Profesional</option>
           <option value="admin">Admin</option>
-        </select> 
-        <select 
+        </select>  */}
+        {/* <select 
         name="state"
         onChange={(e) => handleOrderByState(e)}
         value={refresh}>
@@ -126,15 +123,15 @@ function UsersAdmin() {
           <option value="habilitado">Habilitado</option>
           <option value="deshabilitado">Deshabilitado</option>
   
-        </select> 
+        </select>  */}
         
-        <button
+        {/* <button
 
           className="btn btn-dark"
           onClick= {handleClick}
         >
           Resetear Filtros
-        </button>
+        </button> */}
       </div>
     </div>
 

@@ -11,11 +11,15 @@ import Private from "./authentication/Private";
 import HomePage from "./pages/homePage/HomePage";
 import ServicesPage from "./pages/servicesPage/ServicesPage";
 import UsersPage from "./pages/usersPage/UsersPage";
+import DashboardContent from './pages/AdminDashboard/dashboardContent';
+import ModifyUser from './pages/AdminDashboard/usermodify';
+import Dashboard from "./pages/AdminDashboard/dashboard";
 
 // Components
 import DetailProfessional from "./components/detailProfessional/DetailProfessional";
 import DetailComun from "./components/detailComun/DetailComun";
 import ModalUser from "./pages/usersPage/modalUser/ModalUser";
+
 
 // Containers
 import FormContact from "./containers/forms/formContact/FormContact";
@@ -31,6 +35,7 @@ import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
+
 
 
 
@@ -55,6 +60,9 @@ function App() {
           <Route exact path="admin/jobs/create" element={<CreateJob />} />
           <Route exact path='admin/users' element={<UsersAdmin/>} />
           <Route exact path='admin/jobs' element={<JobAdmin/>} />
+          <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
+          <Route exact path="/dashboard/users" element={<Dashboard/>} />
+          <Route exact path="/dashboard" element={<DashboardContent />} />
 
 
           {/* Components */}
