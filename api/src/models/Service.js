@@ -63,14 +63,14 @@ const serviceModel = (sequelize) => {
       direccion: {
           type: DataTypes.STRING,
       },
-      priceIdStripe:{
-        type: DataTypes.STRING,
-        allowNull: true
-      },
-      productIdStripe :{
-        type: DataTypes.STRING,
-        allowNull: true
-      },
+     // priceIdStripe:{
+     //   type: DataTypes.STRING,
+     //   allowNull: true
+     // },
+     // productIdStripe :{
+      //  type: DataTypes.STRING,
+      //  allowNull: true
+     // },
 
     },
     { timestamps: false }
