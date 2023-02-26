@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
+import Pagination from "../../containers/pagination/Pagination";
 import { getJobs } from "../../redux/actions/jobActions";
 import { getService } from "../../redux/actions/serviceActions";
 import { getAllServices } from "../../redux/actions/services/getServices";
@@ -11,20 +12,18 @@ import Services from "./services/Services";
 
 function ServicesPage() {
   const service = useSelector((state) => state.service);
-  let configFilterServices = useSelector((state)=> state.configFilterServices)
+  let configFilterServices = useSelector((state) => state.configFilterServices);
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    dispatch(getAllServices(configFilterServices))
-  }, [configFilterServices])
+  useEffect(() => {
+    dispatch(getAllServices(configFilterServices));
+  }, [configFilterServices]);
 
-
-  
   //cargamos todos los jobs y services cuando se renderiza
-  useEffect(()=>{
-    dispatch(getJobs())
-    dispatch(getAllServices(configFilterServices))
-  }, [])  
+  useEffect(() => {
+    dispatch(getJobs());
+    dispatch(getAllServices(configFilterServices));
+  }, []);
 
   return (
     <div>
@@ -38,7 +37,7 @@ function ServicesPage() {
 
         <div className=" ">
           {" "}
-          <Filter />{" "}
+          <Filter totalPages={service.totalPages} />{" "}
         </div>
         <h1 className=" left-12 top-80 font-sans not-italic text-1xl text-black">
           Profesionales que se ajustan a tus necesidades
