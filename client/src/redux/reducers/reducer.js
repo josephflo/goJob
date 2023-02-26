@@ -4,22 +4,16 @@ import { ActionTypes } from "../constants/actions-types";
 const initialState = {
   users: [],
   allUsers: [],
+  usersProfesionales: [],
   jobs: [],
   allJobs: [],
   jobById: {},
   service: {},
   filterService: [],
   userDetail: {},
-  state: "",
-  job: "",
-  provincias: "",
-  localidades: "  ",
 
-  // nextPage: "",
-  // previousPage: "",
-  // totalPages: 0,
 
-  //config para filtros
+  //config para filtros services
   configFilterServices: {
     page: 1,
     page_size: 15,
@@ -28,9 +22,23 @@ const initialState = {
     orderFecha: "DESC",
     provincia: "Buenos Aires",
     ciudad: false,
-    // totalPages: 3,
     job: false,
   },
+
+  //config para filtros services
+  configFilterProfesionales: {
+    page: 1,
+    page_size: 15,
+    name: false,
+    job: false,
+    provincia: false,
+    ciudad: false,
+    dias: false,
+    horario: false,
+    role: "professional",
+    orderName: "ASC",
+    orderRating: "DESC"
+  }
 };
 
 export default function reducer(state = initialState, action) {
@@ -60,10 +68,7 @@ export default function reducer(state = initialState, action) {
     case ActionTypes.GET_SERVICE:
       return {
         ...state,
-        service: action.payload.respuesta,
-        nextPage: action.payload.nextPage,
-        previousPage: action.payload.previousPage,
-        totalPages: action.payload.totalPages,
+        service: action.payload
       };
 
     case ActionTypes.USER_DETAIL:
@@ -96,6 +101,11 @@ export default function reducer(state = initialState, action) {
         configFilterServices: action.payload,
       };
 
+    case ActionTypes.CONFIG_FILTER_USER:
+      return {
+        ...state,
+        configFilterProfesionales: action.payload,
+      };
     default:
       return state;
   }
