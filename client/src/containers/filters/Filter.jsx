@@ -133,125 +133,140 @@ function Filter({ totalPages }) {
   };
 
   return (
-    <div className="grid grid-cols-4">
-      <div className="col-span-2">
-        {/* Por nombre */}
-        <input
-          type="text"
-          placeholder="buqueda por nombre"
-          name={"tittle"}
-          value={selectFilter.tittle}
-          onChange={handlerFilterName}
-        />
-
-        {/* Barra de eleccion Jobs */}
-        <p>Por profesion</p>
-        <div className="relative w-full">
-          <select
-            value={selectFilter.job}
-            onChange={handleOptionFilter}
-            className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
-          >
-            <option value={false} name={"job"}>
-              {"All"}
-            </option>
-            {jobs.length &&
-              jobs.map((job, ind) => (
-                <option key={ind} value={job.id} name={"job"}>
-                  {job.name}
-                </option>
-              ))}
-          </select>
+    <>
+      <div className="p-10 bg-gray-100 ">
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold">Página de Servicios</h1>
         </div>
+        {/* searchFilter*/}
+        <div className="grid grid-cols-4 gap-4 items-center mb-4">
+          <form className="col-span-2">
+            <div className="relative">
+              <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
+                Por nombre
+              </p>
+              <input
+                type="text"
+                placeholder="buqueda por nombre"
+                name={"tittle"}
+                value={selectFilter.tittle}
+                className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
+                onChange={handlerFilterName}
+              />
+            </div>
+          </form>
 
-        <div>asa</div>
-        <div>asa</div>
+          {/* Barra de eleccion Jobs */}
+          <div className="relative w-full">
+            <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
+              Por profesion
+            </p>
+            <select
+              value={selectFilter.job}
+              onChange={handleOptionFilter}
+              className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
+              // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+            >
+              <option value={false} name={"job"}>
+                {"All"}
+              </option>
+              {jobs.length &&
+                jobs.map((job, ind) => (
+                  <option key={ind} value={job.id} name={"job"}>
+                    {job.name}
+                  </option>
+                ))}
+            </select>
+          </div>
 
-        {/* Barra de eleccion orderFecha*/}
-        <p>Por lanzamiento</p>
-        <div className="relative w-full">
-          <select
-            value={selectFilter.orderFecha}
-            onChange={handleOptionFilter}
-            className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
-          >
-            {order.length &&
-              order.map((ord, ind) => (
-                <option key={ind} value={ord.valor} name={"orderFecha"}>
-                  {ord.name}
-                </option>
-              ))}
-          </select>
+          {/* Barra de eleccion orderFecha*/}
+          <div className="relative w-full">
+            <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
+              Por lanzamiento
+            </p>
+            <select
+              value={selectFilter.orderFecha}
+              onChange={handleOptionFilter}
+              className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
+              // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+            >
+              {order.length &&
+                order.map((ord, ind) => (
+                  <option key={ind} value={ord.valor} name={"orderFecha"}>
+                    {ord.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          {/* Barra de eleccion provincia*/}
+          <div className="relative w-full">
+            <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
+              Por Provincia
+            </p>
+            <select
+              defaultValue={Object.keys(provinciasObj)[0]}
+              value={selectFilter.provincia}
+              onChange={handleOptionFilter}
+              className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
+              // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+            >
+              {/* <option key={1} value={false} name={"provincia"}>{"All"}</option> */}
+              {provinciasObj &&
+                Object.keys(provinciasObj).length &&
+                Object.keys(provinciasObj).map((prov, ind) => (
+                  <option key={ind + 1} value={prov} name={"provincia"}>
+                    {prov}
+                  </option>
+                ))}
+            </select>
+          </div>
+
+          {/* Barra de eleccion ciudad*/}
+          <div className="relative w-full">
+            <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
+              Por ciudad
+            </p>
+            <select
+              value={selectFilter.ciudad}
+              onChange={handleOptionFilter}
+              className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
+              // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+            >
+              <option key={1} value={false} name={"ciudad"}>
+                {"All"}
+              </option>
+              {selectFilter.provincia != false &&
+                selectFilter.provincia &&
+                provinciasObj[selectFilter.provincia].map((ciudad, ind) => (
+                  <option key={ind + 1} value={ciudad} name={"ciudad"}>
+                    {ciudad}
+                  </option>
+                ))}
+            </select>
+          </div>
         </div>
-
-        <div>asa</div>
-        <div>asa</div>
-
-        {/* Barra de eleccion provincia*/}
-        <p>Por Provincia</p>
-        <div className="relative w-full">
-          <select
-            defaultValue={Object.keys(provinciasObj)[0]}
-            value={selectFilter.provincia}
-            onChange={handleOptionFilter}
-            className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
-          >
-            {/* <option key={1} value={false} name={"provincia"}>{"All"}</option> */}
-            {provinciasObj &&
-              Object.keys(provinciasObj).length &&
-              Object.keys(provinciasObj).map((prov, ind) => (
-                <option key={ind + 1} value={prov} name={"provincia"}>
-                  {prov}
-                </option>
-              ))}
-          </select>
-        </div>
-
-        <div>asa</div>
-        <div>asa</div>
-
-        {/* Barra de eleccion ciudad*/}
-        <p>Por ciudad</p>
-        <div className="relative w-full">
-          <select
-            value={selectFilter.ciudad}
-            onChange={handleOptionFilter}
-            className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
-          >
-            <option key={1} value={false} name={"ciudad"}>
-              {"All"}
-            </option>
-            {selectFilter.provincia != false &&
-              selectFilter.provincia &&
-              provinciasObj[selectFilter.provincia].map((ciudad, ind) => (
-                <option key={ind + 1} value={ciudad} name={"ciudad"}>
-                  {ciudad}
-                </option>
-              ))}
-          </select>
-        </div>
-
-        <div>asa</div>
-        <div>asa</div>
-      </div>
-      <div>
-        <Pagination
-          paginatePrev={paginatePrev}
-          paginateNext={paginateNext}
-          paginate={paginate}
-          totalPages={totalPages}
-        />
-      </div>
-      {/* <div>
+        {/* <div>
         <select name="select" onChange={fn}>
-          <option value="3" selected>
-            3
-          </option>
-          <option value="5">5</option>
-          <option value="7">7</option>
+        <option value="3" selected>
+        3
+        </option>
+        <option value="5">5</option>
+        <option value="7">7</option>
         </select>
       </div> */}
-    </div>
+      </div>
+      <div class="p-3 bg-gray-100">
+        <div class="flex justify-center">
+          <Pagination
+            paginatePrev={paginatePrev}
+            paginateNext={paginateNext}
+            paginate={paginate}
+            totalPages={totalPages}
+          />
+        </div>
+      </div>
+    </>
   );
 }
 
