@@ -26,7 +26,7 @@ export default function ModifyUser() {
                       <FormUser />
                     </div>
                 <div className="w-full lg:w-4/12 px-4">
-                  <Profile />
+                  {/* <Profile /> */}
         </div>
         </div>
       </div>
