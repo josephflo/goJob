@@ -38,7 +38,7 @@ const initialState = {
     dias: false,
     horario: "mañana",
     role: "professional",
-    //orderName: "ASC",
+    orderName: false,
     orderRating: "DESC"
   }
 };
