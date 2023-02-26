@@ -64,10 +64,7 @@ function App() {
           <Route exact path='admin/users' element={<UsersAdmin/>} />
           <Route exact path='admin/jobs' element={<JobAdmin/>} />
           <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
-          <Route exact path="/dashboard/users" element={<Dashboard/>} />
-          <Route exact path="/dashboard" element={<DashboardContent />} />
-
-          <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
+                   
           <Route exact path="/dashboard/users" element={<Dashboard/>} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate/>} />
