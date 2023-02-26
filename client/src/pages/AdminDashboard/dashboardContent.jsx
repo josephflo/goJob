@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
-import { SideBar } from "./menu";
+import { SideBar } from "./sidebar";
 import { Header } from "./header";
 
 export function DashboardContent() {
@@ -10,7 +10,7 @@ export function DashboardContent() {
         <SideBar/> 
         <div className="lg:col-span-3 xl:col-span-5 p-8 h-[100vh] overflow-y-scroll">          
           <Header/>
-             {/* Section 1 */}
+            
           <div className="p-10 bg-gray-100" >
           <div className="mb-8">
                     <h1 className="text-3xl font-semibold">Dashboard</h1>

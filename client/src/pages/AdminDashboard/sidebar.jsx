@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {RiDashboardLine,RiFolderUserLine,RiMoneyDollarBoxLine,RiCalendarEventLine,RiLogoutBoxLine,
-    RiNotification3Line,RiArrowDownSLine,
-    RiSearchLine,RiCheckboxBlankCircleFill,RiFilter3Line,RiUserLocationLine,RiCloseLine} from "react-icons/ri"
+    } from "react-icons/ri"
     import logo from "../AdminDashboard/image.svg"
 
 export function SideBar(){
@@ -17,27 +16,27 @@ export function SideBar(){
                     <nav>
                         <ul>
                             <li>
-                            <Link to="#" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
+                            <Link to="/dashboard" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
                                <RiDashboardLine/>
                           Dashboard
                                 </Link>
                             </li>
                             <li>
-                            <Link to="#" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
+                            <Link to="/dashboard/users" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
                                <RiFolderUserLine/>
                           Usuarios
                                 </Link>
                             </li>
                             <li>
-                            <Link to="#" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
+                            <Link to="/dashboard/services" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
                                <RiMoneyDollarBoxLine/>
                           Servicios
                                 </Link>
                             </li>
                             <li>
-                            <Link to="#" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
+                            <Link to="/dashboard/jobs" className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
                                <RiCalendarEventLine/>
-                          Calendario
+                          Jobs
                                 </Link>
                             </li>
                         </ul>              

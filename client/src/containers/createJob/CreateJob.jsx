@@ -175,7 +175,7 @@ export default function CreateJob() {
         )}
 
         <div class="mt-3">
-          <NavLink to="/">
+          <NavLink to="/dashboard/jobs">
             <button class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-grey-700 font-semibold">
               Volver
             </button>

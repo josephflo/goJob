@@ -5,11 +5,12 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 
 // Authentication
-import Private from "./authentication/Private";
+import Private from "./authentication/Private";   
 
 // Pages
 import HomePage from "./pages/homePage/HomePage";
 import ServicesPage from "./pages/servicesPage/ServicesPage";
+
 import UsersPage from "./pages/usersPage/UsersPage";
 import Dashboard from "./pages/AdminDashboard/dashboard";
 
@@ -36,6 +37,8 @@ import FormCreateProfessional from "./containers/forms/formCreateUser/formCreate
 
 import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
 import ModifyUser  from "./pages/AdminDashboard/usermodify";
+import { JobCreate } from "./pages/AdminDashboard/JobCreate";
+import { JobList } from "./pages/AdminDashboard/jobslist";
 
 
 // Default axios
@@ -63,6 +66,8 @@ function App() {
           <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
           <Route exact path="/dashboard/users" element={<Dashboard/>} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
+          <Route exact path="/dashboard/jobs/create" element={<JobCreate/>} />
+          <Route exact path="/dashboard/jobs" element={<JobList />} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
