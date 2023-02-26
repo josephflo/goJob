@@ -27,29 +27,31 @@ function ServicesPage() {
 
   return (
     <div>
-      <div class="p-1.5 sticky top-0 z-50 bg-white ">
+      <div class="p-1.5 sticky top-0 z-50 bg-white">
         <NavBarPortada />
       </div>
-      <div>
-        <h1 className=" left-12 top-36 font-sans not-italic font-extrabold text-2xl text-black">
-          Soluciones cerca de ti: encuentra un profesional
-        </h1>
+      <div className="pl-10 px-10">
+        {/* <h1 className=" text-5xl text-black mx-auto p-7 text-center">
+          Página de servicios
+        </h1> */}
+        <div>
+          {/* <h1 className=" left-12 top-36 font-sans not-italic font-extrabold text-2xl text-black">
+            Soluciones cerca de ti: encuentra un profesional
+          </h1> */}
 
-        <div className=" ">
-          {" "}
-          <Filter totalPages={service.totalPages} />{" "}
+          <div className=" ">
+            {" "}
+            <Filter totalPages={service.totalPages} />{" "}
+          </div>
         </div>
-        <h1 className=" left-12 top-80 font-sans not-italic text-1xl text-black">
-          Profesionales que se ajustan a tus necesidades
-        </h1>
-      </div>
 
-      <div className="flex flex-wrap pt-80 w-[50%] mx-auto">
-        {service.result && service.result.length > 0 ? (
-          <Services services={service.result} />
-        ) : (
-          <p> ups! no hay servicios </p>
-        )}
+        <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          {service.result && service.result.length > 0 ? (
+            <Services services={service.result} />
+          ) : (
+            <p className="text-center"> ups! no hay servicios </p>
+          )}
+        </div>
       </div>
     </div>
   );
