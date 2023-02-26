@@ -1,15 +1,8 @@
 const { Job, Service, User } = require("../connection/db");
 const bcrypt = require("bcrypt");
-<<<<<<< HEAD
-const {uploadImage,deleteImage} = require("../services/cloudinary")
-const fs = require("fs-extra")
-const bienvenidaMail = require('../templatesEmails/singupEmail');
-const {createPrice, createProduct, updatePrice, deleteProduct} = require("../services/stripe")
-=======
 const { uploadImage } = require("../services/cloudinary");
 const fs = require("fs-extra");
 const bienvenidaMail = require("../templatesEmails/singupEmail");
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
 const {
   getDbUser,
@@ -21,14 +14,8 @@ const { Op, STRING } = require("sequelize");
 const { fechaActual } = require("../helpers/fechaActual");
 
 const getAllUser = async (req, res) => {
-<<<<<<< HEAD
-  let {name} = req.query
-  let page = Number(req.query.page || 1)
-  let page_size = Number(req.query.page_size || 15)
-=======
   let page = Number(req.query.page || 1);
   let page_size = Number(req.query.page_size || 15);
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
   let name = req.query.name;
   let role = req.query.role;
@@ -169,14 +156,6 @@ const createUser = async (req, res) => {
 
     let userCreated = await User.create(newUser);
     delete userCreated.dataValues.password;
-
-    // Verificar que los JobIds existen en la base de datos
-    // const jobsData = await Job.findAll({ where: { id: idJobs }});
-    // if (jobs.length !== idJjobsDataobs.length) {
-    //   throw new Error("Uno o más JobIds no existen en la base de datos");
-    // }
-
-    //lo comente por que trai conflictos con mi merge: fray
 
     await userCreated.addJobs(idJobs);
 
@@ -432,17 +411,8 @@ const putUser = async (req, res) => {
   let putUser = req.body.user;
   let jobsUser = req.body.jobs;
 
-<<<<<<< HEAD
-const putUser = async (req, res) => {
-  let idUser = req.user.id;
-  let putUser = req.body.user;
-  let jobsUser = req.body.jobs;
-
-=======
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
   try {
-    // obtenemos el usuario actual
-    let user = await User.findOne({ where: { id: idUser } });
+    //actualizamos el user
 
     //ciframos contraseña
     if (putUser.password) {
@@ -481,14 +451,6 @@ const putUser = async (req, res) => {
     });
   }
 };
-<<<<<<< HEAD
-
-
-
-
-const decifrarToken = async(req, res)=>{
-=======
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
 const decifrarToken = async (req, res) => {
   return res.status(200).json({
@@ -580,40 +542,16 @@ const getFriends = async (req, res) => {
   }
 };
 //service
-const createService = async (req, res) => {
+const createServer = async (req, res) => {
   let newService = req.body;
   let idUser = req.user.id;
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
-
-    // crear el producto correspondiente al servicio
-    const product = await createProduct(newService.title);
-    const productIdStripe = product.id;
-
-    // crear el precio correspondiente al servicio
-    const price = await createPrice(newService.presupuesto, productIdStripe);
-    const priceIdStripe = price.id;
-
     //agregamos servicio
-<<<<<<< HEAD
-    let service = await getUser.createMyService({
-      title: newService.title,
-      state: newService.state,
-      description: newService.description,
-      location: newService.location,
-      presupuesto: newService.presupuesto,
-      score: newService.score,
-      priceIdStripe,
-      productIdStripe,
-      JobId: newService.jobs,
-      UserId: getUser.id, // Agregamos el ID del usuario al servicio
-    });
-=======
     let service = await await getUser.createMyService(newService);
 
     //vinculamos el servicio con los jobs
     let addJob = await service.addJobs(newService.jobs);
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
     return res.status(200).json({
       status: "success",
@@ -631,18 +569,21 @@ const createService = async (req, res) => {
 const getAllMyService = async (req, res) => {
   let idUser = req.user.id;
 
+  // let page = Number(req.query.page || 1)
+  // let page_size = Number(req.query.page_size || 15)
+  // const offset = (page - 1) * page_size;
 
-const getAllService = async (req, res) => {
-  let idUser = req.user.id;
+  // let state = req.query.state
+  // let tittle = req.query.name
+  // let jobId = Number(req.query.job)
+
+  // let querys = {}
+
   try {
     let getUser = await User.findOne({ where: { id: idUser } });
     let allServices = await getUser.getMyServices({
-<<<<<<< HEAD
-      attributes: { exclude: ['UserId'] },
-=======
       //where: {state},
       attributes: { exclude: ["UserId"] },
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
       include: [
         {
           model: Job,
@@ -669,64 +610,7 @@ const getAllService = async (req, res) => {
     return res.status(200).json({
       status: "error",
       message: "Extraccion exitosa",
-<<<<<<< HEAD
-      result: allServices
-    })
-
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message
-    })
-  }
-};
-
-const actualizarService = async(req, res)=>{
-  let putService = {...req.body};
-  let idUser = req.user.id;
-  let idService = Number(req.params.idService)
-
-  let putJobs = []
-  if(req.body.jobs){
-    putJobs = [...req.body.jobs]
-    delete putService.jobs
-  }
-
-  try {
-    // actualizamos datos de service
-    const [rowsUpdated, [updatedService]] = await Service.update(
-      putService,
-      {
-        where: {
-          id: idService,
-          UserId: idUser  
-        }
-      }
-    )
-    //actualizamos relacion Service Jobs
-    if(putJobs && putJobs.length && req.body.jobs){
-      let actService = await Service.findOne({where: {id: idService}})
-      await actService.setJobs(putJobs)
-    }else if(putJobs && !putJobs.length && req.body.jobs){
-      let actService = await Service.findOne({where: {id: idService}})
-      await actService.setJobs([])
-    }
-
-    // actualizamos precio del producto en Stripe
-    const priceId = updatedService.priceId; // ID del precio en Stripe
-    const productPrice = putService.price; // nuevo precio en centavos
-    const price = await updatePrice(priceId, productPrice);
-
-    return res.status(200).json({
-      status: "success",
-      message: "Se actualizó correctamente el servicio y el precio en Stripe",
-      data: {
-        service: updatedService,
-        price: price
-      }
-=======
       result: allServices,
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
     });
   } catch (error) {
     return res.status(400).json({
@@ -813,38 +697,6 @@ const actualizarStateService = async (req, res) => {
 };
 
 const deleteService = async (req, res) => {
-<<<<<<< HEAD
-  const idUser = req.user.id;
-  const idService = Number(req.params.idService);
-
-  try {
-    const service = await Service.findOne({ where: { id: idService, UserId: idUser } });
-
-    // si se encuentra el service en la base de datos
-    if (service) {
-      const productIdStripe = service.productIdStripe;
-
-      // eliminamos el producto en Stripe si existe
-      if (productIdStripe) {
-        await deleteProduct(productIdStripe);
-      }
-
-      // eliminamos el service en la base de datos
-      await Service.destroy({
-        where: { id: idService, UserId: idUser }
-      });
-
-      return res.status(200).json({
-        status: "success",
-        message: "Service eliminado correctamente"
-      });
-    } else {
-      return res.status(404).json({
-        status: "error",
-        message: "El service no existe"
-      });
-    }
-=======
   let idUser = req.user.id;
   let idService = Number(req.params.idService);
 
@@ -858,28 +710,17 @@ const deleteService = async (req, res) => {
       status: "success",
       message: "Service Eliminado correctamente",
     });
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
+      message: error.message,
     });
   }
 };
-<<<<<<< HEAD
-
-
-
-
-const postularService = async (req, res)=>{
-  let idUser = req.user.id
-  let idService = req.params.idService
-=======
 
 const postularService = async (req, res) => {
   let idUser = req.user.id;
   let idService = req.params.idService;
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
   try {
     if (isNaN(idService)) {
@@ -940,13 +781,8 @@ const deletePostuleService = async (req, res) => {
 const elegirTrabajador = async (req, res) => {
   let idUser = req.user.id;
 
-<<<<<<< HEAD
-  let idTrabajador = Number(req.query.trabajador)
-  let idService = Number(req.query.service)
-=======
   let idTrabajador = Number(req.body.trabajador);
   let idService = Number(req.body.service);
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
   try {
     if (!idTrabajador || !idService) throw Error("Mising data");
@@ -970,9 +806,6 @@ const elegirTrabajador = async (req, res) => {
       }
     );
 
-<<<<<<< HEAD
-
-=======
     //Si todo salio bien
     return res.status(200).json({
       status: "success",
@@ -985,7 +818,6 @@ const elegirTrabajador = async (req, res) => {
     });
   }
 };
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
 
 const calificarService = async (req, res) => {
   let idUser = req.user.id;
@@ -1085,10 +917,5 @@ module.exports = {
   postularService,
   deletePostuleService,
   elegirTrabajador,
-<<<<<<< HEAD
-  calificarService
-};
-=======
   calificarService,
 };
->>>>>>> 8a545ec63d1c0b8f57872b0646bfdaf7bd9dd28e
