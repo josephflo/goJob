@@ -1,3 +1,5 @@
+import { horario } from "../../../../constants/dias";
+
 export default function Jobs({ jobs, handleJob, handleDay, changeInput }) {
   const dias = [
     {
@@ -114,15 +116,12 @@ export default function Jobs({ jobs, handleJob, handleDay, changeInput }) {
               <option value="" selected>
                 Selecciona una horario
               </option>
-              <option value="mañana" key="1">
-                Mañana
-              </option>
-              <option value="tarde" key="2">
-                Tarde
-              </option>
-              <option value="noche" key="3">
-                Noche
-              </option>
+              {horario.length && horario.map((ele)=>
+                <option value={ele}>
+                  {ele}
+                </option>
+              )}
+     
             </select>
             <input type="submit" value="Enviar" />
           </form>
