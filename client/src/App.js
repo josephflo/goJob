@@ -5,14 +5,13 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 
 // Authentication
-import Private from "./authentication/Private";
+import Private from "./authentication/Private";   
 
 // Pages
 import HomePage from "./pages/homePage/HomePage";
 import ServicesPage from "./pages/servicesPage/ServicesPage";
+
 import UsersPage from "./pages/usersPage/UsersPage";
-import DashboardContent from './pages/AdminDashboard/dashboardContent';
-import ModifyUser from './pages/AdminDashboard/usermodify';
 import Dashboard from "./pages/AdminDashboard/dashboard";
 
 // Components
@@ -35,9 +34,12 @@ import { getJobs } from "./redux/actions/jobActions";
 import { getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
-import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 
 
+import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
+import ModifyUser  from "./pages/AdminDashboard/usermodify";
+import { JobCreate } from "./pages/AdminDashboard/JobCreate";
+import { JobList } from "./pages/AdminDashboard/jobslist";
 
 
 // Default axios
@@ -62,9 +64,11 @@ function App() {
           <Route exact path='admin/users' element={<UsersAdmin/>} />
           <Route exact path='admin/jobs' element={<JobAdmin/>} />
           <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
+                   
           <Route exact path="/dashboard/users" element={<Dashboard/>} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
-
+          <Route exact path="/dashboard/jobs/create" element={<JobCreate/>} />
+          <Route exact path="/dashboard/jobs" element={<JobList />} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
@@ -86,7 +90,7 @@ function App() {
           <Route path="/professional" element={<UsersPage/>}/>
 
           {/*Profesionales */}
-          <Route path="/profesionales" element={<ProfesionalPage/>} />
+          {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
 
         </Routes>
       </BrowserRouter>

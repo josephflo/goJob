@@ -125,8 +125,8 @@ function JobAdmin() {
   return (
     <div>
       <div>
-        <Link to='/admin/jobs/create'>
-        <button> 
+        <Link to='/dashboard/jobs/create'>
+        <button className="bg-blue-600 mb-4 text-white active:bg-blue-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"> 
         Modificar Jobs
         </button>
         </Link>
@@ -157,7 +157,7 @@ function JobAdmin() {
         
         <button
 
-          className="btn btn-dark"
+          className="bg-blue-600 ml-4 text-white active:bg-blue-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
           onClick= {handleClick}
         >
           Resetear Filtros
@@ -173,7 +173,7 @@ function JobAdmin() {
             <br />
             <table id="users" className="stripe hover w-full py-4 pb-4">
               <thead>
-                <tr className="bg-indigo-400 bg-opacity-100 text-white">
+                <tr className="bg-blue-500 bg-opacity-100 text-white">
                   
                   <th data-priority="1">Name</th>
                   <th data-priority="2">Descripcion</th>
