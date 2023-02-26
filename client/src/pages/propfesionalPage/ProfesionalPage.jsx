@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
+import Filter from "../../containers/filters/Filter";
+import FilterUser from "../../containers/filters/filterUser/filterUser";
+import { getAllProfesionales } from "../../redux/actions/users/profesionales";
 
 function ProfesionalPage() {
   //const service = useSelector((state) => state.service);
-  const dispatch = useDispatch();
   let configFilterUser = useSelector((state) => state.configFilterUser);
-  let allUsers = useSelector((state) => state.allUsers);
+  const usersProfesionales = useSelector((state) => state.usersProfesionales);
+  const dispatch = useDispatch();
 
   
-  useEffect(() => {
-  }, []);
+
 
   //cargamos todos los jobs y services cuando se renderiza
   useEffect(() => {
-
+    dispatch(getAllProfesionales(configFilterUser))
   }, []);
+
 
   return (
     <div>
@@ -23,10 +26,21 @@ function ProfesionalPage() {
         <NavBarPortada />
       </div>
 
-
+      <div>
+        <FilterUser totalPages={usersProfesionales.totalPages}/>
+      </div>
       
       <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {allUsers.result && allUsers.result.length}
+        {usersProfesionales.result?(
+          usersProfesionales.result.map((user, ind)=>(
+            <div key={ind} className="font-sans pt-1 not-italic font-medium text-gray-700">
+              {user.lastName}
+            </div>
+          ))
+        ):(
+          <p>{"Sin resultados"}</p>
+        )
+        }
       </div>
 
     </div>

@@ -2,9 +2,11 @@
 import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
+  token: "",
+
   users: [],
-  allUsers: {},
-  usersProfesionales: [],
+  allUsers: [],
+  usersProfesionales: {},
   jobs: [],
   allJobs: [],
   jobById: {},
@@ -29,14 +31,14 @@ const initialState = {
   configFilterUser: {
     page: 1,
     page_size: 15,
-    name: false,
+    name: "",
     job: false,
-    provincia: false,
+    provincia: "Buenos Aires",
     ciudad: false,
     dias: false,
-    horario: false,
+    horario: "mañana",
     role: "professional",
-    orderName: "ASC",
+    //orderName: "ASC",
     orderRating: "DESC"
   }
 };
@@ -92,6 +94,12 @@ export default function reducer(state = initialState, action) {
         provincias: action.payload.provincias,
         localidades: action.payload.localidades,
       };
+
+    case ActionTypes.GET_ALL_USERS_FILTRADO:
+      return {
+        ...state,
+        usersProfesionales: action.payload,
+      }
 
     /**************************************** */
     //FILTROS
