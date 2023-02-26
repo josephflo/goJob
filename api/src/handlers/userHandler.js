@@ -182,7 +182,6 @@ const createUser = async (req, res) => {
       message: "Usuario creado correctamente",
       result: userCreated,
       jobs: "Jobs agregados correctamente",
-      error: error, // Agregamos la variable de estado a la respuesta
     });
   } catch (error) {
     return res.status(404).json({
