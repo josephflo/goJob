@@ -1,5 +1,17 @@
 # User
 
+## Login Auth 0
+post( http://localhost:3005/user/login )
+
+```
+Login para auth 0
+
+body
+{
+  id: "id del usuario"
+}
+```
+
 ## Como usar el token en las peticiones
 ```
 axios.get('https://ejemplo.com/api/data', {
@@ -34,6 +46,18 @@ post( http://localhost:3005/user/register )
     },
 	"jobs": []  
 }
+
+//subir imagen 
+post( http://localhost:3005/user/register/img )
+
+//enviamos la imagen por form data
+
+{
+  user: mismo nombre que el register
+  image: (file)
+}
+
+
 ```
 
 post( http://localhost:3005/user/login )

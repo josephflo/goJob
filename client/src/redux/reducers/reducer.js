@@ -15,6 +15,7 @@ const initialState = {
   filterService: [],
   userDetail: {},
 
+
   //config para filtros services
   configFilterServices: {
     page: 1,
@@ -41,6 +42,8 @@ const initialState = {
     orderName: false,
     orderRating: "DESC",
   },
+    orderRating: "DESC"
+  }
 };
 
 export default function reducer(state = initialState, action) {
@@ -75,7 +78,7 @@ export default function reducer(state = initialState, action) {
     case ActionTypes.GET_SERVICE:
       return {
         ...state,
-        service: action.payload,
+        service: action.payload
       };
 
     case ActionTypes.USER_DETAIL:
@@ -105,8 +108,9 @@ export default function reducer(state = initialState, action) {
         ...state,
         usersProfesionales: action.payload,
       };
+      }
 
-    /************** */
+    /**************************************** */
     //FILTROS
     case ActionTypes.CONFIG_FILTER_SERVICES:
       return {

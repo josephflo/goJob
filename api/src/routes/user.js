@@ -20,9 +20,14 @@ router.get("/token", auth, userHandlers.decifrarToken);
 
 /****** POST ****** */
 router.post("/register", userHandlers.createUser);//
+router.post("/register/img", userHandlers.uploadImg);//
+
 router.post("/service", auth, userHandlers.createServer)//
 
 router.post("/login", userHandlers.login)//
+router.post("/login/auth", userHandlers.loginAuth)//
+
+
 router.post("/friend", auth, userHandlers.addFriend)//
 
 router.post("/service/postular/:idService", auth, userHandlers.postularService)

@@ -1,4 +1,28 @@
-export default function Form({ changeInput, handleOpenFormByRol }) {
+import { useState } from "react";
+
+export default function Form({
+  changeInput,
+  handleOpenFormByRol,
+  handleRegister,
+  changeInputImage,
+}) {
+  const [btnLabel, setBtnLabel] = useState({
+    open: false,
+  });
+
+  const changeState = (e) => {
+    const value = e.target.value;
+    setBtnLabel({
+      open: true,
+      rol: value,
+    });
+  };
+
+  function handleInputChange(e) {
+    changeInput(e);
+    changeState(e);
+  }
+
   return (
     <>
       <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
@@ -80,6 +104,55 @@ export default function Form({ changeInput, handleOpenFormByRol }) {
                   onChange={changeInput}
                 />
               </div>
+              <p className="mt-2 text-sm text-gray text-bold text-left px-12">
+                Crear un user y password
+              </p>
+              <div>
+                <label
+                  htmlFor="user"
+                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                >
+                  User
+                </label>
+                <input
+                  type="text"
+                  name="user"
+                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="User"
+                  onChange={changeInput}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                >
+                  Ingrese password
+                </label>
+                <input
+                  type="text"
+                  name="password"
+                  className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Password"
+                  onChange={changeInput}
+                />
+              </div>
+              <div>
+                <label
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  for="file_input"
+                >
+                  Upload file
+                </label>
+                <input
+                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  id="file_input"
+                  type="file"
+                  name="file"
+                  onChange={changeInputImage}
+                />
+              </div>
+
               <div>
                 <label
                   htmlFor="Role"
@@ -97,7 +170,7 @@ export default function Form({ changeInput, handleOpenFormByRol }) {
                         value="comun"
                         class="hidden peer"
                         required
-                        onChange={changeInput}
+                        onChange={handleInputChange}
                       />
                       <label
                         for="hosting-small"
@@ -113,7 +186,7 @@ export default function Form({ changeInput, handleOpenFormByRol }) {
                         name="role"
                         value="professional"
                         class="hidden peer"
-                        onChange={changeInput}
+                        onChange={handleInputChange}
                       />
                       <label
                         for="hosting-big"
@@ -129,12 +202,27 @@ export default function Form({ changeInput, handleOpenFormByRol }) {
               </div>
             </div>
             <div>
-              <button
-                className="mt-3 w-[80%] py-3 bg-blue-900 text-white"
-                onClick={handleOpenFormByRol}
-              >
-                Siguiente
-              </button>
+              {btnLabel.open ? (
+                <>
+                  {btnLabel.rol === "professional" ? (
+                    <button
+                      className="mt-3 w-[80%] py-3 bg-blue-900 text-white"
+                      onClick={handleOpenFormByRol}
+                    >
+                      Siguiente
+                    </button>
+                  ) : (
+                    <button
+                      className="mt-3 w-[80%] py-3 bg-blue-900 text-white"
+                      onClick={handleRegister}
+                    >
+                      Registrarse
+                    </button>
+                  )}
+                </>
+              ) : (
+                <></>
+              )}
             </div>
           </form>
         </div>
