@@ -225,9 +225,64 @@ const promedioRating = (ratings)=>{
 
 }
 
+const userLoginEmail = async(email)=>{
+  try {
+    const result = await User.findOne({
+      where: {email: email, state: true},
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: User,
+          as: 'friends',
+          attributes: { exclude: ['password', 'role'] },
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: Service,
+          as: "myServices",
+          include:
+          {
+            model: User,
+            as: "postulantes",
+            attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+            through: { 
+              attributes:[]
+            }
+          }
+        },
+        {
+          model: Service,
+          as: "myTrabajos",
+          through: { 
+            attributes:[]
+          }
+        }   
+  
+      ],
+    });
+    
+    if(result == undefined){
+      return false
+    }
+
+    return result
+
+  } catch (error) {
+    return false
+  }
+}
 
 module.exports = {
   getDbUser,
   getUserByID,
-  promedioRating
+  promedioRating,
+  userLoginEmail
 }

@@ -59,18 +59,39 @@ export const getUserAuth0Id = (sub) => async (dispatch) => {
   }
 };
 
-export const createUser2 = (input) => {
-  return async (dispatch) => {
-    let createNewUser
-    try {
-      createNewUser = axios.post('/user',input)
-      return createNewUser.data
-    } catch (error) {
-      console.log(error.message);
-      alert('No se creo el usuario')
-    }
+export const createAndLogin = (newUser) =>async(dispatch)=> {
+
+  try {
+    let result = axios.post("/user/register", newUser)
+
+    return dispatch({
+      type:ActionTypes.REGISTER_USER_AND_LOGIN,
+      payload: result.data
+    })
+
+  } catch (error) {
+    throw Error(error)
+    console.log("No se pudo iniciar");
   }
 };
+
+export const putUser = (newUser) =>async(dispatch)=> {
+
+  try {
+    let result = axios.put("/user/register", newUser)
+
+    return dispatch({
+      type:ActionTypes.REGISTER_USER_AND_LOGIN,
+      payload: result.data
+    })
+
+  } catch (error) {
+    throw Error(error)
+    console.log("No se pudo iniciar");
+  }
+};
+
+
 
 export const uploadImage = (input) => async (dispatch) => {
   try {

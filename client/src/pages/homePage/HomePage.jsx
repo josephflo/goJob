@@ -39,7 +39,9 @@ export default function HomePage() {
         lastName:family_name || 'sin apellido',
         email: email,
         user: nickname,
-        password: ""
+        password: "",
+        role: "professional",
+        horario: "tarde"
       },
       jobs: [],
     }).then((res)=> console.log(res).catch((error)=>console.log(error)));

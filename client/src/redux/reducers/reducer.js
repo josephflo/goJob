@@ -3,6 +3,7 @@ import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
   token: "",
+  userLogin: {},
 
   users: [],
   userId: {},
@@ -108,8 +109,14 @@ export default function reducer(state = initialState, action) {
         ...state,
         usersProfesionales: action.payload,
       };
-    
 
+    //Login y Create user
+    case ActionTypes.REGISTER_USER_AND_LOGIN:
+      return {
+        ...state,
+        token: action.payload.token,
+        userLogin: action.payload.result
+      }
     /**************************************** */
     //FILTROS
     case ActionTypes.CONFIG_FILTER_SERVICES:
