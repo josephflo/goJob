@@ -28,7 +28,6 @@ const userModel = (sequelize) => {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,

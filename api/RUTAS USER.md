@@ -1,5 +1,17 @@
 # User
 
+## Login Auth 0
+post( http://localhost:3005/user/login )
+
+```
+Login para auth 0
+
+body
+{
+  id: "id del usuario"
+}
+```
+
 ## Como usar el token en las peticiones
 ```
 axios.get('https://ejemplo.com/api/data', {
