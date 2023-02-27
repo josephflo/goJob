@@ -1,5 +1,17 @@
 # User
 
+## Login Auth 0
+post( http://localhost:3005/user/login )
+
+```
+Login para auth 0
+
+body
+{
+  id: "id del usuario"
+}
+```
+
 ## Como usar el token en las peticiones
 ```
 axios.get('https://ejemplo.com/api/data', {
@@ -18,19 +30,34 @@ post( http://localhost:3005/user/register )
 
 //En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs lo dejamos vacio, pero es obligatorio enviarlo
 {
-	user:{
-		    firstName: "Cap",
-            lastName: "America",
-            email: "Cap@gmail.com",
-            user: "cap22",
-            password: "123456",
-            city: "Dubai",
-            phone: 9871256,
-            address: "Av. Troya",
-            role: "admin"
-	},
+    user: {
+      firstName: "Amy",
+      lastName: "Garcia",
+      email: "amygarcia@example.com",
+      user: "amygarcia",
+      password: "123456",
+      phone: 1234567897,
+      role: "professional",
+
+      provincia: "Buenos Aires",
+      ciudad: "Random",
+      direccion: "789 Oak St",
+      horario: "Tarde",
+    },
 	jobs: []  
 }
+
+//subir imagen 
+post( http://localhost:3005/user/register/img )
+
+//enviamos la imagen por form data
+
+{
+  user: mismo nombre que el register
+  image: (file)
+}
+
+
 ```
 
 post( http://localhost:3005/user/login )
@@ -43,6 +70,14 @@ post( http://localhost:3005/user/login )
     user: "thor22",
     password: "123456",
 }
+```
+
+## Delete User
+
+delete( http://localhost:3005/user/delete )
+```
+//en esta ruta eliminamos un usuario
+//requiere del token
 ```
 
 
@@ -88,7 +123,7 @@ put ( http://localhost:3005/user/update )
 
 //Body
 
-//En la propiedad "jobs" agregamos los todos los id de los Jobs
+//En la propiedad "jobs" agregamos los todos los id de los Jobs, no queremos modificar jobs no enviamos ese parametro
 {
 	user:{
 		    firstName: "Cap MODIFY",
@@ -103,6 +138,7 @@ put ( http://localhost:3005/user/update )
 	},
 	jobs: []  
 }
+si queremos eliminar todos los jobs, enviamos array vacio
 ```
 
 "**********************************************************************"
@@ -131,7 +167,11 @@ post ( http://localhost:3005/user/service )
 	description: "techo construccion",
 	location: "Paris",
 	presupuesto: "200",
-	jobs: []
+  provincia: "Buenos Aires",
+	ciudad: "Rand",
+	direccion: "Av. Napoelon"
+	jobs: [1]
+  
 }
 //en "jobs" enviamos los id de los Jobs
 ```
@@ -144,16 +184,20 @@ put ( http://localhost:3005/user/service/"idService" )
 
 //Body
 {
-	service: {
-        tittle: "construccion techo MODIFY3",
-        description: "techo construccion MODIFY",
-        location: "Paris",
-        presupuesto: "200"
-	},
-	jobs: [2]
+  active: false,   //este apartado sirve para ocultar el service
+
+	tittle: "reparacion carro",
+	description: "techo construccion",
+	location: "Paris",
+	presupuesto: "200",
+  provincia: "Buenos Aires",
+	ciudad: "Rand",
+	direccion: "Av. Napoelon"
+	jobs: []
 }
-//En "service" enviamos los nuevos datos
-//En job enviamos los id de los "Job", importante enviar todos los id ya que se elimina todo y se vuelve a crear
+//Enviamos solo las propiedades que deseamos actualizar
+//en el caso de jobs enviamos los "id" de los Jobs
+//Si deseamos eliminar todos los jobs enviamos array vacio
 
 ```
 
@@ -166,3 +210,69 @@ delete ( http://localhost:3005/user/service/"idService" )
 
 //el "id" del service se envia por el params (ruta)
 ```
+
+
+## postular a un servicio
+
+post ( http://localhost:3005/user/service/postular/"idService" )
+```
+En esta ruta postulamos a un servicio
+Requiere del token
+Enviar el "id" del servicio en el parametro "idService"
+
+Params
+{
+  idService: id (id del servicio)
+}
+```
+
+## Eliminar postulacion a un servicio
+
+delete ( http://localhost:3005/user/service/postular/"idService" )
+```
+En esta ruta eliminamos la postulacion a un servicio
+Requiere del token
+Enviar el "id" del servicio en el parametro "idService"
+
+Params
+{
+  idService: id (id del servicio)
+}
+```
+
+## Elegir trabajador de un servicio
+
+post ( http://localhost:3005/user/service/elegir/trabajador )
+```
+En esta ruta elegimos a un trabajador de un servicio
+requiere del token
+Los datos se envian por el body
+
+Body
+{
+  trabajador: idUser (id del User quien sera el trabajador),
+  service: idService (id del servicio a cual elegiremos un trabajador)
+}
+
+```
+
+## Finalizar y calificar servicio
+
+put ( http://localhost:3005/user/service/calificar/"idService" )
+```
+En esta ruta finalizamos un servicio, y si hay una review lo agregamos
+Requiere del token
+Enviar el "id" del servicio en el parametro "idService"
+
+Params
+{
+  idService: id (id del servicio)
+}
+
+Body
+{
+  score: 4,
+  review: "Es professional es muy respetuoso y talentoso haciendo su trabajo"
+}
+```
+

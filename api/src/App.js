@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors");
 const morgan = require('morgan');
+const fileupload = require("express-fileupload")
 
 //importar Rutas
 const routes = require ('./routes/index.js') // todas las rutas estan ligadas a esta, por lo tanto no necesito traer las otras rutas
@@ -16,6 +17,11 @@ app.use(morgan('dev'));
 //convertir a json
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+app.use(fileupload({
+    useTempFiles: true,
+    tempFileDir: "./uploads"
+}))
+
 
 //cargar rutas
 app.use('/', routes);

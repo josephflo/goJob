@@ -1,8 +1,16 @@
 # Job
 Es necesario agregar Jobs para poder trabajar con los Users Y Services
 
+## Creacion de varios Jobs para pruebas
+
+post ( http://localhost:3005/job/hardcore )
+```
+En esta creamos varios job para pruebas de desarrollo
+No requiere enviar nada mas
+```
+
 ## Post
-post (  http://localhost:3005/job )
+post (  http://localhost:3001/job )
 ```
 //Esta ruta es para crear Jobs
 
@@ -29,3 +37,6 @@ delete ( http://localhost:3005/job/"idJob" )
 
 recibe solo el idJob en el params (ruta)
 ```
+
+
+

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^2.0.0",
     "@emailjs/browser": "^3.10.0",
     "@react-icons/all-files": "^4.1.0",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,8 +17,9 @@
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
     "react-router": "^6.8.1",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "redux": "^4.0.5",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",

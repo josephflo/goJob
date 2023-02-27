@@ -5,8 +5,9 @@ const { Sequelize } = require('sequelize');
 const userModel = require("../models/User")
 const jobModel = require("../models/Job")
 const serviceModel = require("../models/Service")
+const ratingModel = require("../models/Rating")
 
-const {
+const {   
     DB_USER,
     DB_NAME,
     DB_PASSWORD,
@@ -26,9 +27,10 @@ native: false, // lets Sequelize know we can use pg-native for ~30% more speed
 userModel(sequelize)
 jobModel(sequelize)
 serviceModel(sequelize)
+ratingModel(sequelize)
 
 //destructuring de modelos
-const { User, Job, Service } = sequelize.models;
+const { User, Job, Service, Rating } = sequelize.models;
 
 
 /****** RELACIONES ********** */
@@ -37,8 +39,43 @@ User.belongsToMany(Job, {through: "UsersJobs", timestamps: false})
 Job.belongsToMany(User, {through: "UsersJobs", timestamps: false})
 
 //relacion Users a Service
-User.hasMany(Service);
-Service.belongsTo(User);
+User.hasMany(Service, {
+  foreignKey: 'UserId',
+  as: "myServices"
+});
+Service.belongsTo(User, {
+  foreignKey: 'UserId',
+  as: "userId"
+});
+
+User.belongsToMany(Service, {
+  through: 'ServiceMyTrabajo',
+  foreignKey: 'userId',
+  timestamps: false,
+  as: "myTrabajos",
+});
+Service.belongsToMany(User, {
+  through: 'ServiceMyTrabajo',
+  foreignKey: 'serviceId',
+  timestamps: false,
+  as: "trabajadorId"
+});
+
+//=>Postular
+User.belongsToMany(Service, {
+  through: 'ServicePostulantesUser',
+  foreignKey: 'userId',
+  timestamps: false,
+  as: "postulantes"
+});
+Service.belongsToMany(User, {
+  through: 'ServicePostulantesUser',
+  foreignKey: 'serviceId',
+  timestamps: false,
+  as: "postulantes"
+});
+
+//=>
 
 //relacion de Service y Jobs
 Service.belongsToMany(Job, {through: "ServicesJobs", timestamps: false})
@@ -52,6 +89,7 @@ User.belongsToMany(User, {
   otherKey: 'friendId',
   as: 'friends', // nombre de la columna en el modelo
 });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

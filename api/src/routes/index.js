@@ -5,19 +5,23 @@ const {Router} = require ('express');
 const user = require('./user');
 const job = require('./job');
 const service = require('./service');
-
-
-
+const stripe = require("./stripe")
+const cloudinary = require("./cloudinary")
 
 
 /////
 const app = Router();
+
+
+
 
 // configurar las routes(app)
 
 app.use('/user', user)
 app.use('/job', job)
 app.use('/service', service)
+app.use("/stripe",stripe)
+app.use("/cloudinary",cloudinary)
 
 
 module.exports = app;

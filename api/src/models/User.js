@@ -9,6 +9,10 @@ const userModel = (sequelize) => {
         primaryKey: true,
         autoIncrement: true
     },
+    state: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -24,7 +28,6 @@ const userModel = (sequelize) => {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
@@ -32,22 +35,20 @@ const userModel = (sequelize) => {
         unique: true,
 
     },
-    city: {
+    imageurl: {
         type: DataTypes.STRING,
-        allowNull: false,
-    },
-    image: {
-        type: DataTypes.TEXT
-    },
-    phone: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: true,
+        defaultValue: "sin foto",
 
     },
-    address: {
+    imagePublicId:{
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: "sin foto",
+
+    },
+    phone: {
+        type: DataTypes.STRING,
+        unique: true,
+
     },
     role: {
         type: DataTypes.STRING,
@@ -56,6 +57,34 @@ const userModel = (sequelize) => {
             isIn: [['comun', 'professional', 'admin']]
           }
     },
+    rating_promedio: {
+        type: DataTypes.FLOAT,
+        defaultValue: 0.0
+    },
+    rating: {
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        defaultValue: [],
+    },
+ 
+    //si es profesional
+    provincia: {
+        type: DataTypes.STRING,
+    },
+    ciudad: {
+        type: DataTypes.STRING,
+    },
+    direccion: {
+        type: DataTypes.STRING,
+    },
+    dias:{
+        type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+    horario: {
+        type: DataTypes.STRING,
+    },
+    description: {
+        type: DataTypes.TEXT,
+    }
 
   },{timestamps: false });
 };

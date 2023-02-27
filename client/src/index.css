@@ -4,6 +4,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  ._btn-white {
+    @apply p-2 flex items-center justify-center text-gray-800 bg-gray-50 border border-transparent rounded-md font-medium w-full hover:bg-gray-200 hover:no-underline;
+  }
+  ._btn-bordered {
+    @apply p-2 flex items-center justify-center text-gray-50 border border-gray-50 rounded-md font-medium text-center cursor-pointer w-full hover:bg-gray-50 hover:text-black hover:no-underline;
+  }
+  ._input {
+    @apply text-gray-50 mb-3 w-full bg-slate-700 py-2 px-3 rounded-md outline-none border border-transparent focus:border-gray-400 focus:border;
+  }
+  ._title {
+    @apply font-semibold text-gray-50 text-left w-full text-2xl mb-4;
+  }
+  ._sub-title {
+    @apply text-gray-400 text-sm mb-2;
+  }
+}
+
 .container {
   background: "bg-landingBackground";
   background-repeat: no-repeat;
@@ -36,23 +54,4 @@
   padding-top: 30px;
   display: flex;
   justify-content: center;
-}
-
-@layer base {
-  @font-face {
-    font-family: "Poppins";
-  }
-  * {
-    padding: 0;
-    left: 0;
-    box-sizing: border-box;
-    font-family: "Poppins";
-  }
-  .sidebar-container {
-    @apply bg-[#2D3979] h-[96%] w-[20rem] rounded-3xl ml-6 p-4 border transition-all duration-500 border-solid border-glass relative
-  }
-  .sidebar {
-    @apply flex items-center mt-2 p-4 rounded-lg cursor-pointer hover:bg-white transition-all duration-300
-  }
-  
 }

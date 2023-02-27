@@ -1,6 +1,8 @@
 const { Service, User, Job } = require("../connection/db");
-const { getDbService } = require("../controllers/serviceController");
+const { getDbService, paginacion, getServices } = require("../controllers/serviceController");
 const axios = require("axios");
+const { Op } = require("sequelize");
+const { query } = require("express");
 
 require('dotenv').config();
 const { DB_HOST, PORT } = process.env;
@@ -8,54 +10,67 @@ const { DB_HOST, PORT } = process.env;
 const getAllServices = async (req, res)=>{
   let page = Number(req.query.page || 1)
   let page_size = Number(req.query.page_size || 15)
-  const offset = (page - 1) * page_size;
+
+  let job = Number(req.query.job)
+  let state = req.query.state
+  let tittle = req.query.tittle
+  let provincia = req.query.provincia
+  let ciudad = req.query.ciudad
+
+  let orderFecha = req.query.orderFecha
+
+  console.log(state);
+
+  let querys = {}
+
+  //configuraciones para filtrado
+  let statementService = {
+    active: true
+  }
+
+  if(state){
+    statementService.state = state
+    querys.state = state
+  }
+  if(tittle){
+    statementService.tittle = {[Op.iLike]:`%${tittle}%`}
+    querys.tittle = tittle
+  }
+  if(provincia){
+    statementService.provincia = provincia
+    querys.provincia = provincia
+  }
+  if(ciudad){
+    statementService.ciudad = ciudad
+    querys.ciudad = ciudad
+  }
+
+  let statementeJob = {}
+  if(job){
+    statementeJob.id = job
+
+    querys.job = job
+
+  }
+
+  //order
+  let statementFecha = {}
+
+  if(orderFecha){
+    statementFecha.order = [['fecha_publicacion', orderFecha]] 
+    querys.orderFecha = orderFecha
+  }else{
+    statementFecha.order = [['fecha_publicacion', 'DESC']] 
+  }
+ 
 
   try {
-    let service = await Service.findAll({
-      limit: page_size,
-      offset: offset,
-      //attributes: { exclude: ['password'] },
-      include: [
-        {
-          model: Job,
-          through: { 
-            attributes:[]
-          }
-        }
-      ],
-    });
-
-    //contamos el total de paginas
-    const totalCount = await Service.count();
-    const totalPages = Math.ceil(totalCount / page_size);
-
-    //paginacion
-    let nextPage
-    let previousPage
-    if(page == totalPages && page == 1 || totalCount <= 0){
-      nextPage = null
-      previousPage = null
-    }else if(page == 1){
-      previousPage = null
-      nextPage = `http://${DB_HOST}:${PORT}/service?page=${page+1}&page_size=${page_size}`
-    }else if(page > 1 && page < totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/service?page=${page-1}&page_size=${page_size}`
-      nextPage = `http://${DB_HOST}:${PORT}/service?page=${page+1}&page_size=${page_size}`
-    }else if(page = totalPages){
-      previousPage = `http://${DB_HOST}:${PORT}/service?page=${page-1}&page_size=${page_size}`
-      nextPage = null
-    }
-
+    let totalServices = await getServices(page, page_size, querys, statementService, statementeJob, statementFecha)
 
     return res.status(200).json({
       status: "success",
       message: "Extraccion exitosa",
-      nextPage,
-      previousPage,
-      totalPages,
-      result: service,
-      
-
+      ...totalServices
     })
 
   } catch (error) {
@@ -73,9 +88,32 @@ const getIdService = async (req, res) => {
     //let getUser = await User.findOne({ where: { id: idUser } });
     let service = await Service.findOne({
       where: {id: idService},
+      attributes: { exclude: ['idPostulantes', 'servicePostulantesUser', "UserId"] },
       include: [
         {
           model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as:"userId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
+
+        },
+        {
+          model: User,
+          as: "postulantes",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: User,
+          as: "trabajadorId",
+          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
           through: { 
             attributes:[]
           }

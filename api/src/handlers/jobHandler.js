@@ -1,5 +1,6 @@
 const { Job, User } = require("../connection/db");
 const { getDbJob } = require("../controllers/jobController");
+const {createProduct} = require ("../services/stripe")
 
 const getAllJobs = async (req, res) => {
   try {
@@ -13,7 +14,7 @@ const getAllJobs = async (req, res) => {
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message,
+      message: error.message
     });
   }
 };
@@ -49,7 +50,11 @@ const createJob = async (req, res) => {
   let newJob = req.body;
 
   try {
+    
+   const product = await createProduct(newJob.name)
+   newJob.stripeproductid = product.id
     let jobCreated = await Job.create(newJob);
+   
 
     return res.status(200).json({
       status: "success",
@@ -116,6 +121,8 @@ const actulizarJob = async(req, res)=>{
     });
   }
 }
+
+
 
 module.exports = {
   getAllJobs,
