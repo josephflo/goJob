@@ -6,13 +6,14 @@ import ProfessionalProfile from './components/ProfessionalProfile'
 const UserProfile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   console.log(user);
+  const [isProfesional, setIsProfesional] = useState(false);
+
   if (isLoading) {
     return <div>Loading ...</div>;
   }
   const handleChangeProfile = () => {
     setIsProfesional(true);
   };
-  const [isProfesional, setIsProfesional] = useState(false);
 
   return (
     isAuthenticated && (

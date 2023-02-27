@@ -6,7 +6,7 @@ import axios from "axios";
 
 // Authentication
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
-import Private from "./authentication/Private";   
+//import Private from "./authentication/Private";   
 
 // Pages
 import HomePage from "./pages/homePage/HomePage";

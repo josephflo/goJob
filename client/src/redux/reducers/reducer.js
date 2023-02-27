@@ -41,10 +41,10 @@ const initialState = {
     role: "professional",
     orderName: false,
     orderRating: "DESC",
-  },
-    orderRating: "DESC"
   }
-};
+
+}
+
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -108,7 +108,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         usersProfesionales: action.payload,
       };
-      }
+    
 
     /**************************************** */
     //FILTROS
