@@ -16,8 +16,15 @@ const NavLinks = () => {
   let modifyStateFilter = (idProfesion)=>{
     dispatch(configFilterUserPut({
       ...configFilterUser,
-      job: idProfesion
-  
+      job: idProfesion,
+      name: "",
+      provincia: "Buenos Aires",
+      ciudad: false,
+      dias: false,
+      horario: "mañana",
+      role: "professional",
+      orderName: false,
+      orderRating: "DESC"
     }));
   
   }
