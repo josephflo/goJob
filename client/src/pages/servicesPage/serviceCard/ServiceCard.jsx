@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { userFormBackground } from "../../../assets";
 
+import capitalizeFirstLetter from "../../../helpers/capitalizeFirstLetter";
+
 function ServiceCard({
   tittle,
   id,
@@ -19,12 +21,8 @@ function ServiceCard({
     });
   }
 
-  function capitalizarPrimeraLetra(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  tittle = capitalizarPrimeraLetra(tittle);
-  description = capitalizarPrimeraLetra(description);
+  tittle = capitalizeFirstLetter(tittle);
+  description = capitalizeFirstLetter(description);
 
   return (
     <div className="bg-gray-100 p-4">

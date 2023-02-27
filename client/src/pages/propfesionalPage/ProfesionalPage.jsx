@@ -11,14 +11,10 @@ function ProfesionalPage() {
   const usersProfesionales = useSelector((state) => state.usersProfesionales);
   const dispatch = useDispatch();
 
-  
-
-
   //cargamos todos los jobs y services cuando se renderiza
   useEffect(() => {
-    dispatch(getAllProfesionales(configFilterUser))
+    dispatch(getAllProfesionales(configFilterUser));
   }, []);
-
 
   return (
     <div>
@@ -27,22 +23,25 @@ function ProfesionalPage() {
       </div>
 
       <div>
-        <FilterUser totalPages={usersProfesionales.totalPages}/>
+        <FilterUser totalPages={usersProfesionales.totalPages} />
       </div>
-      
+
       <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {usersProfesionales.result?(
-          usersProfesionales.result.map((user, ind)=>(
-            <div key={ind} className="font-sans pt-1 not-italic font-medium text-gray-700">
+        {usersProfesionales.result ? (
+          usersProfesionales.result.map((user, ind) => (
+            <div
+              key={ind}
+              className="font-sans pt-1 not-italic font-medium text-gray-700"
+            >
               {user.lastName}
             </div>
           ))
-        ):(
-          <p>{"Sin resultados"}</p>
-        )
-        }
+        ) : (
+          <div className="flex items-center col-span-4 justify-center h-screen">
+            <p className="text-2xl font-semibold">{"Sin resultados"}</p>
+          </div>
+        )}
       </div>
-
     </div>
   );
 }
