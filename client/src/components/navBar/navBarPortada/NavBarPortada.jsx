@@ -31,8 +31,8 @@ const NavBarPortada = () => {
           </Link>
         </li>
         <li>
-          <Link to="/admin/create/job" class="py-7 px-3 inline-block">
-            Crear Job
+          <Link to="/Dashboard" class="py-7 px-3 inline-block">
+            Dashboard
           </Link>
         </li>
         <li>
