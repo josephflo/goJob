@@ -22,12 +22,12 @@ export const createService = (input) => {
   return async (dispatch) => {
     try {
       const json = JSON.stringify(input);
-      // const customConfig = {
-      //   headers: {
-      //     'Authorization': `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwiZmlyc3ROYW1lIjoiVG9tIiwibGFzdE5hbWUiOiJXaWxzb24iLCJlbWFpbCI6InRvbXdpbHNvbkBleGFtcGxlLmNvbSIsInVzZXIiOiJ0b213aWxzb24iLCJwaG9uZSI6IjEyMzQ1Njc4OTQiLCJyb2xlIjoicHJvZmVzc2lvbmFsIiwiaWF0IjoxNjc3MzUwMTM3LCJleHAiOjE2Nzk5NDIxMzd9.w1Qm7ttqP3Kn98T_B_bSZNkQVX0NhWmhQjelzpDaguI`
-      //   }
-      // }
-
+      //const customConfig = {
+      //  headers: {
+      //    'Authorization': `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiRnJheSIsImxhc3ROYW1lIjoiVGFwaWEiLCJlbWFpbCI6ImZyYXluaWxzb24yMDAzQGdtYWlsLmNvbSIsInVzZXIiOiJmcmF5IiwicGhvbmUiOiI5NTQxMiIsInJvbGUiOiJjb211biIsImlhdCI6MTY3NzQ2NTY5MCwiZXhwIjoxNjgwMDU3NjkwfQ.JV-v5jo_51h_rgmjlp6PrrGTV9NAOu9lzWMJnCXihJ0`
+      //  }
+      //}
+      
       console.log("Esto llega");
       console.log(input);
 
@@ -38,9 +38,11 @@ export const createService = (input) => {
         payload: result.data,
       });
     } catch (error) {
-      alert("Relleno correctamente los formularios");
-      throw new Error("Error en createService");
+      alert("Relleno correctamente los formularios")
+      throw new Error("Error en createService")
     }
+
+    
   };
 };
 

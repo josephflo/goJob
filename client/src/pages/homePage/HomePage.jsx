@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/Footer/Footer";
 import JobPage from "../jobPage/JobPage";
 import FormHomePage from "../../containers/forms/formHomePage/FormHomePage";
-import Reviews from "../../components/reviews/Reviews";
+import Reviews from "../../components/Reviews/Reviews";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 
 export default function HomePage() {
