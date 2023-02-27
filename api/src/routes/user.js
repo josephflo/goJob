@@ -11,6 +11,7 @@ const {createCheckoutHandler, productCreateHandler, priceCreatedHandler} = requi
 router.get("/", userHandlers.getAllUser);
 router.get("/get/:id", userHandlers.getUserID);
 router.get("/friend", auth, userHandlers.getFriends)
+//router.get("/profile", auth, userHandlers.getFriends)
 
 router.get("/services", auth, userHandlers.getAllMyService)
 

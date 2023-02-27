@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 
 // Authentication
+import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import Private from "./authentication/Private";   
 
 // Pages
@@ -71,7 +72,7 @@ function App() {
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
-          <Route exact path="/user/profile" element={<Private />} />
+          <Route exact path="/user/profile" element={<UserProfile />} />
 
           {/* Containers */}
           <Route exact path="/contact" element={<FormContact />} />

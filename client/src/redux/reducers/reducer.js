@@ -5,6 +5,7 @@ const initialState = {
   token: "",
 
   users: [],
+  userId: {},
   allUsers: [],
   usersProfesionales: {},
   jobs: [],
@@ -39,6 +40,8 @@ const initialState = {
     horario: "mañana",
     role: "professional",
     orderName: false,
+    orderRating: "DESC",
+  },
     orderRating: "DESC"
   }
 };
@@ -66,6 +69,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         users: action.payload,
         allUsers: action.payload,
+      };
+    case ActionTypes.GET_USER_AUTH0_ID:
+      return {
+        ...state,
+        userId: action.payload,
       };
     case ActionTypes.GET_SERVICE:
       return {
@@ -99,6 +107,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         usersProfesionales: action.payload,
+      };
       }
 
     /**************************************** */
