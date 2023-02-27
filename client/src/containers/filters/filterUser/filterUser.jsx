@@ -223,7 +223,7 @@ function FilterUser({ totalPages }) {
               Rating
             </p>
             <select
-              value={configFilterUser.orderName}
+              value={configFilterUser.orderRating}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"

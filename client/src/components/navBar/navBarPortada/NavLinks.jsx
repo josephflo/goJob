@@ -22,9 +22,7 @@ const NavLinks = () => {
       ciudad: false,
       dias: false,
       horario: "mañana",
-      role: "professional",
-      orderName: false,
-      orderRating: "DESC"
+      role: "professional"
     }));
   
   }
