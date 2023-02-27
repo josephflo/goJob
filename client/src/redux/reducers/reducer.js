@@ -2,18 +2,45 @@
 import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
+  token: "",
+
   users: [],
-  allUsers:[],
+  userId: {},
+  allUsers: [],
+  usersProfesionales: {},
   jobs: [],
-  allJobs:[],
+  allJobs: [],
   jobById: {},
-  service: [],
+  service: {},
   filterService: [],
   userDetail: {},
-  state: "",
-  job: "",
-  provincias: "",
-  localidades: "  ",
+
+  //config para filtros services
+  configFilterServices: {
+    page: 1,
+    page_size: 15,
+    state: "pendiente",
+    tittle: "",
+    orderFecha: "DESC",
+    provincia: "Buenos Aires",
+    ciudad: false,
+    job: false,
+  },
+
+  //config para filtros services
+  configFilterUser: {
+    page: 1,
+    page_size: 15,
+    name: "",
+    job: false,
+    provincia: "Buenos Aires",
+    ciudad: false,
+    dias: false,
+    horario: "mañana",
+    role: "professional",
+    orderName: false,
+    orderRating: "DESC",
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -38,7 +65,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         users: action.payload,
-        allUsers:action.payload,
+        allUsers: action.payload,
+      };
+    case ActionTypes.GET_USER_AUTH0_ID:
+      return {
+        ...state,
+        userId: action.payload,
       };
     case ActionTypes.GET_SERVICE:
       return {
@@ -67,92 +99,27 @@ export default function reducer(state = initialState, action) {
         provincias: action.payload.provincias,
         localidades: action.payload.localidades,
       };
- case ActionTypes.ORDER_BY_NAME:
-   const sort =
-    action.payload === "A-Z"
-      ? state.users.sort(function (a, b) {
-           if (a.firstName  > b.firstName ) {
-             return 1;
-           }          if (b.firstName  > a.firstName) {
-             return -1;
-           }
-           return 0;
-         })
-       : state.users.sort(function (a, b) {
-           if (a.firstName > b.firstName ) {
-             return -1;
-           }
-           if (b.firstName  > a.firstName ) {
-             return 1;
-           }
-           return 0;
-         });
-            return {
-     ...state,
-     users: sort,
-    
-  };
-  case ActionTypes.ORDER_BY_NAME_JOB:
-   const sortJob =
-    action.payload === "A-Z"
-      ? state.jobs.sort(function (a, b) {
-           if ( a.name > b.name) {
-             return 1;
-           }          if ( b.name >  a.name) {
-             return -1;
-           }
-           return 0;
-         })
-       : state.jobs.sort(function (a, b) {
-           if ( a.name > b.name) {
-             return -1;
-           }
-           if ( b.name >  a.name) {
-             return 1;
-           }
-           return 0;
-         });
-            return {
-     ...state,
-     jobs: sortJob,
-    };
-  case ActionTypes.ORDER_BY_ROLE:
-    const allUsers = [...state.allUsers];
-    const sortByRol =
-    action.payload === 'all' 
-    ? allUsers 
-    : allUsers.filter((u) => u.role === action.payload
-    );
-    return{
-      ...state,
-      users: sortByRol,
-     
-    }
-    case ActionTypes.ORDER_BY_STATE:
-    const allUsers2 = [...state.allUsers];
-    const sortByState =
-    action.payload === 'all' 
-    ? allUsers2 
-    : allUsers2.filter((u) => u.state === action.payload
-    );
-    return{
-      ...state,
-      users: sortByState,
-     
-    }
-    case ActionTypes.ORDER_BY_STATE_JOB:
-    const allJob2 = [...state.allJobs];
-    const sortByStateJobs =
-    action.payload === 'all' 
-    ? allJob2 
-    : allJob2.filter((u) => u.state === action.payload
-    );
-    return{
-      ...state,
-      jobs: sortByStateJobs,
-     
-    }
-     default:
-    return state;
-}
+
+    case ActionTypes.GET_ALL_USERS_FILTRADO:
+      return {
+        ...state,
+        usersProfesionales: action.payload,
+      };
+
+    /************** */
+    //FILTROS
+    case ActionTypes.CONFIG_FILTER_SERVICES:
+      return {
+        ...state,
+        configFilterServices: action.payload,
+      };
+
+    case ActionTypes.CONFIG_FILTER_USER:
+      return {
+        ...state,
+        configFilterUser: action.payload,
+      };
+    default:
+      return state;
+  }
 }
