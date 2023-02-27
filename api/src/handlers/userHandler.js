@@ -239,6 +239,61 @@ const uploadImg = async (req, res) => {
   }
 };
 
+const createUserAuth = async (req, res) => {
+  let body = req.body.user;
+
+  let idJobs = req.body.jobs;
+
+  let nombre = newUser.firstName;
+  let apellido = newUser.lastName;
+  let correo = newUser.email;
+
+  try {
+    if (!newUser) throw new Error("Mising data");
+
+    //ciframos contraseña
+    let pwd = await bcrypt.hash(newUser.password, 10);
+    newUser.password = pwd;
+
+    let userCreated = await User.create(newUser);
+    delete userCreated.dataValues.password;
+
+    await userCreated.addJobs(idJobs);
+
+    // agregar nuevo usuario a Jobs
+    delete userCreated.dataValues.password;
+
+    //mandomos email de bienvenida
+    bienvenidaMail(nombre, apellido, correo);
+
+    //verificamos si agregamos Jobs
+    let jobs;
+    let jobId;
+    if (idJobs.length) {
+      jobs = await userCreated.addJobs(idJobs);
+    } else {
+      return res.status(200).json({
+        status: "success",
+        message: "Registro exitoso sin Jobs",
+        user: userCreated,
+      });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "Usuario creado correctamente",
+      result: userCreated,
+      jobs: "Jobs agregados correctamente",
+    });
+  } catch (error) {
+    return res.status(404).json({
+      status: "error",
+      user: newUser,
+      message: error.message,
+      error: error || true, // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
+    });
+  }
+};
+
 const deleteUser = async (req, res) => {
   let idUser = req.user.id;
   try {
@@ -352,6 +407,30 @@ const login = async (req, res) => {
     });
   }
 };
+
+
+const loginAuth = async (req, res)=>{
+  let idUser = req.body.id
+  try {
+    if (!idUser) throw Error("Mising data");
+
+    //extraemos datos y comprobamos si hay datos
+    userLogin = await getUserByID(idUser);
+
+    //si todo salio bien
+    return res.status(200).json({
+      status: "success",
+      message: "Extraccion exitosa",
+      result: userLogin,
+    });
+  } catch (error) {
+    return res.status(404).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+}
+
 //job
 const addJob = async (req, res) => {
   let idUser = req.user.id;
@@ -902,6 +981,7 @@ module.exports = {
   uploadImg,
   deleteUser,
   login,
+  loginAuth,
   decifrarToken,
   addFriend,
   deleteFriend,

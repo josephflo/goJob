@@ -1,10 +1,28 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { configFilterUserPut } from "../../../redux/actions/users/profesionales";
 import { links } from "./MyLinks";
 
 const NavLinks = () => {
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
+
+
+  //estados para modificar el filtro
+  let configFilterUser = useSelector((state) => state.configFilterUser);
+  let dispatch = useDispatch()
+
+  let modifyStateFilter = (idProfesion)=>{
+    dispatch(configFilterUserPut({
+      ...configFilterUser,
+      job: idProfesion
+  
+    }));
+  
+  }
+
+
   return (
     <>
       {links.map((link) => (
@@ -46,7 +64,7 @@ const NavLinks = () => {
                       </h1>
                       {mysublinks.sublink.map((slink) => (
                         <li class="text-sm text-gray-600 my-2.5">
-                          <Link to={slink.link} class="hover:text-primary">
+                          <Link onClick={()=>modifyStateFilter(slink.id)} to={"/professional"} class="hover:text-primary">
                             {slink.name}
                           </Link>
                         </li>

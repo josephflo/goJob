@@ -1,4 +1,4 @@
-export const links = [
+export const links2 = [
   {
     name: "Profesionales",
     submenu: true,
@@ -6,14 +6,14 @@ export const links = [
       {
         Head: "Medicina",
         sublink: [
-          { name: "Médico", link: "/professional" },
+          { name: "Médico", link: "/professional", id: 1 },
           { name: "Enfermero/a", link: "/professional" },
         ],
       },
       {
         Head: "Ingenieria",
         sublink: [
-          { name: "Ingeniero", link: "/professional" },
+          { name: "Ingeniero", link: "/professional", id: 2 },
           { name: "Plantos a medida", link: "/professional" },
         ],
       },
@@ -54,6 +54,63 @@ export const links = [
           { name: "Full-Stack Developer", link: "/" },
           { name: "Mobile Developer", link: "/" },
           { name: "Desktop Development.", link: "/" },
+        ],
+      },
+    ],
+  },
+  // {
+  //   name: "Crear Servicio", link: "/create/service",
+
+  // }
+  
+];
+
+
+export const links = [
+  {
+    name: "Profesionales",
+    submenu: true,
+    sublinks: [
+      {
+        Head: "Medicina",
+        sublink: [
+          { name: "Médico", link: "/professional", id: 1 },
+          { name: "Psicologo", link: "/professional", id: 8 },
+        ],
+      },
+      {
+        Head: "Ingenieria",
+        sublink: [
+          { name: "Ingeniero", link: "/professional", id: 2 },
+        ],
+      },
+      {
+        Head: "Legales",
+        sublink: [
+          { name: "Abogados Penalistas", link: "/professional", id: 3 },
+          { name: "Contador", link: "/professional", id: 7 },
+
+        ],
+      },
+
+      {
+        Head: "Profesores",
+        sublink: [
+          { name: "Profesor general", link: "/", id: 4 },
+
+        ],
+      },
+      {
+        Head: "Diseñadores",
+        sublink: [
+          { name: "Diseño Graficos", link: "/", id: 5 },
+     
+        ],
+      },
+      {
+        Head: "Desarroladores",
+        sublink: [
+          { name: "Full-Stack Developer", link: "/", id: 6 },
         ],
       },
     ],
