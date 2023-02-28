@@ -3,8 +3,10 @@ import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
   token: "",
+  userLogin: {},
 
   users: [],
+  userId: {},
   allUsers: [],
   usersProfesionales: {},
   jobs: [],
@@ -43,6 +45,7 @@ const initialState = {
   },
 };
 
+
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case ActionTypes.GET_JOBS:
@@ -66,6 +69,11 @@ export default function reducer(state = initialState, action) {
         ...state,
         users: action.payload,
         allUsers: action.payload,
+      };
+    case ActionTypes.GET_USER_AUTH0_ID:
+      return {
+        ...state,
+        userId: action.payload,
       };
     case ActionTypes.GET_SERVICE:
       return {
@@ -110,6 +118,13 @@ export default function reducer(state = initialState, action) {
         professionalDetail: action.payload,
       };
 
+    //Login y Create user
+    case ActionTypes.REGISTER_USER_AND_LOGIN:
+      return {
+        ...state,
+        token: action.payload.token,
+        userLogin: action.payload.result
+      }
     /**************************************** */
     //FILTROS
     case ActionTypes.CONFIG_FILTER_SERVICES:

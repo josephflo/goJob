@@ -30,21 +30,21 @@ post( http://localhost:3005/user/register )
 
 //En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs lo dejamos vacio, pero es obligatorio enviarlo
 {
-    user: {
-      firstName: "Amy",
-      lastName: "Garcia",
-      email: "amygarcia@example.com",
-      user: "amygarcia",
-      password: "123456",
-      phone: 1234567897,
-      role: "professional",
+    "user": {
+      "firstName": "Amy",
+      "lastName": "Garcia",
+      "email": "amygarcia@example.com",
+      "user": "amygarcia",
+      "password": "123456",
+      "phone": 1234567897,
+      "role": "professional",
 
-      provincia: "Buenos Aires",
-      ciudad: "Random",
-      direccion: "789 Oak St",
-      horario: "Tarde",
+      "provincia": "Buenos Aires",
+      "ciudad": "Random",
+      "direccion": "789 Oak St",
+      "horario": "Tarde"
     },
-	jobs: []  
+	"jobs": []  
 }
 
 //subir imagen 

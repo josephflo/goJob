@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import LogoutButtons from "./components/LogoutButtons";
+import LogoutButtons from "../components/LogoutButtons";
+import ProfessionalProfile from './components/ProfessionalProfile'
 
-const Private = () => {
+const UserProfile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   console.log(user);
+  const [isProfesional, setIsProfesional] = useState(false);
+
   if (isLoading) {
     return <div>Loading ...</div>;
   }
+  const handleChangeProfile = () => {
+    setIsProfesional(true);
+  };
 
   return (
     isAuthenticated && (
@@ -21,9 +27,17 @@ const Private = () => {
         <p>{user.nickname}</p>
         <p>{user.email}</p>
         <p class="text-xs mt-4">{user.updated_at}</p>
+        <p>{user.sub}</p>
+        <button onClick={handleChangeProfile}>Cuenta Profesional</button>
         <div class="mt-3">
           <LogoutButtons />
         </div>
+        { isProfesional && (
+          <ProfessionalProfile
+          setIsProfesional= {setIsProfesional}/>
+        )
+
+        }
       </div>
     )
   );
@@ -59,4 +73,4 @@ const Private = () => {
 // updated_at
 // :
 // "2023-02-21T12:59:57.955Z"
-export default Private;
+export default UserProfile;

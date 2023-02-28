@@ -3,7 +3,7 @@ import axios from "axios";
 //** Constants */
 import { ActionTypes } from "../constants/actions-types";
 
-//** ACTIONS USERS **********************************/
+//* ACTIONS USERS *************/
 
 export const createUser = (input) => {
   return async (dispatch) => {
@@ -43,6 +43,55 @@ export const createUser = (input) => {
     }
   };
 };
+
+export const getUserAuth0Id = (sub) => async (dispatch) => {
+  try {
+      const existingUser = await axios.get(`/user/get/${sub}`)
+      return dispatch({
+        type:ActionTypes.GET_USER_AUTH0_ID,
+        payload: existingUser.data
+      })
+  } catch (error) {
+    return dispatch({
+      type:ActionTypes.GET_USER_AUTH0_ID,
+      payload: {status: 'error'}
+    })
+  }
+};
+
+export const createAndLogin = (newUser) =>async(dispatch)=> {
+
+  try {
+    let result = axios.post("/user/register", newUser)
+
+    return dispatch({
+      type:ActionTypes.REGISTER_USER_AND_LOGIN,
+      payload: result.data
+    })
+
+  } catch (error) {
+    throw Error(error)
+    console.log("No se pudo iniciar");
+  }
+};
+
+export const putUser = (newUser) =>async(dispatch)=> {
+
+  try {
+    let result = axios.put("/user/register", newUser)
+
+    return dispatch({
+      type:ActionTypes.REGISTER_USER_AND_LOGIN,
+      payload: result.data
+    })
+
+  } catch (error) {
+    throw Error(error)
+    console.log("No se pudo iniciar");
+  }
+};
+
+
 
 export const uploadImage = (input) => async (dispatch) => {
   try {

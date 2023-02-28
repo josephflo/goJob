@@ -8,10 +8,11 @@ const {
   getDbUser,
   getUserByID,
   promedioRating,
+  userLoginEmail,
 } = require("../controllers/userController");
-const { createToken } = require("../services/jwt");
 const { Op, STRING } = require("sequelize");
 const { fechaActual } = require("../helpers/fechaActual");
+const { createToken } = require("../services/jwt")
 
 const getAllUser = async (req, res) => {
   let page = Number(req.query.page || 1);
@@ -137,22 +138,41 @@ const getUserID = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-  let newUser = req.body.user;
-  let idJobs = req.body.jobs;
+  let newUser = req.body;
 
-  // let nombre = req.body.firstName;
-  // let apellido = req.body.lastName;
-  // let correo = req.body.email;
-  let nombre = newUser.firstName;
-  let apellido = newUser.lastName;
-  let correo = newUser.email;
+  let nombre
+  let apellido
+  let email
+  if(newUser.firstName) nombre = newUser.firstName
+  if(newUser.lastName) apellido = newUser.lastName
+  if(newUser.email) email = newUser.email
+
+  let idJobs = []
+  if(newUser.jobs){
+    idJobs = [...newUser.jobs]
+    delete newUser.jobs
+  }
 
   try {
     if (!newUser) throw new Error("Mising data");
 
-    //ciframos contraseña
-    let pwd = await bcrypt.hash(newUser.password, 10);
-    newUser.password = pwd;
+    //verificamos si ya existe el usario
+    let verifyUser = await userLoginEmail(newUser.email)
+
+    if(verifyUser){
+      //creamos token
+      let token = createToken(verifyUser);
+
+      return res.status(200).json({
+        status: "success",
+        message: "Inicio sesion correctamente",
+        result: verifyUser,
+        token: token
+
+      });
+    }
+
+
 
     let userCreated = await User.create(newUser);
     delete userCreated.dataValues.password;
@@ -163,32 +183,26 @@ const createUser = async (req, res) => {
     delete userCreated.dataValues.password;
 
     //mandomos email de bienvenida
-    bienvenidaMail(nombre, apellido, correo);
-
-    //verificamos si agregamos Jobs
-    let jobs;
-    let jobId;
-    if (idJobs.length) {
-      jobs = await userCreated.addJobs(idJobs);
-    } else {
-      return res.status(200).json({
-        status: "success",
-        message: "Registro exitoso sin Jobs",
-        user: userCreated,
-      });
+    if(nombre, apellido, email){
+      bienvenidaMail(nombre, apellido, email);
     }
+
+    let usuarioFinal = await userLoginEmail(email)
+
+    //creamos token
+    let token = createToken(usuarioFinal.dataValues);
+
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
-      result: userCreated,
-      jobs: "Jobs agregados correctamente",
+      result: usuarioFinal,
+      token
     });
   } catch (error) {
     return res.status(404).json({
       status: "error",
       user: newUser,
       message: error.message,
-      error: error || true, // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
     });
   }
 };
@@ -246,7 +260,7 @@ const createUserAuth = async (req, res) => {
 
   let nombre = newUser.firstName;
   let apellido = newUser.lastName;
-  let correo = newUser.email;
+  let email = newUser.email;
 
   try {
     if (!newUser) throw new Error("Mising data");
@@ -264,7 +278,7 @@ const createUserAuth = async (req, res) => {
     delete userCreated.dataValues.password;
 
     //mandomos email de bienvenida
-    bienvenidaMail(nombre, apellido, correo);
+    bienvenidaMail(nombre, apellido, email);
 
     //verificamos si agregamos Jobs
     let jobs;
@@ -387,9 +401,6 @@ const login = async (req, res) => {
     let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
     if (!pwd) throw new Error("Contraseña incorrecta");
 
-    //creamos token
-    let token = createToken(resultUser.dataValues);
-
     //eliminamos contraseña
     delete resultUser.dataValues.password;
 
@@ -486,39 +497,30 @@ const deleteJob = async (req, res) => {
 
 const putUser = async (req, res) => {
   let idUser = req.user.id;
-  let putUser = req.body.user;
-  let jobsUser = req.body.jobs;
+  let putUser = req.body;
 
+  let idJobsBoolean = false
+  let idJobs
+  if(putUser.jobs) {
+    idJobs = [...putUser.jobs]
+    idJobsBoolean = true
+  }
+  
   try {
-    //actualizamos el user
-
-    //ciframos contraseña
-    if (putUser.password) {
-      let pwd = await bcrypt.hash(putUser.password, 10);
-      putUser.password = pwd;
-    }
-
     //actualizamos el user
     let newUser = await User.update(putUser, { where: { id: idUser } });
 
     //actualizamos sus Jobs
     let user;
-    if (jobsUser) {
+    if(idJobsBoolean){
       user = await User.findOne({
         where: { id: idUser },
       });
+
+      await user.setJobs(idJobs);
     }
 
-    console.log("+++++++++++++++++++++++++++++++");
-    console.log(jobsUser);
-
-    if (jobsUser && jobsUser.length) {
-      await user.setJobs(jobsUser);
-    } else if (jobsUser && jobsUser.length == 0) {
-      await user.setJobs([]);
-    }
-
-    return res.status(400).json({
+    return res.status(200).json({
       status: "success",
       message: "Actualizado correctamente",
     });
