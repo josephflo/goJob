@@ -42,6 +42,7 @@ import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
 import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
+import DetailService from "./components/detailService/DetailService";
 
 //token
 
@@ -92,6 +93,10 @@ function App() {
           <Route
             path="/professional/detail/:id"
             element={<DetailProfessional />}
+          />
+          <Route
+            path="/service/detail/:id"
+            element={<DetailService />}
           />
           <Route path="/formsss" element={<FormCreateProfessional />} />
 

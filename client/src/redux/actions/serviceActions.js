@@ -44,6 +44,17 @@ export const createService = (input) => {
   };
 };
 
+export const getServiceById = (idService) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/service/${idService}`);
+    return dispatch({
+      type: ActionTypes.SERVICE_DETAIL,
+      payload: result.data.result,
+    });
+  };
+};
+
+
 export const filterModel = (
   page,
   page_size,
@@ -80,6 +91,8 @@ export const filterModel = (
     });
   };
 };
+
+
 // export const serviceFilter = (input) => {
 //   return async (dispatch) => {
 //     let result;

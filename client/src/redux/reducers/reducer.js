@@ -16,6 +16,7 @@ const initialState = {
   filterService: [],
   userDetail: {},
   professionalDetail: {},
+  serviceDetail:{},
 
   //config para filtros services
   configFilterServices: {
@@ -117,7 +118,14 @@ export default function reducer(state = initialState, action) {
         ...state,
         professionalDetail: action.payload,
       };
-
+ /**************************************** */
+    //SERVICE BY ID
+      case ActionTypes.SERVICE_DETAIL:
+        return {
+          ...state,
+          serviceDetail: action.payload,
+        };
+  
     //Login y Create user
     case ActionTypes.REGISTER_USER_AND_LOGIN:
       return {
