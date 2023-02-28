@@ -1,8 +1,10 @@
+//eslint-disable react-hooks/rules-of-hooks
+
 // Dependencies
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 // Authentication
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
@@ -43,13 +45,23 @@ import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
 import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 
+//token
 
 // Default axios
-axios.defaults.baseURL = "https://gojob2-production.up.railway.app/";
-axios.defaults.headers.common["Authorization"] = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiRnJheSIsImxhc3ROYW1lIjoiVGFwaWEiLCJlbWFpbCI6ImZyYXluaWxzb24yMDAzQGdtYWlsLmNvbSIsInVzZXIiOiJmcmF5IiwicGhvbmUiOiI5NTQxMiIsInJvbGUiOiJjb211biIsImlhdCI6MTY3NzQ2NTY5MCwiZXhwIjoxNjgwMDU3NjkwfQ.JV-v5jo_51h_rgmjlp6PrrGTV9NAOu9lzWMJnCXihJ0"
+axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
+//axios.defaults.baseURL = "http://localhost:3005/";
+//axios.defaults.headers.common["Authorization"] = "a"
+
 function App() {
+
+  let token = useSelector((state) => state.token);
+  axios.defaults.headers.common["Authorization"] = token
+
   const dispatch = useDispatch();
   useEffect(() => {
+    // let token = useSelector((state) => state.token);
+    // axios.defaults.headers.common["Authorization"] = token
+
     dispatch(getJobs());
     dispatch(getUsers());
   });
