@@ -5,13 +5,15 @@ import { createService } from "../../../redux/actions/serviceActions";
 import { getJobs } from "../../../redux/actions/jobActions";
 import { provincias } from "../../../constants/ciudadesObject";
 import { convertirProvinciasAObjeto } from "../../../helpers/convertProvinciasToObj";
+import { useFormik } from "formik";
 
+import { FormCreateServiceSchema } from "./components/FormCreateServiceSchema";
 
 function FormCreateService() {
   const dispatch = useDispatch();
   const jobs_ = useSelector((state) => state.jobs);
 
-  let provinciasObj = convertirProvinciasAObjeto(provincias)
+  let provinciasObj = convertirProvinciasAObjeto(provincias);
 
   useEffect(() => {
     dispatch(getJobs());
@@ -19,64 +21,61 @@ function FormCreateService() {
 
   //estados para barras de menu
   //Estados para menu Jobs
-
-  const [input_2, setInput_2] = useState({
-    tittle: "",
-    description: "",
-    provincia: "Buenos Aires",
-    ciudad: provinciasObj["Buenos Aires"][0],
-    direccion: "",
-    presupuesto: "0",
-    jobs: [1]
-  });
-
-  let handleOptionFilter= (event)=> {
-    let propiedadFilter = event.target.options[event.target.selectedIndex].getAttribute('name').toString()
-    let value = event.target.value
-
-    let newConfig = {}
-    if(propiedadFilter == "jobs"){
-      newConfig = {
-        ...input_2,
-        [propiedadFilter]: [Number(value)],
-      }
-    }else{
-      newConfig = {
-        ...input_2,
-        [propiedadFilter]: value,
-      }
-    }
-
-    setInput_2(newConfig);
-  }
-
-  const changeInput_2 = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setInput_2({ ...input_2, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(
-      createService(input_2)
-    );
-
-    setInput_2({
+  const {
+    values,
+    setValues,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    isValid,
+  } = useFormik({
+    initialValues: {
       tittle: "",
       description: "",
       provincia: "Buenos Aires",
-      ciudad: false,
+      ciudad: provinciasObj["Buenos Aires"][0],
       direccion: "",
-      presupuesto: "0",
-      jobs: []
-    });
-    window.alert("Se creó con exito el servicio");
+      presupuesto: "",
+      jobs: [1],
+    },
+    validationSchema: FormCreateServiceSchema,
+    onSubmit: (values, { resetForm }) => {
+      dispatch(createService(values));
+      window.alert("Se creó con exito el servicio");
+      resetForm();
+    },
+  });
+
+  console.log(isValid);
+
+  let handleOptionFilter = (event) => {
+    let propiedadFilter =
+      event.target.options[event.target.selectedIndex].getAttribute("name");
+    console.log(propiedadFilter);
+    // .toString();
+    let value = event.target.value;
+
+    let newConfig = {};
+    if (propiedadFilter == "jobs") {
+      newConfig = {
+        // ...input_2,
+        ...values,
+        [propiedadFilter]: [Number(value)],
+      };
+    } else {
+      newConfig = {
+        // ...input_2,
+        ...values,
+        [propiedadFilter]: value,
+      };
+    }
+    setValues(newConfig);
+    // setInput_2(newConfig);
   };
 
-  useEffect(()=>{
-    console.log(input_2);
-  }, [input_2])
+  useEffect(() => {}, [values]);
 
   return (
     <div>
@@ -102,16 +101,21 @@ function FormCreateService() {
                   </label>
                   <input
                     type="text"
+                    id="tittle"
                     name="tittle"
-                    value={input_2.tittle}
-                    onChange={changeInput_2}
+                    value={values.tittle}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                     placeholder="Nombre de servicio"
-                    required="required"
-                    data-error="El nombre del Servicio es requerido."
+                    // required="required"
+                    // data-error="El nombre del Servicio es requerido."
                   />
                 </div>
               </div>
+              {errors.tittle && touched.tittle ? (
+                <p className="text-red-500 text-xs">{errors.tittle}</p>
+              ) : null}
               <div>
                 <label
                   htmlFor="descriptionService"
@@ -122,59 +126,93 @@ function FormCreateService() {
                 <input
                   type="text"
                   name="description"
-                  value={input_2.description}
-                  onChange={changeInput_2}
+                  value={values.description}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder="Description del servicio"
-                  required="required"
-                  data-error="La Descripción es requerido."
+                  // required="required"
+                  // data-error="La Descripción es requerido."
                 />
               </div>
-
-
+              {errors.description && touched.description ? (
+                <p className="text-red-500 text-xs">{errors.description}</p>
+              ) : null}
               {/* Barra de eleccion provincia*/}
               <div>
-                <p>Por Provincia</p>
+                <p className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700">
+                  Por Provincia
+                </p>
                 <div className="relative w-full">
-                  <select defaultValue={Object.keys(provinciasObj)[0]} value={input_2.provincia} onChange={handleOptionFilter} className="z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm">
-                      {/* <option key={1} value={false} name={"provincia"}>{"All"}</option> */}
-                      {provinciasObj && Object.keys(provinciasObj).length && Object.keys(provinciasObj).map((prov, ind)=>
-                        <option key={ind+1} value={prov} name={"provincia"}>{prov}</option>
-                      )}
+                  <select
+                    name="provincia"
+                    defaultValue={Object.keys(provinciasObj)[0]}
+                    value={values.provincia}
+                    onChange={handleOptionFilter}
+                    onBlur={handleBlur}
+                    className="z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+                  >
+                    {/* <option key={1} value={false} name={"provincia"}>{"All"}</option> */}
+                    {provinciasObj &&
+                      Object.keys(provinciasObj).length &&
+                      Object.keys(provinciasObj).map((prov, ind) => (
+                        <option key={prov} value={prov} name={"provincia"}>
+                          {prov}
+                        </option>
+                      ))}
                   </select>
                 </div>
               </div>
-
-              
+              {errors.provincia && touched.provincia ? (
+                <p className="text-red-500 text-xs">{errors.provincia}</p>
+              ) : null}
               {/* Barra de eleccion ciudad*/}
-              <p>Por ciudad</p>
+              <p className="block text-sm font-medium  lg:mt-0 text-gray-700">
+                Por ciudad
+              </p>
               <div className="relative w-full">
-                <select value={input_2.ciudad} onChange={handleOptionFilter} className="z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm">
-                  {input_2.provincia != false && input_2.provincia && provinciasObj[input_2.provincia].map((ciudad, ind)=>
-                    <option key={ind} value={ciudad} name={"ciudad"}>{ciudad}</option>
-                  )}
+                <select
+                  name="ciudad"
+                  value={values.ciudad}
+                  onChange={handleOptionFilter}
+                  onBlur={handleBlur}
+                  className="z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+                >
+                  {values.provincia != false &&
+                    values.provincia &&
+                    provinciasObj[values.provincia].map((ciudad, ind) => (
+                      <option key={ind} value={ciudad} name={"ciudad"}>
+                        {ciudad}
+                      </option>
+                    ))}
                 </select>
               </div>
+              {errors.ciudad && touched.ciudad ? (
+                <p className="text-red-500 text-xs">{errors.ciudad}</p>
+              ) : null}
 
               <div>
                 <label
                   htmlFor="descriptionService"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  direccion
+                  Dirección
                 </label>
                 <input
                   type="text"
                   name="direccion"
-                  value={input_2.direccion}
-                  onChange={changeInput_2}
+                  value={values.direccion}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder=""
-                  required="required"
-                  data-error="La Descripción es requerido."
+                  placeholder={`Por que parte de ${values.ciudad}`}
+                  // required="required"
+                  // data-error="La Descripción es requerido."
                 />
               </div>
-
+              {errors.direccion && touched.direccion ? (
+                <p className="text-red-500 text-xs">{errors.direccion}</p>
+              ) : null}
               <div>
                 <label
                   htmlFor="descriptionService"
@@ -185,31 +223,46 @@ function FormCreateService() {
                 <input
                   type="text"
                   name="presupuesto"
-                  value={input_2.presupuesto}
-                  onChange={changeInput_2}
+                  id="presupuesto"
+                  value={values.presupuesto}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                   className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                   placeholder=""
-                  required="required"
-                  data-error="La Descripción es requerido."
+                  // required="required"
+                  // data-error="La Descripción es requerido."
                 />
               </div>
-
+              {errors.presupuesto && touched.presupuesto ? (
+                <p className="text-red-500 text-xs">{errors.presupuesto}</p>
+              ) : null}
               <div>
                 <label>Jobs: </label>
                 <div className="relative w-full mb-15">
-                  <select value={input_2.jobs[0]} onChange={handleOptionFilter} className="z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm">
-                      {jobs_.length && jobs_.map((job, ind)=>
-                        <option key={ind} value={job.id} name={"jobs"}>{job.name}</option>
-                      )}
+                  <select
+                    value={values.jobs[0]}
+                    onChange={handleOptionFilter}
+                    className="z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
+                  >
+                    {jobs_.length &&
+                      jobs_.map((job, ind) => (
+                        <option key={ind} value={job.id} name={"jobs"}>
+                          {job.name}
+                        </option>
+                      ))}
                   </select>
                 </div>
-
               </div>
-
 
               <div></div>
               <div>
-                <button className="mt-3 w-full py-3 bg-blue-900 text-white ">
+                <button
+                  className={`mt-3 w-full py-3 ${
+                    !isValid ? "bg-blue-500" : "bg-blue-900"
+                  } text-white`}
+                  style={{ opacity: !isValid ? 0.5 : 1 }}
+                  disabled={!isValid}
+                >
                   Crear servicio
                 </button>
               </div>

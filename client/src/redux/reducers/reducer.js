@@ -15,7 +15,7 @@ const initialState = {
   service: {},
   filterService: [],
   userDetail: {},
-
+  professionalDetail: {},
 
   //config para filtros services
   configFilterServices: {
@@ -42,9 +42,8 @@ const initialState = {
     role: "professional",
     orderName: false,
     orderRating: "DESC",
-  }
-
-}
+  },
+};
 
 
 export default function reducer(state = initialState, action) {
@@ -79,7 +78,7 @@ export default function reducer(state = initialState, action) {
     case ActionTypes.GET_SERVICE:
       return {
         ...state,
-        service: action.payload
+        service: action.payload,
       };
 
     case ActionTypes.USER_DETAIL:
@@ -108,6 +107,15 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         usersProfesionales: action.payload,
+      };
+
+    /**************************************** */
+    //PROFESSIONAL BY ID
+
+    case ActionTypes.PROFESSIONAL_DETAIL:
+      return {
+        ...state,
+        professionalDetail: action.payload,
       };
 
     //Login y Create user

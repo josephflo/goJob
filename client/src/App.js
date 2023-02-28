@@ -7,7 +7,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 // Authentication
-import UserProfile from "./authentication/ProfileScreen/UserProfile";
+
 //import Private from "./authentication/Private";   
 
 // Pages
@@ -22,15 +22,13 @@ import DetailProfessional from "./components/detailProfessional/DetailProfession
 import DetailComun from "./components/detailComun/DetailComun";
 import ModalUser from "./pages/usersPage/modalUser/ModalUser";
 
-
 // Containers
 import FormContact from "./containers/forms/formContact/FormContact";
 import FormCreateService from "./containers/forms/formCreateService/FormCreateService";
 import CreateJob from "./containers/createJob/CreateJob";
 import FormCreateUser from "./containers/forms/formCreateUser/FormCreateUser";
-import UsersAdmin from './components/DashboardPrueba/UsersAdmin.jsx'
+import UsersAdmin from "./components/DashboardPrueba/UsersAdmin.jsx";
 import FilterService from "./containers/filters/FilterService";
-
 
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
@@ -38,9 +36,8 @@ import { getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
 
-
 import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
-import ModifyUser  from "./pages/AdminDashboard/usermodify";
+import ModifyUser from "./pages/AdminDashboard/usermodify";
 import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
 import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
@@ -71,13 +68,13 @@ function App() {
           <Route exact path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
           <Route exact path="admin/jobs/create" element={<CreateJob />} />
-          <Route exact path='admin/users' element={<UsersAdmin/>} />
-          <Route exact path='admin/jobs' element={<JobAdmin/>} />
-          <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
-                   
-          <Route exact path="/dashboard/users" element={<Dashboard/>} />
+          <Route exact path="admin/users" element={<UsersAdmin />} />
+          <Route exact path="admin/jobs" element={<JobAdmin />} />
+          <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
+
+          <Route exact path="/dashboard/users" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
-          <Route exact path="/dashboard/jobs/create" element={<JobCreate/>} />
+          <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
 
           {/* Components */}
@@ -92,16 +89,15 @@ function App() {
           {/* Pruebas- testeos ***********************************************/}
           <Route path="/job/:id" element={<FilterService />} />
           <Route
-            path="/detail/professional/:id"
+            path="/professional/detail/:id"
             element={<DetailProfessional />}
           />
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
-          <Route path="/professional" element={<ProfesionalPage/>}/>
+          <Route path="/professional" element={<ProfesionalPage />} />
 
           {/*Profesionales */}
           {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
-
         </Routes>
       </BrowserRouter>
     </>
