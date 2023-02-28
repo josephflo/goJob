@@ -41,6 +41,7 @@ import ModifyUser from "./pages/AdminDashboard/usermodify";
 import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
 import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
+import UserProfile from "./authentication/ProfileScreen/UserProfile";
 
 //token
 
@@ -79,7 +80,7 @@ function App() {
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
-          <Route exact path="/user/profile" element={<UserProfile />} />
+          <Route exact path="/user/profile" element={<UserProfile/>} />
 
           {/* Containers */}
           <Route exact path="/contact" element={<FormContact />} />
