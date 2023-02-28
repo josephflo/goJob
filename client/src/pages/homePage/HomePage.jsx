@@ -7,7 +7,7 @@ import FormHomePage from "../../containers/forms/formHomePage/FormHomePage";
 import Reviews from "../../components/Reviews/Reviews";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import { useAuth0 } from "@auth0/auth0-react";
-import { createUser2, getUserAuth0Id } from "../../redux/actions/userActions";
+import { createAndLogin, createUser2, getUserAuth0Id } from "../../redux/actions/userActions";
 import axios from "axios";
 
 export default function HomePage() {
@@ -31,20 +31,16 @@ export default function HomePage() {
 
 
   const createUser = () => {
-    const { given_name, nickname, family_name, email } = user;
-    console.log(user);
-    axios.post("/user/register", {
-      user: {
+    const { given_name, nickname, family_name, email, picture } = user;
+    let newUser = {
         firstName: given_name || 'sin nombre',
         lastName:family_name || 'sin apellido',
         email: email,
         user: nickname,
-        password: "",
-        role: "professional",
-        horario: "tarde"
-      },
-      jobs: [],
-    }).then((res)=> console.log(res).catch((error)=>console.log(error)));
+        imagePerfil: picture || "sin foto",
+
+    }
+    dispatch(createAndLogin(newUser))
   };
   
   if(isAuthenticated){
