@@ -27,22 +27,20 @@ export const createService = (input) => {
       //    'Authorization': `eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwiZmlyc3ROYW1lIjoiRnJheSIsImxhc3ROYW1lIjoiVGFwaWEiLCJlbWFpbCI6ImZyYXluaWxzb24yMDAzQGdtYWlsLmNvbSIsInVzZXIiOiJmcmF5IiwicGhvbmUiOiI5NTQxMiIsInJvbGUiOiJjb211biIsImlhdCI6MTY3NzQ2NTY5MCwiZXhwIjoxNjgwMDU3NjkwfQ.JV-v5jo_51h_rgmjlp6PrrGTV9NAOu9lzWMJnCXihJ0`
       //  }
       //}
-      
+
       console.log("Esto llega");
       console.log(input);
 
-      const result = await axios.post("/user/service", input);
+      const result = await axios.post("user/service", input);
 
       return dispatch({
         type: ActionTypes.CREATE_SERVICE,
         payload: result.data,
       });
     } catch (error) {
-      alert("Relleno correctamente los formularios")
-      throw new Error("Error en createService")
+      alert("Relleno correctamente los formularios");
+      // throw new Error("Error en createService");
     }
-
-    
   };
 };
 

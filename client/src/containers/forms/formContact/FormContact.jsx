@@ -3,39 +3,26 @@ import { NavLink } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import "flowbite";
 
+import { FormContactSchema } from "./components/FormContactSchema";
+
+import { Formik, Form, Field } from "formik";
+
 function FormContact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  function sendEmail(e) {
-    e.preventDefault();
-
-    const templateParams = {
-      from_name: name,
-      message: message,
-      email: email,
-    };
-
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    // send email using emailjs
     emailjs
-      .send(
-        "service_64ze0dd",
-        "template_jnuene7",
-        templateParams,
-        "2de5dh3wcuxLsnH3u"
-      )
+      .send("service_64ze0dd", "template_jnuene7", values, "2de5dh3wcuxLsnH3u")
       .then(
         (response) => {
           console.log("Email enviado", response.status, response.text);
-          setName("");
-          setEmail("");
-          setMessage("");
+          resetForm();
         },
         (err) => {
           console.log("Error:", err);
         }
-      );
-  }
+      )
+      .finally(() => setSubmitting(false));
+  };
 
   return (
     <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -63,77 +50,98 @@ function FormContact() {
           </h1>
           <hr className="mt-3" />
           <div className="mt-6">
-            <form className="space-y-1" onSubmit={sendEmail}>
-              
-              <div className="mt-3">
-                <label
-                  htmlFor="firstName"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Nombre:
-                </label>
-               
-                <input
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
-                  placeholder="Escriba su nombre"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                  required="required"
-                  data-error="El nombre es requerido."
-                />
-              </div>
-              <div className="mt-3">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Email:
-                </label>
-                <input
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  type="email"
-                  placeholder="Escriba su email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                  required="required"
-                  data-error="El email es requerido."
-                />
-              </div>
-              <div className="mt-3">
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
-                >
-                  Mensaje:
-                </label>
-                <textarea
-                  className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
-                  placeholder="Escriba su mensaje"
-                  onChange={(e) => setMessage(e.target.value)}
-                  value={message}
-                  required="required"
-                  data-error="El mensaje es requerido."
-                />
-              </div>
-              <div className="mt-3">
-                <button
-                  className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-3 px-4 border border-blue-700 rounded"
-                  /* type="submit"
-                  value="Enviar" */
-                >Enviar</button>
-                </div>
-                <div className="mt-3">
-                <NavLink to="/">
-                  <button className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-3 px-4 border border-blue-700 rounded">
-                    Volver
-                  </button>
-                </NavLink>
-                </div>
-                
-            </form>
+            <Formik
+              initialValues={{ name: "", email: "", message: "" }}
+              validationSchema={FormContactSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ values, handleChange, errors, touched }) => (
+                <Form>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                    >
+                      Nombre:
+                    </label>
+
+                    <Field
+                      name="name"
+                      className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                      type="text"
+                      placeholder="Escriba su nombre"
+                      onChange={handleChange}
+                      value={values.name}
+                      // required="required"
+                      // data-error="El nombre es requerido."
+                    />
+                    {errors.name && touched.name ? (
+                      <p className="text-red-500 text-xs">{errors.name}</p>
+                    ) : null}
+                  </div>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                    >
+                      Email:
+                    </label>
+                    <Field
+                      name="email"
+                      className="mt-2 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                      type="email"
+                      placeholder="Escriba su email"
+                      onChange={handleChange}
+                      value={values.email}
+                      // required="required"
+                      // data-error="El email es requerido."
+                    />
+                    {errors.email && touched.email ? (
+                      <p className="text-red-500 text-xs">{errors.email}</p>
+                    ) : null}
+                  </div>
+                  <div className="mt-3">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                    >
+                      Mensaje:
+                    </label>
+                    <Field
+                      name="message"
+                      component="textarea"
+                      className="mt-2 h-20 shadow appearance-none border roun w-full py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
+                      placeholder="Escriba su mensaje"
+                      onChange={handleChange}
+                      value={values.message}
+                      // required="required"
+                      // data-error="El mensaje es requerido."
+                    />
+                    {errors.message && touched.message ? (
+                      <p className="text-red-500 text-xs">{errors.message}</p>
+                    ) : null}
+                  </div>
+                  <div className="mt-3">
+                    <button
+                      className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-3 px-4 border border-blue-700 rounded"
+                      type="submit"
+                      // value="Enviar"
+                    >
+                      Enviar
+                    </button>
+                  </div>
+                  <div className="mt-3">
+                    <NavLink to="/">
+                      <button className="bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-3 px-4 border border-blue-700 rounded">
+                        Volver
+                      </button>
+                    </NavLink>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+            {/* <form className="space-y-1" onSubmit={sendEmail}></form> */}
           </div>
-          
         </div>
       </div>
     </div>
