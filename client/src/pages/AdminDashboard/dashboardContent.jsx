@@ -82,7 +82,7 @@ export function DashboardContent() {
                 </div>
                 <div className="flex justify-end">
                   <Link
-                    to="#"
+                    to="/dashboard/services"
                     className="hover:text-gray-400 transition-colors hover:underline"
                   >
                     ver servicios

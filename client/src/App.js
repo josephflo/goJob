@@ -40,6 +40,8 @@ import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
 import ModifyUser  from "./pages/AdminDashboard/usermodify";
 import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
+import ServicesDashboard from "./pages/AdminDashboard/servicesDashboard";
+import Prueba from "./pages/AdminDashboard/filterprueba";
 
 
 // Default axios
@@ -59,16 +61,17 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<HomePage />} />
-          {/* Admin **********************************************************/}
-          <Route exact path="admin/jobs/create" element={<CreateJob />} />
-          <Route exact path='admin/users' element={<UsersAdmin/>} />
-          <Route exact path='admin/jobs' element={<JobAdmin/>} />
+          {/* pruebas */}
+          <Route exact path="/prueba" element={<Prueba/>} />
+
+
+          {/* Admin Dashboard************************************************/}
           <Route exact path="/dashboard/user/detail" element={<ModifyUser/>} />
-                   
           <Route exact path="/dashboard/users" element={<Dashboard/>} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate/>} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
+          <Route exact path="/dashboard/services" element={<ServicesDashboard/>} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />

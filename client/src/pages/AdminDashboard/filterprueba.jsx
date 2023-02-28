@@ -11,11 +11,8 @@ import UsersMap from "./usermap";
 import { FilterUser } from "./filterUser";
 // import {configFilterUser} from ""
 
-export default function Dashboard() {
+export default function Prueba() {
   const users = useSelector((state) => state.users);
-  const allusers = useSelector((state) => state.allUsers);
-    
-
 
   const mapUsers = users.map((user
     
@@ -29,37 +26,21 @@ export default function Dashboard() {
              imageurl:  user.imageurl,
              direccion:  user.direccion,
              id: user.id,
-             jobs: user.Jobs?user.Jobs.map(job => job.name): [],
-             length: users.length,
-             rating: user.rating_promedio,
-             phone: user.phone
+             jobs: user.Jobs?user.Jobs.map(job => job.name): []
               }
               
+    
     ) 
   })
 
 
  
 
-  console.log(allusers)
+  console.log(mapUsers)
 
   return (
-    <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-      <SideBar />
-      <div className="col-span-5">
-        <Header />
-        <div className="p-10 bg-gray-100 ">
-          <div className="mb-8">
-            <h1 className="text-3xl font-semibold">Usuarios</h1>
-          </div>
-          <FilterUser totalPages={allusers}/>
-          {mapUsers.length > 0 ? (
-            <UsersMap users={mapUsers} />
-          ) : (
-            <p className="text-center"> no hay usuarios para mostrar </p>
-          )}
-        </div>
-      </div>
+    <div>
+    <UsersMap users={mapUsers}/>    
     </div>
   );
 }
