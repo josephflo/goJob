@@ -48,9 +48,8 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 //token
 
 // Default axios
-axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
-//axios.defaults.baseURL = "http://localhost:3005/";
-//axios.defaults.headers.common["Authorization"] = "a"
+//axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
+axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
 
@@ -58,10 +57,9 @@ function App() {
   axios.defaults.headers.common["Authorization"] = token
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    // let token = useSelector((state) => state.token);
-    // axios.defaults.headers.common["Authorization"] = token
 
+
+  useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
   });

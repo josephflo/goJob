@@ -37,10 +37,7 @@ export default function HomePage() {
         lastName:family_name || 'sin apellido',
         email: email,
         user: nickname,
-        //imagePerfil: picture || "sin foto",
-        jobs: [1],
-        role: "professional",
-        horario: "mañana"
+        imagePerfil: picture || "sin foto",
 
     }
     dispatch(createAndLogin(newUser))

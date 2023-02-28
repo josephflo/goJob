@@ -62,7 +62,7 @@ export const getUserAuth0Id = (sub) => async (dispatch) => {
 export const createAndLogin = (newUser) =>async(dispatch)=> {
 
   try {
-    let result = axios.post("/user/register", newUser)
+    let result = await axios.post("/user/register", newUser)
 
     return dispatch({
       type:ActionTypes.REGISTER_USER_AND_LOGIN,
