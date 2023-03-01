@@ -56,11 +56,21 @@ const getAllMyServices = async (req, res) => {
 const getAllMyTrabajos = async (req, res) => {
     let idUser = req.user.id;
 
+    let query = req.query
+
+    let wheres = {}
+    let fecha_publicacion = query.fecha_publicacion || "DESC"  
+     
+    if(query.state)wheres.state = query.state
+    if(query.tittle){
+        wheres.tittle = {[Op.iLike]:`%${query.tittle}%`}
+    }
 
     try {
       let getUser = await User.findOne({ where: { id: idUser } });
       let allServices = await getUser.getMyTrabajos({
-        //where: {state},
+        where: wheres,
+        order: [["fecha_publicacion", fecha_publicacion]],
         attributes: { exclude: ["UserId"] },
         include: [
           {
@@ -87,11 +97,20 @@ const getAllMyTrabajos = async (req, res) => {
 
 const getAllMyPostulaciones = async (req, res) => {
     let idUser = req.user.id;
-  
+    let query = req.query
+
+    let wheres = {}
+    let fecha_publicacion = query.fecha_publicacion || "DESC"  
+
+    if(query.tittle){
+        wheres.tittle = {[Op.iLike]:`%${query.tittle}%`}
+    }
+
     try {
       let getUser = await User.findOne({ where: { id: idUser } });
       let allServices = await getUser.getPostulaciones({
-        //where: {state},
+        where: wheres,
+        order: [["fecha_publicacion", fecha_publicacion]],   
         attributes: { exclude: ["UserId"] },
         include: [
           {

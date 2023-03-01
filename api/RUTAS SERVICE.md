@@ -71,3 +71,46 @@ Ejemplo:
 
 ```
 
+
+# Mis servicios
+
+## mis ofertas de trabajo
+
+get ( http://localhost:3005/user/services/MyServices )
+```
+En esta ruta traemos todas las ofertas del trabajo del usuario logeado
+podemos traer por estado y nombre
+
+Query
+{
+    state: "terminado",
+    tittle: "tittle del servicio",
+    fecha_publicacion: "orden de fecha de publicasion "DESC" O "ASC"
+}
+```
+
+get ( http://localhost:3005/user/services/MyTrabajos )
+```
+En esta traemos los servicios en los que estoy trabajando o trabaje
+Podemos filtrar por estado
+
+Query
+{
+    state: "terminado",
+    tittle: "tittle del servicio",
+    fecha_publicacion: "orden de fecha de publicasion "DESC" O "ASC"
+
+}
+
+```
+
+get ( http://localhost:3005/user/services/Postulaciones )
+```
+En esta traemos los servicios a los que postule
+
+Query
+{
+    tittle: "tittle del servicio",
+    fecha_publicacion: "orden de fecha de publicasion "DESC" O "ASC"
+}
+```
