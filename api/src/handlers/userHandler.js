@@ -2,7 +2,7 @@ const { Job, Service, User } = require("../connection/db");
 const bcrypt = require("bcrypt");
 const { uploadImage } = require("../services/cloudinary");
 const fs = require("fs-extra");
-const bienvenidaMail = require("../templatesEmails/singupEmail");
+const {bienvenidaMail, notifyPostulacionMyTrabajo} = require("../templatesEmails/singupEmail");
 
 const {
   getDbUser,
@@ -253,61 +253,6 @@ const uploadImg = async (req, res) => {
   }
 };
 
-const createUserAuth = async (req, res) => {
-  let body = req.body.user;
-
-  let idJobs = req.body.jobs;
-
-  let nombre = newUser.firstName;
-  let apellido = newUser.lastName;
-  let email = newUser.email;
-
-  try {
-    if (!newUser) throw new Error("Mising data");
-
-    //ciframos contraseña
-    let pwd = await bcrypt.hash(newUser.password, 10);
-    newUser.password = pwd;
-
-    let userCreated = await User.create(newUser);
-    delete userCreated.dataValues.password;
-
-    await userCreated.addJobs(idJobs);
-
-    // agregar nuevo usuario a Jobs
-    delete userCreated.dataValues.password;
-
-    //mandomos email de bienvenida
-    bienvenidaMail(nombre, apellido, email);
-
-    //verificamos si agregamos Jobs
-    let jobs;
-    let jobId;
-    if (idJobs.length) {
-      jobs = await userCreated.addJobs(idJobs);
-    } else {
-      return res.status(200).json({
-        status: "success",
-        message: "Registro exitoso sin Jobs",
-        user: userCreated,
-      });
-    }
-    return res.status(200).json({
-      status: "success",
-      message: "Usuario creado correctamente",
-      result: userCreated,
-      jobs: "Jobs agregados correctamente",
-    });
-  } catch (error) {
-    return res.status(404).json({
-      status: "error",
-      user: newUser,
-      message: error.message,
-      error: error || true, // Establecemos la variable de estado en verdadero si se produce un error en cualquier lugar del bloque try-catch
-    });
-  }
-};
-
 const deleteUser = async (req, res) => {
   let idUser = req.user.id;
   try {
@@ -327,120 +272,6 @@ const deleteUser = async (req, res) => {
     });
   }
 };
-
-const login = async (req, res) => {
-  const userLogin = req.body;
-  try {
-    if (!userLogin.user || !userLogin.password) throw new Error("Mising data");
-    //verificamos si existe el usuario
-    let resultUser = await User.findOne({
-      where: { user: userLogin.user },
-      include: [
-        {
-          model: User,
-          as: "friends",
-          attributes: { exclude: ["password", "role"] },
-          through: {
-            attributes: [],
-          },
-        },
-        {
-          model: Job,
-          through: {
-            attributes: [],
-          },
-        },
-        {
-          model: Service,
-          as: "myServices",
-          include: [
-            {
-              model: User,
-              as: "postulantes",
-              attributes: [
-                "id",
-                "firstName",
-                "lastName",
-                "user",
-                "email",
-                "phone",
-              ],
-              through: {
-                attributes: [],
-              },
-            },
-            {
-              model: User,
-              as: "trabajadorId",
-              attributes: [
-                "id",
-                "firstName",
-                "lastName",
-                "user",
-                "email",
-                "phone",
-              ],
-              through: {
-                attributes: [],
-              },
-            },
-          ],
-        },
-        {
-          model: Service,
-          as: "myTrabajos",
-          through: {
-            attributes: [],
-          },
-        },
-      ],
-    });
-    if (!resultUser) throw new Error("El usuario no existe");
-
-    //comprobamos contraseña
-    let pwd = bcrypt.compareSync(userLogin.password, resultUser.password);
-    if (!pwd) throw new Error("Contraseña incorrecta");
-
-    //eliminamos contraseña
-    delete resultUser.dataValues.password;
-
-    //si todo salio bien
-    return res.status(200).json({
-      status: "success",
-      message: "Login correctamente",
-      result: resultUser,
-      token: token,
-    });
-  } catch (error) {
-    return res.status(400).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-};
-
-
-const loginAuth = async (req, res)=>{
-  let idUser = req.body.id
-  try {
-    if (!idUser) throw Error("Mising data");
-
-    //extraemos datos y comprobamos si hay datos
-    userLogin = await getUserByID(idUser);
-
-    //si todo salio bien
-    return res.status(200).json({
-      status: "success",
-      message: "Extraccion exitosa",
-      result: userLogin,
-    });
-  } catch (error) {
-    return res.status(404).json({
-      status: "error",
-      message: error.message,
-    });
-  }
-}
 
 //job
 const addJob = async (req, res) => {
@@ -809,16 +640,26 @@ const postularService = async (req, res) => {
         message: "Datos de entrada invalidos",
       });
     }
-
+    //agregamos postulante
     const service = await Service.findOne({ where: { id: idService } });
-
     let postulate = await service.addPostulante(idUser);
+
+    //extraemos el postulante
+    let userPostulante = await User.findOne({where: {id: idUser}})
+    let namePostulante = `${userPostulante.firstName} ${userPostulante.lastName}`
+
+    //extraemos data del usario al que notificaremos
+    let userNotificado = await User.findOne({where: {id: service.UserId}})
+    let nameNotificado = `${userNotificado.firstName} ${userNotificado.lastName}`
+
+    //mandar notify email
+    //const notifyPostulacionMyTrabajo = (user1, correo, postulante, ofertaTrabajo)
+    notifyPostulacionMyTrabajo(nameNotificado, userNotificado.email, namePostulante, service.tittle)
 
     //si todo salio bien
     return res.status(200).json({
       status: "success",
       message: "Postulo correctamente ",
-      idPostulantes: service.dataValues.idPostulantes,
     });
   } catch (error) {
     return res.status(400).json({
@@ -982,8 +823,6 @@ module.exports = {
   createUser,
   uploadImg,
   deleteUser,
-  login,
-  loginAuth,
   decifrarToken,
   addFriend,
   deleteFriend,
