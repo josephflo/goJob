@@ -45,6 +45,7 @@ import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
 import { useAuth0 } from "@auth0/auth0-react";
+import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
 
 //token
 
@@ -88,15 +89,14 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage isLoading={isLoading} />} />
           {/* Admin **********************************************************/}
-          <Route exact path="admin/jobs/create" element={<CreateJob />} />
-          <Route exact path="admin/users" element={<UsersAdmin />} />
-          <Route exact path="admin/jobs" element={<JobAdmin />} />
+       
           <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
 
           <Route exact path="/dashboard/users" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
+          <Route exact path="/dashboard/services" element={<ServicesDashboard/>} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
