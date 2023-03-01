@@ -105,7 +105,7 @@ const getIdService = async (req, res) => {
         {
           model: User,
           as: "postulantes",
-          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil", "rating_promedio"],
           through: { 
             attributes:[]
           }
@@ -113,7 +113,7 @@ const getIdService = async (req, res) => {
         {
           model: User,
           as: "trabajadorId",
-          attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+          attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil", "rating_promedio"],
           through: { 
             attributes:[]
           }
