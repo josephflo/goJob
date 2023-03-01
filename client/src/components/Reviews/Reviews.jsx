@@ -6,7 +6,7 @@ const Reviews = () => {
       <h1 className="text-4xl text-center p-6 font-semibold">
         Opiniones de nuestros usuarios
       </h1>
-      <ul className="grid lg:grid-cols-8 gap-2 p-2 sm:grid-cols-4">
+      <ul className="grid lg:grid-cols-8 gap-2 p-2 sm:grid-cols-2">
         {reviews.map((rev, index) => (
           <li className=" ">
             <img

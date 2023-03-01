@@ -10,8 +10,10 @@ function Professionals({ usersProfesionales }) {
           firstName={e.firstName}
           lastName={e.lastName}
           imageurl={e.imageurl}
+          imagePerfil={e.imagePerfil}
           contrat={e.contrat}
           description={e.description}
+          jobs={e.Jobs}
         />
       ))}
     </>

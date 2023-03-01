@@ -5,7 +5,7 @@ export default function Opinion({ detail }) {
         Opiniones de nuestros usuarios
       </h1>
       <ul className="">
-        {/* {detail.reviews.map((rev, index) => (
+        {detail.reviews.map((rev, index) => (
           <>
             {rev.name ? (
               <>
@@ -26,7 +26,7 @@ export default function Opinion({ detail }) {
               <></>
             )}
           </>
-        ))} */}
+        ))}
       </ul>
     </>
   );

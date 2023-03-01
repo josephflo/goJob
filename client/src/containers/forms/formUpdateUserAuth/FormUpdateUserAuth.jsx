@@ -46,6 +46,7 @@ function FormUpdateUserAuth() {
     e.preventDefault();
     input["dias"] = inputDay;
     input["jobs"] = inputJob;
+    input["role"] = "professional";
     // input["imageurl"] = inputImage;
     console.log(input);
     dispatch(updateUser(input));

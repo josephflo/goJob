@@ -4,10 +4,10 @@ export default function Header({ detail }) {
   return (
     <>
       <div>
-        {detail.imageurl === "sin foto" ? (
+        {detail.imagePerfil === "sin foto" ? (
           <img src={imageUrlNotFound} className="w-[160px]" alt="" />
         ) : (
-          <img src={detail.imageurl} alt="" class="p-2" />
+          <img src={detail.imagePerfil} alt="" class="p-2" />
         )}
       </div>
       <div class="flex flex-col justify-between p-5">

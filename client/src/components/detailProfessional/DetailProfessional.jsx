@@ -17,43 +17,43 @@ export default function DetailProfessional() {
 
   const dispatch = useDispatch();
 
-  // get detail professional
-  const detail = useSelector((state) => state.professionalDetail);
+  // detail_ : get detail professional del Back
+  const detail_ = useSelector((state) => state.professionalDetail);
 
   useEffect(() => {
     dispatch(getProfessionalById(id));
   }, []);
 
-  // const array = detail.reviews.map((obj) => obj.rating);
+  // detail : Solo para el maquetado de /constants/detailCard
+  const array = detail.reviews.map((obj) => obj.rating);
 
-  // const [arr, arr2] = reviwToDetailUser(array);
-  // const items1 = Array.from({ length: arr2[5] });
-  // const items2 = Array.from({ length: 5 - arr2[5] });
+  const [arr, arr2] = reviwToDetailUser(array);
+  const items1 = Array.from({ length: arr2[5] });
+  const items2 = Array.from({ length: 5 - arr2[5] });
 
-  // const detailUser = useSelector((state) => state.userDetail);
+  const detailUser = useSelector((state) => state.userDetail);
 
   return (
     <>
       <div class="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
         <div class="col-span-2">
           <div class="border-2 rounded flex m-3 p-4 bg-white">
-            <Header detail={detail} />
+            <Header detail={detail_} />
           </div>
           <div class="border-2 rounded  m-3 p-4 bg-white">
-            <Description detail={detail} />
+            <Description detail={detail_} />
           </div>
-          {/* 
-          <div class="border-2 rounded flex items-center m-3 bg-white"> */}
 
-          {/* <Rating
+          <div class="border-2 rounded flex items-center m-3 bg-white">
+            <Rating
               array={array}
               arr2={arr2}
               arr={arr}
               items1={items1}
               items2={items2}
-            />  
-      </div>
-            */}
+            />
+          </div>
+
           <div class="border-2 rounded m-3 p-4 bg-white">
             <Opinion detail={detail} />
           </div>
@@ -61,10 +61,7 @@ export default function DetailProfessional() {
            */}
         </div>
         <div class="col-span-1">
-          <Contact
-            detail={detail}
-            // arr2={arr2}
-          />
+          <Contact detail={detail_} arr2={arr2} />
         </div>
       </div>
     </>
