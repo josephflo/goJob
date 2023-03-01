@@ -6,124 +6,78 @@ import { configFilterService } from "../../redux/actions/services/modifyFilterSe
 import Pagination from "../pagination/Pagination";
 
 function Filter({ totalPages }) {
-  let configFilterServices = useSelector((state) => state.configFilterServices);//estaddo de redux el 
-  //el cual es un objeto igual a este
+  let configFilterServices = useSelector((state) => state.configFilterServices);
 
-  // configFilterServices: {
-  //   page: 1,
-  //   page_size: 15,
-  //   state: "pendiente",
-  //   tittle: "",
-  //   orderFecha: "DESC",
-  //   provincia: "Buenos Aires",
-  //   ciudad: false,
-  //   job: false,
-  // },
-
-  let services = useSelector((state) => state.services);//services no existe en el
-  //estado global por eso no se usa
-
-  const jobs = useSelector((state) => state.jobs); //jobs es un array de strings de los jobs
+  const jobs = useSelector((state) => state.jobs);
   const dispatch = useDispatch();
 
-  //convertimos el array de provincias y ciudades a un obj 
-  // se usan los datos de prueba para poder probar el fiiltro
+  //convertimos el array de provincias y ciudades a un obj
   let provinciasObj = convertirProvinciasAObjeto(provincias);
 
-  //array para ordenar
+  //arry para orden
   let order = [
     { name: "mas recientes", valor: "DESC" },
     { name: "mas antiguos", valor: "ASC" },
   ];
 
-  //El estado local para menu Jobs
-  let [selectFilter, setSelectFilter] = useState({
-    //...configFilterServices
-    page: 1,
-    page_size: 5,
-    state: "pendiente",
-    tittle: "",
-    orderFecha: "DESC",
-    provincia: "Buenos Aires",
-    ciudad: false,
-    job: false,
-  });
+  //Estados para menu Jobs
+  let [selectFilter, setSelectFilter] = useState(configFilterServices.tittle);
 
-  // Estados de la paginacion prev next paginat
+  // Estados de la paginacion
   const [page, setPage] = useState(1);
-  const [page_size, setPage_size] = useState(15)
+  const [page_size, setPage_size] = useState(15);
 
-  // useEffect(() => {
-  //   configFilterService({
-  //     ...selectFilter,
-  //     totalPages: services.totalPages,
-  //   });
-  // }, []);
 
-  let handleOptionFilter = (event) => { //recive el evento Onchange es un objeto de un select
-    let propiedadFilter = event.target.options[event.target.selectedIndex] //en el objeto de un select con el array selecciamos el option
-      .getAttribute("name") //obtenemos el atributo name del option debe tener un name="""
-      .toString();  //lo convertimos a string
+  let handleOptionFilter = (event) => {
+    let propiedadFilter = event.target.options[event.target.selectedIndex]
+      .getAttribute("name")
 
-    let value = event.target.value;  //el valor de la Option del select que escoge el usuario debe tener value=""
+    let value = event.target.value;
 
-    let newConfig = {  //un array donnde vamos a modificar el estado de redux configFilterServices
-      ...configFilterServices, // la copia
-      [propiedadFilter]: value,// assigamos la propiead puede ser un job,provincia,fecha y ciudad 
-      // job:carpintero o ciudad:Mexico depende del caso
+    let newConfig = {
+      ...configFilterServices,
+      [propiedadFilter]: value,
     };
 
-    if (propiedadFilter == "provincia") {//si la proopiedad es provincia en el option metele false
+    if (propiedadFilter == "provincia") {
       newConfig.ciudad = false;
     }
 
-    setSelectFilter(newConfig);  //cambia el estado local por la nueva data en newConfig
-    dispatch(configFilterService(newConfig)); //
-    
+    dispatch(configFilterService(newConfig));
   };
 
   let handlerFilterName = (event) => {
-    let value = event.target.value;  //recibe lo que ecriba en el input
+    let value = event.target.value;
 
-    setSelectFilter({ //guarda el valor del input en el estado
-      ...selectFilter,
-      tittle: value,
-    });
+    setSelectFilter(value);
 
-    let newConfig = {}; // el oobjeto donde se guardara el estado de redux
-    if (value.length >= 3) { //si las letras son 3 o mas 
-      newConfig = {    //seteamos 
-        ...configFilterServices, //hacemos la copia del estado redux
-        tittle: value,   //seteamos el valor
+    let newConfig = {};
+    if (value.length >= 3) {
+      newConfig = {
+        ...configFilterServices,
+        tittle: value,
       };
-      dispatch(configFilterService(newConfig));//reemplaza el estado configFilterService
-      //por el nuevo newConfig
+      dispatch(configFilterService(newConfig));
     } else if (value.length <= 0) {
       newConfig = {
         ...configFilterServices,
         tittle: "",
       };
-      dispatch(configFilterService(newConfig));//Modifica el esstado de redux configFilterService con newconfig
+      dispatch(configFilterService(newConfig));
     }
   };
 
-// La función "paginatePrev" se utiliza para mostrar los resultados de la página anterior.
-// Cuando se hace clic en el botón previo, disminuye la página 
-//en uno y luego llama a la función "configFilterService" con los nuevos valores de configuración.
-  
-const paginatePrev = (e) => {
-    e.preventDefault();  //evitamos el submit por defecto y recargue la pagina
-    if (page === 1) return; // si page es 1 no hacemos nada
-    setPage(page - 1); //de lo contrario seteamos la pagina -1 al valor
-    console.log(e.target.value); // esto es solo para corroborar
-    let newConfig = {    // con el click seteamos newConfig 
-      ...configFilterServices,  
-      page: page - 1,   //actualizaos el valor
+  const paginatePrev = (e) => {
+    e.preventDefault();
+    if (page === 1) return;
+    setPage(page - 1);
+    console.log(e.target.value);
+    let newConfig = {
+      ...configFilterServices,
+      page: page - 1,
     };
-    dispatch(configFilterService(newConfig));// actualizamos el estado global
+    dispatch(configFilterService(newConfig));
   };
-  
-  //misma logica solo se suma
   const paginateNext = (e) => {
     e.preventDefault();
     if (page === totalPages) return;
@@ -135,14 +89,14 @@ const paginatePrev = (e) => {
     dispatch(configFilterService(newConfig));
   };
 
-  const paginate = (e, num) => {// en el componente pagination se le pasa ambos argumentos evento e index
+  const paginate = (e, num) => {
     // e.preventDefault();
-    setPage(num); // setea el estado de la pagina con el index que le llega de Pagination
-    let newConfig = { 
+    setPage(num);
+    let newConfig = {
       ...configFilterServices,
-      page: num,      //seteamos la pagina actual 
+      page: num,
     };
-    dispatch(configFilterService(newConfig));// actualizamos el estado de redux
+    dispatch(configFilterService(newConfig));
   };
 
   const fn = (e) => {
@@ -173,7 +127,7 @@ const paginatePrev = (e) => {
                 type="text"
                 placeholder="buqueda por nombre"
                 name={"tittle"}
-                value={selectFilter.tittle}
+                value={selectFilter}
                 className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
                 onChange={handlerFilterName}
               />
@@ -186,7 +140,7 @@ const paginatePrev = (e) => {
               Por profesion
             </p>
             <select
-              value={selectFilter.job}
+              value={configFilterServices.job}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -209,7 +163,7 @@ const paginatePrev = (e) => {
               Por lanzamiento
             </p>
             <select
-              value={selectFilter.orderFecha}
+              value={configFilterServices.orderFecha}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -230,7 +184,7 @@ const paginatePrev = (e) => {
             </p>
             <select
               defaultValue={Object.keys(provinciasObj)[0]}
-              value={selectFilter.provincia}
+              value={configFilterServices.provincia}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -252,7 +206,7 @@ const paginatePrev = (e) => {
               Por ciudad
             </p>
             <select
-              value={selectFilter.ciudad}
+              value={configFilterServices.ciudad}
               onChange={handleOptionFilter}
               className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
               // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"
@@ -260,9 +214,9 @@ const paginatePrev = (e) => {
               <option key={1} value={false} name={"ciudad"}>
                 {"All"}
               </option>
-              {selectFilter.provincia != false &&
-                selectFilter.provincia &&
-                provinciasObj[selectFilter.provincia].map((ciudad, ind) => (
+              {configFilterServices.provincia != false &&
+                configFilterServices.provincia &&
+                provinciasObj[configFilterServices.provincia].map((ciudad, ind) => (
                   <option key={ind + 1} value={ciudad} name={"ciudad"}>
                     {ciudad}
                   </option>

@@ -14,12 +14,10 @@ const userModel = (sequelize) => {
         defaultValue: true,
     },
     firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
     },
     lastName: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     user: {
         type: DataTypes.STRING,
@@ -28,13 +26,14 @@ const userModel = (sequelize) => {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-
+    },
+    imagePerfil: {
+        type: DataTypes.STRING,
     },
     imageurl: {
         type: DataTypes.STRING,
@@ -48,12 +47,12 @@ const userModel = (sequelize) => {
     },
     phone: {
         type: DataTypes.STRING,
-        unique: true,
 
     },
     role: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: 'comun',
         validate: {
             isIn: [['comun', 'professional', 'admin']]
           }

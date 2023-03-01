@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { userFormBackground } from "../../../assets";
+import capitalizeFirstLetter from "../../../helpers/capitalizeFirstLetter";
 
 function ServiceCard({
   tittle,
@@ -19,17 +20,15 @@ function ServiceCard({
     });
   }
 
-  function capitalizarPrimeraLetra(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  tittle = capitalizarPrimeraLetra(tittle);
-  description = capitalizarPrimeraLetra(description);
+  tittle = capitalizeFirstLetter(tittle);
+  description = capitalizeFirstLetter(description);
 
   return (
     <div className="bg-gray-100 p-4">
       <div class="h-100 overflow-hidden">
+          <NavLink to={`/service/detail/${id}`}>
         <img src={userFormBackground} className="object-fill" alt="" />
+         </NavLink>
       </div>
 
       <div className="box-border grid grid-cols-3 bg-white border-solid-gray-300 rounded-sm p-4">
@@ -50,20 +49,9 @@ function ServiceCard({
           <p className="h-9 top-9 font-sans not-italic font-normal text-2xl text-black">
             {tarif_min}${presupuesto}
           </p>
-          <p className="">
-            <NavLink to={`/calender/${id}`}>
-              <button className="w-20 h-10 bg-blue-400 rounded-lg">
-                Postular
-              </button>
-            </NavLink>
-          </p>
-          <p>
-            <NavLink to={`/detail/${id}`}>
-              <button className=" w-20 h-10 rounded-lg bg-gray-300">
-                Contactar
-              </button>
-            </NavLink>
-          </p>
+
+         
+         
         </div>
       </div>
     </div>

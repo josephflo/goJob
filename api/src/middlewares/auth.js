@@ -31,7 +31,6 @@ const auth = (req, res, next) => {
 
     //agregar datos de usuario a request
     req.user = payload
-
   } catch (error) {
     return res.status(404).json({
       status: "error",

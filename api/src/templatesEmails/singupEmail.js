@@ -1,13 +1,17 @@
 'use strict';
-require('dotenv').config();
 const nodemailer = require('nodemailer');
+require('dotenv').config();
+const {
+  MAILUSER,
+  MAILPSSWD
+} = process.env
 
 const bienvenidaMail = (nombre, apellido, correo) =>{
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.MAILUSER,
-            pass: process.env.MAILPSSWD
+            user: MAILUSER,
+            pass: MAILPSSWD
         }
     
     });
@@ -45,5 +49,42 @@ const bienvenidaMail = (nombre, apellido, correo) =>{
     });
 }
 
-module.exports = bienvenidaMail;
+const notifyPostulacionMyTrabajo = (user1, correo, postulante, ofertaTrabajo)=>{
+
+  console.log("*******************************");
+  console.log(user1, correo, postulante, ofertaTrabajo);
+
+  let config = {
+    service: 'gmail',
+    auth: {
+        user: MAILUSER,
+        pass: MAILPSSWD
+    }
+
+}
+
+  let message = {
+    from: MAILUSER,
+    to: correo,
+    subject: "Postulacion a mi oferta de trabajo",
+    text: `${user1}, ${postulante} acaba de pustular a tu oferta de trabajo "${ofertaTrabajo}".`
+  }
+
+
+  let transporter = nodemailer.createTransport(config)
+  const response =  transporter.sendMail(message, (error, info)=>{
+    if (error) {
+      console.log("Nose pudo enviar la notificacion");
+  } else {
+      console.log('Notificacion de postulacion enviada correctamente: ' + info.response);
+  }
+  })
+
+}
+
+
+module.exports = {
+  bienvenidaMail,
+  notifyPostulacionMyTrabajo
+}
 

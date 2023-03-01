@@ -51,7 +51,10 @@ console.log(service)
           {service.result && service.result.length > 0 ? (
             <Services services={service.result} />
           ) : (
-            <p className="text-center"> ups! no hay servicios </p>
+            <p className="flex items-center justify-center h-screen">
+              {" "}
+              ups! no hay servicios{" "}
+            </p>
           )}
         </div>
       </div>

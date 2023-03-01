@@ -14,6 +14,8 @@ import detailProfile from "./detailProfile.svg";
 
 import userFormBackground from "./userFormBackground.jpg";
 
+import imageUrlNotFound from "./imageUrlNotFound.png";
+
 export {
   lupa,
   logo,
@@ -27,4 +29,5 @@ export {
   people08,
   detailProfile,
   userFormBackground,
+  imageUrlNotFound,
 };
