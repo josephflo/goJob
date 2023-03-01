@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Authentication
 
-//import Private from "./authentication/Private";   
+//import Private from "./authentication/Private";
 
 // Pages
 import HomePage from "./pages/homePage/HomePage";
@@ -32,7 +32,7 @@ import FilterService from "./containers/filters/FilterService";
 
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
-import { getUsers } from "./redux/actions/userActions";
+import { createAndLogin, getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
 
@@ -44,6 +44,8 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
+import { useAuth0 } from "@auth0/auth0-react";
+
 //token
 
 // Default axios
@@ -51,12 +53,29 @@ import DetailService from "./components/detailService/DetailService";
 axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
-
-  let token = useSelector((state) => state.token);
-  axios.defaults.headers.common["Authorization"] = token
-
+  const { isAuthenticated, user, isLoading } = useAuth0();
   const dispatch = useDispatch();
 
+  const createUser = () => {
+    const { given_name, nickname, family_name, email, picture } = user;
+    let newUser = {
+      firstName: given_name || "sin nombre",
+      lastName: family_name || "sin apellido",
+      email: email,
+      user: nickname,
+      imagePerfil: picture || "sin foto",
+    };
+    dispatch(createAndLogin(newUser));
+  };
+
+  if (isAuthenticated) {
+    createUser();
+  }
+
+  let token = useSelector((state) => state.token);
+  axios.defaults.headers.common["Authorization"] = token;
+
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getJobs());
@@ -67,7 +86,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/" element={<HomePage isLoading={isLoading} />} />
           {/* Admin **********************************************************/}
           <Route exact path="admin/jobs/create" element={<CreateJob />} />
           <Route exact path="admin/users" element={<UsersAdmin />} />
@@ -81,7 +100,7 @@ function App() {
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
-          <Route exact path="/user/profile" element={<UserProfile/>} />
+          <Route exact path="/user/profile" element={<UserProfile />} />
 
           {/* Containers */}
           <Route exact path="/contact" element={<FormContact />} />
@@ -94,10 +113,7 @@ function App() {
             path="/professional/detail/:id"
             element={<DetailProfessional />}
           />
-          <Route
-            path="/service/detail/:id"
-            element={<DetailService />}
-          />
+          <Route path="/service/detail/:id" element={<DetailService />} />
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<ProfesionalPage />} />
