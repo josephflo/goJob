@@ -1,18 +1,21 @@
-//eslint-disable react-hooks/rules-of-hooks
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/footer/Footer";
 import JobPage from "../jobPage/JobPage";
 import FormHomePage from "../../containers/forms/formHomePage/FormHomePage";
-import Reviews from "../../components/Reviews/Reviews";
+import Reviews from "../../components/reviews/Reviews";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import { useAuth0 } from "@auth0/auth0-react";
-import { createAndLogin, createUser2, getUserAuth0Id } from "../../redux/actions/userActions";
+import {
+  createAndLogin,
+  createUser2,
+  getUserAuth0Id,
+} from "../../redux/actions/userActions";
 import axios from "axios";
 
-export default function HomePage() {
-  const { isAuthenticated, user, isLoading } = useAuth0();
-  const dispatch = useDispatch();
+export default function HomePage({ isLoading }) {
+  // const { isAuthenticated, user, isLoading } = useAuth0();
+  // const dispatch = useDispatch();
 
   if (isLoading) {
     return (
@@ -29,24 +32,21 @@ export default function HomePage() {
     );
   }
 
+  // const createUser = () => {
+  //   const { given_name, nickname, family_name, email, picture } = user;
+  //   let newUser = {
+  //     firstName: given_name || "sin nombre",
+  //     lastName: family_name || "sin apellido",
+  //     email: email,
+  //     user: nickname,
+  //     imagePerfil: picture || "sin foto",
+  //   };
+  //   dispatch(createAndLogin(newUser));
+  // };
 
-  const createUser = () => {
-    const { given_name, nickname, family_name, email, picture } = user;
-    let newUser = {
-        firstName: given_name || 'sin nombre',
-        lastName:family_name || 'sin apellido',
-        email: email,
-        user: nickname,
-        imagePerfil: picture || "sin foto",
-
-    }
-    dispatch(createAndLogin(newUser))
-  };
-  
-  if(isAuthenticated){
-    createUser()
-  }
-
+  // if (isAuthenticated) {
+  //   createUser();
+  // }
 
   return (
     <>
@@ -80,4 +80,3 @@ export default function HomePage() {
     </>
   );
 }
-
