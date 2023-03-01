@@ -44,6 +44,11 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
+import OffersPage from "./pages/UserDashboard/OffersPage";
+import OffersProfessionalPage from "./pages/ProfessionalDashboard/OffersProfessionalPage";
+import Jobs from "./pages/ProfessionalDashboard/Jobs";
+import Postulaciones from "./pages/ProfessionalDashboard/Postulaciones";
+
 //token
 
 // Default axios
@@ -101,6 +106,12 @@ function App() {
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<ProfesionalPage />} />
+          {/* UserDashboard ***********************************************/}
+          <Route exact path="/dashboardUser/:id" element={<OffersPage />} />
+          <Route exact path="/dashboardProfessional" element={<OffersProfessionalPage />} />
+          <Route exact path="/dashboardProfessional/jobs" element={<Jobs />} />
+          <Route exact path="/dashboardProfessional/postulaciones" element={<Postulaciones />} />
+
 
           {/*Profesionales */}
           {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}

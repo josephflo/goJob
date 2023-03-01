@@ -10,6 +10,7 @@ const NavBarPortada = () => {
   const [open, setOpen] = useState(false);
 
   return (
+     isAuthenticated (
     <nav class="bg-white">
     <div class="flex items-center font-medium justify-around">
       <div class="z-50 p-5 md:w-auto w-full flex justify-between">
@@ -45,6 +46,18 @@ const NavBarPortada = () => {
             Crear User
           </Link>
         </li>
+       
+        <li>
+        
+          <Link 
+          to={`/dashboardUser/${user.id}`} 
+          class="py-7 px-3 inline-block"
+          >
+            Mi perfil
+          </Link>
+       
+        </li>
+        )
         <div class="py-5">
           {isAuthenticated ? (
             <Link to={"/user/profile"}>
@@ -95,6 +108,11 @@ const NavBarPortada = () => {
             Crear User
           </Link>
         </li>
+        <li>
+          <Link to={`/dashboardUser/${user.id}`} class="py-7 px-3 inline-block">
+            Mi perfil
+          </Link>
+        </li>
         <div class="py-5">
         {isAuthenticated ? (
             <Link to={"/user/profile"}>
@@ -111,6 +129,7 @@ const NavBarPortada = () => {
       </ul>
     </div>
   </nav>
+     )
 );
 };
 
