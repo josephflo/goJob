@@ -176,10 +176,17 @@ const getUserByID = async (id) =>{
           {
             model: User,
             as: "postulantes",
-            attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+            attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil", "rating_promedio", ],
             through: { 
               attributes:[]
             }
+          }
+        },
+        {
+          model: Service,
+          as: "postulaciones",
+          through: { 
+            attributes:[]
           }
         },
         {
@@ -252,7 +259,7 @@ const userLoginEmail = async(email)=>{
           {
             model: User,
             as: "postulantes",
-            attributes:["id", "firstName", "lastName", "user", "email", "phone"],
+            attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil", "rating_promedio", ],
             through: { 
               attributes:[]
             }
@@ -264,12 +271,21 @@ const userLoginEmail = async(email)=>{
           through: { 
             attributes:[]
           }
+        },
+        {
+          model: Service,
+          as: "postulaciones",
+          through: { 
+            attributes:[]
+          }
         }   
   
       ],
     });
     
     if(result == undefined){
+      console.log("**************************");
+      console.log(result);
       return false
     }
 
