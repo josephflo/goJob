@@ -2,6 +2,7 @@ const { Router} = require('express');
 const { auth } = require("../middlewares/auth")
 const router = Router();
 const userHandlers = require("../handlers/userHandler")
+const userHandlers2 = require("../handlers/userHanlderMyServices")
 const {createCheckoutHandler, productCreateHandler, priceCreatedHandler} = require("../handlers/stripeHandler")
 
 
@@ -14,8 +15,11 @@ router.get("/friend", auth, userHandlers.getFriends)
 //router.get("/profile", auth, userHandlers.getFriends)
 
 router.get("/services", auth, userHandlers.getAllMyService)
-
 router.get("/token", auth, userHandlers.decifrarToken);
+
+router.get("/services/MyServices", auth, userHandlers2.getAllMyServices)
+router.get("/services/MyTrabajos", auth, userHandlers2.getAllMyTrabajos)
+router.get("/services/Postulaciones", auth, userHandlers2.getAllMyPostulaciones)
 
 
 /****** POST ****** */

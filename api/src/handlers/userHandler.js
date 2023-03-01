@@ -175,12 +175,10 @@ const createUser = async (req, res) => {
 
 
     let userCreated = await User.create(newUser);
-    delete userCreated.dataValues.password;
 
-    await userCreated.addJobs(idJobs);
 
     // agregar nuevo usuario a Jobs
-    delete userCreated.dataValues.password;
+    await userCreated.addJobs(idJobs);
 
     //mandomos email de bienvenida
     if(nombre, apellido, email){
@@ -190,8 +188,10 @@ const createUser = async (req, res) => {
     let usuarioFinal = await userLoginEmail(email)
 
     //creamos token
-    let token = createToken(usuarioFinal.dataValues);
-
+    let token = createToken(usuarioFinal);
+    // console.log("**************************************");
+    // console.log("hasta aqui todo bien");
+    // console.log("**************************************");
     return res.status(200).json({
       status: "success",
       message: "Usuario creado correctamente",
@@ -201,8 +201,8 @@ const createUser = async (req, res) => {
   } catch (error) {
     return res.status(404).json({
       status: "error",
-      user: newUser,
       message: error.message,
+      user: newUser
     });
   }
 };
@@ -510,7 +510,7 @@ const getAllMyService = async (req, res) => {
         {
           model: User,
           as: "postulantes",
-          attributes: ["id", "firstName", "lastName", "user", "email", "phone"],
+          attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil", "rating_promedio", ],
           through: {
             attributes: [],
           },
@@ -643,6 +643,7 @@ const postularService = async (req, res) => {
     //agregamos postulante
     const service = await Service.findOne({ where: { id: idService } });
     let postulate = await service.addPostulante(idUser);
+    //postulaciones
 
     //extraemos el postulante
     let userPostulante = await User.findOne({where: {id: idUser}})
@@ -757,6 +758,10 @@ const calificarService = async (req, res) => {
     let actStateSer = await Service.update(stamentUpdate, {
       where: { id: idService, UserId: idUser },
     });
+
+    //eliminamos los postulantes
+    let deleteAllPost = await Service.findOne({where: {id: idService}})
+    deleteAllPost.setPostulantes(null)
 
     //extraemos la informacion del servicio para el rating
     let service = await Service.findOne({
