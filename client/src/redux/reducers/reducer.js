@@ -2,21 +2,16 @@
 import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
-  token: "",
-  userLogin: {},
-
   users: [],
-  userId: {},
-  allUsers: [],
-  usersProfesionales: {},
+  allUsers: {},
+  usersProfesionales: [],
   jobs: [],
   allJobs: [],
   jobById: {},
   service: {},
   filterService: [],
   userDetail: {},
-  professionalDetail: {},
-  serviceDetail:{},
+
 
   //config para filtros services
   configFilterServices: {
@@ -30,22 +25,21 @@ const initialState = {
     job: false,
   },
 
-  //config para filtros services
+  //config para filtros usuarios
   configFilterUser: {
     page: 1,
     page_size: 15,
-    name: "",
+    name: false,
     job: false,
-    provincia: "Buenos Aires",
+    provincia: false,
     ciudad: false,
     dias: false,
-    horario: "mañana",
+    horario: false,
     role: "professional",
-    orderName: false,
-    orderRating: "DESC",
-  },
+    orderName: "ASC",
+    orderRating: "DESC"
+  }
 };
-
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -71,15 +65,10 @@ export default function reducer(state = initialState, action) {
         users: action.payload,
         allUsers: action.payload,
       };
-    case ActionTypes.GET_USER_AUTH0_ID:
-      return {
-        ...state,
-        userId: action.payload,
-      };
     case ActionTypes.GET_SERVICE:
       return {
         ...state,
-        service: action.payload,
+        service: action.payload
       };
 
     case ActionTypes.USER_DETAIL:
@@ -104,35 +93,6 @@ export default function reducer(state = initialState, action) {
         localidades: action.payload.localidades,
       };
 
-    case ActionTypes.GET_ALL_USERS_FILTRADO:
-      return {
-        ...state,
-        usersProfesionales: action.payload,
-      };
-
-    /**************************************** */
-    //PROFESSIONAL BY ID
-
-    case ActionTypes.PROFESSIONAL_DETAIL:
-      return {
-        ...state,
-        professionalDetail: action.payload,
-      };
- /**************************************** */
-    //SERVICE BY ID
-      case ActionTypes.SERVICE_DETAIL:
-        return {
-          ...state,
-          serviceDetail: action.payload,
-        };
-  
-    //Login y Create user
-    case ActionTypes.REGISTER_USER_AND_LOGIN:
-      return {
-        ...state,
-        token: action.payload.token,
-        userLogin: {...action.payload.result}
-      }
     /**************************************** */
     //FILTROS
     case ActionTypes.CONFIG_FILTER_SERVICES:

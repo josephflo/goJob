@@ -122,9 +122,7 @@ export const uploadImage = (input) => async (dispatch) => {
 
 //ruta modificada de create user para enviar imagens
 //
-
 //
-
 export const getUsers = () => {
   return async (dispatch) => {
     const result = await axios.get("/user");

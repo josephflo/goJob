@@ -15,9 +15,6 @@ export function Carduser({
   phone
 }) {
 
-
-
-
   return (
     <Link
       to={`dashboard/user/detail/${id}`}
