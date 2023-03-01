@@ -29,14 +29,6 @@ function ProfesionalPage() {
 
       <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {usersProfesionales.result ? (
-          // usersProfesionales.result.map((user, ind) => (
-          //   <div
-          //     key={ind}
-          //     className="font-sans pt-1 not-italic font-medium text-gray-700"
-          //   >
-          //     {user.lastName}
-          //   </div>
-          // ))
           <Professionals usersProfesionales={usersProfesionales.result} />
         ) : (
           <div className="flex items-center col-span-4 justify-center h-screen">

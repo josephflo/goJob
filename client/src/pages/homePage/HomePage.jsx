@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "../../components/footer/Footer";
 import JobPage from "../jobPage/JobPage";
 import FormHomePage from "../../containers/forms/formHomePage/FormHomePage";
-import Reviews from "../../components/reviews/Reviews";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
@@ -12,6 +10,9 @@ import {
   getUserAuth0Id,
 } from "../../redux/actions/userActions";
 import axios from "axios";
+import Footer from "../../components/Footer/Footer"
+import Reviews from "../../components/Reviews/Reviews"
+
 
 export default function HomePage({ isLoading }) {
   // const { isAuthenticated, user, isLoading } = useAuth0();

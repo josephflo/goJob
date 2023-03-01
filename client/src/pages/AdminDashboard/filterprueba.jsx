@@ -1,6 +1,6 @@
 import React from "react";
 
-
+import { getJobs } from "../../redux/actions/jobActions";
 import { Header } from "./header";
 import { SideBar } from "./sidebar";
 import { Carduser } from "./carduser";
@@ -28,11 +28,12 @@ export default function Prueba() {
              id: user.id,
              jobs: user.Jobs?user.Jobs.map(job => job.name): []
               }
-              
-    
+          
     ) 
   })
 
+  const dispatch = useDispatch();
+  dispatch(getJobs());
 
  
 

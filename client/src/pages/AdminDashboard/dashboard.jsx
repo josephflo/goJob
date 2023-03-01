@@ -5,7 +5,7 @@ import { Header } from "./header";
 import { SideBar } from "./sidebar";
 import { Carduser } from "./carduser";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, createDispatchHook } from "react-redux";
 import Pagination from "../../containers/pagination/Pagination";
 import UsersMap from "./usermap";
 import { FilterUser } from "./filterUser";
@@ -14,7 +14,9 @@ import { FilterUser } from "./filterUser";
 export default function Dashboard() {
   const users = useSelector((state) => state.users);
   const allusers = useSelector((state) => state.allUsers);
-    
+  
+
+//    dispatch()
 
 
   const mapUsers = users.map((user
@@ -41,7 +43,7 @@ export default function Dashboard() {
 
  
 
-  console.log(allusers)
+  console.log(mapUsers)
 
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">

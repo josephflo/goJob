@@ -90,16 +90,14 @@ function App() {
         <Routes>
           <Route exact path="/" element={<HomePage isLoading={isLoading} />} />
           {/* Admin **********************************************************/}
-          <Route exact path="admin/jobs/create" element={<CreateJob />} />
-          <Route exact path="admin/users" element={<UsersAdmin />} />
-          <Route exact path="admin/jobs" element={<JobAdmin />} />
           <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
-
           <Route exact path="/dashboard/users" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
           <Route exact path="/dashboard/services" element={<ServicesDashboard/>} />
+
+          <Route exact path="/prueba" element={<Prueba/>} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
