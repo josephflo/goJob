@@ -49,7 +49,7 @@ function FilterUser({ totalPages }) {
   let handleOptionFilter = (event) => {
     let propiedadFilter = event.target.options[event.target.selectedIndex]
       .getAttribute("name")
-      .toString();
+      
     let value = event.target.value;
 
     let newConfig = {
