@@ -3,6 +3,7 @@ const { auth } = require("../middlewares/auth")
 const router = Router();
 const userHandlers = require("../handlers/userHandler")
 const userHandlers2 = require("../handlers/userHanlderMyServices")
+const notifyHandler = require("../handlers/notifyUser")
 const {createCheckoutHandler, productCreateHandler, priceCreatedHandler} = require("../handlers/stripeHandler")
 
 
@@ -38,6 +39,10 @@ router.post("/service/elegir/trabajador", auth, userHandlers.elegirTrabajador)
 
 
 router.post("/friend", auth, userHandlers.addFriend)
+
+//CONTACTAR
+router.post("/contact/:idProfessional", auth, notifyHandler.contactarProfessional)
+
 
 /****** PUT ******* */
 router.put("/service/:idService", auth, userHandlers.actualizarService)//

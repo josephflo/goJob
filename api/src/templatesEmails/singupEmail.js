@@ -1,5 +1,8 @@
 'use strict';
 const nodemailer = require('nodemailer');
+const fs = require('fs');
+
+
 require('dotenv').config();
 const {
   MAILUSER,
@@ -20,25 +23,8 @@ const bienvenidaMail = (nombre, apellido, correo) =>{
         from: 'temgojob@gmail.com',
         to: `${correo}`,
         subject: `¡Bienvenido a Go-jobs ${nombre} ${apellido}!`,
-        html: `
-            <table border="0" cellpadding="0" cellspacing="0" width="600px" background-color="#2d3436" bgcolor="#2d3436">
-            <tr height="200px">  
-                <td bgcolor="" width="600px">
-                    <h1 style="color: #fff; text-align:center">Bienvenido</h1>
-                    <p  style="color: #fff; text-align:center">
-                        <span style="color: #e84393"> ¡Muchas gracias por formar parte de nuestra comunidad ${nombre}!</span> 
-                    </p>
-                </td>
-            </tr>
-            <tr bgcolor="#fff">
-                <td style="text-align:center">
-                    <p style="color: #000">Para cualquier incoveniente contacta al equipo de Go-Jobs</p>
-                </td>
-            </tr>
-            </table>
-        
-        `
-    };
+        html: fs.readFileSync("./models/Bienvenida_Go_Job.html")
+    }
 
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
@@ -50,10 +36,6 @@ const bienvenidaMail = (nombre, apellido, correo) =>{
 }
 
 const notifyPostulacionMyTrabajo = (user1, correo, postulante, ofertaTrabajo)=>{
-
-  console.log("*******************************");
-  console.log(user1, correo, postulante, ofertaTrabajo);
-
   let config = {
     service: 'gmail',
     auth: {
@@ -82,9 +64,42 @@ const notifyPostulacionMyTrabajo = (user1, correo, postulante, ofertaTrabajo)=>{
 
 }
 
+const notifyContactar = (user1, emailUser1, nameEmailcontactado, Emailcontactado, mensaje )=>{
+
+    console.log("*******************************");
+    console.log(user1, Emailcontactado );
+  
+    let config = {
+      service: 'gmail',
+      auth: {
+          user: MAILUSER,
+          pass: MAILPSSWD
+      }
+  
+  }
+  
+    let message = {
+      from: MAILUSER,
+      to: Emailcontactado,
+      html: fs.readFileSync("./models/Bienvenida_Go_Job.html")
+
+    }
+  
+  
+    let transporter = nodemailer.createTransport(config)
+    const response =  transporter.sendMail(message, (error, info)=>{
+      if (error) {
+        console.log("Nose pudo enviar la notificacion");
+    } else {
+        console.log('Notificacion de contactar enviada correctamente: ' + info.response);
+    }
+    })
+}
+
 
 module.exports = {
   bienvenidaMail,
-  notifyPostulacionMyTrabajo
+  notifyPostulacionMyTrabajo,
+  notifyContactar
 }
 
