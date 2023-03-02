@@ -5,24 +5,35 @@ import { SideBar } from "./sidebar";
 import { Header } from "./header";
 import { useSelector, useDispatch} from "react-redux";
 import { getService } from "../../redux/actions/serviceActions";
+import { getAllServices } from "../../redux/actions/services/getServices";
 
 export function DashboardContent() {
-
+  
+ let  lastServices;
  const dispatch = useDispatch();  
  
   const users = useSelector((state) => state.users);
   const services = useSelector((state) => state.service);
 
-  useEffect(() => {
-   dispatch(getService());
-  },[]);
+  if (Array.isArray(services)){
+    console.log("no hacer nada")
+    lastServices = services[services.length-1]
+   }
+
+
+
+  // const jobs = lastServices.Jobs ? lastServices.Jobs.map(job => job.name) : [];
+
+
+
   
-  const lastServices = services[0]
+  console.log(services) 
+ 
+  useEffect(() => {
+    dispatch(getService());
+   },[]);
 
-  const jobs = lastServices.Jobs ? lastServices.Jobs.map(job => job.name) : [];
 
-
-  console.log(lastServices) 
 
 
 
@@ -60,7 +71,7 @@ export function DashboardContent() {
               <div className="bg-blue-100 rounded-xl p-4">
                 <div className="flex items-center gap-4 mb-4">
                   <span className="bg-blue-600 text-white text-2xl font-bold p-4 rounded-xl">
-                    {services.length}
+                    {/* {services.length} */}
                   </span>
                   <div>
                     <h3 className="font-bold">Servicios</h3>
@@ -87,7 +98,7 @@ export function DashboardContent() {
                     className="w-14 h-14 object-cover rounded-full"
                   />
                   <div>
-                    <h3 className="font-bold">{lastServices.tittle}</h3>
+                    {/* <h3 className="font-bold">{lastServices.tittle}</h3> */}
                     <p className="text-gray-500">jobs lista</p>
                   </div>
                 </div>
@@ -103,7 +114,7 @@ export function DashboardContent() {
                 </div>
                 <div className="flex justify-end">
                   <Link
-                    to="to=/dashboard/services"
+                    to="dashboard/services"
                     className="hover:text-gray-400 transition-colors hover:underline"
                   >
                     ver servicios
@@ -185,7 +196,7 @@ export function DashboardContent() {
                       className="w-14 h-14 object-cover rounded-full"
                     />
                     <div>
-                      <h3 className="font-bold">{lastServices.userId.firstName+" "+lastServices.userId.lastName}</h3>
+                      {/* <h3 className="font-bold">{lastServices.userId.firstName+" "+lastServices.userId.lastName}</h3> */}
                       <p className="text-gray-500">{}</p>
                     </div>
                   </div>
@@ -197,23 +208,23 @@ export function DashboardContent() {
                 </div>
                 <div>
                   <h5 className="text-lg font-bold">
-                    {lastServices.tittle}
+                    {/* {lastServices.tittle} */}
                   </h5>
                   <p className="text-gray-500">
-                    {lastServices.description}
+                    {/* {lastServices.description} */}
                   </p>
                 </div>
                 <div className="bg-primary-100/10 flex flex-col md:flex-row items-center justify-between gap-4 py-8 px-4 rounded-lg">
                   <div>
                     <sup className="text-sm text-gray-500">$</sup>{" "}
-                    <span className="text-2xl font-bold mr-2">{lastServices.presupuesto}</span>
+                    {/* <span className="text-2xl font-bold mr-2">{lastServices.presupuesto}</span> */}
                   </div>
                   <div>
-                    {jobs.map((job)=>
+                    {/* {jobs.map((job)=>
                       <span className="border border-primary-100 text-primary-100 py-2 px-4 rounded-full">
                       {job}
                       </span>
-                    )}
+                    )} */}
                    
                   </div>
                 </div>

@@ -46,6 +46,7 @@ import DetailService from "./components/detailService/DetailService";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
+import { getService } from "./redux/actions/serviceActions";
 
 //token
 
@@ -81,6 +82,7 @@ function App() {
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
+    // dispatch(getService());
   });
 
   return (

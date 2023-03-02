@@ -38,7 +38,7 @@ export let getAllServices = (objQuery) => async (dispatch) => {
     console.log("No trajo services");
     return dispatch({
       type: ActionTypes.GET_SERVICE,
-      payload: [],
+      payload: {},
     });
   }
 };
