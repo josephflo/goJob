@@ -1,20 +1,23 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { RiFolderUserLine, RiLogoutBoxLine } from "react-icons/ri";
 import logo from "../UserDashboard/image.svg";
+import { useSelector } from "react-redux";
+
 
 export default function SideBar() {
-  const { user, isAuthenticated } = useAuth0();
-
+  
+  const users = useSelector((state) => state.userLogin)
+ 
+  
   return (
-    isAuthenticated && (
+    
       <div>
         <div className="col-span-1 p-8 border-r">
           <div className="text-center p-8">
             <img
-              src={user.picture}
-              alt={user.name}
+              src={users.imagePerfil}
+              alt={users.firstName}
               className="w-1/8 rounded-full h-auto"
             />
           </div>
@@ -23,7 +26,7 @@ export default function SideBar() {
               <ul>
                 <li>
                   <Link
-                    to={`/dashboardUser/${user.id}`}
+                    to={`/dashboardUser/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
                     <RiFolderUserLine />
@@ -45,6 +48,6 @@ export default function SideBar() {
           </div>
         </div>
       </div>
-    )
+    
   );
 }

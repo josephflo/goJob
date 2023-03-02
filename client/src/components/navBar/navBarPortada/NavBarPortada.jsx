@@ -4,13 +4,16 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtons from "../../../authentication/components/LoginButtons";
 import { useState } from "react";
 import NavLinks from "./NavLinks";
+import { useSelector } from "react-redux";
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
+  const users = useSelector((state) => state.userLogin)
+  
+
   const [open, setOpen] = useState(false);
 
   return (
-     isAuthenticated (
     <nav class="bg-white">
     <div class="flex items-center font-medium justify-around">
       <div class="z-50 p-5 md:w-auto w-full flex justify-between">
@@ -46,20 +49,15 @@ const NavBarPortada = () => {
             Crear User
           </Link>
         </li>
-       
-        <li>
-        
-          <Link 
-          to={`/dashboardUser/${user.id}`} 
-          class="py-7 px-3 inline-block"
-          >
-            Mi perfil
-          </Link>
-       
-        </li>
-        )
-        <div class="py-5">
+         <li>
           {isAuthenticated ? (
+          <Link to={`/dashboardUser/${users.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li>
+        <div class="py-5">
+          {isAuthenticated === true &&
             <Link to={"/user/profile"}>
               <img
                 class="object-contain h-16 w-16 rounded-full auto px-3 py-3"
@@ -67,9 +65,7 @@ const NavBarPortada = () => {
                 alt={user.name}
               />
             </Link>
-          ) : (
-            <LoginButtons />
-          )}
+         }
         </div>
       </ul>
       <div class="md:block hidden">{/* <Button /> */}</div>
@@ -109,12 +105,15 @@ const NavBarPortada = () => {
           </Link>
         </li>
         <li>
+          {isAuthenticated ? (
           <Link to={`/dashboardUser/${user.id}`} class="py-7 px-3 inline-block">
-            Mi perfil
+            Mi Perfil
           </Link>
+          ) : ( <LoginButtons />) }
         </li>
         <div class="py-5">
         {isAuthenticated ? (
+          
             <Link to={"/user/profile"}>
               <img
                 class="object-contain h-16 w-16 rounded-full auto px-3 py-3"
@@ -122,6 +121,8 @@ const NavBarPortada = () => {
                 alt={user.name}
               />
             </Link>
+           
+            
           ) : (
             <LoginButtons />
           )}
@@ -129,7 +130,6 @@ const NavBarPortada = () => {
       </ul>
     </div>
   </nav>
-     )
 );
 };
 

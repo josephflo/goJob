@@ -11,8 +11,7 @@ export default function OffersPage() {
   const { id } = params;
   const dispatch = useDispatch();
 
-  const services = useSelector((state) => state.serviceDetail);
-
+  const services = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     dispatch(getServiceById(id));
@@ -54,15 +53,19 @@ export default function OffersPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between mb-8">
-            {services? <Card
-            firstName={services.userId?.firstName} 
-            tittle={services?.tittle} 
-            imageurl={services?.imageurl} 
-            presupuesto={services?.presupuesto} 
-            description={services?.description} 
-            ciudad={services?.ciudad} 
-            /> : <p>Aún no creaste servicios</p> }
+          <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {services?.myServices ?
+            services?.myServices.map((e) => 
+            <Card
+            key={e.id}
+            tittle={e.tittle} 
+            imagenurl={e.imagenurl} 
+            direccion={e.direccion} 
+            presupuesto={e.presupuesto} 
+            description={e.description} 
+            postulantes={e.postulantes} 
+            state={e.state} 
+            />  ) : <p>Aún no creaste servicios</p> }
               
             </div>
           </div>
