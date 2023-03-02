@@ -12,10 +12,10 @@ export default function UsersMap({users}) {
           provincia={e.provincia}
           ciudad={e.ciudad}
           direccion={e.direccion}
-          imageurl={e.imageurl}
-          jobs={e.jobs}
+          imageurl={e.imagePerfil}
+          jobs={e.Jobs.map(job => job.name)}
           id={e.id}
-          rating={e.rating}
+          rating={e.rating_promedio}
           phone={e.phone}
         />
       ))}

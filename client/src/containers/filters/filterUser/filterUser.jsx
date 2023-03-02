@@ -10,80 +10,104 @@ import {
 } from "../../../redux/actions/users/profesionales";
 
 function FilterUser({ totalPages }) {
-  let configFilterUser = useSelector((state) => state.configFilterUser);
+  let configFilterUser = useSelector((state) => state.configFilterUser);// estado filtra usuario 
+  //el cual es un objeto igual a este
+//config para filtros services
+// configFilterUser: {
+//   page: 1,
+//   page_size: 15,
+//   name: "",
+//   job: false,
+//   provincia: "Buenos Aires",
+//   ciudad: false,
+//   dias: false,
+//   horario: "mañana",
+//   role: "professional",
+//   orderName: false,
+//   orderRating: "DESC",
 
-  const jobs = useSelector((state) => state.jobs);
+
+  // modificando por ejemplo name: la ruta del api regresar los usuarios correspondientes
+
+  const jobs = useSelector((state) => state.jobs);//obtengo estado de los jobs
   const dispatch = useDispatch();
 
-  //convertimos el array de provincias y ciudades a un obj
-  let provinciasObj = convertirProvinciasAObjeto(provincias);
+//convertimos el array de provincias y ciudades a un obj 
+  // se usan los datos de prueba para poder usarlo en la option y hacerle un map
+    let provinciasObj = convertirProvinciasAObjeto(provincias);
 
-  let [checkDia, setChekDia] = useState([]);
+  let [checkDia, setChekDia] = useState([]);// creamos el estado dia se guarda el value lunes, Martess etc 
+  
   const handleCheckedDias = (event) => {
-    const isChecked = event.target.checked;
-    const value = event.target.value;
+    const isChecked = event.target.checked; //check da true contrario false
+    const value = event.target.value; //el name del dia de la semana
 
-    let newDias = [];
 
-    if (isChecked) {
-      newDias = [...checkDia, value];
+    let newDias = [];  //array donde se guardan los dias
+
+    if (isChecked) { //si es true el check 
+      newDias = [...checkDia, value]; //guardamos el nuevo copiando los anteriores
     } else {
-      newDias = checkDia.filter((e) => e != value);
+      newDias = checkDia.filter((e) => e != value);//si esta en false lo sacamos del array excluyendllo con el filter
     }
-    setChekDia(newDias);
+    setChekDia(newDias);//al estado de dias le agregamos lo obtenido de los checks
 
     dispatch(
-      configFilterUserPut({
+      configFilterUserPut({  //actualizamos el estado de redux configFilterUser con el array newDias
         ...configFilterUser,
         dias: newDias,
       })
     );
   };
 
-  let [searchName, setSearchName] = useState(configFilterUser.name);
+  let [searchName, setSearchName] = useState(configFilterUser.name);//creamos estado local para el nombre
 
   // Estados de la paginacion
-  const [page, setPage] = useState(1);
-  const [page_size, setPage_size] = useState(15);
+  const [page, setPage] = useState(1); // estado local para la paginacion empieza en 1
+  const [page_size, setPage_size] = useState(15); // estado local para cuanto user trae por pagina
 
-  let handleOptionFilter = (event) => {
-    let propiedadFilter = event.target.options[event.target.selectedIndex]
-      .getAttribute("name")
-      
-    let value = event.target.value;
-
-    let newConfig = {
-      ...configFilterUser,
-      [propiedadFilter]: value,
+  let handleOptionFilter = (event) => { //recive el evento Onchange es un objeto de un select 
+    let propiedadFilter = event.target.options[event.target.selectedIndex] // //en el objeto de un select con el array selecciamos el option
+      .getAttribute("name")  ////obtenemos el atributo name del option debe tener un name="""
+     //propiedadfilter seria el nombre de la propiedad por ejemplo hoorario = 
+    let value = event.target.value; // con este obtenmos el valor por ejemplo horario=mañana
+    
+    let newConfig = { //aqui vamos  guardar la propiedad que tengamos con su valor 
+      ...configFilterUser, //guardamos lo que ya llevabamos
+      [propiedadFilter]: value,  //mismo ejemplo de arriba horario=mañana
     };
 
-    dispatch(configFilterUserPut(newConfig));
+    dispatch(configFilterUserPut(newConfig));//actualizamos el estado de redux con lo obtenido de los selects
   };
 
-  let handlerFilterName = (event) => {
-    let value = event.target.value;
+  let handlerFilterName = (event) => {//recibimos el valor del input
+    let value = event.target.value;  //
 
-    setSearchName(value);
+    setSearchName(value); //acctualizamos el estado local con lo que se escribe en el input
 
-    let newConfig = {};
-    if (value.length >= 3) {
-      newConfig = {
-        ...configFilterUser,
-        name: value,
+    let newConfig = {};//creamos newconfig objeto vacio
+
+    if (value.length >= 3) { //si se escribe al menos 3 letras
+      newConfig = {  // creamos el nuevo modelo de configFilterUser
+        ...configFilterUser, //traemos todo lo que tenemos en el estado de redux
+        name: value,  //pisamos el value 
       };
-      dispatch(configFilterUserPut(newConfig));
+      dispatch(configFilterUserPut(newConfig)); //actualizamos el valor de configFilterUser con ese dispatch
     } else {
-      newConfig = {
+      newConfig = {//en caso de que sea menor a 3 actualizamos el estado
         ...configFilterUser,
-        name: "",
+        name: "", //con name vacio
       };
 
-      dispatch(configFilterUserPut(newConfig));
+      dispatch(configFilterUserPut(newConfig));//actualizamos el estado de redux 
     }
   };
+
   useEffect(() => {
-    dispatch(getAllProfesionales(configFilterUser));
-  }, [configFilterUser]);
+    dispatch(getAllProfesionales(configFilterUser)); //una vez que tenemos el estado hacemos la peticion al back para traer los usuariios con e filtro armado
+  }, [configFilterUser]); //cada que se modifica el la variable que representa como se modificara el estado de redux que es el formmato del filtro
+
+  
   return (
     <>
       <div className="p-10 bg-gray-100 ">

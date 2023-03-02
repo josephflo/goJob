@@ -9,7 +9,9 @@ function Filter({ totalPages }) {
   let configFilterServices = useSelector((state) => state.configFilterServices);
 
   const jobs = useSelector((state) => state.jobs);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch({
+    page: 1,
+    page_size: 2,});
 
   //convertimos el array de provincias y ciudades a un obj
   let provinciasObj = convertirProvinciasAObjeto(provincias);
