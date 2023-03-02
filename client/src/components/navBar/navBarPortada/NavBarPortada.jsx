@@ -4,9 +4,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtons from "../../../authentication/components/LoginButtons";
 import { useState } from "react";
 import NavLinks from "./NavLinks";
+import { useSelector } from "react-redux";
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
+  const users = useSelector((state) => state.userLogin)
+  
+
   const [open, setOpen] = useState(false);
 
   return (
@@ -45,8 +49,22 @@ const NavBarPortada = () => {
             Crear User
           </Link>
         </li>
+         <li>
+          {users.role === 'comun' ? (
+          <Link to={`/comun/${users.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li>
+       {/*  <li>
+          {users.role === 'professional' ? (
+          <Link to={`/professional/${users.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li> */}
         <div class="py-5">
-          {isAuthenticated ? (
+          {isAuthenticated === true &&
             <Link to={"/user/profile"}>
               <img
                 class="object-contain h-16 w-16 rounded-full auto px-3 py-3"
@@ -54,9 +72,7 @@ const NavBarPortada = () => {
                 alt={user.name}
               />
             </Link>
-          ) : (
-            <LoginButtons />
-          )}
+         }
         </div>
       </ul>
       <div class="md:block hidden">{/* <Button /> */}</div>
@@ -95,8 +111,23 @@ const NavBarPortada = () => {
             Crear User
           </Link>
         </li>
+        <li>
+          {users.role === 'comun' ? (
+          <Link to={`/comun/${user.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li>
+       {/*  <li>
+          {users.role === 'professional' ? (
+          <Link to={`/professional/${user.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li> */}
         <div class="py-5">
         {isAuthenticated ? (
+          
             <Link to={"/user/profile"}>
               <img
                 class="object-contain h-16 w-16 rounded-full auto px-3 py-3"
@@ -104,6 +135,8 @@ const NavBarPortada = () => {
                 alt={user.name}
               />
             </Link>
+           
+            
           ) : (
             <LoginButtons />
           )}
