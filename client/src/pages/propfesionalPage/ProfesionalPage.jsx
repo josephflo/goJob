@@ -17,6 +17,8 @@ function ProfesionalPage() {
     dispatch(getAllProfesionales(configFilterUser));
   }, []);
 
+  console.log(usersProfesionales)
+
   return (
     <div>
       <div class="sticky top-0 z-50 bg-white ">

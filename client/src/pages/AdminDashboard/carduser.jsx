@@ -38,14 +38,14 @@ export function Carduser({
             ))}  
         </h1>
         <p className="text-gray-500 text-md">
-          {provincia + " " + ciudad + " " + direccion}
+          {provincia + " " + ciudad }
         </p>
       </div>
       <div className="w-[20%] flex flex-col items-end">
         {/* servicios y fecha */}
         <div>
           <h3 className="text-xl text-gray-500 mb-2">{"Rating"+" "+rating }</h3>
-          <p className="text-gray-500">{phone}</p>
+          <p className="text-gray-500">{direccion}</p>
         </div>
       </div>
     </Link>
