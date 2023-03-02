@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { RiFolderUserLine, RiLogoutBoxLine } from "react-icons/ri";
-import logo from "../UserDashboard/image.svg";
+import logo from "./image.svg";
 import { useSelector } from "react-redux";
 
 
@@ -26,7 +26,7 @@ export default function SideBar() {
               <ul>
                 <li>
                   <Link
-                    to={`/dashboardUser/${users.id}`}
+                    to={`/comun/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
                     <RiFolderUserLine />

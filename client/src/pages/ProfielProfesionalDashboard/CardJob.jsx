@@ -1,7 +1,7 @@
 import React from "react";
 import { userFormBackground } from "../../assets";
 
-export default function Card({
+export default function CardJob({
   id,
   imagenurl,
   tittle,
@@ -16,7 +16,7 @@ export default function Card({
         <img src={userFormBackground} className="object-fill" alt="" />
       </div>
 
-      <div class="h-100 overflow-hidden bg-blue-500 border-solid-gray-300 rounded-sm p-4">
+      <div className="h-100 overflow-hidden bg-blue-500 border-solid-gray-300 rounded-sm p-4">
         <h1 className=" w-38 h-7 top-9 font-sans font-semibold text-xl not-italic text-white">
           {tittle}
         </h1>

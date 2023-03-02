@@ -50,12 +50,19 @@ const NavBarPortada = () => {
           </Link>
         </li>
          <li>
-          {isAuthenticated ? (
-          <Link to={`/dashboardUser/${users.id}`} class="py-7 px-3 inline-block">
+          {users.role === 'comun' ? (
+          <Link to={`/comun/${users.id}`} class="py-7 px-3 inline-block">
             Mi Perfil
           </Link>
           ) : ( <LoginButtons />) }
         </li>
+       {/*  <li>
+          {users.role === 'professional' ? (
+          <Link to={`/professional/${users.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li> */}
         <div class="py-5">
           {isAuthenticated === true &&
             <Link to={"/user/profile"}>
@@ -105,12 +112,19 @@ const NavBarPortada = () => {
           </Link>
         </li>
         <li>
-          {isAuthenticated ? (
-          <Link to={`/dashboardUser/${user.id}`} class="py-7 px-3 inline-block">
+          {users.role === 'comun' ? (
+          <Link to={`/comun/${user.id}`} class="py-7 px-3 inline-block">
             Mi Perfil
           </Link>
           ) : ( <LoginButtons />) }
         </li>
+       {/*  <li>
+          {users.role === 'professional' ? (
+          <Link to={`/professional/${user.id}`} class="py-7 px-3 inline-block">
+            Mi Perfil
+          </Link>
+          ) : ( <LoginButtons />) }
+        </li> */}
         <div class="py-5">
         {isAuthenticated ? (
           

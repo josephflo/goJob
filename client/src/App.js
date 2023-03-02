@@ -44,10 +44,11 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
-import OffersPage from "./pages/UserDashboard/OffersPage";
-import OffersProfessionalPage from "./pages/ProfessionalDashboard/OffersProfessionalPage";
-import Jobs from "./pages/ProfessionalDashboard/Jobs";
-import Postulaciones from "./pages/ProfessionalDashboard/Postulaciones";
+/* import OffersPage from "./pages/ProfileComunDashboard/OffersPage";
+ */import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
+
+import Jobs from "./pages/ProfielProfesionalDashboard/Jobs";
+import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
 
 //token
 
@@ -107,10 +108,11 @@ function App() {
 
           <Route path="/professional" element={<ProfesionalPage />} />
           {/* UserDashboard ***********************************************/}
-          <Route exact path="/dashboardUser/:id" element={<OffersPage />} />
-          <Route exact path="/dashboardProfessional" element={<OffersProfessionalPage />} />
-          <Route exact path="/dashboardProfessional/jobs" element={<Jobs />} />
-          <Route exact path="/dashboardProfessional/postulaciones" element={<Postulaciones />} />
+        {/*   <Route exact path="/professional/:id" element={<OffersPage />} /> */}
+
+          <Route exact path="/comun/:id" element={<OffersPageP />} />
+          <Route exact path="/comun/jobs" element={<Jobs />} />
+          <Route exact path="/comun/postulaciones" element={<Postulaciones />} />
 
 
           {/*Profesionales */}
