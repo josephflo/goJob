@@ -68,15 +68,15 @@ function App() {
 
   // const dispatch = useDispatch();
   const createUser = () => {
-    //   const { given_name, nickname, family_name, email, picture } = user;
-    //   let newUser = {
-    //     firstName: given_name || "sin nombre",
-    //     lastName: family_name || "sin apellido",
-    //     email: email,
-    //     user: nickname,
-    //     imagePerfil: picture || "sin foto",
-    //   };
-    //   dispatch(createAndLogin(newUser));
+       const { given_name, nickname, family_name, email, picture } = user;
+       let newUser = {
+         firstName: given_name || "sin nombre",
+         lastName: family_name || "sin apellido",
+         email: email,
+         user: nickname,
+         imagePerfil: picture || "sin foto",
+       };
+       dispatch(createAndLogin(newUser));
   };
 
   // console.log(isAuthenticated);
