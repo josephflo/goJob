@@ -35,16 +35,6 @@ export const getJobs = () => {
   };
 };
 
-export const getJobById = (id) => {
-  return async (dispatch) => {
-    const result = await axios.get(`/job/${id}`);
-    return dispatch({
-      type: ActionTypes.GET_JOB_BY_ID,
-      payload: result.data.result,
-    });
-  };
-};
-
 export const updateJob = (id, input) => {
   return async () => {
     const json = JSON.stringify(input);
@@ -63,5 +53,23 @@ export const deleteJob = (id) => {
   return async () => {
     const result = await axios.delete(`/job/${id}`);
     return result;
+  };
+};
+
+export const getJobById = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/job/${id}`);
+    return dispatch({
+      type: ActionTypes.GET_JOB_BY_ID,
+      payload: result.data.result,
+    });
+  };
+};
+
+export const cleanJobById = () => {
+  return async (dispatch) => {
+    return dispatch({
+      type: ActionTypes.CLEAN_JOB_BY_ID,
+    });
   };
 };

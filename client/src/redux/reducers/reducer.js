@@ -15,7 +15,7 @@ const initialState = {
   filterService: [],
   userDetail: {},
   professionalDetail: {},
-  serviceDetail:{},
+  serviceDetail: {},
 
   //config para filtros services
   configFilterServices: {
@@ -45,9 +45,9 @@ const initialState = {
   },
 };
 
-
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    //** Jobs */
     case ActionTypes.GET_JOBS:
       return {
         ...state,
@@ -59,6 +59,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         jobById: action.payload,
       };
+    case ActionTypes.CLEAN_JOB_BY_ID:
+      return {
+        ...state,
+        jobById: {},
+      };
+
+    /********************* */
     case ActionTypes.CREATE_USER:
       return {
         ...state,
@@ -117,21 +124,22 @@ export default function reducer(state = initialState, action) {
         ...state,
         professionalDetail: action.payload,
       };
- /**************************************** */
+
+    /**************************************** */
     //SERVICE BY ID
-      case ActionTypes.SERVICE_DETAIL:
-        return {
-          ...state,
-          serviceDetail: action.payload,
-        };
-  
+    case ActionTypes.SERVICE_DETAIL:
+      return {
+        ...state,
+        serviceDetail: action.payload,
+      };
+
     //Login y Create user
     case ActionTypes.REGISTER_USER_AND_LOGIN:
       return {
         ...state,
         token: action.payload.token,
-        userLogin: action.payload.result
-      }
+        userLogin: action.payload.result,
+      };
     /**************************************** */
     //FILTROS
     case ActionTypes.CONFIG_FILTER_SERVICES:

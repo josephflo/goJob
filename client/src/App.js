@@ -68,42 +68,54 @@ function App() {
 
   // const dispatch = useDispatch();
   const createUser = () => {
-    const { given_name, nickname, family_name, email, picture } = user;
-    let newUser = {
-      firstName: given_name || "sin nombre",
-      lastName: family_name || "sin apellido",
-      email: email,
-      user: nickname,
-      imagePerfil: picture || "sin foto",
-    };
-    dispatch(createAndLogin(newUser));
+    //   const { given_name, nickname, family_name, email, picture } = user;
+    //   let newUser = {
+    //     firstName: given_name || "sin nombre",
+    //     lastName: family_name || "sin apellido",
+    //     email: email,
+    //     user: nickname,
+    //     imagePerfil: picture || "sin foto",
+    //   };
+    //   dispatch(createAndLogin(newUser));
   };
+
+  // console.log(isAuthenticated);
+
+  // if (isAuthenticated) {
+  //   createUser();
+  // }
+
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
-  },[]);
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isAuthenticated) {
       console.log("AUTH PROBO");
       createUser();
     }
-  },[isAuthenticated])
+  }, [isAuthenticated]);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<HomePage isLoading={isLoading} />} />
+          <Route path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
-       
+
           <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
 
           <Route exact path="/dashboard/users" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
-          <Route exact path="/dashboard/services" element={<ServicesDashboard/>} />
+          <Route
+            exact
+            path="/dashboard/services"
+            element={<ServicesDashboard />}
+          />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />

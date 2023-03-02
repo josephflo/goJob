@@ -15,11 +15,12 @@ const NavBarPortada = () => {
 
   return (
     <nav class="bg-white">
-    <div class="flex items-center font-medium justify-around">
-      <div class="z-50 p-5 md:w-auto w-full flex justify-between">
-        <img src={GoJobLogo} alt="logo" class="md:cursor-pointer h-9" />
-        <div class="text-3xl md:hidden" onClick={() => setOpen(!open)}>
-          <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
+      <div class="flex items-center font-medium justify-around">
+        <div class="z-50 p-5 md:w-auto w-full flex justify-between">
+          <img src={GoJobLogo} alt="logo" class="md:cursor-pointer h-10" />
+          <div class="text-3xl md:hidden" onClick={() => setOpen(!open)}>
+            <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
+          </div>
         </div>
       </div>
       <ul class="md:flex hidden uppercase items-center gap-8 font-[Poppins]">
@@ -74,17 +75,15 @@ const NavBarPortada = () => {
             </Link>
          }
         </div>
-      </ul>
-      <div class="md:block hidden">{/* <Button /> */}</div>
+        <div class="md:block hidden">{/* <Button /> */}</div>
 
-      {/* Mobile nav */}
+        {/* Mobile nav */}
 
-      <ul
-        class={`
+        <ul
+          class={`
       md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
       duration-500 ${open ? "left-0" : "left-[-100%]"}
-      `}
-      >
+      `}>
         <li>
           <Link to="/" class="py-7 px-3 inline-block">
             Inicio
@@ -146,7 +145,5 @@ const NavBarPortada = () => {
   </nav>
 );
 };
-
-
 
 export default NavBarPortada;
