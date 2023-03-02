@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Footer from "../../components/footer/Footer";
+import Footer from "../../components/Footer/Footer";
 import JobPage from "../jobPage/JobPage";
 import FormHomePage from "../../containers/forms/formHomePage/FormHomePage";
-import Reviews from "../../components/reviews/Reviews";
+import Reviews from "../../components/Reviews/Reviews";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import { useAuth0 } from "@auth0/auth0-react";
 import { createAndLogin, createUser2 } from "../../redux/actions/userActions";
