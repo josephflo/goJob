@@ -29,10 +29,9 @@ function Filter({ totalPages }) {
   const [page, setPage] = useState(1);
   const [page_size, setPage_size] = useState(15);
 
-
   let handleOptionFilter = (event) => {
-    let propiedadFilter = event.target.options[event.target.selectedIndex]
-      .getAttribute("name")
+    let propiedadFilter =
+      event.target.options[event.target.selectedIndex].getAttribute("name");
 
     let value = event.target.value;
 
@@ -114,12 +113,12 @@ function Filter({ totalPages }) {
 
   return (
     <>
-      <div className="p-10 bg-gray-100 ">
-        <div className="mb-8">
-          <h1 className="text-3xl font-semibold">Página de Servicios</h1>
+      <div className="p-4 bg-gray-100 ">
+        <div className="mb-2">
+          <h1 className="text-2xl font-semibold">Página de Servicios</h1>
         </div>
         {/* searchFilter*/}
-        <div className="grid grid-cols-4 gap-4 items-center mb-4">
+        <div className="grid grid-cols-4 gap-4 items-center">
           <form className="col-span-2">
             <div className="relative">
               <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
@@ -218,11 +217,13 @@ function Filter({ totalPages }) {
               </option>
               {configFilterServices.provincia != false &&
                 configFilterServices.provincia &&
-                provinciasObj[configFilterServices.provincia].map((ciudad, ind) => (
-                  <option key={ind + 1} value={ciudad} name={"ciudad"}>
-                    {ciudad}
-                  </option>
-                ))}
+                provinciasObj[configFilterServices.provincia].map(
+                  (ciudad, ind) => (
+                    <option key={ind + 1} value={ciudad} name={"ciudad"}>
+                      {ciudad}
+                    </option>
+                  )
+                )}
             </select>
           </div>
         </div>
@@ -236,7 +237,7 @@ function Filter({ totalPages }) {
         </select>
       </div> */}
       </div>
-      <div class="p-3 bg-gray-100">
+      <div class="p-2 bg-gray-100">
         <div class="flex justify-center">
           <Pagination
             paginatePrev={paginatePrev}

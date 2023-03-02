@@ -44,59 +44,78 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
+/* import OffersPage from "./pages/ProfileComunDashboard/OffersPage";
+ */import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
+import Jobs from "./pages/ProfielProfesionalDashboard/Jobs";
+import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
+
 
 //token
 
 // Default axios
 //axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
-axios.defaults.baseURL = "http://localhost:3005/";
+axios.defaults.baseURL = "https://gojob2-production.up.railway.app/";
 
 function App() {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const dispatch = useDispatch();
 
-  const createUser = () => {
-    const { given_name, nickname, family_name, email, picture } = user;
-    let newUser = {
-      firstName: given_name || "sin nombre",
-      lastName: family_name || "sin apellido",
-      email: email,
-      user: nickname,
-      imagePerfil: picture || "sin foto",
-    };
-    dispatch(createAndLogin(newUser));
-  };
-
-  if (isAuthenticated) {
-    createUser();
-  }
-
   let token = useSelector((state) => state.token);
   axios.defaults.headers.common["Authorization"] = token;
+
+  // const dispatch = useDispatch();
+  const createUser = () => {
+    //   const { given_name, nickname, family_name, email, picture } = user;
+    //   let newUser = {
+    //     firstName: given_name || "sin nombre",
+    //     lastName: family_name || "sin apellido",
+    //     email: email,
+    //     user: nickname,
+    //     imagePerfil: picture || "sin foto",
+    //   };
+    //   dispatch(createAndLogin(newUser));
+  };
+
+  // console.log(isAuthenticated);
+
+  // if (isAuthenticated) {
+  //   createUser();
+  // }
 
   // const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
-  });
+  }, []);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("AUTH PROBO");
+      createUser();
+    }
+  }, [isAuthenticated]);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<HomePage isLoading={isLoading} />} />
+          <Route path="/" element={<HomePage />} />
           {/* Admin **********************************************************/}
-       
+
           <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
 
           <Route exact path="/dashboard/users" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
-          <Route exact path="/dashboard/services" element={<ServicesDashboard/>} />
+          <Route
+            exact
+            path="/dashboard/services"
+            element={<ServicesDashboard />}
+          />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
@@ -117,6 +136,13 @@ function App() {
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<ProfesionalPage />} />
+          {/* UserDashboard ***********************************************/}
+        {/*   <Route exact path="/professional/:id" element={<OffersPage />} /> */}
+
+          <Route exact path="/comun/:id" element={<OffersPageP />} />
+          <Route exact path="/comun/jobs" element={<Jobs />} />
+          <Route exact path="/comun/postulaciones" element={<Postulaciones />} />
+
 
           {/*Profesionales */}
           {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}

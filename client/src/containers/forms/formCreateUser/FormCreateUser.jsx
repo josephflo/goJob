@@ -89,7 +89,7 @@ export default function FormCreateUser() {
 
   return (
     <>
-      <div class="p-1.5 sticky top-0 z-50 bg-white ">
+      <div class="sticky top-0 z-50 bg-white ">
         <NavBarPortada />
       </div>
 

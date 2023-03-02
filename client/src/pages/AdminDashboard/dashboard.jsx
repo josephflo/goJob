@@ -1,15 +1,11 @@
 import React from "react";
 import { Header } from "./header";
 import { SideBar } from "./sidebar";
-import { Carduser } from "./carduser";
-import { useState } from "react";
-import { useSelector, useDispatch, createDispatchHook } from "react-redux";
-import Pagination from "../../containers/pagination/Pagination";
+import { useSelector } from "react-redux";
 import UsersMap from "./usermap";
 import { FilterUser } from "./filterUser";
 // import {configFilterUser} from ""
-import { useEffect } from "react";
-import { getAllProfesionales } from "../../redux/actions/users/profesionales";
+
 
 export default function Dashboard() {
     
@@ -17,7 +13,6 @@ export default function Dashboard() {
     const usersProfesionales = useSelector((state) => state.usersProfesionales);
     
 
-  console.log(usersProfesionales)
 
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">

@@ -9,6 +9,14 @@ import {
   getAllProfesionales,
 } from "../../../redux/actions/users/profesionales";
 
+import {
+  RiSearchLine,
+  RiFilter3Line,
+  RiUserLocationLine,
+  RiCloseLine,
+} from "react-icons/ri";
+import { FaUser } from "react-icons/fa";
+
 function FilterUser({ totalPages }) {
   let configFilterUser = useSelector((state) => state.configFilterUser);// estado filtra usuario 
   //el cual es un objeto igual a este
@@ -63,8 +71,16 @@ function FilterUser({ totalPages }) {
   let [searchName, setSearchName] = useState(configFilterUser.name);//creamos estado local para el nombre
 
   // Estados de la paginacion
-  const [page, setPage] = useState(1); // estado local para la paginacion empieza en 1
-  const [page_size, setPage_size] = useState(15); // estado local para cuanto user trae por pagina
+
+  const [page, setPage] = useState(1);
+  const [page_size, setPage_size] = useState(15);
+
+  let handleOptionFilter = (event) => {
+    let propiedadFilter =
+      event.target.options[event.target.selectedIndex].getAttribute("name");
+
+    let value = event.target.value;
+
 
   let handleOptionFilter = (event) => { //recive el evento Onchange es un objeto de un select 
     let propiedadFilter = event.target.options[event.target.selectedIndex] // //en el objeto de un select con el array selecciamos el option
@@ -110,9 +126,9 @@ function FilterUser({ totalPages }) {
   
   return (
     <>
-      <div className="p-10 bg-gray-100 ">
-        <div className="mb-8">
-          <h1 className="text-3xl font-semibold">Busque un profesional</h1>
+      <div className="p-4 bg-gray-100 ">
+        <div className="mb-2">
+          <h1 className="text-2xl font-semibold">Busque un profesional</h1>
         </div>
 
         {/* searchFilter*/}
@@ -124,9 +140,10 @@ function FilterUser({ totalPages }) {
                   <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700">
                     Por nombre
                   </p>
+
                   <input
                     type="text"
-                    placeholder="buqueda por nombre"
+                    placeholder="Búsqueda por nombre"
                     name={"name"}
                     value={searchName}
                     className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
