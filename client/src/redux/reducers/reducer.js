@@ -131,7 +131,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         token: action.payload.token,
-        userLogin: {...action.payload.result}
+        userLogin: action.payload.result
       }
     /**************************************** */
     //FILTROS

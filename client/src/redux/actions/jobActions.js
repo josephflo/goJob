@@ -26,7 +26,7 @@ export const getJobs = () => {
   return async (dispatch) => {
     const result = await axios.get("/job");
 
-    //console.log("Se uso getJobs");
+    console.log("Se uso getJobs");
 
     return dispatch({
       type: ActionTypes.GET_JOBS,

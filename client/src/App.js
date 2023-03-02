@@ -57,6 +57,10 @@ function App() {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const dispatch = useDispatch();
 
+  let token = useSelector((state) => state.token);
+  axios.defaults.headers.common["Authorization"] = token;
+
+  // const dispatch = useDispatch();
   const createUser = () => {
     const { given_name, nickname, family_name, email, picture } = user;
     let newUser = {
@@ -69,20 +73,17 @@ function App() {
     dispatch(createAndLogin(newUser));
   };
 
-  if (isAuthenticated) {
-    createUser();
-  }
-
-  let token = useSelector((state) => state.token);
-  axios.defaults.headers.common["Authorization"] = token;
-
-  // const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
-  });
+  },[]);
 
+  useEffect(()=>{
+    if (isAuthenticated) {
+      console.log("AUTH PROBO");
+      createUser();
+    }
+  },[isAuthenticated])
   return (
     <>
       <BrowserRouter>
