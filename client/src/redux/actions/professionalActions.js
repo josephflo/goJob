@@ -7,10 +7,10 @@ import { ActionTypes } from "../constants/actions-types";
 
 export const getProfessionalById = (id) => {
   return async (dispatch) => {
-    const result = await axios.post(`/user/get/${id}`);
+    const result = await axios.get(`/user/get/${id}`);
     return dispatch({
       type: ActionTypes.PROFESSIONAL_DETAIL,
-      payload: result.data,
+      payload: result.data.result,
     });
   };
 };

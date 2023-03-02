@@ -66,7 +66,7 @@ User.belongsToMany(Service, {
   through: 'ServicePostulantesUser',
   foreignKey: 'userId',
   timestamps: false,
-  as: "postulantes"
+  as: "postulaciones"
 });
 Service.belongsToMany(User, {
   through: 'ServicePostulantesUser',
