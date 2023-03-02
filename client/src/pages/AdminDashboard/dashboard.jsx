@@ -24,18 +24,18 @@ export default function Dashboard() {
      )=>{
     return({firstName : 
         user.firstName,
-             user : user.lastName,
-             role: user.role,
-             provincia: user.provincia,
-             ciudad: user.ciudad,
-             imageurl:  user.imageurl,
-             direccion:  user.direccion,
-             id: user.id,
-             jobs: user.Jobs?user.Jobs.map(job => job.name): [],
-             length: users.length,
-             rating: user.rating_promedio,
-             phone: user.phone
-              }
+        lastName : user.lastName,
+        role: user.role,
+        provincia: user.provincia,
+        ciudad: user.ciudad,
+        imageurl:  user.imagePerfil,
+        direccion:  user.direccion,
+        id: user.id,
+        jobs: user.Jobs?user.Jobs.map(job => job.name): [],
+        length: users.length,
+        rating: user.rating_promedio,
+        phone: user.phone
+        }
               
     ) 
   })

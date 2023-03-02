@@ -1,6 +1,7 @@
 'use strict';
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const { gmailBienvenida } = require('./models/Bienvenida_Go_Job');
 
 
 require('dotenv').config();
@@ -20,10 +21,10 @@ const bienvenidaMail = (nombre, apellido, correo) =>{
     });
 
     let mailOptions = {
-        from: 'temgojob@gmail.com',
+        from: MAILPSSWD,
         to: `${correo}`,
         subject: `¡Bienvenido a Go-jobs ${nombre} ${apellido}!`,
-        html: fs.readFileSync("./models/Bienvenida_Go_Job.html")
+        html: gmailBienvenida(nombre, apellido)
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -49,7 +50,7 @@ const notifyPostulacionMyTrabajo = (user1, correo, postulante, ofertaTrabajo)=>{
     from: MAILUSER,
     to: correo,
     subject: "Postulacion a mi oferta de trabajo",
-    text: `${user1}, ${postulante} acaba de pustular a tu oferta de trabajo "${ofertaTrabajo}".`
+    html: gmailBienvenida()
   }
 
 
@@ -81,8 +82,7 @@ const notifyContactar = (user1, emailUser1, nameEmailcontactado, Emailcontactado
     let message = {
       from: MAILUSER,
       to: Emailcontactado,
-      html: fs.readFileSync("./models/Bienvenida_Go_Job.html")
-
+      html: gmailBienvenida()
     }
   
   
@@ -95,6 +95,19 @@ const notifyContactar = (user1, emailUser1, nameEmailcontactado, Emailcontactado
     }
     })
 }
+
+const notifyTeContrataron  = ()=>{
+
+}
+
+const notifyPagoFinalizado = ()=>{
+
+}
+
+const notifyTeVolvisteProfesional = ()=>{
+  
+}
+
 
 
 module.exports = {
