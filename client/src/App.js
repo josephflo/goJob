@@ -44,8 +44,14 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
+/* import OffersPage from "./pages/ProfileComunDashboard/OffersPage";
+ */import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
+import Jobs from "./pages/ProfielProfesionalDashboard/Jobs";
+import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
+
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
+
 
 //token
 
@@ -130,6 +136,13 @@ function App() {
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<ProfesionalPage />} />
+          {/* UserDashboard ***********************************************/}
+        {/*   <Route exact path="/professional/:id" element={<OffersPage />} /> */}
+
+          <Route exact path="/comun/:id" element={<OffersPageP />} />
+          <Route exact path="/comun/jobs" element={<Jobs />} />
+          <Route exact path="/comun/postulaciones" element={<Postulaciones />} />
+
 
           {/*Profesionales */}
           {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}

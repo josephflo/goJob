@@ -4,7 +4,6 @@ import { ActionTypes } from "../constants/actions-types";
 const initialState = {
   token: "",
   userLogin: {},
-
   users: [],
   userId: {},
   allUsers: [],

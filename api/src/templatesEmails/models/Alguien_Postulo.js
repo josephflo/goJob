@@ -1,5 +1,5 @@
-let gmailBienvenida = (name, apellido)=>{
-  return (
+let alguienPostulo = (user1, postulante, ofertaTrabajo)=>{
+  return(
     `<!DOCTYPE html>
     <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="es-ES">
     
@@ -49,7 +49,9 @@ let gmailBienvenida = (name, apellido)=>{
         }
     
         @media (max-width:660px) {
-          .desktop_hide table.icons-inner {
+    
+          .desktop_hide table.icons-inner,
+          .row-2 .column-2 .block-1.image_block img {
             display: inline-block !important;
           }
     
@@ -89,14 +91,10 @@ let gmailBienvenida = (name, apellido)=>{
             max-height: none !important;
           }
     
-          .row-2 .column-2 .block-1.paragraph_block td.pad>div,
-          .row-5 .column-1 .block-1.heading_block h1,
+          .row-2 .column-1 .block-1.heading_block h2,
+          .row-2 .column-2 .block-1.image_block .alignment,
           .row-6 .column-2 .block-1.paragraph_block td.pad>div {
             text-align: center !important;
-          }
-    
-          .row-5 .column-1 .block-1.heading_block td.pad {
-            padding: 5px 0 0 !important;
           }
     
           .row-2 .column-1,
@@ -106,6 +104,14 @@ let gmailBienvenida = (name, apellido)=>{
     
           .row-2 .column-2 {
             padding: 5px 25px 20px !important;
+          }
+    
+          .row-3 .column-1 {
+            padding: 5px 25px !important;
+          }
+    
+          .row-4 .column-1 {
+            padding: 5px 25px 35px !important;
           }
     
           .row-5 .column-1 {
@@ -153,21 +159,19 @@ let gmailBienvenida = (name, apellido)=>{
                         <tbody>
                           <tr>
                             <td class="column column-1" width="33.333333333333336%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 20px; padding-left: 30px; padding-right: 10px; padding-top: 20px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-                              <table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                              <table class="heading_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                 <tr>
-                                  <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                                    <div class="alignment" align="center" style="line-height:10px"><a href="http://localhost:3000/" target="_self" style="outline:none" tabindex="-1"><img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/954125_938632/Mesa%20de%20trabajo%20-trans.png" style="display: block; height: auto; border: 0; width: 173px; max-width: 100%;" width="173" alt="Your Logo" title="Your Logo"></a></div>
+                                  <td class="pad">
+                                    <h2 style="margin: 0; color: #000000; font-size: 30px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; line-height: 120%; text-align: left; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">Nuevo postulante</span></h2>
                                   </td>
                                 </tr>
                               </table>
                             </td>
                             <td class="column column-2" width="66.66666666666667%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 5px; padding-left: 25px; padding-right: 30px; padding-top: 5px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-                              <table class="paragraph_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+                              <table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                 <tr>
-                                  <td class="pad">
-                                    <div style="color:#030303;direction:ltr;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:23px;font-weight:700;letter-spacing:-1px;line-height:120%;text-align:right;mso-line-height-alt:27.599999999999998px;">
-                                      <p style="margin: 0;">Go-Job te da la bienvenida</p>
-                                    </div>
+                                  <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
+                                    <div class="alignment" align="right" style="line-height:10px"><a href="http://localhost:3000/" target="_self" style="outline:none" tabindex="-1"><img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/954125_938632/Mesa%20de%20trabajo%20-trans.png" style="display: block; height: auto; border: 0; width: 149px; max-width: 100%;" width="149" alt="Your Logo" title="Your Logo"></a></div>
                                   </td>
                                 </tr>
                               </table>
@@ -190,7 +194,7 @@ let gmailBienvenida = (name, apellido)=>{
                               <table class="heading_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                 <tr>
                                   <td class="pad" style="text-align:center;width:100%;">
-                                    <h2 style="margin: 0; color: #130f13; direction: ltr; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 30px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">${name} ${apellido}, estás a un paso de conseguir trabajo</span></h2>
+                                    <h2 style="margin: 0; color: #130f13; direction: ltr; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 30px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">${user1}, ${postulante} postulo a "${ofertaTrabajo}"</span></h2>
                                   </td>
                                 </tr>
                               </table>
@@ -209,11 +213,21 @@ let gmailBienvenida = (name, apellido)=>{
                       <table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #ffffff; border-radius: 0; color: #000000; width: 640px;" width="640">
                         <tbody>
                           <tr>
-                            <td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 35px; padding-left: 25px; padding-right: 25px; padding-top: 35px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
+                            <td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 35px; padding-left: 25px; padding-right: 25px; padding-top: 10px; vertical-align: top; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
                               <table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                 <tr>
                                   <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                                    <div class="alignment" align="center" style="line-height:10px"><a href="https://www.example.com" target="_self" style="outline:none" tabindex="-1"><img class="big" src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/954125_938632/userFormBackground%20720px.jpg" style="display: block; height: auto; border: 0; width: 590px; max-width: 100%;" width="590" alt="Dorm Room" title="Dorm Room"></a></div>
+                                    <div class="alignment" align="center" style="line-height:10px"><a href="http://localhost:3000/" target="_self" style="outline:none" tabindex="-1"><img class="big" src=${"https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/954125_938632/userFormBackground%20720px.jpg"} style="display: block; height: auto; border: 0; width: 472px; max-width: 100%;" width="472" alt="Dorm Room" title="Dorm Room"></a></div>
+                                  </td>
+                                </tr>
+                              </table>
+                              <table class="button_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                                <tr>
+                                  <td class="pad">
+                                    <div class="alignment" align="center">
+                                      <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="http://localhost:3000/" style="height:46px;width:176px;v-text-anchor:middle;" arcsize="9%" stroke="false" fillcolor="#242483"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:18px"><![endif]--><a href="http://localhost:3000/" target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#242483;border-radius:4px;width:auto;border-top:0px solid transparent;font-weight:700;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:18px;display:inline-block;letter-spacing:normal;"><span dir="ltr" style="word-break: break-word; line-height: 36px;">Echa un vistazo</span></span></a>
+                                      <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
+                                    </div>
                                   </td>
                                 </tr>
                               </table>
@@ -233,10 +247,10 @@ let gmailBienvenida = (name, apellido)=>{
                         <tbody>
                           <tr>
                             <td class="column column-1" width="50%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; padding-bottom: 30px; padding-left: 25px; padding-right: 25px; padding-top: 30px; vertical-align: middle; border-top: 0px; border-right: 0px; border-bottom: 0px; border-left: 0px;">
-                              <table class="heading_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+                              <table class="heading_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                 <tr>
-                                  <td class="pad" style="padding-bottom:20px;padding-top:20px;text-align:center;width:100%;">
-                                    <h1 style="margin: 0; color: #333030; direction: ltr; font-family: 'Noto Serif', Georgia, serif; font-size: 30px; font-weight: 700; letter-spacing: normal; line-height: 120%; text-align: left; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">¿Necesitas ayuda?</span></h1>
+                                  <td class="pad">
+                                    <h2 style="margin: 0; color: #141414; font-size: 25px; font-family: Inter, sans-serif; line-height: 120%; text-align: left; direction: ltr; font-weight: 700; letter-spacing: normal; margin-top: 0; margin-bottom: 0;"><span class="tinyMce-placeholder">¿Necesitas ayuda?</span></h2>
                                   </td>
                                 </tr>
                               </table>
@@ -246,7 +260,7 @@ let gmailBienvenida = (name, apellido)=>{
                                 <tr>
                                   <td class="pad">
                                     <div class="alignment" align="center">
-                                      <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="mailto:fraytoledotapia2003@gmail.com?subject=Pruebaaaa&body=" style="height:42px;width:129px;v-text-anchor:middle;" arcsize="8%" stroke="false" fillcolor="#372a8a"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:sans-serif; font-size:16px"><![endif]--><a href="mailto:fraytoledotapia2003@gmail.com?subject=Pruebaaaa&body=" target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#372a8a;border-radius:3px;width:auto;border-top:0px solid transparent;font-weight:400;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Inter, sans-serif;font-size:16px;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span dir="ltr" style="word-break: break-word; line-height: 32px;">Contactanos</span></span></a>
+                                      <!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="mailto:fraytoledotapia2003@gmail.com?subject=Pruebaaaa&body=" style="height:42px;width:136px;v-text-anchor:middle;" arcsize="8%" stroke="false" fillcolor="#372a8a"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#ffffff; font-family:sans-serif; font-size:16px"><![endif]--><a href="mailto:fraytoledotapia2003@gmail.com?subject=Pruebaaaa&body=" target="_blank" style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#372a8a;border-radius:3px;width:auto;border-top:0px solid transparent;font-weight:400;border-right:0px solid transparent;border-bottom:0px solid transparent;border-left:0px solid transparent;padding-top:5px;padding-bottom:5px;font-family:Inter, sans-serif;font-size:16px;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;letter-spacing:normal;"><span dir="ltr" style="word-break: break-word; line-height: 32px;">Contactanos</span></span></a>
                                       <!--[if mso]></center></v:textbox></v:roundrect><![endif]-->
                                     </div>
                                   </td>
@@ -271,7 +285,7 @@ let gmailBienvenida = (name, apellido)=>{
                               <table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
                                 <tr>
                                   <td class="pad" style="width:100%;padding-right:0px;padding-left:0px;">
-                                    <div class="alignment" align="center" style="line-height:10px"><a href="http://localhost:3000/" target="_self" style="outline:none" tabindex="-1"><img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/954125_938632/Mesa%20de%20trabajo%20-trans.png" style="display: block; height: auto; border: 0; width: 139px; max-width: 100%;" width="139" alt="your-logo" title="your-logo"></a></div>
+                                    <div class="alignment" align="center" style="line-height:10px"><a href="https://www.example.com" target="_self" style="outline:none" tabindex="-1"><img src="https://d15k2d11r6t6rl.cloudfront.net/public/users/Integrators/BeeProAgency/954125_938632/Mesa%20de%20trabajo%20-trans.png" style="display: block; height: auto; border: 0; width: 139px; max-width: 100%;" width="139" alt="your-logo" title="your-logo"></a></div>
                                   </td>
                                 </tr>
                               </table>
@@ -342,5 +356,5 @@ let gmailBienvenida = (name, apellido)=>{
 }
 
 module.exports = {
-  gmailBienvenida
+  alguienPostulo
 }

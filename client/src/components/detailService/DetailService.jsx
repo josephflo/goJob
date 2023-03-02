@@ -11,12 +11,11 @@ import Postularse from "./components/Postularse";
 export default function DetailService() {
   const params = useParams();
   const { id } = params;
-
   const dispatch = useDispatch();
 
   // get detail service
   const detail = useSelector((state) => state.serviceDetail);
-  console.log("acauseriddetail", detail)
+
 
   useEffect(() => {
     dispatch(getServiceById(id));
