@@ -51,7 +51,7 @@ import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
 
 // Default axios
 //axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
-axios.defaults.baseURL = "http://localhost:3005/";
+axios.defaults.baseURL = "https://gojob-production.up.railway.app/";
 
 function App() {
   const { isAuthenticated, user, isLoading } = useAuth0();
