@@ -28,22 +28,22 @@ post( http://localhost:3005/user/register )
 
 //Body
 
-//En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs lo dejamos vacio, pero es obligatorio enviarlo
+//En la propiedad "jobs" agregamos los id de los Jobs, si no queremos agregar Jobs no enviamos la propiedad
 {
-    "user": {
-      "firstName": "Amy",
-      "lastName": "Garcia",
-      "email": "amygarcia@example.com",
-      "user": "amygarcia",
-      "password": "123456",
-      "phone": 1234567897,
-      "role": "professional",
 
-      "provincia": "Buenos Aires",
-      "ciudad": "Random",
-      "direccion": "789 Oak St",
-      "horario": "Tarde"
-    },
+  "firstName": "Amy",
+  "lastName": "Garcia",
+  "email": "amygarcia@example.com",
+  "user": "amygarcia",
+  "password": "123456",
+  "phone": 1234567897,
+  "role": "professional",
+
+  "provincia": "Buenos Aires",
+  "ciudad": "Random",
+  "direccion": "789 Oak St",
+  "horario": "Tarde"
+
 	"jobs": []  
 }
 
@@ -58,18 +58,6 @@ post( http://localhost:3005/user/register/img )
 }
 
 
-```
-
-post( http://localhost:3005/user/login )
-```
-//En esta ruta nos logeamos
-//Cuando nos logeamos nos devuelven algunos datos del usuario y tambien el token
-
-//Body
-{
-    user: "thor22",
-    password: "123456",
-}
 ```
 
 ## Delete User
@@ -125,17 +113,15 @@ put ( http://localhost:3005/user/update )
 
 //En la propiedad "jobs" agregamos los todos los id de los Jobs, no queremos modificar jobs no enviamos ese parametro
 {
-	user:{
-		    firstName: "Cap MODIFY",
-            lastName: "America",
-            email: "Cap@gmail.com",
-            user: "cap22",
-            password: "123456",
-            city: "Dubai",
-            phone: 9871256,
-            address: "Av. Troya",
-            role: "admin"
-	},
+	firstName: "Cap MODIFY",
+  lastName: "America",
+  email: "Cap@gmail.com",
+  user: "cap22",
+  password: "123456",
+  city: "Dubai",
+  phone: 9871256,
+  address: "Av. Troya",
+  role: "admin"
 	jobs: []  
 }
 si queremos eliminar todos los jobs, enviamos array vacio
@@ -149,8 +135,7 @@ si queremos eliminar todos los jobs, enviamos array vacio
 ## get service
 get ( http://localhost:3005/user/services )
 ```
-//En esta ruta extraemos los services del user con el nos logueamos
-//Esta ruta requiere del token
+
 
 
 ```
