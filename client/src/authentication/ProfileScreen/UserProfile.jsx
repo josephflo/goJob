@@ -1,43 +1,47 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import LogoutButtons from "../components/LogoutButtons";
-import ProfessionalProfile from './components/ProfessionalProfile'
+import FormUpdateUserAuth from "../../containers/forms/formUpdateUserAuth/FormUpdateUserAuth";
 
 const UserProfile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  console.log(user);
-  const [isProfesional, setIsProfesional] = useState(false);
+  // console.log(user);
+  // const [isProfesional, setIsProfesional] = useState(false);
 
   if (isLoading) {
     return <div>Loading ...</div>;
   }
-  const handleChangeProfile = () => {
-    setIsProfesional(true);
-  };
+  // const handleChangeProfile = () => {
+  //   setIsProfesional(true);
+  // };
 
   return (
     isAuthenticated && (
       <div class=" w-120 p-10 bg-white rounded-lg mx-auto flex flex-col items-center my-12">
-        <img
-          class="w-1/8 rounded-full h-auto"
-          src={user.picture}
-          alt={user.name}
-        />
-        <h1 class="text-lg font-bold">{user.name}</h1>
-        <p>{user.nickname}</p>
-        <p>{user.email}</p>
-        <p class="text-xs mt-4">{user.updated_at}</p>
-        <p>{user.sub}</p>
-        <button onClick={handleChangeProfile}>Cuenta Profesional</button>
+        <div className="border flex flex-col items-center">
+          <img
+            class="w-1/8 rounded-full h-auto"
+            src={user.picture}
+            alt={user.name}
+          />
+          <h1 class="text-lg font-bold">{user.name}</h1>
+          <p>{user.nickname}</p>
+          <p>{user.email}</p>
+          <p class="text-xs mt-4">{user.updated_at}</p>
+          <p>{user.sub}</p>
+        </div>
+        {/* <button onClick={handleChangeProfile}>Cuenta Profesional</button> */}
+        <div className="border p-3">
+          <div>
+            <FormUpdateUserAuth />
+          </div>
+        </div>
         <div class="mt-3">
           <LogoutButtons />
         </div>
-        { isProfesional && (
-          <ProfessionalProfile
-          setIsProfesional= {setIsProfesional}/>
-        )
-
-        }
+        {/* {isProfesional && (
+          <ProfessionalProfile setIsProfesional={setIsProfesional} />
+        )} */}
       </div>
     )
   );

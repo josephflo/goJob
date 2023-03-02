@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 // Authentication
 
-//import Private from "./authentication/Private";   
+//import Private from "./authentication/Private";
 
 // Pages
 import HomePage from "./pages/homePage/HomePage";
@@ -32,7 +32,7 @@ import FilterService from "./containers/filters/FilterService";
 
 // Actions
 import { getJobs } from "./redux/actions/jobActions";
-import { getUsers } from "./redux/actions/userActions";
+import { createAndLogin, getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
 
@@ -46,48 +46,68 @@ import DetailService from "./components/detailService/DetailService";
 
 /* import OffersPage from "./pages/ProfileComunDashboard/OffersPage";
  */import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
-
 import Jobs from "./pages/ProfielProfesionalDashboard/Jobs";
 import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
+
+import { useAuth0 } from "@auth0/auth0-react";
+import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
+
 
 //token
 
 // Default axios
 //axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
-axios.defaults.baseURL = "http://localhost:3005/";
+axios.defaults.baseURL = "https://gojob2-production.up.railway.app/";
 
 function App() {
-
-  let token = useSelector((state) => state.token);
-  axios.defaults.headers.common["Authorization"] = token
-
+  const { isAuthenticated, user, isLoading } = useAuth0();
   const dispatch = useDispatch();
 
+  let token = useSelector((state) => state.token);
+  axios.defaults.headers.common["Authorization"] = token;
+
+  // const dispatch = useDispatch();
+  const createUser = () => {
+    const { given_name, nickname, family_name, email, picture } = user;
+    let newUser = {
+      firstName: given_name || "sin nombre",
+      lastName: family_name || "sin apellido",
+      email: email,
+      user: nickname,
+      imagePerfil: picture || "sin foto",
+    };
+    dispatch(createAndLogin(newUser));
+  };
 
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
-  });
+  },[]);
 
+  useEffect(()=>{
+    if (isAuthenticated) {
+      console.log("AUTH PROBO");
+      createUser();
+    }
+  },[isAuthenticated])
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/" element={<HomePage isLoading={isLoading} />} />
           {/* Admin **********************************************************/}
-          <Route exact path="admin/jobs/create" element={<CreateJob />} />
-          <Route exact path="admin/users" element={<UsersAdmin />} />
-          <Route exact path="admin/jobs" element={<JobAdmin />} />
+       
           <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
 
           <Route exact path="/dashboard/users" element={<Dashboard />} />
           <Route exact path="/dashboard" element={<DashboardContent />} />
           <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
+          <Route exact path="/dashboard/services" element={<ServicesDashboard/>} />
 
           {/* Components */}
           <Route exact path="/service" element={<ServicesPage />} />
-          <Route exact path="/user/profile" element={<UserProfile/>} />
+          <Route exact path="/user/profile" element={<UserProfile />} />
 
           {/* Containers */}
           <Route exact path="/contact" element={<FormContact />} />
@@ -100,10 +120,7 @@ function App() {
             path="/professional/detail/:id"
             element={<DetailProfessional />}
           />
-          <Route
-            path="/service/detail/:id"
-            element={<DetailService />}
-          />
+          <Route path="/service/detail/:id" element={<DetailService />} />
           <Route path="/formsss" element={<FormCreateProfessional />} />
 
           <Route path="/professional" element={<ProfesionalPage />} />

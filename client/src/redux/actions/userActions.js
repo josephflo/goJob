@@ -44,54 +44,35 @@ export const createUser = (input) => {
   };
 };
 
-export const getUserAuth0Id = (sub) => async (dispatch) => {
+export const createAndLogin = (newUser) => async (dispatch) => {
   try {
-      const existingUser = await axios.get(`/user/get/${sub}`)
-      return dispatch({
-        type:ActionTypes.GET_USER_AUTH0_ID,
-        payload: existingUser.data
-      })
-  } catch (error) {
+    let result = await axios.post("/user/register", newUser);
+
+    console.log("Se hizo un REGISTER");
+    //return null
     return dispatch({
-      type:ActionTypes.GET_USER_AUTH0_ID,
-      payload: {status: 'error'}
-    })
-  }
-};
-
-export const createAndLogin = (newUser) =>async(dispatch)=> {
-
-  try {
-    let result = await axios.post("/user/register", newUser)
-
-    return dispatch({
-      type:ActionTypes.REGISTER_USER_AND_LOGIN,
-      payload: result.data
-    })
-
+      type: ActionTypes.REGISTER_USER_AND_LOGIN,
+      payload: result.data,
+    });
   } catch (error) {
-    throw Error(error)
+    throw Error(error);
     console.log("No se pudo iniciar");
   }
 };
 
-export const putUser = (newUser) =>async(dispatch)=> {
-
+export const putUser = (newUser) => async (dispatch) => {
   try {
-    let result = axios.put("/user/register", newUser)
+    let result = axios.put("/user/register", newUser);
 
     return dispatch({
-      type:ActionTypes.REGISTER_USER_AND_LOGIN,
-      payload: result.data
-    })
-
+      type: ActionTypes.REGISTER_USER_AND_LOGIN,
+      payload: result.data,
+    });
   } catch (error) {
-    throw Error(error)
+    throw Error(error);
     console.log("No se pudo iniciar");
   }
 };
-
-
 
 export const uploadImage = (input) => async (dispatch) => {
   try {
@@ -102,67 +83,15 @@ export const uploadImage = (input) => async (dispatch) => {
   }
 };
 
-// export const createUserImageV2 = (input) => {
-//   return async (dispatch) => {
-//     // const json = JSON.stringify(input);
-//     const formData = new FormData();
-
-//     formData.append("user", JSON.stringify(input.user));
-//     formData.append("jobs", JSON.stringify(input.jobs));
-//     formData.append("image", input.image);
-//     console.log(formData);
-//     const customConfig = {
-//       headers: {
-//         // Accept: "application/json",
-//         // "Content-Type": "application/json",
-//         "content-type": "multipart/form-data",
-//       },
-//     };
-//     const result = await axios.post("user/register", formData, customConfig);
-//     return dispatch({
-//       type: ActionTypes.CREATE_USER,
-//       payload: result.data,
-//     });
-//   };
-// };
-
-//ruta modificada de create user para enviar imagens
-//
-
-//
 
 export const getUsers = () => {
   return async (dispatch) => {
     const result = await axios.get("/user");
-    return dispatch({
-      type: ActionTypes.GET_USERS,
-      payload: result.data.result,
-    });
-  };
-};
-export const getUsersPaginate = () => {
-  return async (dispatch) => {
-    const result = await axios.get(`/user/page=1&page_size=3`);
-    return dispatch({
-      type: ActionTypes.GET_USERS,
-      payload: result.data.result,
-    });
-  };
-};
 
-export const userLogin = (input) => {
-  return async (dispatch) => {
-    const json = JSON.stringify(input);
-    const customConfig = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
-    const result = await axios.post("user/login", json, customConfig);
+    console.log("Se hizo una peticion de todos los Users");
     return dispatch({
-      type: ActionTypes.USER_LOGIN,
-      payload: result.data,
+      type: ActionTypes.GET_USERS,
+      payload: result.data.result,
     });
   };
 };
@@ -170,7 +99,7 @@ export const userLogin = (input) => {
 export const updateUser = (payload) => {
   return async () => {
     try {
-      await axios.put(`/users`, payload);
+      await axios.put(`/user/update`, payload);
     } catch (error) {
       console.log(error);
     }
