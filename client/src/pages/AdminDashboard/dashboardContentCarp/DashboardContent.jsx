@@ -11,7 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
   function DashboardContent({servicesDashboard, users}) {
   let lastServices = servicesDashboard[0]
   let jobs
-  jobs = lastServices.Jobs? lastServices.Jobs.map((efe)=>efe.firstName):""
+  jobs = lastServices.Jobs? lastServices.Jobs.map((efe)=>efe.firstName):[]
 
     return (
       <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
@@ -214,7 +214,7 @@ import { useAuth0 } from "@auth0/auth0-react";
           </div>
           
         </div>
-    }
+        }
 
       </div>
     );

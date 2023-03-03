@@ -7,6 +7,7 @@ export let getAllProfesionales = (objQuery) => async (dispatch) => {
 
   if (objQuery.page) queries.page = objQuery.page;
   if (objQuery.page_size) queries.page_size = objQuery.page_size;
+  if (objQuery.state != "none") queries.state = objQuery.state;
 
   if (objQuery.name && objQuery.name != "" && objQuery.name != false)
     queries.name = objQuery.name;
