@@ -35,7 +35,7 @@ export default function DetailProfessional() {
 
   return (
     <>
-      <div class="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
+      <div class="sm:grid grid-cols-1 lg:grid grid-cols-3 gap-3 bg-gray-200">
         <div class="col-span-2">
           <div class="border-2 rounded flex m-3 p-4 bg-white">
             <Header detail={detail_} />
