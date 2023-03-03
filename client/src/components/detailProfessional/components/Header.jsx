@@ -5,7 +5,11 @@ export default function Header({ detail }) {
     <>
       <div>
         {detail.imagePerfil === "sin foto" ? (
-          <img src={imageUrlNotFound} className="w-[160px]" alt="" />
+          <img
+            src={imageUrlNotFound}
+            className="w-[80px] lg:w-[160px]"
+            alt=""
+          />
         ) : (
           <img src={detail.imagePerfil} alt="" class="p-2" />
         )}

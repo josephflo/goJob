@@ -78,7 +78,7 @@ const NavLinks = () => {
             </h1>
             {link.submenu && (
               <div>
-                <div class="absolute top-20 hidden group-hover:md:block hover:md:block">
+                <div class="absolute top-18 border hidden group-hover:md:block hover:md:block">
                   <div class="py-3">
                     <div
                       class="w-4 h-4 left-3 absolute 
