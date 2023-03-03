@@ -182,8 +182,8 @@ function App() {
                 
                   
                      {/* ProfileComun***********************************************/}
-          <Route exact path="/profile/:id" element={<OffersPage />} />
-          <Route exact path="/profilec/:id" element={<MyProfile />} />
+          <Route exact path="/profilec/:id" element={<OffersPage />} />
+          <Route exact path="/profile/:id" element={<MyProfile />} />
           <Route exact path="/profilec/modificar" element={<FormUpdateUserAuth />} />
 
 

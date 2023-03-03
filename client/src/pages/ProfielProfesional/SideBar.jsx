@@ -2,6 +2,9 @@ import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { RiFolderUserLine, RiLogoutBoxLine } from "react-icons/ri";
+import { BsTools} from "react-icons/bs";
+import { FaPaperPlane} from "react-icons/fa";
+import { GoBriefcase} from "react-icons/go";
 import logo from "../ProfileComun/image.svg";
 import { useSelector } from "react-redux";
 
@@ -29,7 +32,7 @@ export default function SideBar() {
                   to={`/profilep/${users.id}`}
                   className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                 >
-                  <RiFolderUserLine />
+                  <GoBriefcase />
                   Mis Ofertas
                 </Link>
               </li>
@@ -38,7 +41,7 @@ export default function SideBar() {
                   to={`/profilep/jobs`}
                   className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                 >
-                  <RiFolderUserLine />
+                  <BsTools />
                   Mis trabajos
                 </Link>
               </li>
@@ -47,7 +50,7 @@ export default function SideBar() {
                   to={`/profilep/postulaciones`}
                   className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                 >
-                  <RiFolderUserLine />
+                  <FaPaperPlane />
                   Mis Postulaciones
                 </Link>
               </li>

@@ -3,12 +3,13 @@ import { Link } from "react-router-dom";
 import { RiFolderUserLine, RiLogoutBoxLine } from "react-icons/ri";
 import logo from "./image.svg";
 import { useSelector } from "react-redux";
-
+import { GoBriefcase} from "react-icons/go";
+import { CgProfile} from "react-icons/cg";
 
 export default function SideBar() {
   
   const users = useSelector((state) => state.userLogin)
-  console.log(users, "aca users")
+
  
   
   return (
@@ -27,19 +28,19 @@ export default function SideBar() {
               <ul>
               <li>
                   <Link
-                    to={`/profilec/${users.id}`}
+                    to={`/profile/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
-                    <RiFolderUserLine />
+                    <CgProfile />
                     Mi Perfil
                   </Link>
                 </li>
                 <li>
                   <Link
-                    to={`/profile/${users.id}`}
+                    to={`/profilec/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
-                    <RiFolderUserLine />
+                    <GoBriefcase />
                     Mis Ofertas
                   </Link>
                 </li>
