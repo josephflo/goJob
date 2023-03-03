@@ -53,7 +53,7 @@ const NavBarPortada = () => {
           </li> */}
           <li>
             {users.role === "comun" ? (
-              <Link to={`/comun/${users.id}`} class="py-4 px-3 inline-block">
+              <Link to={`/profilc/${users.id}`} class="py-4 px-3 inline-block">
                 Mi Perfil
               </Link>
             ) : users.role === "professional" ? (
@@ -112,7 +112,7 @@ const NavBarPortada = () => {
           </li> */}
           <li>
             {users.role === "comun" ? (
-              <Link to={`/comun/${users.id}`} class="py-7 px-2 inline-block">
+              <Link to={`/profilec/${users.id}`} class="py-7 px-2 inline-block">
                 Mi Perfil
               </Link>
             ) : users.role === "professional" ? (
