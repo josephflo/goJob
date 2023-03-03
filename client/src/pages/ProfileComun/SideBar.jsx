@@ -27,7 +27,7 @@ export default function SideBar() {
               <ul>
               <li>
                   <Link
-                    to={`/profilec/${users.id}`}
+                    to={`/profile/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
                     <RiFolderUserLine />
@@ -36,7 +36,7 @@ export default function SideBar() {
                 </li>
                 <li>
                   <Link
-                    to={`/profile/${users.id}`}
+                    to={`/profilec/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
                     <RiFolderUserLine />

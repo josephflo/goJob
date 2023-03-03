@@ -32,9 +32,9 @@ const UserProfile = () => {
         </div>
         {/* <button onClick={handleChangeProfile}>Cuenta Profesional</button> */}
         <div className="border p-3">
-          <div>
+          {/* <div>
             <FormUpdateUserAuth />
-          </div>
+          </div> */}
         </div>
         <div class="mt-3">
           <LogoutButtons />

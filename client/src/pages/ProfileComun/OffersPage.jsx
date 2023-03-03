@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import Card from "./Card";
 import { getUserDetail } from "../../redux/actions/userActions";
+import SinServicios from "../ProfielProfesional/SinServicios";
 
 export default function OffersPage() {
   const params = useParams();
@@ -67,7 +68,7 @@ export default function OffersPage() {
             description={e.description} 
             postulantes={e.postulantes} 
             state={e.state} 
-            />  ) : <p>Aún no creaste servicios</p> }
+            />  ) : <SinServicios/> }
               
             </div>
           </div>

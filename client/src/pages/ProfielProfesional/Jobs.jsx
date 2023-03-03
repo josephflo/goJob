@@ -4,6 +4,7 @@ import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import CardJob from "./CardJob";
 import { getUserDetail } from "../../redux/actions/userActions";
+import SinJobs from "./SinJobs";
 
 export default function Jobs() {
   
@@ -83,7 +84,7 @@ export default function Jobs() {
             postulantes={e.postulantes} 
             state={e.state} 
             />  ) 
-            : <p>Aún no realizaste ningun trabajo</p> }
+            : <SinJobs/> }
         </div>
              </div>
         </div>
