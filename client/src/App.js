@@ -36,7 +36,9 @@ import { createAndLogin, getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
 
-import ContentGen, { contentGen } from "./pages/AdminDashboard/dashboardContentCarp/ContentGen"
+import ContentGen, {
+  contentGen,
+} from "./pages/AdminDashboard/dashboardContentCarp/ContentGen";
 import { DashboardContent } from "./pages/AdminDashboard/dashboardContentCarp/DashboardContent";
 import ModifyUser from "./pages/AdminDashboard/usermodify";
 import { JobCreate } from "./pages/AdminDashboard/JobCreate";
@@ -46,14 +48,14 @@ import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
 /* import OffersPage from "./pages/ProfileComunDashboard/OffersPage";
- */import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
+ */ import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
 import Jobs from "./pages/ProfielProfesionalDashboard/Jobs";
 import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
 import { getService } from "./redux/actions/serviceActions";
-
+import LoadingHomePage from "./components/loading/LoadingHomePage";
 
 //token
 
@@ -70,15 +72,15 @@ function App() {
 
   // const dispatch = useDispatch();
   const createUser = () => {
-       const { given_name, nickname, family_name, email, picture } = user;
-       let newUser = {
-         firstName: given_name || "sin nombre",
-         lastName: family_name || "sin apellido",
-         email: email,
-         user: nickname,
-         imagePerfil: picture || "sin foto",
-       };
-       dispatch(createAndLogin(newUser));
+    const { given_name, nickname, family_name, email, picture } = user;
+    let newUser = {
+      firstName: given_name || "sin nombre",
+      lastName: family_name || "sin apellido",
+      email: email,
+      user: nickname,
+      imagePerfil: picture || "sin foto",
+    };
+    dispatch(createAndLogin(newUser));
   };
 
   useEffect(() => {
@@ -91,59 +93,108 @@ function App() {
       console.log("AUTH PROBO");
       createUser();
     }
-
-
   }, [isAuthenticated]);
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          {/* Admin **********************************************************/}
+          {isAuthenticated ? (
+            <>
+              {!token ? (
+                <>
+                  <Route path="*" element={<LoadingHomePage />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/" element={<HomePage />} />
+                  {/* Admin **********************************************************/}
 
-          <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
+                  <Route
+                    exact
+                    path="/dashboard/user/detail"
+                    element={<ModifyUser />}
+                  />
 
-          <Route exact path="/dashboard/users" element={<Dashboard />} />
-          {isAuthenticated && <Route exact path="/dashboard" element={<ContentGen 
-            isAuthenticated={isAuthenticated}
-            isLoading={isLoading}/>} />}
-          <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
-          <Route exact path="/dashboard/jobs" element={<JobList />} />
-          <Route
-            exact
-            path="/dashboard/services"
-            element={<ServicesDashboard />}
-          />
+                  <Route
+                    exact
+                    path="/dashboard/users"
+                    element={<Dashboard />}
+                  />
+                  {isAuthenticated && (
+                    <Route
+                      exact
+                      path="/dashboard"
+                      element={
+                        <ContentGen
+                          isAuthenticated={isAuthenticated}
+                          isLoading={isLoading}
+                        />
+                      }
+                    />
+                  )}
+                  <Route
+                    exact
+                    path="/dashboard/jobs/create"
+                    element={<JobCreate />}
+                  />
+                  <Route exact path="/dashboard/jobs" element={<JobList />} />
+                  <Route
+                    exact
+                    path="/dashboard/services"
+                    element={<ServicesDashboard />}
+                  />
 
-          {/* Components */}
-          <Route exact path="/service" element={<ServicesPage />} />
-          <Route exact path="/user/profile" element={<UserProfile />} />
+                  {/* Components */}
+                  <Route exact path="/service" element={<ServicesPage />} />
+                  <Route exact path="/user/profile" element={<UserProfile />} />
 
-          {/* Containers */}
-          <Route exact path="/contact" element={<FormContact />} />
-          <Route exact path="/create/service" element={<FormCreateService />} />
-          <Route exact path="/user/register" element={<FormCreateUser />} />
+                  {/* Containers */}
+                  <Route exact path="/contact" element={<FormContact />} />
+                  <Route
+                    exact
+                    path="/create/service"
+                    element={<FormCreateService />}
+                  />
+                  <Route
+                    exact
+                    path="/user/register"
+                    element={<FormCreateUser />}
+                  />
 
-          {/* Pruebas- testeos ***********************************************/}
-          <Route path="/job/:id" element={<FilterService />} />
-          <Route
-            path="/professional/detail/:id"
-            element={<DetailProfessional />}
-          />
-          <Route path="/service/detail/:id" element={<DetailService />} />
-          <Route path="/formsss" element={<FormCreateProfessional />} />
+                  {/* Pruebas- testeos ***********************************************/}
+                  <Route path="/job/:id" element={<FilterService />} />
+                  <Route
+                    path="/professional/detail/:id"
+                    element={<DetailProfessional />}
+                  />
+                  <Route
+                    path="/service/detail/:id"
+                    element={<DetailService />}
+                  />
+                  <Route path="/formsss" element={<FormCreateProfessional />} />
 
-          <Route path="/professional" element={<ProfesionalPage />} />
-          {/* UserDashboard ***********************************************/}
-        {/*   <Route exact path="/professional/:id" element={<OffersPage />} /> */}
+                  <Route path="/professional" element={<ProfesionalPage />} />
+                  {/* UserDashboard ***********************************************/}
+                  {/*   <Route exact path="/professional/:id" element={<OffersPage />} /> */}
 
-          <Route exact path="/comun/:id" element={<OffersPageP />} />
-          <Route exact path="/comun/jobs" element={<Jobs />} />
-          <Route exact path="/comun/postulaciones" element={<Postulaciones />} />
+                  <Route exact path="/comun/:id" element={<OffersPageP />} />
+                  <Route exact path="/comun/jobs" element={<Jobs />} />
+                  <Route
+                    exact
+                    path="/comun/postulaciones"
+                    element={<Postulaciones />}
+                  />
 
-
-          {/*Profesionales */}
-          {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
+                  {/*Profesionales */}
+                  {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
+                </>
+              )}
+            </>
+          ) : (
+            <>
+              <Route path="/" element={<HomePage />} />
+            </>
+          )}
         </Routes>
       </BrowserRouter>
     </>

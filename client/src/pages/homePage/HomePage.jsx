@@ -12,7 +12,6 @@ import axios from "axios";
 export default function HomePage() {
   //const { isAuthenticated, user, isLoading } = useAuth0();
 
-
   return (
     <>
       <div class="inset-0 bg-gray-900 absolute bg-opacity-40 z-10"></div>
@@ -21,10 +20,10 @@ export default function HomePage() {
           <NavBarPortada />
         </div>
         <div className=" h-screen flex flex-col justify-center ">
-          <h1 className=" text-5xl text-white mx-auto p-5 text-center z-20">
+          <h1 className="text-white mx-auto p-5 text-center z-20 text-3xl md:text-4xl lg:text-5xl">
             Trabajadores con experiencia y referencia
           </h1>
-          <h2 className=" text-4xl text-white mx-auto p-7 text-center z-20">
+          <h2 className="text-white mx-auto p-7 text-center z-20 text-xl md:text-3xl lg:text-4xl">
             Desarrolla tu oficio cerca de ti
           </h2>
           <FormHomePage />
