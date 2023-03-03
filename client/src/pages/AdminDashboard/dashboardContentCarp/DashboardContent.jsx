@@ -9,10 +9,49 @@ import { getAllServices } from "../../../redux/actions/services/getServices";
 import { useAuth0 } from "@auth0/auth0-react";
 
   function DashboardContent({servicesDashboard, users}) {
-  let lastServices = servicesDashboard[0]
-  let jobs
-  jobs = lastServices.Jobs? lastServices.Jobs.map((efe)=>efe.firstName):[]
 
+  let lastServices = servicesDashboard[servicesDashboard.length-1]
+  let jobs
+  jobs = lastServices.Jobs? lastServices.Jobs.map((efe)=>efe.name):[]
+
+  const totalPresupuesto = servicesDashboard?.reduce((acumulado, trabajo) => {
+    if (trabajo.state === "terminado") {
+      return acumulado + parseInt(trabajo.presupuesto);
+    } else {
+      return acumulado;
+    }
+  }, 0);
+ 
+// Obtener fecha actual
+const fechaActual = new Date();
+
+// Obtener último mes actual
+const ultimoMesActual = fechaActual.getMonth()+1;
+
+// Filtrar servicios del último mes actual
+const serviciosUltimoMesActual = servicesDashboard?.filter(servicio => {
+  const fechaPublicacion = new Date(servicio.fecha_publicacion);
+  return fechaPublicacion.getMonth() === ultimoMesActual-1;
+});
+
+const hoy = new Date(); // fecha actual
+const mesActual = hoy.getMonth() + 1; // obtenemos el número del mes actual
+
+const totalPresupuestoMes = servicesDashboard
+  .filter(trabajo => {
+    const fechaPublicacion = new Date(trabajo.fecha_publicacion);
+    const mesPublicacion = fechaPublicacion.getMonth() + 1;
+    return trabajo.state === "terminado" && mesPublicacion === mesActual;
+  })
+  .reduce((acumulado, trabajo) => {
+    return acumulado + parseInt(trabajo.presupuesto); 
+  }, 0);
+
+  const ultUser = users.slice(-1)
+  const penUltUser = users.slice(-2,-1)
+
+  console.log(ultUser[0].imagePerfil)
+  
     return (
       <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
         <SideBar/> 
@@ -30,10 +69,10 @@ import { useAuth0 } from "@auth0/auth0-react";
             {/* Card 1 */}
             <div className="bg-blue-600 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
               <RiLineChartLine className="text-5xl" />
-              <h4 className="text-2xl">Ganancias</h4>
-              <span className="text-5xl text-white">$ 8,350</span>
+              <h4 className="text-2xl">Ganancias totales</h4>
+              <span className="text-5xl text-white">{"$" + " " + totalPresupuesto}</span>
               <span className="py-1 px-3 bg-blue-900 rounded-full">
-                + 10% este mes
+               {"+ " + totalPresupuestoMes + " este mes"}
               </span>
             </div>
             {/* Card 2 */}
@@ -54,7 +93,7 @@ import { useAuth0 } from "@auth0/auth0-react";
                   </span>
                   <div>
                     <h3 className="font-bold">Servicios</h3>
-                    <p className="text-gray-500">10 este mes</p>
+                    <p className="text-gray-500">{serviciosUltimoMesActual.length+" este mes"}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-sm">
@@ -69,26 +108,26 @@ import { useAuth0 } from "@auth0/auth0-react";
             </div>
             {/* Card 3 */}
             <div className="col-span-1 md:col-span-2 flex flex-col justify-between">
-              <h1 className="text-2xl font-bold mb-8">Servicios</h1>
+              <h1 className="text-2xl font-bold mb-8">Ultimos Usuarios Registrados</h1>
               <div className="bg-white p-8 rounded-xl shadow-2xl">
                 <div className="flex items-center gap-4 mb-8">
                   <img
-                    src="https://img.freepik.com/foto-gratis/retrato-mujer-mayor-cerca_23-2149207185.jpg"
+                    src={ultUser[0].imagePerfil}
                     className="w-14 h-14 object-cover rounded-full"
                   />
                   <div>
-                    <h3 className="font-bold">{lastServices.tittle}</h3>
-                    <p className="text-gray-500">jobs lista</p>
+                    <h3 className="font-bold">{ultUser[0].firstName}</h3>
+                    <p className="text-gray-500">{ultUser[0].role}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mb-4">
                   <img
-                    src="https://img.freepik.com/foto-gratis/retrato-mujer-mayor-cerca_23-2149207185.jpg"
+                    src={penUltUser[0].imagePerfil}
                     className="w-14 h-14 object-cover rounded-full"
                   />
                   <div>
-                    <h3 className="font-bold">Titulo del Servicio</h3>
-                    <p className="text-gray-500">jobs lista</p>
+                    <h3 className="font-bold">{penUltUser[0].firstName}</h3>
+                    <p className="text-gray-500">{penUltUser[0].role}</p>
                   </div>
                 </div>
                 <div className="flex justify-end">
@@ -105,7 +144,7 @@ import { useAuth0 } from "@auth0/auth0-react";
      
           <section className="grid grid-cols-1 md:grid-cols-2 mt-10 gap-8">
             <div>
-              <h1 className="text-2xl font-bold mb-8">Pagos Recibidos</h1>
+              <h1 className="text-2xl font-bold mb-8">Ultimos Pagos Recibidos</h1>
               <div className="bg-white p-8 rounded-xl shadow-2xl mb-8 flex flex-col gap-8">
             
                 <div className="grid grid-cols-1 xl:grid-cols-4 items-center gap-4 mb-4">
