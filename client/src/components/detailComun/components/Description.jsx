@@ -1,19 +1,19 @@
 export default function Description({ detail }) {
   return (
     <>
-      <div class="flex flex-col justify-between p-3">
-        <h2 class="font-medium pb-3">Acerca del usuario</h2>
+      <div className="flex flex-col justify-between p-3">
+        <h2 className="font-medium pb-3">Acerca del usuario</h2>
 
         <table className="w-full text-sm text-left text-black-500 dark:text-gray-400 mb-4">
           <thead>
             <tr>
-              <th scope="col" class="">
+              <th scope="col" className="">
                 email
               </th>
-              <th scope="col" class=" mx-auto">
+              <th scope="col" className=" mx-auto">
                 Celular
               </th>
-              <th scope="col" class=" mx-auto">
+              <th scope="col" className=" mx-auto">
                 Locaclización
               </th>
             </tr>
@@ -23,13 +23,13 @@ export default function Description({ detail }) {
         </table>
 
         <p>
-          <span class="font-medium">email: </span> {detail.email}
+          <span className="font-medium">email: </span> {detail.email}
         </p>
         <p>
-          <span class="font-medium">Celular: </span> {detail.phone}
+          <span className="font-medium">Celular: </span> {detail.phone}
         </p>
         <p>
-          <span class="font-medium">Localización: </span> {detail.direccion} /{" "}
+          <span className="font-medium">Localización: </span> {detail.direccion} /{" "}
           {detail.ciudad} / {detail.provincia}
         </p>
       </div>
