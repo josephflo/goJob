@@ -75,13 +75,6 @@ function FilterUser({ totalPages }) {
   const [page, setPage] = useState(1);
   const [page_size, setPage_size] = useState(15);
 
-  let handleOptionFilter = (event) => {
-    let propiedadFilter =
-      event.target.options[event.target.selectedIndex].getAttribute("name");
-
-    let value = event.target.value;
-
-
   let handleOptionFilter = (event) => { //recive el evento Onchange es un objeto de un select 
     let propiedadFilter = event.target.options[event.target.selectedIndex] // //en el objeto de un select con el array selecciamos el option
       .getAttribute("name")  ////obtenemos el atributo name del option debe tener un name="""

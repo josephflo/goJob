@@ -1,34 +1,24 @@
 import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
-import { SideBar } from "./sidebar";
-import { Header } from "./header";
+import { SideBar } from "../sidebar";
+import { Header } from "../header";
 import { useSelector, useDispatch} from "react-redux";
-import { getService } from "../../redux/actions/serviceActions";
+import { getService } from "../../../redux/actions/serviceActions";
+import { getAllServices } from "../../../redux/actions/services/getServices";
+import { useAuth0 } from "@auth0/auth0-react";
 
-export function DashboardContent() {
-
- const dispatch = useDispatch();  
- 
-  const users = useSelector((state) => state.users);
-  const services = useSelector((state) => state.service);
-
-  useEffect(() => {
-   dispatch(getService());
-  },[]);
-  
-  const lastServices = services[0]
-
-  const jobs = lastServices.Jobs ? lastServices.Jobs.map(job => job.name) : [];
-
-
-  console.log(lastServices) 
-
-
+  function DashboardContent({servicesDashboard, users}) {
+  let lastServices = servicesDashboard[0]
+  let jobs
+  jobs = lastServices.Jobs? lastServices.Jobs.map((efe)=>efe.firstName):""
 
     return (
       <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
         <SideBar/> 
+
+     
+        {servicesDashboard.length && users.length && 
         <div className="lg:col-span-3 xl:col-span-5 p-8 h-[100vh] overflow-y-scroll">          
           <Header/> 
             
@@ -60,7 +50,7 @@ export function DashboardContent() {
               <div className="bg-blue-100 rounded-xl p-4">
                 <div className="flex items-center gap-4 mb-4">
                   <span className="bg-blue-600 text-white text-2xl font-bold p-4 rounded-xl">
-                    {services.length}
+                    {servicesDashboard.length}
                   </span>
                   <div>
                     <h3 className="font-bold">Servicios</h3>
@@ -209,11 +199,11 @@ export function DashboardContent() {
                     <span className="text-2xl font-bold mr-2">{lastServices.presupuesto}</span>
                   </div>
                   <div>
-                    {jobs.map((job)=>
+                    {jobs.length? jobs.map((job)=>
                       <span className="border border-primary-100 text-primary-100 py-2 px-4 rounded-full">
                       {job}
                       </span>
-                    )}
+                    ):""}
                    
                   </div>
                 </div>
@@ -224,7 +214,8 @@ export function DashboardContent() {
           </div>
           
         </div>
-       
+    }
+
       </div>
     );
   }

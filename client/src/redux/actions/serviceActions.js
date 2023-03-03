@@ -8,13 +8,25 @@ import convertObjToQuery from "../../helpers/convertObjToQuery";
 
 //** SERVICES ********************************* */
 
-export const getService = () => {
+export const  getService = () => {
+  console.log("GET servicesDashboard");
+
   return async (dispatch) => {
-    const result = await axios.get(`/service`);
-    return dispatch({
-      type: ActionTypes.GET_SERVICE,
-      payload: result.data.result,
-    });
+    try {
+      const result = await axios.get(`/service`);
+      return dispatch({
+        type: ActionTypes.GET_SERVICES_DASBOARD,
+        payload: result.data.result,
+      });
+    } catch (error) {
+      console.log(error.message);
+      alert(error.message)
+      return dispatch({
+        type: ActionTypes.GET_SERVICES_DASBOARD,
+        payload: []
+      });
+    }
+
   };
 };
 

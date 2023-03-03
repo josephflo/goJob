@@ -12,6 +12,7 @@ const initialState = {
   allJobs: [],
   jobById: {},
   service: {},
+  servicesDashboard: [],
   filterService: [],
   userDetail: {},
   professionalDetail: {},
@@ -88,6 +89,12 @@ export default function reducer(state = initialState, action) {
         service: action.payload,
       };
 
+    case ActionTypes.GET_SERVICES_DASBOARD:
+      return {
+        ...state,
+        servicesDashboard: action.payload,
+      };
+
     case ActionTypes.USER_DETAIL:
       return {
         ...state,
@@ -100,15 +107,15 @@ export default function reducer(state = initialState, action) {
         userDetail: {},
       };
 
-    case ActionTypes.FILTER_MODEL:
-      return {
-        ...state,
-        filterService: action.payload.result,
-        state: action.payload.state,
-        job: action.payload.job,
-        provincias: action.payload.provincias,
-        localidades: action.payload.localidades,
-      };
+    // case ActionTypes.FILTER_MODEL:
+    //   return {
+    //     ...state,
+    //     filterService: action.payload.result,
+    //     state: action.payload.state,
+    //     job: action.payload.job,
+    //     provincias: action.payload.provincias,
+    //     localidades: action.payload.localidades,
+    //   };
 
     case ActionTypes.GET_ALL_USERS_FILTRADO:
       return {

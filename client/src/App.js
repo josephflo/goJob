@@ -36,7 +36,8 @@ import { createAndLogin, getUsers } from "./redux/actions/userActions";
 import JobAdmin from "./components/DashboardPrueba/JobAdmin";
 import FormCreateProfessional from "./containers/forms/formCreateUser/formCreateProfessional/FormCreateProfessional";
 
-import { DashboardContent } from "./pages/AdminDashboard/dashboardContent";
+import ContentGen, { contentGen } from "./pages/AdminDashboard/dashboardContentCarp/ContentGen"
+import { DashboardContent } from "./pages/AdminDashboard/dashboardContentCarp/DashboardContent";
 import ModifyUser from "./pages/AdminDashboard/usermodify";
 import { JobCreate } from "./pages/AdminDashboard/JobCreate";
 import { JobList } from "./pages/AdminDashboard/jobslist";
@@ -51,6 +52,7 @@ import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
+import { getService } from "./redux/actions/serviceActions";
 
 
 //token
@@ -79,14 +81,6 @@ function App() {
        dispatch(createAndLogin(newUser));
   };
 
-  // console.log(isAuthenticated);
-
-  // if (isAuthenticated) {
-  //   createUser();
-  // }
-
-  // const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getUsers());
@@ -97,6 +91,8 @@ function App() {
       console.log("AUTH PROBO");
       createUser();
     }
+
+
   }, [isAuthenticated]);
   return (
     <>
@@ -108,7 +104,9 @@ function App() {
           <Route exact path="/dashboard/user/detail" element={<ModifyUser />} />
 
           <Route exact path="/dashboard/users" element={<Dashboard />} />
-          <Route exact path="/dashboard" element={<DashboardContent />} />
+          {isAuthenticated && <Route exact path="/dashboard" element={<ContentGen 
+            isAuthenticated={isAuthenticated}
+            isLoading={isLoading}/>} />}
           <Route exact path="/dashboard/jobs/create" element={<JobCreate />} />
           <Route exact path="/dashboard/jobs" element={<JobList />} />
           <Route
