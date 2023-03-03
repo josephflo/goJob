@@ -11,13 +11,13 @@ let contactarProfessional = async(req, res)=>{
 
   try {
     let userPeticion = await User.findOne({where: {id: userId}})
-    let userProfessional = await User.findOne({where: {id: idProfesional}})
-
     let nameUser = `${userPeticion.firstName} ${userPeticion.lastName}`
+
+    let userProfessional = await User.findOne({where: {id: idProfesional}})
     let nameProfessional = `${userProfessional.firstName} ${userProfessional.lastName}`
 
     //enviamos notify
-    notifyContactar(nameUser, userPeticion.email, nameProfessional, userProfessional.email, message)
+    let result = notifyContactar(nameUser, userPeticion.email, message, nameProfessional, userProfessional.email)
 
     return res.status(200).json({
       status: "success",
@@ -26,7 +26,7 @@ let contactarProfessional = async(req, res)=>{
   } catch (error) {
     return res.status(400).json({
       status: "error",
-      message: error.message
+      message: error.message,
     })
   }
 }

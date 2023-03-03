@@ -14,7 +14,7 @@ function ProfessionalCard({
   return (
     <>
       <NavLink to={`/professional/detail/${id}`}>
-        <div className="bg-gray-100 p-6">
+        <div className="bg-gray-100 p-6 m-1">
           <div>
             {imagePerfil === "sin foto" ? (
               <img

@@ -2,39 +2,63 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { configFilterUserPut } from "../../../redux/actions/users/profesionales";
-import { links } from "./MyLinks";
+import { links_ } from "./MyLinks";
 
 const NavLinks = () => {
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
 
-
   //estados para modificar el filtro
   let configFilterUser = useSelector((state) => state.configFilterUser);
-  let dispatch = useDispatch()
+  let jobs = useSelector((state) => state.jobs);
+  let dispatch = useDispatch();
 
-  let modifyStateFilter = (idProfesion)=>{
-    dispatch(configFilterUserPut({
-      ...configFilterUser,
-      job: idProfesion,
-      name: "",
-      provincia: "Buenos Aires",
-      ciudad: false,
-      dias: false,
-      horario: "mañana",
-      role: "professional"
-    }));
-  
-  }
+  // console.log("hola", jobs);
 
+  const jobItems = jobs.map((job) => ({
+    name: job.name,
+    link: "/professional",
+    id: job.id,
+  }));
+
+  // console.log(jobItems);
+  // const links = links_;
+
+  const links = [
+    {
+      name: "Profesionales",
+      submenu: true,
+      sublinks: [
+        {
+          Head: "Profesion",
+          sublink: jobItems,
+        },
+      ],
+    },
+  ];
+
+  let modifyStateFilter = (idProfesion) => {
+    dispatch(
+      configFilterUserPut({
+        ...configFilterUser,
+        job: idProfesion,
+        name: "",
+        provincia: "Buenos Aires",
+        ciudad: false,
+        dias: false,
+        horario: "mañana",
+        role: "professional",
+      })
+    );
+  };
 
   return (
     <>
       {links.map((link) => (
         <div>
-          <div class="px-3 text-left md:cursor-pointer group">
+          <div class="px-2 text-left md:cursor-pointer group">
             <h1
-              class="py-7 flex justify-between items-center md:pr-0 pr-5 group"
+              class="py-2 flex justify-between items-center md:pr-0 pr-5 group"
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
@@ -53,32 +77,34 @@ const NavLinks = () => {
               </span>
             </h1>
             {link.submenu && (
-            <div>
-              <div class="absolute top-20 hidden group-hover:md:block hover:md:block">
-                <div class="py-3">
-                  <div
-                    class="w-4 h-4 left-3 absolute 
+              <div>
+                <div class="absolute top-20 hidden group-hover:md:block hover:md:block">
+                  <div class="py-3">
+                    <div
+                      class="w-4 h-4 left-3 absolute 
                     mt-1 bg-white rotate-45"
-                  ></div>
-                </div>
-                <div class="bg-white p-5 grid grid-cols-3 gap-10">
-                  {link.sublinks.map((mysublinks) => (
-                    <div>
-                      <h1 class="text-lg font-semibold">
-                        {mysublinks.Head}
-                      </h1>
-                      {mysublinks.sublink.map((slink) => (
-                        <li class="text-sm text-gray-600 my-2.5">
-                          <Link onClick={()=>modifyStateFilter(slink.id)} to={"/professional"} class="hover:text-primary">
-                            {slink.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </div>
-                  ))}
+                    ></div>
+                  </div>
+                  <div class="bg-white p-5 grid grid-cols-3 gap-10">
+                    {link.sublinks.map((mysublinks) => (
+                      <div>
+                        <h1 class="text-lg font-semibold">{mysublinks.Head}</h1>
+                        {mysublinks.sublink.map((slink) => (
+                          <li class="text-sm text-gray-600 my-2.5">
+                            <Link
+                              onClick={() => modifyStateFilter(slink.id)}
+                              to={"/professional"}
+                              class="hover:text-primary"
+                            >
+                              {slink.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
             )}
           </div>
           {/* Mobile menus */}

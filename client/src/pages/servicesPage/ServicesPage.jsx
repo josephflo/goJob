@@ -27,10 +27,10 @@ function ServicesPage() {
 
   return (
     <div>
-      <div class="p-1.5 sticky top-0 z-50 bg-white">
+      <div class="sticky top-0 z-50 bg-white">
         <NavBarPortada />
       </div>
-      <div className="pl-10 px-10">
+      <div className="">
         {/* <h1 className=" text-5xl text-black mx-auto p-7 text-center">
           Página de servicios
         </h1> */}
