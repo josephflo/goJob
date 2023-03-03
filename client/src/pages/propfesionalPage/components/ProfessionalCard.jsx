@@ -19,28 +19,28 @@ function ProfessionalCard({
             {imagePerfil === "sin foto" ? (
               <img
                 src={imageUrlNotFound}
-                className="w-[80px] h-[80px] object-cover rounded-full"
+                className="object-cover rounded-full text-xs w-[40px] h-[40px] md:text-sm lg:w-[80px] lg:h-[80px]"
                 alt=""
               />
             ) : (
               <img
                 src={imagePerfil}
                 alt=""
-                className="w-[80px] h-[80px] object-cover rounded-full"
+                className="object-cover rounded-full text-xs w-[40px] h-[40px] lg:w-[80px] lg:h-[80px]"
               />
             )}
           </div>
-          <div className="box-borderbg-white border-solid-gray-300 rounded-sm">
+          <div className="box-borderbg-white pt-2 border-solid-gray-300 rounded-sm">
             {/* <button className=" w-20 h-10 rounded-lg bg-gray-300"> */}
             {/* <div className=" w-72"> */}
-            <p className="font-sans pt-1 not-italic font-medium text-gray-700">
+            <p className="font-sans pt-1 not-italic font-medium text-gray-700 hidden sm:block">
               Datos del profesional
             </p>
-            <p className="text-sm">
+            <p className=" text-xs md:text-sm lg:text-base">
               {firstName} {lastName}
             </p>
             {jobs.map((job) => (
-              <> {job.name}</>
+              <p className=" text-xs md:text-sm lg:text-sm"> {job.name}</p>
             ))}
             <div class="flex justify-center mt-4">
               <button class="bg-transparent w-full hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
