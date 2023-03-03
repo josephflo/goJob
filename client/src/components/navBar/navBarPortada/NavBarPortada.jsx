@@ -13,6 +13,7 @@ const NavBarPortada = () => {
   const [open, setOpen] = useState(false);
   return (
     <nav class="bg-white">
+
       <div class="flex items-center font-medium justify-around">
         <div class="z-50 p-3 md:w-auto w-full flex justify-between md:p-7 lg:p-7">
           <Link to="/">
@@ -21,6 +22,7 @@ const NavBarPortada = () => {
           <div class="text-3xl px-2 md:hidden" onClick={() => setOpen(!open)}>
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
+
         </div>
         <ul class="md:flex hidden uppercase items-center gap-8 font-[Poppins]">
           <li>
@@ -55,7 +57,7 @@ const NavBarPortada = () => {
                 Mi Perfil
               </Link>
             ) : users.role === "professional" ? (
-              <Link to={`/profile/${users.id}`} class="py-4 px-3 inline-block">
+              <Link to={`/profilep/${users.id}`} class="py-4 px-3 inline-block">
                 Mi Perfil
               </Link>
             ) : (
@@ -84,6 +86,7 @@ const NavBarPortada = () => {
           <li>
             <Link to="/" class="py-3 px-2 inline-block">
               Inicio
+
             </Link>
           </li>
           <NavLinks />
@@ -113,7 +116,7 @@ const NavBarPortada = () => {
                 Mi Perfil
               </Link>
             ) : users.role === "professional" ? (
-              <Link to={`/profile/${users.id}`} class="py-7 px-2 inline-block">
+              <Link to={`/profilep/${users.id}`} class="py-7 px-2 inline-block">
                 Mi Perfil
               </Link>
             ) : (

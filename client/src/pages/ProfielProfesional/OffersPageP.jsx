@@ -2,22 +2,24 @@ import React, { useEffect } from "react";
 import { RiFilter3Line, RiUserLocationLine } from "react-icons/ri";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { getServiceById } from "../../redux/actions/serviceActions";
-import { useParams } from "react-router";
 import Card from "./Card";
+import { useParams } from "react-router";
+import { getUserDetail } from "../../redux/actions/userActions";
 
-export default function OffersPage() {
+export default function OffersPageP() {
   const params = useParams();
   const { id } = params;
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const services = useSelector((state) => state.userLogin);
- 
+    const services = useSelector((state) => state.userLogin);
+   
 
-  useEffect(() => {
-    dispatch(getServiceById(id));
-  }, []);
+    useEffect(() => {
+      dispatch(getUserDetail(id));
+      }, []);
 
+
+   
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
       <SideBar />
@@ -25,7 +27,9 @@ export default function OffersPage() {
         <div className="p-4 bg-gray-100 ">
           <div className="grid grid-cols-5 gap-4 items-center mb-4">
             <div>
-              <label className=" text-black ">Estado</label>
+              <label className=" text-black ">
+                Estado
+              </label>
             </div>
             <form className="col-span-1">
               <div className="relative">
@@ -35,8 +39,10 @@ export default function OffersPage() {
                 </select>
               </div>
             </form>
-            <div>
-              <label className=" text-black ">Orden</label>
+            <div >
+              <label className=" text-black ">
+                Orden
+              </label>
             </div>
             <form className="col-span-1">
               <div className="relative">
@@ -53,12 +59,12 @@ export default function OffersPage() {
               </button>
             </div>
           </div>
-
           <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {services?.myServices ?
             services?.myServices.map((e) => 
             <Card
             key={e.id}
+            id={e.id}
             tittle={e.tittle} 
             imagenurl={e.imagenurl} 
             direccion={e.direccion} 
@@ -69,9 +75,8 @@ export default function OffersPage() {
             />  ) : <p>Aún no creaste servicios</p> }
               
             </div>
-          </div>
+             </div>
         </div>
       </div>
-  
   );
 }

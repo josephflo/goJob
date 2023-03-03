@@ -2,30 +2,30 @@ import React, { useEffect } from "react";
 import { RiFilter3Line, RiUserLocationLine } from "react-icons/ri";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import {  getServiceById } from "../../redux/actions/serviceActions";
-import Card from "./Card";
-import { useParams } from "react-router";
+import CardJob from "./CardJob";
+import { getUserDetail } from "../../redux/actions/userActions";
 
-export default function OffersPageP() {
-  const params = useParams();
-  const { id } = params;
+export default function Jobs() {
+  
     const dispatch = useDispatch();
 
-    const services = useSelector((state) => state.userLogin);
-   
+    const jobs = useSelector((state) => state.userLogin);
+    
 
     useEffect(() => {
-      dispatch(getServiceById(id));
+      dispatch(getUserDetail());
       }, []);
 
+      
 
    
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-      <SideBar />
+      <SideBar/>
       <div className="col-span-5">
         <div className="p-4 bg-gray-100 ">
-          <div className="grid grid-cols-5 gap-4 items-center mb-4">
+          <div className="grid grid-cols-6 gap-4 items-center mb-4">
+          
             <div>
               <label className=" text-black ">
                 Estado
@@ -53,16 +53,27 @@ export default function OffersPageP() {
                 </select>
               </div>
             </form>
+            <form className="col-span-1">
+              <div className="relative">
+                <RiFilter3Line className="absolute left-2 top-3 text-blue-600" />
+                <select className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none">
+                  <option>A-Z</option>
+                  <option>Z-A</option>
+                </select>
+              </div>
+            </form>
             <div className="col-span-1">
               <button className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
                 Borrar filtros
               </button>
             </div>
           </div>
-          <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {services?.myServices ?
-            services?.myServices.map((e) => 
-            <Card
+          <div className="flex items-center justify-between mb-8">
+          
+          {jobs?.myTrabajos?.length > 0 
+          ?
+            jobs?.myTrabajos.map((e) => 
+            <CardJob
             key={e.id}
             tittle={e.tittle} 
             imagenurl={e.imagenurl} 
@@ -71,9 +82,9 @@ export default function OffersPageP() {
             description={e.description} 
             postulantes={e.postulantes} 
             state={e.state} 
-            />  ) : <p>Aún no creaste servicios</p> }
-              
-            </div>
+            />  ) 
+            : <p>Aún no realizaste ningun trabajo</p> }
+        </div>
              </div>
         </div>
       </div>

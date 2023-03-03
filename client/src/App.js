@@ -47,15 +47,20 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
-/* import OffersPage from "./pages/ProfileComunDashboard/OffersPage";
- */ import OffersPageP from "./pages/ProfielProfesionalDashboard/OffersPageP";
-import Jobs from "./pages/ProfielProfesionalDashboard/Jobs";
-import Postulaciones from "./pages/ProfielProfesionalDashboard/Postulaciones";
+
+import OffersPage from "./pages/ProfileComun/OffersPage";
+import OffersPageP from "./pages/ProfielProfesional/OffersPageP";
+import Jobs from "./pages/ProfielProfesional/Jobs";
+import Postulaciones from "./pages/ProfielProfesional/Postulaciones";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
 import { getService } from "./redux/actions/serviceActions";
 import LoadingHomePage from "./components/loading/LoadingHomePage";
+
+import MyProfile from "./pages/ProfileComun/MyProfile";
+import FormUpdateUserAuth from "./containers/forms/formUpdateUserAuth/FormUpdateUserAuth";
+
 
 //token
 
@@ -174,16 +179,19 @@ function App() {
                   <Route path="/formsss" element={<FormCreateProfessional />} />
 
                   <Route path="/professional" element={<ProfesionalPage />} />
-                  {/* UserDashboard ***********************************************/}
-                  {/*   <Route exact path="/professional/:id" element={<OffersPage />} /> */}
+                
+                  
+                     {/* ProfileComun***********************************************/}
+          <Route exact path="/profile/:id" element={<OffersPage />} />
+          <Route exact path="/profilec/:id" element={<MyProfile />} />
+          <Route exact path="/profilec/modificar" element={<FormUpdateUserAuth />} />
 
-                  <Route exact path="/comun/:id" element={<OffersPageP />} />
-                  <Route exact path="/comun/jobs" element={<Jobs />} />
-                  <Route
-                    exact
-                    path="/comun/postulaciones"
-                    element={<Postulaciones />}
-                  />
+
+          {/* ProfileProfessional ***********************************************/}
+          <Route exact path="/profilep/:id" element={<OffersPageP />} />
+          <Route exact path="/profilep/jobs" element={<Jobs />} />
+          <Route exact path="/profilep/postulaciones" element={<Postulaciones />} />
+
 
                   {/*Profesionales */}
                   {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
@@ -195,6 +203,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
             </>
           )}
+
         </Routes>
       </BrowserRouter>
     </>

@@ -2,44 +2,28 @@ import React, { useEffect } from "react";
 import { RiFilter3Line, RiUserLocationLine } from "react-icons/ri";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import CardJob from "./CardJob";
-import { getServiceById } from "../../redux/actions/serviceActions";
-import { useParams } from "react-router";
+import CardPostulaciones from "./CardPostulaciones";
+import { getUserDetail } from "../../redux/actions/userActions";
 
-export default function Jobs() {
-  const params = useParams();
-  const { id } = params;
+export default function Postulaciones() {
+ 
     const dispatch = useDispatch();
 
-    const trabajos = useSelector((state) => state.userLogin);
+    const applications = useSelector((state) => state.userLogin);
+   
 
     useEffect(() => {
-      dispatch(getServiceById(id));
+        dispatch(getUserDetail());
       }, []);
 
-      
-
+     
    
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-      <SideBar/>
+      <SideBar />
       <div className="col-span-5">
         <div className="p-4 bg-gray-100 ">
-          <div className="grid grid-cols-6 gap-4 items-center mb-4">
-          
-            <div>
-              <label className=" text-black ">
-                Estado
-              </label>
-            </div>
-            <form className="col-span-1">
-              <div className="relative">
-                <RiUserLocationLine className="absolute left-2 top-3 text-blue-600" />
-                <select className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none">
-                  <option>Pendiente</option>
-                </select>
-              </div>
-            </form>
+          <div className="grid grid-cols-4 gap-4 items-center mb-4">
             <div >
               <label className=" text-black ">
                 Orden
@@ -69,11 +53,10 @@ export default function Jobs() {
               </button>
             </div>
           </div>
-          <div className="flex items-center justify-between mb-8">
-          
-          {trabajos?.myTrabajos ?
-            trabajos?.myTrabajos.map((e) => 
-            <CardJob
+          <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            {applications?.postulaciones?.length > 0 ?
+            applications?.postulaciones.map((e) => 
+            <CardPostulaciones
             key={e.id}
             tittle={e.tittle} 
             imagenurl={e.imagenurl} 
@@ -82,8 +65,9 @@ export default function Jobs() {
             description={e.description} 
             postulantes={e.postulantes} 
             state={e.state} 
-            />  ) : <p>Aún no realizaste ningun trabajo</p> }
-        </div>
+            />  ) : <p>Aún no te has postulado a ningún servicio</p> }
+              
+            </div>
              </div>
         </div>
       </div>
