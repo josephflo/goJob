@@ -4,8 +4,8 @@ import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "./Card";
 import { useParams } from "react-router";
-import { getUserDetail } from "../../redux/actions/userActions";
 import SinServicios from "./SinServicios";
+import { getProfessionalById } from "../../redux/actions/professionalActions";
 
 export default function OffersPageP() {
   const params = useParams();
@@ -16,7 +16,7 @@ export default function OffersPageP() {
    
 
     useEffect(() => {
-      dispatch(getUserDetail(id));
+      dispatch(getProfessionalById(id));
       }, []);
 
 
