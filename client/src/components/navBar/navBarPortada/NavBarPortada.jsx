@@ -50,19 +50,19 @@ const NavBarPortada = () => {
           </Link>
         </li>
          <li>
-          {users.role === 'comun' ? (
-          <Link to={`/comun/${users.id}`} class="py-7 px-3 inline-block">
-            Mi Perfil
-          </Link>
-          ) : ( <LoginButtons />) }
+            {users.role === 'comun' 
+          ? (<Link to={`/profile/${users.id}`} class="py-7 px-3 inline-block">
+              Mi Perfil
+             </Link>) 
+          :
+            users.role === 'professional' 
+          ? 
+            (<Link to={`/profilep/${users.id}`} class="py-7 px-3 inline-block">
+              Mi Perfil
+             </Link>) 
+          : 
+          ( <LoginButtons />) }
         </li>
-       {/*  <li>
-          {users.role === 'professional' ? (
-          <Link to={`/professional/${users.id}`} class="py-7 px-3 inline-block">
-            Mi Perfil
-          </Link>
-          ) : ( <LoginButtons />) }
-        </li> */}
         <div class="py-5">
           {isAuthenticated === true &&
             <Link to={"/user/profile"}>
@@ -112,19 +112,20 @@ const NavBarPortada = () => {
           </Link>
         </li>
         <li>
-          {users.role === 'comun' ? (
-          <Link to={`/comun/${user.id}`} class="py-7 px-3 inline-block">
-            Mi Perfil
-          </Link>
-          ) : ( <LoginButtons />) }
+       {  users.role === 'comun' 
+          ? (<Link to={`/profile/${users.id}`} class="py-7 px-3 inline-block">
+              Mi Perfil
+             </Link>) 
+          :
+            users.role === 'professional' 
+          ? 
+            (<Link to={`/profilep/${users.id}`} class="py-7 px-3 inline-block">
+              Mi Perfil
+             </Link>) 
+          : 
+          ( <LoginButtons />) 
+          }
         </li>
-       {/*  <li>
-          {users.role === 'professional' ? (
-          <Link to={`/professional/${user.id}`} class="py-7 px-3 inline-block">
-            Mi Perfil
-          </Link>
-          ) : ( <LoginButtons />) }
-        </li> */}
         <div class="py-5">
         {isAuthenticated ? (
           

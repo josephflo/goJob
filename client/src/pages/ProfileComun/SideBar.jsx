@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 export default function SideBar() {
   
   const users = useSelector((state) => state.userLogin)
+  console.log(users, "aca users")
  
   
   return (
@@ -24,9 +25,18 @@ export default function SideBar() {
           <div className=" flex flex-col h-[430px] justify-between">
             <nav>
               <ul>
+              <li>
+                  <Link
+                    to={`/profilec/${users.id}`}
+                    className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                  >
+                    <RiFolderUserLine />
+                    Mi Perfil
+                  </Link>
+                </li>
                 <li>
                   <Link
-                    to={`/comun/${users.id}`}
+                    to={`/profile/${users.id}`}
                     className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                   >
                     <RiFolderUserLine />
@@ -38,7 +48,7 @@ export default function SideBar() {
             <div className="flex flex-col gap-4">
               <img src={logo} alt="image" />
               <Link
-                to="#"
+                to="/"
                 className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
               >
                 <RiLogoutBoxLine />
