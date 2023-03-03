@@ -17,7 +17,7 @@ function ProfesionalPage() {
     dispatch(getAllProfesionales(configFilterUser));
   }, []);
 
-  console.log(usersProfesionales)
+  console.log(usersProfesionales);
 
   return (
     <div>
@@ -29,7 +29,7 @@ function ProfesionalPage() {
         <FilterUser totalPages={usersProfesionales.totalPages} />
       </div>
 
-      <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      <div class="pt-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
         {usersProfesionales.result ? (
           <Professionals usersProfesionales={usersProfesionales.result} />
         ) : (

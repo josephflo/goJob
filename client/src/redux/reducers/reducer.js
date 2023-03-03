@@ -4,6 +4,7 @@ import { ActionTypes } from "../constants/actions-types";
 const initialState = {
   token: "",
   userLogin: {},
+  imagePerfil: "",
   users: [],
   userId: {},
   allUsers: [],
@@ -147,6 +148,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         token: action.payload.token,
         userLogin: action.payload.result,
+        imagePerfil: action.payload.imagePerfil,
       };
     /**************************************** */
     //FILTROS
