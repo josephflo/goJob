@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import { RiFilter3Line, RiUserLocationLine } from "react-icons/ri";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import CardPostulaciones from "./CardPostulaciones";
-import { getUserDetail } from "../../redux/actions/userActions";
 import SinPostulaciones from "./SinPostulaciones";
+import { getMyPostulaciones } from "../../redux/actions/professionalActions";
 
 export default function Postulaciones() {
  
     const dispatch = useDispatch();
+    
 
-    const applications = useSelector((state) => state.userLogin);
+    const applications = useSelector((state) => state.mypostulaciones);
    
 
     useEffect(() => {
-        dispatch(getUserDetail());
+        dispatch(getMyPostulaciones());
       }, []);
 
      
@@ -24,7 +24,7 @@ export default function Postulaciones() {
       <SideBar />
       <div className="col-span-5">
         <div className="p-4 bg-gray-100 ">
-          <div className="grid grid-cols-4 gap-4 items-center mb-4">
+        {/*   <div className="grid grid-cols-4 gap-4 items-center mb-4">
             <div >
               <label className=" text-black ">
                 Orden
@@ -53,10 +53,10 @@ export default function Postulaciones() {
                 Borrar filtros
               </button>
             </div>
-          </div>
-          <div className=""> 
-            {applications?.postulaciones?.length > 0 ?
-            applications?.postulaciones.map((e) => 
+          </div> */}
+          <div> 
+            {applications?.length > 0 ?
+            applications?.map((e) => 
             <CardPostulaciones
             key={e.id}
             tittle={e.tittle} 

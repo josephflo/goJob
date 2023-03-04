@@ -14,3 +14,34 @@ export const getProfessionalById = (id) => {
     });
   };
 };
+
+export const getMyTrabajos = ()  => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/services/MyTrabajos`);
+    return dispatch({
+      type: ActionTypes.MY_TRABAJOS,
+      payload: result.data.result,
+    });
+  };
+};
+
+export const getMyServices = ()  => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/services/MyServices`);
+    return dispatch({
+      type: ActionTypes.MY_SERVICES,
+      payload: result.data.result,
+    });
+  };
+};
+
+export const getMyPostulaciones = ()  => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/services/Postulaciones`);  
+    return dispatch({
+      type: ActionTypes.MY_POSTULACIONES,
+      payload: result.data.result,
+    });
+  };
+};
+
