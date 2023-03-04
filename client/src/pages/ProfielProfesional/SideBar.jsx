@@ -38,7 +38,7 @@ export default function SideBar() {
               </li>
               <li>
                 <Link
-                  to={`/profilep/jobs`}
+                  to={`/profilep/jobs/${users.id}`}
                   className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                 >
                   <BsTools />
@@ -47,7 +47,7 @@ export default function SideBar() {
               </li>
               <li>
                 <Link
-                  to={`/profilep/postulaciones`}
+                  to={`/profilep/postulaciones/${users.id}`}
                   className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                 >
                   <FaPaperPlane />

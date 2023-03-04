@@ -20,6 +20,10 @@ const initialState = {
   professionalDetail: {},
   serviceDetail: {},
   dashboardAdmin: {},
+  mytrabajos: {},
+  myservices:{},
+  mypostulaciones:{},
+  
 
   //config para filtros services
   configFilterServices: {
@@ -141,6 +145,22 @@ export default function reducer(state = initialState, action) {
         ...state,
         professionalDetail: action.payload,
       };
+      case ActionTypes.MY_TRABAJOS:
+      return {
+        ...state,
+        mytrabajos: action.payload,
+      };
+      case ActionTypes.MY_SERVICES:
+      return {
+        ...state,
+        myservices: action.payload,
+      };
+      case ActionTypes.MY_POSTULACIONES:
+        return {
+          ...state,
+          mypostulaciones: action.payload,
+        };
+  
 
     /**************************************** */
     //SERVICE BY ID

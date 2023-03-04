@@ -189,10 +189,10 @@ function App() {
 
                   {/* ProfileProfessional ***********************************************/}
                   <Route exact path="/profilep/:id" element={<OffersPageP />} />
-                  <Route exact path="/profilep/jobs" element={<Jobs />} />
+                  <Route exact path="/profilep/jobs/:id" element={<Jobs />} />
                   <Route
                     exact
-                    path="/profilep/postulaciones"
+                    path="/profilep/postulaciones/:id"
                     element={<Postulaciones />}
                   />
 

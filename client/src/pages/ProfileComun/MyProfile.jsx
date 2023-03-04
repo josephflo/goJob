@@ -11,7 +11,8 @@ export default function MyProfile() {
   const { id } = params;
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.userLogin);
+  const user = useSelector((state) => state.userDetail);
+  
 
 
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function MyProfile() {
               <div className=" bg-gray-100 ">
                 <CardProfile
                 key={user.id}
-                firstName={user.firstname}
+                firstName={user.firstName}
                 lastName={user.lastName}
                 email={user.email}
                 provincia={user.provincia}

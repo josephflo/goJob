@@ -34,13 +34,6 @@ export default function CardJob({
             Estado del Servicio:
           </h2>
           <p className="text-sm">{state}</p>
-        
-
-        
-          <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
-            Postulantes:
-          </h2>
-          <p className="text-sm">{postulantes}</p>
 
           <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
             Presupuesto:

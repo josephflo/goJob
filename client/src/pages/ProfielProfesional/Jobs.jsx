@@ -1,31 +1,28 @@
 import React, { useEffect } from "react";
-import { RiFilter3Line, RiUserLocationLine } from "react-icons/ri";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import CardJob from "./CardJob";
-import { getUserDetail } from "../../redux/actions/userActions";
 import SinJobs from "./SinJobs";
+import { getMyTrabajos } from "../../redux/actions/professionalActions";
 
 export default function Jobs() {
   
     const dispatch = useDispatch();
-
-    const jobs = useSelector((state) => state.userLogin);
+  
+    const jobs = useSelector((state) => state.mytrabajos);
     
-
     useEffect(() => {
-      dispatch(getUserDetail());
+      dispatch(getMyTrabajos());
       }, []);
 
-      
-
+  
    
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
       <SideBar/>
       <div className="col-span-5">
         <div className="p-4 bg-gray-100 ">
-          <div className="grid grid-cols-6 gap-4 items-center mb-4">
+       {/*    <div className="grid grid-cols-6 gap-4 items-center mb-4">
           
             <div>
               <label className=" text-black ">
@@ -68,12 +65,12 @@ export default function Jobs() {
                 Borrar filtros
               </button>
             </div>
-          </div>
-          <div className="flex items-center justify-between mb-8">
+          </div> */}
+          <div >
           
-          {jobs?.myTrabajos?.length > 0 
+          {jobs?.length > 0 
           ?
-            jobs?.myTrabajos.map((e) => 
+            jobs?.map((e) => 
             <CardJob
             key={e.id}
             tittle={e.tittle} 
