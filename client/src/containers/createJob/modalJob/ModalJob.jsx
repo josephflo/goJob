@@ -12,21 +12,25 @@ export default function ModalJob({ setModal }) {
     <>
       {jobById.name ? (
         <>
-          <h1 className="mt-6 text-3xl font-extrabold text-blue-900">
+          <h1 className=" text-xl font-extrabold text-blue-900 lg:text-3xl">
             Description
+            <hr></hr>
           </h1>
-          <h1>
-            {jobById.name}: {jobById.description}
-          </h1>
-          <button
-            onClick={() => {
-              setModal(true);
-              dispatch(cleanJobById());
-            }}
-            class="bg-green-500 w-40 m-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >
-            Return
-          </button>
+
+          <div className="gap-4 bg-blue-100 rounded-xl p-4">
+            <h1 className="text-xs lg:text-sm">
+              {jobById.name}: {jobById.description}
+            </h1>
+            <button
+              onClick={() => {
+                setModal(true);
+                dispatch(cleanJobById());
+              }}
+              class="bg-green-500 w-20 mt-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-xs lg:text-sm"
+            >
+              Return
+            </button>
+          </div>
         </>
       ) : (
         <>
