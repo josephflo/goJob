@@ -12,15 +12,16 @@ const NavBarPortada = () => {
 
   const [open, setOpen] = useState(false);
   return (
-
     <nav class="bg-white">
       <div class="flex items-center font-medium justify-around">
         <div class="z-50 p-3 md:w-auto w-full flex justify-between md:p-7 lg:p-7">
-
           <Link to="/">
             <img src={GoJobLogo} alt="logo" className="md:cursor-pointer h-9" />
           </Link>
-          <div className="text-3xl px-2 md:hidden" onClick={() => setOpen(!open)}>
+          <div
+            className="text-3xl px-2 md:hidden"
+            onClick={() => setOpen(!open)}
+          >
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
         </div>
@@ -38,32 +39,31 @@ const NavBarPortada = () => {
           </li>
 
           {isAuthenticated ? (
-            <li>
-              <Link to="/Dashboard" class="py-4 px-3 inline-block">
-                Dashboard
-              </Link>
-            </li>
+            users.role === "admin" ? (
+              <li>
+                <Link to="/Dashboard" class="py-4 px-3 inline-block">
+                  Dashboard
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )
           ) : (
             <></>
           )}
           {isAuthenticated ? (
-            <li>
-              <Link to="/create/service" class="py-4 px-3 inline-block">
-                Crear Servicio
-              </Link>
-            </li>
+            users.role === "admin" ? (
+              <></>
+            ) : (
+              <li>
+                <Link to="/create/service" class="py-4 px-3 inline-block">
+                  Crear Servicio
+                </Link>
+              </li>
+            )
           ) : (
             <></>
           )}
-
-          {/* <li>
-            <Link to="/user/register" className="py-4 px-3 inline-block">
-              Crear User
-            </Link>
-          </li> */}
-
-          {/* </ul>
-        <ul> */}
           {users.role === "comun" ? (
             <Link to={`/profilec/${users.id}`} class="py-4 px-3 inline-block">
               Mi Perfil
@@ -72,6 +72,8 @@ const NavBarPortada = () => {
             <Link to={`/profilep/${users.id}`} class="py-4 px-3 inline-block">
               Mi Perfil
             </Link>
+          ) : users.role === "admin" ? (
+            <></>
           ) : (
             <LoginButtons />
           )}
@@ -91,7 +93,7 @@ const NavBarPortada = () => {
         {/* <Button /> */}
         {/* </div> */}
 
-        {/* Mobile nav */}
+        {/********************** Mobile nav **********************/}
 
         <ul
           className={`md:hidden bg-white fixed w-full top-0 overflow-y-auto bottom-0 py-24 pl-4
@@ -125,11 +127,17 @@ const NavBarPortada = () => {
           </li> */}
           <li>
             {users.role === "comun" ? (
-              <Link to={`/profilec/${users.id}`} className="py-7 px-2 inline-block">
+              <Link
+                to={`/profilec/${users.id}`}
+                className="py-7 px-2 inline-block"
+              >
                 Mi Perfil
               </Link>
             ) : users.role === "professional" ? (
-              <Link to={`/profilep/${users.id}`} className="py-7 px-2 inline-block">
+              <Link
+                to={`/profilep/${users.id}`}
+                className="py-7 px-2 inline-block"
+              >
                 Mi Perfil
               </Link>
             ) : (

@@ -13,12 +13,13 @@ const initialState = {
   allJobs: [],
   jobById: {},
   service: {},
+  totalPages: 1,
   servicesDashboard: [],
   filterService: [],
   userDetail: {},
   professionalDetail: {},
   serviceDetail: {},
-  dashboardAdmin:{}, 
+  dashboardAdmin: {},
 
   //config para filtros services
   configFilterServices: {
@@ -87,6 +88,12 @@ export default function reducer(state = initialState, action) {
         userId: action.payload,
       };
     case ActionTypes.GET_SERVICE:
+      return {
+        ...state,
+        service: action.payload,
+        totalPages: action.payload.totalPages,
+      };
+    case ActionTypes.CLEAN_ALL_SERVICES:
       return {
         ...state,
         service: action.payload,
@@ -164,13 +171,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         configFilterUser: action.payload,
       };
-     /*****************************************/
+    /*****************************************/
     //Addmin dashboard Content
-      case ActionTypes.GET_DASHBOARD_CONTENT:
-        return {
-          ...state,
-          dashboardAdmin: action.payload,
-        };
+    case ActionTypes.GET_DASHBOARD_CONTENT:
+      return {
+        ...state,
+        dashboardAdmin: action.payload,
+      };
     default:
       return state;
   }

@@ -39,16 +39,16 @@ function FormCreateService() {
       direccion: "",
       presupuesto: "",
       jobs: [1],
+      inputImage: "",
     },
     validationSchema: FormCreateServiceSchema,
     onSubmit: (values, { resetForm }) => {
       dispatch(createService(values));
+      console.log(values);
       window.alert("Se creó con exito el servicio");
       resetForm();
     },
   });
-
-  console.log(isValid);
 
   let handleOptionFilter = (event) => {
     let propiedadFilter =
@@ -73,6 +73,14 @@ function FormCreateService() {
     }
     setValues(newConfig);
     // setInput_2(newConfig);
+  };
+
+  const changeInputImage = (e) => {
+    const value = e.target.files;
+    setValues({
+      ...values,
+      inputImage: value[0],
+    });
   };
 
   useEffect(() => {}, [values]);
@@ -237,7 +245,9 @@ function FormCreateService() {
                 <p className="text-red-500 text-xs">{errors.presupuesto}</p>
               ) : null}
               <div>
-                <label>Jobs: </label>
+                <label className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700">
+                  Jobs:{" "}
+                </label>
                 <div className="relative w-full mb-15">
                   <select
                     value={values.jobs[0]}
@@ -252,6 +262,22 @@ function FormCreateService() {
                       ))}
                   </select>
                 </div>
+              </div>
+
+              <div>
+                <label
+                  className="block text-sm mb-2 font-medium mt-2 lg:mt-0 text-gray-700"
+                  for="file_input"
+                >
+                  Ingrese imagen del servicio (opcional):
+                </label>
+                <input
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  id="file_input"
+                  type="file"
+                  name="file"
+                  onChange={changeInputImage}
+                />
               </div>
 
               <div></div>

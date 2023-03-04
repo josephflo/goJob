@@ -12,6 +12,7 @@ import Services from "./services/Services";
 
 function ServicesPage() {
   const service = useSelector((state) => state.service);
+  const totalPages = useSelector((state) => state.totalPages);
   let configFilterServices = useSelector((state) => state.configFilterServices);
   const dispatch = useDispatch();
 
@@ -41,7 +42,7 @@ function ServicesPage() {
 
           <div className=" ">
             {" "}
-            <Filter totalPages={service.totalPages} />{" "}
+            <Filter totalPages={totalPages} />{" "}
           </div>
         </div>
 
