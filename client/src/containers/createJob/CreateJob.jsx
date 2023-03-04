@@ -113,7 +113,7 @@ export default function CreateJob() {
                 <button
                   type="submit"
                   name="btn"
-                  class="bg-green-500 m-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-green-500 m-3 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Add
                 </button>
@@ -121,7 +121,7 @@ export default function CreateJob() {
             ) : (
               <div className="p-3">
                 <button
-                  class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
                   type="submit"
                   name="btn"
                 >
@@ -132,7 +132,7 @@ export default function CreateJob() {
                     setModal(false);
                   }}
                   name="btn"
-                  class="bg-red-500 ml-3 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-red-500 ml-3 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Cancel
                 </button>
@@ -148,10 +148,10 @@ export default function CreateJob() {
         <table className="w-full text-sm text-left text-black-500 dark:text-gray-400 mb-4">
           <thead>
             <tr>
-              <th scope="col" class="px-6 py-3">
+              <th scope="col" className="px-6 py-3">
                 Job (click text for more)
               </th>
-              <th scope="col" class="px-6 py-3 mx-auto">
+              <th scope="col" className="px-6 py-3 mx-auto">
                 Actions
               </th>
             </tr>
@@ -174,9 +174,9 @@ export default function CreateJob() {
           </>
         )}
 
-        <div class="mt-3">
+        <div className="mt-3">
           <NavLink to="/dashboard/jobs">
-            <button class="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-grey-700 font-semibold">
+            <button className="border-2 border-indigo-700 bg-indigo-700 text-white py-1 w-full rounded-md hover:bg-transparent hover:text-grey-700 font-semibold">
               Volver
             </button>
           </NavLink>

@@ -251,7 +251,7 @@ export default function Register() {
               </div>
             </div>
 
-            <div class="mt-3">
+            <div className="mt-3">
               <button
                 type="submit"
                 name="btn"
@@ -261,9 +261,9 @@ export default function Register() {
               </button>
             </div>
           </form>
-          <div class="mt-3">
+          <div className="mt-3">
             <NavLink to="/">
-              <button class="mt-3 w-full py-3 bg-red-900 text-white ">
+              <button className="mt-3 w-full py-3 bg-red-900 text-white ">
                 Volver
               </button>
             </NavLink>

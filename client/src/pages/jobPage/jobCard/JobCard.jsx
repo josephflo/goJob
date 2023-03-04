@@ -33,7 +33,7 @@ function JobCard({ id, name }) {
     <div className="p-4">
       <Link onClick={() => modifyStateFilter(id)} to={"/professional"}>
         <button
-          class="relative w-36 h-36 bg-blue-50 rounded-full flex justify-center items-center text-center p-5 shadow-xl transform 
+          className="relative w-36 h-36 bg-blue-50 rounded-full flex justify-center items-center text-center p-5 shadow-xl transform 
           transition duration-500 hover:bg-blue-100 hover:scale-105"
           onClick={handleJob}
         >

@@ -25,53 +25,53 @@ export default function DetailUser({ id }) {
 
   return (
     <>
-      <div class="p-3 sticky top-0 z-50 bg-white ">
+      <div className="p-3 sticky top-0 z-50 bg-white ">
         <Navbar />
       </div>
-      <div class="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
-        <div class="col-span-2">
-          <div class="border-2 rounded flex m-3 p-4 bg-white">
+      <div className="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
+        <div className="col-span-2">
+          <div className="border-2 rounded flex m-3 p-4 bg-white">
             <div>
-              <img src={detail.image} alt="" class="p-2" />
+              <img src={detail.image} alt="" className="p-2" />
             </div>
-            <div class="flex flex-col justify-between p-5">
-              <p class="px-3">
+            <div className="flex flex-col justify-between p-5">
+              <p className="px-3">
                 {" "}
                 {detail.firstName} {detail.lastName}{" "}
-                <i class="fa-regular fa-square-check"></i>
+                <i className="fa-regular fa-square-check"></i>
               </p>
               <p>
                 {" "}
-                <i class="fa-solid fa-user px-3"></i>
+                <i className="fa-solid fa-user px-3"></i>
                 {detail.job}
               </p>
               <p>
                 {" "}
-                <i class="fa-solid fa-wrench px-3"></i>
+                <i className="fa-solid fa-wrench px-3"></i>
                 {detail.specificJob}
               </p>
               <p>
                 {" "}
-                <i class="fa-solid fa-medal px-3"></i>
+                <i className="fa-solid fa-medal px-3"></i>
                 {detail.numberJobs} Trabajos
               </p>
             </div>
           </div>
-          <div class="border-2 rounded  m-3 p-4 bg-white">
-            <h2 class="font-medium pb-3">Acerca del profesional</h2>
+          <div className="border-2 rounded  m-3 p-4 bg-white">
+            <h2 className="font-medium pb-3">Acerca del profesional</h2>
             <p>{detail.description}</p>
           </div>
-          <div class="border-2 rounded flex items-center m-3 bg-white">
-            <div class="w-[35%] ">
-              <p class="text-6xl text-center font-medium text-gray-900 dark:text-white ">
+          <div className="border-2 rounded flex items-center m-3 bg-white">
+            <div className="w-[35%] ">
+              <p className="text-6xl text-center font-medium text-gray-900 dark:text-white ">
                 {arr2[5]}
               </p>
 
-              <div class="flex justify-center m-3 ">
+              <div className="flex justify-center m-3 ">
                 {items1.map((_, index) => (
                   <svg
                     aria-hidden="true"
-                    class="w-5 h-5 text-yellow-400"
+                    className="w-5 h-5 text-yellow-400"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +82,7 @@ export default function DetailUser({ id }) {
                 {items2.map((_, index) => (
                   <svg
                     aria-hidden="true"
-                    class="w-5 h-5 text-gray-300 dark:text-gray-500"
+                    className="w-5 h-5 text-gray-300 dark:text-gray-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -91,84 +91,84 @@ export default function DetailUser({ id }) {
                   </svg>
                 ))}
               </div>
-              <p class="text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+              <p className="text-center text-sm font-medium text-gray-500 dark:text-gray-400">
                 {detail.ratings.length} valoraciones
               </p>
             </div>
-            <div class="w-[65%]  ">
-              <div class="flex justify-center mt-4 ">
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+            <div className="w-[65%]  ">
+              <div className="flex justify-center mt-4 ">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   5 estrellas
                 </span>
-                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                   <div
-                    class={`h-5 bg-yellow-400 rounded `}
+                    className={`h-5 bg-yellow-400 rounded `}
                     style={{ width: `${arr2[4]}%` }}
                   />
                 </div>
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   ({arr[4]})
                 </span>
               </div>
-              <div class="flex justify-center mt-4">
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+              <div className="flex justify-center mt-4">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   4 estrellas
                 </span>
-                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                   <div
-                    class={`h-5 bg-yellow-400 rounded `}
+                    className={`h-5 bg-yellow-400 rounded `}
                     style={{ width: `${arr2[3]}%` }}
                   />
                 </div>
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   ({arr[3]})
                 </span>
               </div>
-              <div class="flex justify-center mt-4">
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+              <div className="flex justify-center mt-4">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   3 estrellas
                 </span>
-                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                   <div
-                    class={`h-5 bg-yellow-400 rounded `}
+                    className={`h-5 bg-yellow-400 rounded `}
                     style={{ width: `${arr2[2]}%` }}
                   />
                 </div>
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   ({arr[2]})
                 </span>
               </div>
-              <div class="flex justify-center mt-4">
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+              <div className="flex justify-center mt-4">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   2 estrellas
                 </span>
-                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                   <div
-                    class={`h-5 bg-yellow-400 rounded `}
+                    className={`h-5 bg-yellow-400 rounded `}
                     style={{ width: `${arr2[1]}%` }}
                   />
                 </div>
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   ({arr[1]})
                 </span>
               </div>
-              <div class="flex justify-center mt-4">
-                <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+              <div className="flex justify-center mt-4">
+                <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
                   1 estrellas
                 </span>
-                <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+                <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
                   <div
-                    class={`h-5 bg-yellow-400 rounded `}
+                    className={`h-5 bg-yellow-400 rounded `}
                     style={{ width: `${arr2[0]}%` }}
                   />
                 </div>
-                <span class="text-sm font-medium pb-4 text-gray-500 dark:text-blue-500">
+                <span className="text-sm font-medium pb-4 text-gray-500 dark:text-blue-500">
                   ({arr[0]})
                 </span>
               </div>
             </div>
           </div>
-          <div class="border-2 rounded m-3 p-4 bg-white">
+          <div className="border-2 rounded m-3 p-4 bg-white">
             <h1 className="text-2xl pb-4 font-semibold">
               Opiniones de nuestros usuarios
             </h1>
@@ -179,8 +179,8 @@ export default function DetailUser({ id }) {
                     <img src={rev.image} className=" h-32" alt="" />
                   </div>
                   <div className="col-span-3">
-                    <p class="text-2xl font-medium">{rev.name}</p>
-                    <p class="text-base font-medium text-gray-500 ">
+                    <p className="text-2xl font-medium">{rev.name}</p>
+                    <p className="text-base font-medium text-gray-500 ">
                       {rev.date}
                     </p>
                     <p className=" pt-2 font-medium">{rev.review}</p>
@@ -190,22 +190,22 @@ export default function DetailUser({ id }) {
             </ul>
           </div>
         </div>
-        <div class="col-span-1">
-          <div class="border-2 rounded-xl m-3 bg-white pb-4">
-            <div class="flex grid grid-cols-2 bg-gradient-to-b from-indigo-500 rounded pt-4">
-              <img src={detail.image} alt="" class=" rounded-full scale-75" />
-              <div class="col-span-1 ">
-                <p class="p-2 text-center text-amber-400">
+        <div className="col-span-1">
+          <div className="border-2 rounded-xl m-3 bg-white pb-4">
+            <div className="flex grid grid-cols-2 bg-gradient-to-b from-indigo-500 rounded pt-4">
+              <img src={detail.image} alt="" className=" rounded-full scale-75" />
+              <div className="col-span-1 ">
+                <p className="p-2 text-center text-amber-400">
                   {" "}
                   {detail.firstName} {detail.lastName}{" "}
                 </p>
-                <p class="text-center text-sm">{detail.specificJob2}</p>
+                <p className="text-center text-sm">{detail.specificJob2}</p>
               </div>
             </div>
-            <div class="flex justify-center p-3">
+            <div className="flex justify-center p-3">
               <svg
                 aria-hidden="true"
-                class="w-10 h-10 text-yellow-400"
+                className="w-10 h-10 text-yellow-400"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -215,22 +215,22 @@ export default function DetailUser({ id }) {
               <h1 className="text-3xl px-4 ">{arr2[5]} </h1>
               <h1 className="">
                 {" "}
-                <span class="text-3xl pl-4"> {detail.price}</span> USD
+                <span className="text-3xl pl-4"> {detail.price}</span> USD
               </h1>
             </div>
-            <div class="flex justify-center p-2">
-              <button class="bg-blue-500 w-[80%] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                <i class="fa-solid fa-bolt"></i> Reserva dia de trabajo
+            <div className="flex justify-center p-2">
+              <button className="bg-blue-500 w-[80%] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                <i className="fa-solid fa-bolt"></i> Reserva dia de trabajo
               </button>
             </div>
-            <div class="flex justify-center p-2">
-              <button class="bg-transparent w-[80%] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                <i class="fa-regular fa-envelope"></i> Enviar mensaje
+            <div className="flex justify-center p-2">
+              <button className="bg-transparent w-[80%] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                <i className="fa-regular fa-envelope"></i> Enviar mensaje
               </button>
             </div>
-            <div class="flex justify-center p-2 ">
-              <button class="bg-transparent w-[80%] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-                <i class="fa-regular fa-heart"></i> Guardar en mi lista
+            <div className="flex justify-center p-2 ">
+              <button className="bg-transparent w-[80%] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+                <i className="fa-regular fa-heart"></i> Guardar en mi lista
               </button>
             </div>
           </div>

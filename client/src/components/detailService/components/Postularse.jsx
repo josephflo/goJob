@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 export default function Postularse({imageurl, firstName, lastName}) {
   return (
     <>
-      <div class="border-2 rounded-xl m-3 bg-white pb-4">
-        <div class="flex grid grid-cols-2 bg-gradient-to-b from-indigo-500 rounded pt-4">
-          <img src={imageurl} alt="" class=" rounded-full scale-75" />
-          <div class="col-span-1 ">
-            <p class="p-2 text-center text-amber-400">
+      <div className="border-2 rounded-xl m-3 bg-white pb-4">
+        <div className="flex grid grid-cols-2 bg-gradient-to-b from-indigo-500 rounded pt-4">
+          <img src={imageurl} alt="" className=" rounded-full scale-75" />
+          <div className="col-span-1 ">
+            <p className="p-2 text-center text-amber-400">
               {firstName} {lastName}
             </p>
           </div>
         </div>
-        <div class="flex justify-center p-3">
+        <div className="flex justify-center p-3">
           <svg
             aria-hidden="true"
-            class="w-10 h-10 text-yellow-400"
+            className="w-10 h-10 text-yellow-400"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -24,21 +24,21 @@ export default function Postularse({imageurl, firstName, lastName}) {
           </svg>
          
         </div>
-        <div class="flex justify-center p-2">
-          <button class="bg-blue-500 w-[80%] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+        <div className="flex justify-center p-2">
+          <button className="bg-blue-500 w-[80%] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
              Postularme
           </button>
         </div>
        
-        <div class="flex justify-center p-2 ">
-          <button class="bg-transparent w-[80%] hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            <i class="fa-regular fa-heart"></i> Guardar en mi lista
+        <div className="flex justify-center p-2 ">
+          <button className="bg-transparent w-[80%] hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <i className="fa-regular fa-heart"></i> Guardar en mi lista
           </button>
         </div>
-        <div class="flex justify-center text-center p-2">
+        <div className="flex justify-center text-center p-2">
           <Link
             to="/service"
-            class="bg-transparent w-[80%] hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            className="bg-transparent w-[80%] hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           >
             <button>Volver</button>
           </Link>

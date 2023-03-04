@@ -8,56 +8,15 @@ import { getService } from "../../../redux/actions/serviceActions";
 import { getAllServices } from "../../../redux/actions/services/getServices";
 import { useAuth0 } from "@auth0/auth0-react";
 
-  function DashboardContent({servicesDashboard, users}) {
-
-  let lastServices = servicesDashboard[servicesDashboard.length-1]
-  let jobs
-  jobs = lastServices.Jobs? lastServices.Jobs.map((efe)=>efe.name):[]
-
-  const totalPresupuesto = servicesDashboard?.reduce((acumulado, trabajo) => {
-    if (trabajo.state === "terminado") {
-      return acumulado + parseInt(trabajo.presupuesto);
-    } else {
-      return acumulado;
-    }
-  }, 0);
- 
-// Obtener fecha actual
-const fechaActual = new Date();
-
-// Obtener último mes actual
-const ultimoMesActual = fechaActual.getMonth()+1;
-
-// Filtrar servicios del último mes actual
-const serviciosUltimoMesActual = servicesDashboard?.filter(servicio => {
-  const fechaPublicacion = new Date(servicio.fecha_publicacion);
-  return fechaPublicacion.getMonth() === ultimoMesActual-1;
-});
-
-const hoy = new Date(); // fecha actual
-const mesActual = hoy.getMonth() + 1; // obtenemos el número del mes actual
-
-const totalPresupuestoMes = servicesDashboard
-  .filter(trabajo => {
-    const fechaPublicacion = new Date(trabajo.fecha_publicacion);
-    const mesPublicacion = fechaPublicacion.getMonth() + 1;
-    return trabajo.state === "terminado" && mesPublicacion === mesActual;
-  })
-  .reduce((acumulado, trabajo) => {
-    return acumulado + parseInt(trabajo.presupuesto); 
-  }, 0);
-
-  const ultUser = users.slice(-1)
-  const penUltUser = users.slice(-2,-1)
-
-  console.log(ultUser[0].imagePerfil)
+  function DashboardContent({servicesDashboard}) {
   
+ 
     return (
       <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
         <SideBar/> 
 
      
-        {servicesDashboard.length && users.length && 
+        { servicesDashboard.ultimosPagos.length  &&
         <div className="lg:col-span-3 xl:col-span-5 p-8 h-[100vh] overflow-y-scroll">          
           <Header/> 
             
@@ -70,16 +29,16 @@ const totalPresupuestoMes = servicesDashboard
             <div className="bg-blue-600 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
               <RiLineChartLine className="text-5xl" />
               <h4 className="text-2xl">Ganancias totales</h4>
-              <span className="text-5xl text-white">{"$" + " " + totalPresupuesto}</span>
+              <span className="text-5xl text-white">{servicesDashboard.serviciosGananciasTodo}</span>
               <span className="py-1 px-3 bg-blue-900 rounded-full">
-               {"+ " + totalPresupuestoMes + " este mes"}
+               {"+ " + servicesDashboard.gananciasEsteMes + " este mes"}
               </span>
             </div>
             {/* Card 2 */}
             <div className="p-4 bg-white rounded-xl flex flex-col justify-between gap-4 drop-shadow-2xl">
               <div className="flex items-center gap-4 bg-blue-100 rounded-xl p-4">
                 <span className="bg-blue-600 text-white text-2xl font-bold p-4 rounded-xl">
-                  {users.length}
+                  {servicesDashboard.userTotal}
                 </span>
                 <div>
                   <h3 className="font-bold">Usuarios</h3>
@@ -89,11 +48,11 @@ const totalPresupuestoMes = servicesDashboard
               <div className="bg-blue-100 rounded-xl p-4">
                 <div className="flex items-center gap-4 mb-4">
                   <span className="bg-blue-600 text-white text-2xl font-bold p-4 rounded-xl">
-                    {servicesDashboard.length}
+                    {servicesDashboard.serviciosEsteMesCount}
                   </span>
                   <div>
                     <h3 className="font-bold">Servicios</h3>
-                    <p className="text-gray-500">{serviciosUltimoMesActual.length+" este mes"}</p>
+                    <p className="text-gray-500">{servicesDashboard.serviciosEsteMesCount+" este mes"}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2 text-gray-500 text-sm">
@@ -112,22 +71,22 @@ const totalPresupuestoMes = servicesDashboard
               <div className="bg-white p-8 rounded-xl shadow-2xl">
                 <div className="flex items-center gap-4 mb-8">
                   <img
-                    src={ultUser[0].imagePerfil}
+                    src={servicesDashboard.ultimoUser[0].imagePerfil}
                     className="w-14 h-14 object-cover rounded-full"
                   />
                   <div>
-                    <h3 className="font-bold">{ultUser[0].firstName}</h3>
-                    <p className="text-gray-500">{ultUser[0].role}</p>
+                    <h3 className="font-bold">{servicesDashboard.ultimoUser[0].firstName}</h3>
+                    <p className="text-gray-500">{servicesDashboard.ultimoUser[0].role}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mb-4">
                   <img
-                    src={penUltUser[0].imagePerfil}
+                    src={servicesDashboard.ultimoUser[1].imagePerfil}
                     className="w-14 h-14 object-cover rounded-full"
                   />
                   <div>
-                    <h3 className="font-bold">{penUltUser[0].firstName}</h3>
-                    <p className="text-gray-500">{penUltUser[0].role}</p>
+                    <h3 className="font-bold">{servicesDashboard.ultimoUser[1].firstName}</h3>
+                    <p className="text-gray-500">{servicesDashboard.ultimoUser[1].role}</p>
                   </div>
                 </div>
                 <div className="flex justify-end">
@@ -214,7 +173,7 @@ const totalPresupuestoMes = servicesDashboard
                       className="w-14 h-14 object-cover rounded-full"
                     />
                     <div>
-                      <h3 className="font-bold">{lastServices.userId.firstName+" "+lastServices.userId.lastName}</h3>
+                      <h3 className="font-bold">{servicesDashboard.ultimoService.userId.firstName+" "+servicesDashboard.ultimoService.userId.lastName}</h3>
                       <p className="text-gray-500">{}</p>
                     </div>
                   </div>
@@ -226,23 +185,23 @@ const totalPresupuestoMes = servicesDashboard
                 </div>
                 <div>
                   <h5 className="text-lg font-bold">
-                    {lastServices.tittle}
+                    {servicesDashboard.ultimoService.tittle}
                   </h5>
                   <p className="text-gray-500">
-                    {lastServices.description}
+                    {servicesDashboard.ultimoService.description}
                   </p>
                 </div>
                 <div className="bg-primary-100/10 flex flex-col md:flex-row items-center justify-between gap-4 py-8 px-4 rounded-lg">
                   <div>
                     <sup className="text-sm text-gray-500">$</sup>{" "}
-                    <span className="text-2xl font-bold mr-2">{lastServices.presupuesto}</span>
+                    <span className="text-2xl font-bold mr-2">{servicesDashboard.ultimoService.presupuesto}</span>
                   </div>
                   <div>
-                    {jobs.length? jobs.map((job)=>
-                      <span className="border border-primary-100 text-primary-100 py-2 px-4 rounded-full">
+                    {/* {servicesDashboard.Jobs.length? servicesDashboard.Jobs.map((job, index)=>
+                      <span key={index} className="border border-primary-100 text-primary-100 py-2 px-4 rounded-full">
                       {job}
                       </span>
-                    ):""}
+                    ):""} */}
                    
                   </div>
                 </div>

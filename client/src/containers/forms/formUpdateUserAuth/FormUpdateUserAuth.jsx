@@ -57,7 +57,7 @@ function FormUpdateUserAuth() {
       <div className="text-center lg:text-left">
         <h2 className=" text-4xl font-extrabold text-blue-900">Profesional</h2>
       </div>
-      <div class="min-height-full flex">
+      <div className="min-height-full flex">
         <Jobs
           jobs={jobs_}
           handleJob={handleJob}

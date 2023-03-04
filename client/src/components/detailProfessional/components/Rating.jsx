@@ -1,16 +1,16 @@
 export default function Rating({ array, arr2, arr, items1, items2 }) {
   return (
     <>
-      <div class="w-[35%] ">
-        <p class="text-6xl text-center font-medium text-gray-900 dark:text-white ">
+      <div className="w-[35%] ">
+        <p className="text-6xl text-center font-medium text-gray-900 dark:text-white ">
           {arr2[5]}
         </p>
 
-        <div class="flex justify-center m-3 ">
+        <div className="flex justify-center m-3 ">
           {items1.map((_, index) => (
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-yellow-400"
+              className="w-5 h-5 text-yellow-400"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -21,7 +21,7 @@ export default function Rating({ array, arr2, arr, items1, items2 }) {
           {items2.map((_, index) => (
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-gray-300 dark:text-gray-500"
+              className="w-5 h-5 text-gray-300 dark:text-gray-500"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -30,78 +30,78 @@ export default function Rating({ array, arr2, arr, items1, items2 }) {
             </svg>
           ))}
         </div>
-        <p class="text-center text-sm font-medium text-gray-500 dark:text-gray-400">
+        <p className="text-center text-sm font-medium text-gray-500 dark:text-gray-400">
           {array.length} valoraciones
         </p>
       </div>
-      <div class="w-[65%]  ">
-        <div class="flex justify-center mt-4 ">
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+      <div className="w-[65%]  ">
+        <div className="flex justify-center mt-4 ">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             5 estrellas
           </span>
-          <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              class={`h-5 bg-yellow-400 rounded `}
+              className={`h-5 bg-yellow-400 rounded `}
               style={{ width: `${arr2[4]}%` }}
             />
           </div>
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             ({arr[4]})
           </span>
         </div>
-        <div class="flex justify-center mt-4">
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+        <div className="flex justify-center mt-4">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             4 estrellas
           </span>
-          <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              class={`h-5 bg-yellow-400 rounded `}
+              className={`h-5 bg-yellow-400 rounded `}
               style={{ width: `${arr2[3]}%` }}
             />
           </div>
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             ({arr[3]})
           </span>
         </div>
-        <div class="flex justify-center mt-4">
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+        <div className="flex justify-center mt-4">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             3 estrellas
           </span>
-          <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              class={`h-5 bg-yellow-400 rounded `}
+              className={`h-5 bg-yellow-400 rounded `}
               style={{ width: `${arr2[2]}%` }}
             />
           </div>
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             ({arr[2]})
           </span>
         </div>
-        <div class="flex justify-center mt-4">
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+        <div className="flex justify-center mt-4">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             2 estrellas
           </span>
-          <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              class={`h-5 bg-yellow-400 rounded `}
+              className={`h-5 bg-yellow-400 rounded `}
               style={{ width: `${arr2[1]}%` }}
             />
           </div>
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             ({arr[1]})
           </span>
         </div>
-        <div class="flex justify-center mt-4">
-          <span class="text-sm font-medium text-gray-500 dark:text-blue-500">
+        <div className="flex justify-center mt-4">
+          <span className="text-sm font-medium text-gray-500 dark:text-blue-500">
             1 estrellas
           </span>
-          <div class="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
+          <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
             <div
-              class={`h-5 bg-yellow-400 rounded `}
+              className={`h-5 bg-yellow-400 rounded `}
               style={{ width: `${arr2[0]}%` }}
             />
           </div>
-          <span class="text-sm font-medium pb-4 text-gray-500 dark:text-blue-500">
+          <span className="text-sm font-medium pb-4 text-gray-500 dark:text-blue-500">
             ({arr[0]})
           </span>
         </div>

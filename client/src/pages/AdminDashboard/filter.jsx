@@ -280,8 +280,8 @@ const paginatePrev = (e) => {
         </select>
       </div> */}
       </div>
-      <div class="p-3 bg-gray-100">
-        <div class="flex justify-center">
+      <div className="p-3 bg-gray-100">
+        <div className="flex justify-center">
           <Pagination
             paginatePrev={paginatePrev}
             paginateNext={paginateNext}

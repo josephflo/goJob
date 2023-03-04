@@ -27,7 +27,7 @@ function ServicesPage() {
 
   return (
     <div>
-      <div class="sticky top-0 z-50 bg-white">
+      <div className="sticky top-0 z-50 bg-white">
         <NavBarPortada />
       </div>
       <div className="">
@@ -45,7 +45,7 @@ function ServicesPage() {
           </div>
         </div>
 
-        <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {service.result && service.result.length > 0 ? (
             <Services services={service.result} />
           ) : (

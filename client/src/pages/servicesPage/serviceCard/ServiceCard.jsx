@@ -19,7 +19,7 @@ function ServiceCard({ tittle, id, presupuesto, description, userId }) {
   return (
     <div className="bg-gray-100 p-4">
       <NavLink to={`/service/detail/${id}`}>
-        <div class="h-100 overflow-hidden">
+        <div className="h-100 overflow-hidden">
           <img src={userFormBackground} className="object-fill" alt="" />
         </div>
 
@@ -41,8 +41,8 @@ function ServiceCard({ tittle, id, presupuesto, description, userId }) {
             <p className="h-9 top-9 font-sans not-italic font-normal text-2xl text-black">
               ${presupuesto}
             </p>
-            <div class="flex justify-end ">
-              <button class="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+            <div className="flex justify-end ">
+              <button className="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                 Postular
               </button>
             </div>

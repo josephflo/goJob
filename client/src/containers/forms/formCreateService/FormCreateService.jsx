@@ -79,7 +79,7 @@ function FormCreateService() {
 
   return (
     <div>
-      <div class="sticky top-0 z-50 bg-white ">
+      <div className="sticky top-0 z-50 bg-white ">
         <NavBarPortada />
       </div>
       <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">

@@ -18,6 +18,7 @@ const initialState = {
   userDetail: {},
   professionalDetail: {},
   serviceDetail: {},
+  dashboardAdmin:{}, 
 
   //config para filtros services
   configFilterServices: {
@@ -163,6 +164,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         configFilterUser: action.payload,
       };
+     /*****************************************/
+    //Addmin dashboard Content
+      case ActionTypes.GET_DASHBOARD_CONTENT:
+        return {
+          ...state,
+          dashboardAdmin: action.payload,
+        };
     default:
       return state;
   }

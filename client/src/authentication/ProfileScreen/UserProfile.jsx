@@ -17,17 +17,17 @@ const UserProfile = () => {
 
   return (
     isAuthenticated && (
-      <div class=" w-120 p-10 bg-white rounded-lg mx-auto flex flex-col items-center my-12">
+      <div className=" w-120 p-10 bg-white rounded-lg mx-auto flex flex-col items-center my-12">
         <div className="border flex flex-col items-center">
           <img
-            class="w-1/8 rounded-full h-auto"
+            className="w-1/8 rounded-full h-auto"
             src={user.picture}
             alt={user.name}
           />
-          <h1 class="text-lg font-bold">{user.name}</h1>
+          <h1 className="text-lg font-bold">{user.name}</h1>
           <p>{user.nickname}</p>
           <p>{user.email}</p>
-          <p class="text-xs mt-4">{user.updated_at}</p>
+          <p className="text-xs mt-4">{user.updated_at}</p>
           <p>{user.sub}</p>
         </div>
         {/* <button onClick={handleChangeProfile}>Cuenta Profesional</button> */}
@@ -36,7 +36,7 @@ const UserProfile = () => {
             <FormUpdateUserAuth />
           </div>
         </div>
-        <div class="mt-3">
+        <div className="mt-3">
           <LogoutButtons />
         </div>
         {/* {isProfesional && (

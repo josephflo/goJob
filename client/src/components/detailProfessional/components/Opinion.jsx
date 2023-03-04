@@ -14,8 +14,8 @@ export default function Opinion({ detail }) {
                     <img src={rev.image} className=" h-32" alt="" />
                   </div>
                   <div className="col-span-3">
-                    <p class="text-2xl font-medium">{rev.name}</p>
-                    <p class="text-base font-medium text-gray-500 ">
+                    <p className="text-2xl font-medium">{rev.name}</p>
+                    <p className="text-base font-medium text-gray-500 ">
                       {rev.date}
                     </p>
                     <p className=" pt-2 font-medium">{rev.review}</p>

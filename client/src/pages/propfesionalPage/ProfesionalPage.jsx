@@ -21,7 +21,7 @@ function ProfesionalPage() {
 
   return (
     <div>
-      <div class="sticky top-0 z-50 bg-white ">
+      <div className="sticky top-0 z-50 bg-white ">
         <NavBarPortada />
       </div>
 
@@ -29,7 +29,7 @@ function ProfesionalPage() {
         <FilterUser totalPages={usersProfesionales.totalPages} />
       </div>
 
-      <div class="pt-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
+      <div className="pt-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
         {usersProfesionales.result ? (
           <Professionals usersProfesionales={usersProfesionales.result} />
         ) : (

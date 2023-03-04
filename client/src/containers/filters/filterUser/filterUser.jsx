@@ -153,7 +153,7 @@ function FilterUser({ totalPages }) {
               </form>
 
               {/* Barra de eleccion Jobs */}
-              <div class="relative w-full">
+              <div className="relative w-full">
                 <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700 text-xs md:text-sm lg:text-base">
                   Por profesion
                 </p>
@@ -176,7 +176,7 @@ function FilterUser({ totalPages }) {
               </div>
 
               {/* Barra de eleccion provincia*/}
-              <div class="relative w-full">
+              <div className="relative w-full">
                 <p className="font-sans pt-1 pb-1 not-italic font-medium text-gray-700 text-xs md:text-sm lg:text-base">
                   Por Provincia
                 </p>

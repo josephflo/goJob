@@ -15,7 +15,7 @@ export default function HeaderService( {imageurl, firstName, lastName, direccion
         <h1 className="px-3">
          {firstName} {lastName} <i className="fa-regular fa-square-check "></i>
         </h1>
-        <h2 className="px-3"><i class="fa-sharp fa-solid fa-location-dot"></i> {provincia}, {ciudad}, {direccion} 
+        <h2 className="px-3"><i className="fa-sharp fa-solid fa-location-dot"></i> {provincia}, {ciudad}, {direccion} 
         </h2>
       </div>
     </>

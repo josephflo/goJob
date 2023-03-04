@@ -25,9 +25,9 @@ export default function DetailService() {
 
   return (
     <>
-      <div class="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
-        <div class="col-span-2">
-          <div class="border-2 rounded flex m-3 p-4 bg-white">
+      <div className="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
+        <div className="col-span-2">
+          <div className="border-2 rounded flex m-3 p-4 bg-white">
             <HeaderService 
              firstName={detail.userId?.firstName} 
              lastName={detail.userId?.lastName} 
@@ -37,12 +37,12 @@ export default function DetailService() {
              ciudad={detail?.ciudad} 
               />
           </div>
-          <div class="border-2 rounded  m-3 p-4 bg-white">
+          <div className="border-2 rounded  m-3 p-4 bg-white">
             <DescriptionService detail={detail} />
           </div>
           
         </div>
-        <div class="col-span-1">
+        <div className="col-span-1">
           <Postularse
             firstName={detail.userId?.firstName} lastName={detail.userId?.lastName} imageurl={detail.userId?.imageurl} 
           />
