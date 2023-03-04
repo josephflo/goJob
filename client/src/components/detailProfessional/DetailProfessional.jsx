@@ -35,20 +35,18 @@ export default function DetailProfessional() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
-        <div className="col-span-2">
-          <div className="border-2 rounded flex m-3 p-4 bg-white">
-      <div className="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
-        <div className="col-span-2">
-          <div className="border-2 rounded flex m-3 p-4 bg-white">
+
+
+      <div class="sm:grid grid-cols-1 lg:grid grid-cols-3 gap-3 bg-gray-200">
+        <div class="col-span-2">
+          <div class="border-2 rounded flex m-3 p-4 bg-white">
+
             <Header detail={detail_} />
           </div>
-          <div className="border-2 rounded  m-3 p-4 bg-white">
           <div className="border-2 rounded  m-3 p-4 bg-white">
             <Description detail={detail_} />
           </div>
 
-          <div className="border-2 rounded flex items-center m-3 bg-white">
           <div className="border-2 rounded flex items-center m-3 bg-white">
             <Rating
               array={array}
@@ -60,13 +58,11 @@ export default function DetailProfessional() {
           </div>
 
           <div className="border-2 rounded m-3 p-4 bg-white">
-          <div className="border-2 rounded m-3 p-4 bg-white">
             <Opinion detail={detail} />
           </div>
           {/*}
            */}
         </div>
-        <div className="col-span-1">
         <div className="col-span-1">
           <Contact detail={detail_} arr2={arr2} />
         </div>
