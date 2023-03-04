@@ -54,7 +54,7 @@ export const createService = (input) => {
       // formData.append("id", input.id);
 
       const result = await axios.post("user/service", input_);
-      await axios.post(
+      await axios.put(
         `/user/service/img/${result.data.service.id}`,
         formData,
         customConfig
