@@ -36,7 +36,7 @@ const initialState = {
   configFilterUser: {
     page: 1,
     page_size: 15,
-    state: false,
+    state: true,
     name: "",
     job: false,
     provincia: "Buenos Aires",

@@ -4,6 +4,7 @@ import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import CardPostulaciones from "./CardPostulaciones";
 import { getUserDetail } from "../../redux/actions/userActions";
+import SinPostulaciones from "./SinPostulaciones";
 
 export default function Postulaciones() {
  
@@ -53,7 +54,7 @@ export default function Postulaciones() {
               </button>
             </div>
           </div>
-          <div className=" pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          <div className=""> 
             {applications?.postulaciones?.length > 0 ?
             applications?.postulaciones.map((e) => 
             <CardPostulaciones
@@ -65,7 +66,7 @@ export default function Postulaciones() {
             description={e.description} 
             postulantes={e.postulantes} 
             state={e.state} 
-            />  ) : <p>Aún no te has postulado a ningún servicio</p> }
+            />  )  : <SinPostulaciones/> }
               
             </div>
              </div>

@@ -1,14 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { userFormBackground } from "../../assets";
 
 export default function CardProfile({
   id,
-  imagenurl,
   provincia,
   ciudad,
   direccion,
-  phone,
   firstName,
   lastName,
   email,
