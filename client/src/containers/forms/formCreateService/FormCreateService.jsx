@@ -79,7 +79,7 @@ function FormCreateService() {
     const value = e.target.files;
     setValues({
       ...values,
-      inputImage: value,
+      inputImage: value[0],
     });
   };
 
