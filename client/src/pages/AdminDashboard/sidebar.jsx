@@ -14,7 +14,7 @@ export function SideBar() {
     <div className="col-span-1 p-8 border-r">
       <div className="text-center p-8">
         <Link to="/">
-          <h1 className="uppercase font-bold tracking-[4px]">GoJob</h1>
+          <h1 className="uppercase font-bold tracking-[4px]">Go-Job</h1>
         </Link>
       </div>
       <div className=" flex flex-col h-[430px] justify-between">

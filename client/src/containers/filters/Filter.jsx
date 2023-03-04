@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { provincias } from "../../constants/ciudadesObject";
 import { convertirProvinciasAObjeto } from "../../helpers/convertProvinciasToObj";
+import { cleanAllServices } from "../../redux/actions/services/getServices";
 import { configFilterService } from "../../redux/actions/services/modifyFilterServices";
 import Pagination from "../pagination/Pagination";
 
@@ -71,6 +72,7 @@ function Filter({ totalPages }) {
 
   const paginatePrev = (e) => {
     e.preventDefault();
+    dispatch(cleanAllServices());
     if (page === 1) return;
     setPage(page - 1);
     console.log(e.target.value);
@@ -82,6 +84,7 @@ function Filter({ totalPages }) {
   };
   const paginateNext = (e) => {
     e.preventDefault();
+    dispatch(cleanAllServices());
     if (page === totalPages) return;
     setPage(page + 1);
     let newConfig = {
@@ -94,6 +97,7 @@ function Filter({ totalPages }) {
   const paginate = (e, num) => {
     // e.preventDefault();
     setPage(num);
+    dispatch(cleanAllServices());
     let newConfig = {
       ...configFilterServices,
       page: num,
@@ -248,6 +252,7 @@ function Filter({ totalPages }) {
             paginateNext={paginateNext}
             paginate={paginate}
             totalPages={totalPages}
+            page={page}
           />
         </div>
       </div>
