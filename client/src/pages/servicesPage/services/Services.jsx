@@ -1,6 +1,6 @@
 import ServiceCard from "../serviceCard/ServiceCard";
 
-export default function Services({services}) {
+export default function Services({ services }) {
   return (
     <>
       {services.map((e, index) => (
@@ -10,7 +10,7 @@ export default function Services({services}) {
           tittle={e.tittle}
           presupuesto={e.presupuesto}
           lastName={e.lastName}
-          imageurl={e.imageurl}
+          imageurl={e.imageServiceUrl}
           job={e.Jobs}
           contrat={e.contrat}
           numberJobs={e.numberJobs}

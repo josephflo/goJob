@@ -3,7 +3,14 @@ import { NavLink } from "react-router-dom";
 import { userFormBackground } from "../../../assets";
 import capitalizeFirstLetter from "../../../helpers/capitalizeFirstLetter";
 
-function ServiceCard({ tittle, id, presupuesto, description, userId }) {
+function ServiceCard({
+  tittle,
+  id,
+  presupuesto,
+  description,
+  userId,
+  imageurl,
+}) {
   const Swal = require("sweetalert2");
   function handleClick() {
     Swal.fire({
@@ -20,7 +27,11 @@ function ServiceCard({ tittle, id, presupuesto, description, userId }) {
     <div className="bg-gray-100 p-4">
       <NavLink to={`/service/detail/${id}`}>
         <div className="h-100 overflow-hidden">
-          <img src={userFormBackground} className="object-fill" alt="" />
+          {imageurl === "sin foto" ? (
+            <img src={userFormBackground} className="object-fill" alt="" />
+          ) : (
+            <img src={imageurl} className="object-fill" alt="" />
+          )}
         </div>
 
         <div className="box-border grid grid-cols-3 bg-white border-solid-gray-300 rounded-sm p-4">
