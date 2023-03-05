@@ -12,15 +12,16 @@ const NavBarPortada = () => {
   const navigate = useNavigate()
   const users = useSelector((state) => state.userLogin);
   console.log(users);
+  
   useEffect(() => {
-    if (users.lastName === "sin apellido") {
+    if (users && users.lastName === "sin apellido") {
       Swal.fire({
         title: 'Necesitamos más datos',
         confirmButtonColor: 'green'
       });
       navigate('/aditionalinfo');
     }
-  }, [users.ciudad, navigate]);
+  }, [users.lastName]);
 
   return (
     <nav class="bg-white">
