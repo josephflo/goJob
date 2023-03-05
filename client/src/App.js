@@ -59,6 +59,7 @@ import LoadingHomePage from "./components/loading/LoadingHomePage";
 
 import MyProfile from "./pages/ProfileComun/MyProfile";
 import FormUpdateUserAuth from "./containers/forms/formUpdateUserAuth/FormUpdateUserAuth";
+import AdittionalInfo from "./authentication/components/AdittionalInfo";
 
 //token
 
@@ -101,6 +102,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+
           {isAuthenticated ? (
             <>
               {!token ? (
@@ -145,6 +147,12 @@ function App() {
                     exact
                     path="/dashboard/services"
                     element={<ServicesDashboard />}
+                  />
+                  {/* Authentication */}
+                  <Route
+                    exact
+                    path="/aditionalinfo"
+                    element={<AdittionalInfo />}
                   />
 
                   {/* Components */}

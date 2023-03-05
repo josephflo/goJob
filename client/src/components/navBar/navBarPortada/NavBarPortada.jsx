@@ -27,13 +27,13 @@ const NavBarPortada = () => {
         </div>
         <ul className="md:flex hidden uppercase items-center gap-8 font-[Poppins]">
           <li>
-            <Link to="/" className="py-4 px-3 inline-block">
+            <Link to="/" className="py-2 px-3 inline-block">
               Inicio
             </Link>
           </li>
           <NavLinks />
           <li>
-            <Link to="/service" className="py-4 px-3 inline-block">
+            <Link to="/service" className="py-2 px-3 inline-block">
               Servicios
             </Link>
           </li>
@@ -41,7 +41,7 @@ const NavBarPortada = () => {
           {isAuthenticated ? (
             users.role === "admin" ? (
               <li>
-                <Link to="/Dashboard" class="py-4 px-3 inline-block">
+                <Link to="/Dashboard" class="py-2 px-3 inline-block">
                   Dashboard
                 </Link>
               </li>
@@ -56,7 +56,7 @@ const NavBarPortada = () => {
               <></>
             ) : (
               <li>
-                <Link to="/create/service" class="py-4 px-3 inline-block">
+                <Link to="/create/service" class="py-2 px-3 inline-block">
                   Crear Servicio
                 </Link>
               </li>
@@ -65,11 +65,11 @@ const NavBarPortada = () => {
             <></>
           )}
           {users.role === "comun" ? (
-            <Link to={`/profilec/${users.id}`} class="py-4 px-3 inline-block">
+            <Link to={`/profilec/${users.id}`} class="py-2 px-3 inline-block">
               Mi Perfil
             </Link>
           ) : users.role === "professional" ? (
-            <Link to={`/profilep/${users.id}`} class="py-4 px-3 inline-block">
+            <Link to={`/profilep/${users.id}`} class="py-2 px-3 inline-block">
               Mi Perfil
             </Link>
           ) : users.role === "admin" ? (
@@ -79,10 +79,10 @@ const NavBarPortada = () => {
           )}
         </ul>
         {isAuthenticated === true && (
-          <div class="py-4">
+          <div class="py-2 md:flex hidden" >
             <Link to={"/user/profile"}>
               <img
-                class="object-contain h-16 w-16 rounded-full auto px-3 py-3"
+                class="object-contain h-12 w-12 rounded-full auto px-1 py-1"
                 src={user.picture}
                 alt={user.name}
               />
@@ -149,7 +149,7 @@ const NavBarPortada = () => {
             {isAuthenticated ? (
               <Link to={"/user/profile"}>
                 <img
-                  className="object-contain h-16 w-16 rounded-full auto px-2 py-3"
+                  className="object-contain h-16 w-16 rounded-full auto px-3 py-3"
                   src={user.picture}
                   alt={user.name}
                 />

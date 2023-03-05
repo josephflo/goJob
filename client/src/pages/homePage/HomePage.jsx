@@ -8,10 +8,11 @@ import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import { useAuth0 } from "@auth0/auth0-react";
 import { createAndLogin, createUser2 } from "../../redux/actions/userActions";
 import axios from "axios";
+import LoadingHomePage from "../../components/loading/LoadingHomePage";
 
 export default function HomePage() {
-  //const { isAuthenticated, user, isLoading } = useAuth0();
-
+  // const { isAuthenticated, user, isLoading } = useAuth0();
+  // if(isLoading) {<LoadingHomePage/>} 
   return (
     <>
       <div className="inset-0 bg-gray-900 absolute bg-opacity-40 z-10"></div>
