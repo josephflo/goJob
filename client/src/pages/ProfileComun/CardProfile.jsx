@@ -22,17 +22,17 @@ export default function CardProfile({
                     Información General
                     </h4>
                     <p className="mt-2 px-2 text-base text-gray-600">
-                    Usario {role}
+                    Usuario {role}
                     </p>
                 </div> 
                 <div className="grid grid-cols-2 gap-4 px-2 w-full">
                     <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
                     <p className="text-sm text-gray-600">Nombre</p>
-                   { firstName || lastName ?
+                    {  lastName === 'sin apellido' ?
                     (<p className="text-base font-medium text-navy-700 dark:text-white">
-                          {firstName} {lastName} 
+                         {firstName}  
                     </p>)
-                    : (<p className="text-base font-medium text-navy-700 dark:text-white">Sin datos</p>)
+                    : (<p className="text-base font-medium text-navy-700 dark:text-white">{firstName} {lastName}</p>)
                      }
                     </div>
 
@@ -61,7 +61,7 @@ export default function CardProfile({
                     </div>
                     <div className="col-span-1">
                         <Link to='/profilec/modificar'>
-              <button className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors">
+              <button className="flex items-center gap-4 bg-blue-500 p-4 text-white rounded-lg ">
                 Modificar Perfil a Profesional
               </button>
               </Link>

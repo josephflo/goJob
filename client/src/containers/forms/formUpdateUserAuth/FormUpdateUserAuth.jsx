@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Jobs from "./formCreateProfessional/Jobs";
-
+import { useNavigate } from "react-router-dom";
 import removeItemOnce from "../../../helpers/removeItemOnce";
 import Location from "./formCreateProfessional/Location";
 import { updateUser } from "../../../redux/actions/userActions";
+import Swal from "sweetalert2";
 
 function FormUpdateUserAuth() {
   const [input, setInput] = useState({});
@@ -13,6 +14,7 @@ function FormUpdateUserAuth() {
   const jobs_ = useSelector((state) => state.jobs);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleJob = (e) => {
     // const name = e.target.name;
@@ -50,6 +52,12 @@ function FormUpdateUserAuth() {
     // input["imageurl"] = inputImage;
     console.log(input);
     dispatch(updateUser(input));
+    Swal.fire({
+			title: 'Datos guardados',
+			confirmButtonColor: 'green'
+		})
+        navigate('/')
+
   };
 
   return (
