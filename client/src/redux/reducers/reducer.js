@@ -114,6 +114,7 @@ export default function reducer(state = initialState, action) {
         totalPagesSuggestion: action.payload.respuesta.totalPages,
         configFilterServicesSuggestion: {
           page: action.payload.queries.page,
+          // page: 1,
           page_size: 5,
           job: false,
         },

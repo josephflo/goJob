@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Pagination from "../../../containers/pagination/Pagination";
+import PlaceAnArrayObjectAtTheBeggining from "../../../helpers/placeAnArrayObjectAtTheBeggining";
 import { suggestionServices } from "../../../redux/actions/services/getServices";
 import CardSuggestion from "./CardSuggestion";
 
@@ -13,6 +14,14 @@ export default function Suggestions({ detail, totalPages, job }) {
   let suggestions = useSelector((state) => state.suggestionServices.result);
 
   // suggestions = suggestions?.filter((s) => s.id !== detail.id);
+
+  // colocar la card suggestion seleccionada y colocar al inicio
+  PlaceAnArrayObjectAtTheBeggining(suggestions, detail);
+  // const index = suggestions?.findIndex((s) => s.id === detail.id);
+  // if (index !== -1) {
+  //   suggestions?.splice(index, 1);
+  //   suggestions?.unshift(detail);
+  // }
 
   // Estados de la paginacion
   const [page, setPage] = useState(1);

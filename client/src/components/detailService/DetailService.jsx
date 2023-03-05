@@ -83,6 +83,7 @@ export default function DetailService() {
                   firstName={detail.userId?.firstName}
                   lastName={detail.userId?.lastName}
                   imageurl={detail.imageServiceUrl}
+                  imagePerfil={detail.userId?.imagePerfil}
                   direccion={detail?.direccion}
                   provincia={detail?.provincia}
                   ciudad={detail?.ciudad}
