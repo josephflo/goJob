@@ -77,7 +77,7 @@ function App() {
   const createUser = () => {
     const { given_name, nickname, family_name, email, picture } = user;
     let newUser = {
-      firstName: given_name || "sin nombre",
+      firstName: given_name || nickname,
       lastName: family_name || "sin apellido",
       email: email,
       user: nickname,
