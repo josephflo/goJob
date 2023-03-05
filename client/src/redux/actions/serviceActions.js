@@ -81,6 +81,15 @@ export const getServiceById = (idService) => {
   };
 };
 
+export const cleanServiceById = () => {
+  return async (dispatch) => {
+    return dispatch({
+      type: ActionTypes.CLEAN_SERVICE_DETAIL,
+      payload: {},
+    });
+  };
+};
+
 export const filterModel = (
   page,
   page_size,

@@ -14,6 +14,7 @@ const initialState = {
   jobById: {},
   service: {},
   totalPages: 1,
+  totalPagesSuggestion: 1,
   servicesDashboard: [],
   filterService: [],
   userDetail: {},
@@ -21,9 +22,18 @@ const initialState = {
   serviceDetail: {},
   dashboardAdmin: {},
   mytrabajos: {},
-  myservices:{},
-  mypostulaciones:{},
-  
+  myservices: {},
+  mypostulaciones: {},
+
+  // suggestions
+  suggestionServices: [],
+
+  //config para filtros services
+  configFilterServicesSuggestion: {
+    page: 1,
+    page_size: 5,
+    job: false,
+  },
 
   //config para filtros services
   configFilterServices: {
@@ -97,6 +107,22 @@ export default function reducer(state = initialState, action) {
         service: action.payload,
         totalPages: action.payload.totalPages,
       };
+    case ActionTypes.SUGGESTION_SERVICES:
+      return {
+        ...state,
+        suggestionServices: action.payload.respuesta,
+        totalPagesSuggestion: action.payload.respuesta.totalPages,
+        configFilterServicesSuggestion: {
+          page: action.payload.queries.page,
+          page_size: 5,
+          job: false,
+        },
+      };
+    case ActionTypes.CLEAN_SUGGESTION_SERVICE:
+      return {
+        ...state,
+        suggestionServices: action.payload,
+      };
     case ActionTypes.CLEAN_ALL_SERVICES:
       return {
         ...state,
@@ -145,26 +171,32 @@ export default function reducer(state = initialState, action) {
         ...state,
         professionalDetail: action.payload,
       };
-      case ActionTypes.MY_TRABAJOS:
+    case ActionTypes.MY_TRABAJOS:
       return {
         ...state,
         mytrabajos: action.payload,
       };
-      case ActionTypes.MY_SERVICES:
+    case ActionTypes.MY_SERVICES:
       return {
         ...state,
         myservices: action.payload,
       };
-      case ActionTypes.MY_POSTULACIONES:
-        return {
-          ...state,
-          mypostulaciones: action.payload,
-        };
-  
+    case ActionTypes.MY_POSTULACIONES:
+      return {
+        ...state,
+        mypostulaciones: action.payload,
+      };
 
     /**************************************** */
     //SERVICE BY ID
     case ActionTypes.SERVICE_DETAIL:
+      return {
+        ...state,
+        serviceDetail: action.payload,
+      };
+
+    //
+    case ActionTypes.CLEAN_SERVICE_DETAIL:
       return {
         ...state,
         serviceDetail: action.payload,
