@@ -1,11 +1,31 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Formik, Form} from "formik";
+import TextField from "./TextField";
 
 const AdittionalInfo = () => {
   return (
-    <div>
-      <h1>CUENTANOS UN POCO MAS DE TI</h1>
-    </div>
-  )
-}
+    <Formik
+    initialValues={{
+      firstName: "",
+      lastName: "",
+      email: "",
+      city: "",
+    }}>
+      {(formik) => (
+        <div>
+          <h1>Registrate</h1>
+          <Form>
+            <TextField/>
+          </Form>
+        </div>
+      )}
+    </Formik>
 
-export default AdittionalInfo
+    // <div>
+    //   <Link to="/">Inicio</Link>
+    // </div>
+  );
+};
+
+export default AdittionalInfo;

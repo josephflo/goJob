@@ -1,16 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoJobLogo from "../../../assets/GoJobLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtons from "../../../authentication/components/LoginButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
+  const navigate = useNavigate()
   const users = useSelector((state) => state.userLogin);
+  console.log(users);
+  useEffect(() => {
+    if (users.lastName === "sin apellido") {
+      Swal.fire({
+        title: 'Necesitamos más datos',
+        confirmButtonColor: 'green'
+      });
+      navigate('/aditionalinfo');
+    }
+  }, [users.ciudad, navigate]);
 
-  const [open, setOpen] = useState(false);
   return (
     <nav class="bg-white">
       <div class="flex items-center font-medium justify-around">
