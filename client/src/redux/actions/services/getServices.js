@@ -56,3 +56,49 @@ export const cleanAllServices = () => {
     });
   };
 };
+
+export const suggestionServices = (detail) => {
+  return async (dispatch) => {
+    let queries = {};
+    // if (detail.tittle && detail.tittle != "" && detail.tittle != false)
+    //   queries.tittle = detail.tittle;
+
+    console.log(detail.job);
+
+    if (detail.page) queries.page = detail.page;
+    if (detail.page_size) queries.page_size = detail.page_size;
+    if (detail.job && detail.job != false) queries.job = detail.job;
+
+    const concatQuery = convertObjToQuery(queries);
+    // console.log(concatQuery);
+    try {
+      // const result = await axios.get(`/service?${concatQuery}`);
+      let result;
+      if (detail.job !== undefined) {
+        result = await axios.get(`/service?${concatQuery}`);
+        let respuesta = result.data;
+        return dispatch({
+          type: ActionTypes.SUGGESTION_SERVICES,
+          payload: {
+            respuesta,
+            queries,
+          },
+        });
+      }
+    } catch (error) {
+      return dispatch({
+        type: ActionTypes.SUGGESTION_SERVICES,
+        payload: [],
+      });
+    }
+  };
+};
+
+export const cleanSuggestionService = () => {
+  return async (dispatch) => {
+    return dispatch({
+      type: ActionTypes.CLEAN_SUGGESTION_SERVICE,
+      payload: {},
+    });
+  };
+};

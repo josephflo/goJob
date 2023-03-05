@@ -35,7 +35,7 @@ function ServiceCard({
         </div>
 
         <div className="box-border grid grid-cols-3 bg-white border-solid-gray-300 rounded-sm p-4">
-          <div className="col-span-2 w-72">
+          <div className="col-span-2">
             <h1 className=" w-38 h-7 top-9 font-sans font-semibold text-xl not-italic text-black">
               {tittle}
             </h1>
