@@ -9,10 +9,10 @@ import {
 } from "../../redux/actions/professionalActions";
 import { acceptUser } from "../../redux/actions/offers/acceptUser";
 import { userFormBackground } from "../../assets";
+import { getSessionUrl } from "../../redux/actions/services/stripePago";
 
 export default function OffersPageP() {
   const dispatch = useDispatch();
-
   const services = useSelector((state) => state.myservices);
 
   useEffect(() => {
@@ -39,6 +39,48 @@ export default function OffersPageP() {
   const fecha = new Date(modalService.fecha_publicacion);
   const opciones = { day: "numeric", month: "numeric", year: "numeric" };
   const fechaFormateada = fecha.toLocaleDateString("es-ES", opciones);
+
+
+  /************************************** */
+
+  let [newSession, setNewSession] = useState({})
+
+  // eslint-disable-next-line no-restricted-globals
+  function abrirVentana(ruta) {
+    const width = 650;
+    const height = 650;
+    // eslint-disable-next-line no-restricted-globals
+    const left = window.screenLeft + (window.outerWidth - width) / 2;
+    // eslint-disable-next-line no-restricted-globals
+    const top = window.screenTop + (window.outerHeight - height) / 2;
+  
+    // Verificar si ya hay una ventana hija abierta
+    if (!window.childWindow || window.childWindow.closed) {
+      window.childWindow = window.open(ruta, '_blank', `width=${width},height=${height},left=${left},top=${top}`);
+    } else {
+      // Si ya hay una ventana hija abierta, enfocarla y cambiar su ubicación
+      window.childWindow.focus();
+      window.childWindow.moveTo(left, top);
+    }
+  }
+
+  let generateSessionPagar = ()=>{
+    let prueba5 = getSessionUrl(modalService.id)
+    .then((res)=>{
+      setNewSession(res)
+      alert("Todo salio bien")
+    }).catch(error=>{
+      alert(error.message)}
+    )
+  }
+
+  useEffect(()=>{
+    if(newSession.stripeSesionURL){
+      abrirVentana(newSession.stripeSesionURL)
+    }
+  }, [newSession])
+
+  /*************************************** */
 
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
@@ -255,7 +297,7 @@ export default function OffersPageP() {
                         Para pagar
                       </h1>
                     </div>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                    <button onClick={generateSessionPagar} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                       Pagar {modalService.id}
                     </button>
                   </div>
