@@ -60,7 +60,7 @@ const initialState = {
     provincia: "Buenos Aires",
     ciudad: false,
     dias: false,
-    horario: "mañana",
+    horario: false  ,
     role: "professional",
     orderName: false,
     orderRating: "DESC",

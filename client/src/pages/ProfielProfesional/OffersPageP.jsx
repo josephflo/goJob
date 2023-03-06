@@ -9,12 +9,15 @@ import {
 } from "../../redux/actions/professionalActions";
 import { acceptUser } from "../../redux/actions/offers/acceptUser";
 import { userFormBackground } from "../../assets";
+
 import { FechaFormateada } from "../../helpers/fechaFormateada";
 import FilterOffers from "./FilterOffers/FilterOffers";
 
+import { getSessionUrl } from "../../redux/actions/services/stripePago";
+
+
 export default function OffersPageP() {
   const dispatch = useDispatch();
-
   const services = useSelector((state) => state.myservices);
 
   let configFilterPerfilOffer = useSelector(
@@ -43,6 +46,48 @@ export default function OffersPageP() {
   };
 
   const fechaFormateada = FechaFormateada(modalService.fecha_publicacion);
+
+
+  /************************************** */
+
+  let [newSession, setNewSession] = useState({})
+
+  // eslint-disable-next-line no-restricted-globals
+  function abrirVentana(ruta) {
+    const width = 650;
+    const height = 650;
+    // eslint-disable-next-line no-restricted-globals
+    const left = window.screenLeft + (window.outerWidth - width) / 2;
+    // eslint-disable-next-line no-restricted-globals
+    const top = window.screenTop + (window.outerHeight - height) / 2;
+  
+    // Verificar si ya hay una ventana hija abierta
+    if (!window.childWindow || window.childWindow.closed) {
+      window.childWindow = window.open(ruta, '_blank', `width=${width},height=${height},left=${left},top=${top}`);
+    } else {
+      // Si ya hay una ventana hija abierta, enfocarla y cambiar su ubicación
+      window.childWindow.focus();
+      window.childWindow.moveTo(left, top);
+    }
+  }
+
+  let generateSessionPagar = ()=>{
+    let prueba5 = getSessionUrl(modalService.id)
+    .then((res)=>{
+      setNewSession(res)
+      alert("Todo salio bien")
+    }).catch(error=>{
+      alert(error.message)}
+    )
+  }
+
+  useEffect(()=>{
+    if(newSession.stripeSesionURL){
+      abrirVentana(newSession.stripeSesionURL)
+    }
+  }, [newSession])
+
+  /*************************************** */
 
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
@@ -285,6 +330,27 @@ export default function OffersPageP() {
                       </p>
                       <div className="grid grid-cols-1"></div>
                     </div>
+
+                    <button onClick={generateSessionPagar} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                      Pagar {modalService.id}
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <div className="">
+                  <h1 className="text-lg text-left font-semibold md:text-xl lg:text-2xl">
+                    Postulantes
+                  </h1>
+                </div>
+                <div className="bg-gray-100 w-full mt-10 px-16 md:px-0 flex items-center justify-center">
+                  <div className="bg-white border border-gray-200 flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg shadow-2xl">
+                    <p className="text-2xl md:text-1xl lg:text-3xl font-bold tracking-wider text-gray-500 mt-4">
+                      Dale click en uno
+                    </p>
+                    <div className="grid grid-cols-1"></div>
+
                   </div>
                 </>
               )}
