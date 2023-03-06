@@ -214,8 +214,8 @@ function App() {
 
         {/* Paginas para pago */}
         <Routes>
-          <Route exact path="stripe/:role/:id/success/:idProduct" element={<SuccessPago />} />
-          <Route exact path="stripe/:role/:id/fail/" element={<FailPago />} />
+          <Route exact path="stripe/:role/:idUser/success/:idProduct" element={<SuccessPago />} />
+          <Route exact path="stripe/:role/:idUser/fail/" element={<FailPago />} />
         </Routes>
       </BrowserRouter>
     </>

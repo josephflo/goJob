@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { userFormBackground } from "../../assets";
 
 export default function Card({
@@ -10,6 +11,8 @@ export default function Card({
   postulantes,
   state,
 }) {
+    let dispatch = useDispatch()
+
     // eslint-disable-next-line no-restricted-globals
     function abrirVentana(ruta) {
       const width = 650;
@@ -28,17 +31,9 @@ export default function Card({
     }
 
   let generateSessionPagar = ()=>{
-    let ruta = "https://checkout.stripe.com/c/pay/cs_test_a17MwMX7qM5FLIYar433xwsZ1scEwb2MkfST1V8mmyy7OuPSYL13QqtbWn#fidkdWxOYHwnPyd1blpxYHZxWjA0SGwzc29MYn1oYWtRdlxyR2lNbkRuTUtMNVVsQ3RRUmZPdjRCcDBtfWI8amJDNU5qMDI1VUdISnRVNE1JXFZcSWNtZ0ZnVHFTczFvZ2dVVHZsUHNVRnNcNTVBMD1mYTBKVicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
-
+    let ruta = "https://checkout.stripe.com/c/pay/cs_test_a1s5Y17b6mT9fqI7sd9N234KU60Q6VuIFLpbi1nv1GN5EUHLLUPQRPHt4o#fidkdWxOYHwnPyd1blpxYHZxWjA0SGwzc29MYn1oYWtRdlxyR2lNbkRuTUtMNVVsQ3RRUmZPdjRCcDBtfWI8amJDNU5qMDI1VUdISnRVNE1JXFZcSWNtZ0ZnVHFTczFvZ2dVVHZsUHNVRnNcNTVBMD1mYTBKVicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
+    
     abrirVentana(ruta)
-
-    // const ancho = 650;
-    // const altura = 650;
-    // // eslint-disable-next-line no-restricted-globals
-    // const izquierda = (screen.width - ancho) / 2;
-    // // eslint-disable-next-line no-restricted-globals
-    // const arriba = (screen.height - altura) / 2;
-    // window.open('/hija/nueva', '_blank', `width=${ancho},height=${altura},left=${izquierda},top=${arriba}`);
 
   }
 

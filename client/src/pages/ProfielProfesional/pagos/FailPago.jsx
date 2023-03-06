@@ -4,6 +4,9 @@ export default function FailPago(){
 
 
   useEffect(()=>{
+    const timer = setTimeout(() => {
+      window.close();
+    }, 2000);
   }, [])
 
   return (
