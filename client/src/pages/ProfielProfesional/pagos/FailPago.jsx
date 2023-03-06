@@ -6,11 +6,16 @@ export default function FailPago(){
   useEffect(()=>{
     const timer = setTimeout(() => {
       window.close();
-    }, 2000);
+    }, 5000);
   }, [])
 
   return (
-    <div>Fail pago</div>
+
+    <div className="bg-red-500 text-white rounded-md p-4 animate-fade-in-out">
+      <p className="font-bold text-lg mb-2">¡Pago fallido!</p>
+      <p>Por favor, revisa tus datos de pago e intenta nuevamente.</p>
+    </div>  
+
   )
 }
 

@@ -66,7 +66,8 @@ import FailPago from "./pages/ProfielProfesional/pagos/FailPago";
 
 // Default axios
 //axios.defaults.baseURL = "https://deploy-pi-production-4388.up.railway.app/";
-axios.defaults.baseURL = "https://gojob2-production.up.railway.app/";
+//axios.defaults.baseURL = "https://gojob2-production.up.railway.app/";
+axios.defaults.baseURL = "http://localhost:3005/";
 
 function App() {
   const { isAuthenticated, user, isLoading } = useAuth0();
@@ -214,8 +215,8 @@ function App() {
 
         {/* Paginas para pago */}
         <Routes>
-          <Route exact path="stripe/:role/:idUser/success/:idProduct" element={<SuccessPago />} />
-          <Route exact path="stripe/:role/:idUser/fail/" element={<FailPago />} />
+          <Route exact path="/stripe/:role/:idUser/success/:idProduct" element={<SuccessPago />} />
+          <Route exact path="/stripe/:role/:idUser/fail/" element={<FailPago />} />
         </Routes>
       </BrowserRouter>
     </>

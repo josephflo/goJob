@@ -30,6 +30,7 @@ module.exports = {
         color5: "0a572f",
         color6: "062715",
         dimBlue: "rgba(31, 162, 170, 0.3)",
+        colorHover: "rgba(41, 93, 160, 0.932)"
       },
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],

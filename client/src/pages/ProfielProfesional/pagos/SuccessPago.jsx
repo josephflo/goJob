@@ -9,15 +9,17 @@ export default function SuccessPago() {
     score: 0,
     review: ""
   })
+  let [enviarButt, setEnviarButt] = useState(false)
  
   const { role, idUser, idProduct } = useParams();
 
   let setReview = ()=>{
-    
+    setEnviarButt(true) 
+
     dispatch(setReviewTrabajo(idProduct, form.score, form.review))
     setTimeout(() => {
       window.close();
-    }, 1500);
+    }, 2500);
 
     //dispatch(setReviewTrabajo(idProduct, score, review))
   }
@@ -81,12 +83,16 @@ export default function SuccessPago() {
           ></textarea>
         </div>
         <div className="flex justify-center">
+
+
           <button onClick={setReview}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"
             type="button"
           >
-            Enviar
+            {enviarButt? "...procesando" : "Enviar"} 
           </button>
+
+
         </div>
     </div>
   );

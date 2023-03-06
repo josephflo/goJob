@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { userFormBackground } from "../../assets";
+import { getSessionUrl } from "../../redux/actions/services/stripePago";
 
 export default function Card({
   id,
@@ -11,13 +12,16 @@ export default function Card({
   postulantes,
   state,
 }) {
-    let dispatch = useDispatch()
+  let [newSession, setNewSession] = useState({})
+  let dispatch = useDispatch()
 
     // eslint-disable-next-line no-restricted-globals
     function abrirVentana(ruta) {
       const width = 650;
       const height = 650;
+      // eslint-disable-next-line no-restricted-globals
       const left = window.screenLeft + (window.outerWidth - width) / 2;
+      // eslint-disable-next-line no-restricted-globals
       const top = window.screenTop + (window.outerHeight - height) / 2;
     
       // Verificar si ya hay una ventana hija abierta
@@ -31,11 +35,20 @@ export default function Card({
     }
 
   let generateSessionPagar = ()=>{
-    let ruta = "https://checkout.stripe.com/c/pay/cs_test_a1s5Y17b6mT9fqI7sd9N234KU60Q6VuIFLpbi1nv1GN5EUHLLUPQRPHt4o#fidkdWxOYHwnPyd1blpxYHZxWjA0SGwzc29MYn1oYWtRdlxyR2lNbkRuTUtMNVVsQ3RRUmZPdjRCcDBtfWI8amJDNU5qMDI1VUdISnRVNE1JXFZcSWNtZ0ZnVHFTczFvZ2dVVHZsUHNVRnNcNTVBMD1mYTBKVicpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl"
-    
-    abrirVentana(ruta)
-
+    let prueba5 = getSessionUrl(id)
+    .then((res)=>{
+      setNewSession(res)
+      alert("Todo salio bien")
+    }).catch(error=>{
+      alert(error.message)}
+    )
   }
+
+  useEffect(()=>{
+    if(newSession.stripeSesionURL){
+      abrirVentana(newSession.stripeSesionURL)
+    }
+  }, [newSession])
 
 
   return (

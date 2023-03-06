@@ -64,6 +64,7 @@ export default function OffersPageP() {
                   description={e.description}
                   postulantes={e.postulantes}
                   state={e.state}
+                  
                 />
               ))
             ) : (
