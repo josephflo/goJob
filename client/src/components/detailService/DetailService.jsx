@@ -15,7 +15,7 @@ export default function DetailService() {
 
   // get detail service
   const detail = useSelector((state) => state.serviceDetail);
-
+console.log(detail, "detail")
 
   useEffect(() => {
     dispatch(getServiceById(id));
@@ -31,7 +31,8 @@ export default function DetailService() {
             <HeaderService 
              firstName={detail.userId?.firstName} 
              lastName={detail.userId?.lastName} 
-             imageurl={detail.userId?.imageurl} 
+             imageServiceUrl={detail?.imageServiceUrl} 
+             tittle={detail?.tittle} 
              direccion={detail?.direccion} 
              provincia={detail?.provincia} 
              ciudad={detail?.ciudad} 
@@ -44,7 +45,10 @@ export default function DetailService() {
         </div>
         <div className="col-span-1">
           <Postularse
-            firstName={detail.userId?.firstName} lastName={detail.userId?.lastName} imageurl={detail.userId?.imageurl} 
+            firstName={detail.userId?.firstName} 
+            lastName={detail.userId?.lastName} 
+            imageurl={detail?.userId?.imagePerfil
+} 
           />
         </div>
       </div>
