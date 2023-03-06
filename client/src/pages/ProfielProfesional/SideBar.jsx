@@ -22,7 +22,9 @@ export default function SideBar() {
   const dispatch = useDispatch();
 
   // const [selected, setSelected] = useState(select);
-  const handleOption = (p) => {
+  const handleOption = (e, p) => {
+    console.log(select, p);
+    // e.preventDefault();
     dispatch(stateSelected(p));
     // setSelected(p);
   };
@@ -42,21 +44,28 @@ export default function SideBar() {
           <nav>
             <ul>
               <li>
-                <Link
-                  to={`/myprofilep/${users.id}`}
-                  className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
-                >
-                  <CgProfile />
-                  Mi Perfil
-                </Link>
+                <button onClick={(e) => handleOption(e, 1)}>
+                  <Link
+                    to={`/myprofilep/${users.id}`}
+                    // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    className={
+                      select === 1
+                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    }
+                  >
+                    <CgProfile />
+                    Mi Perfil
+                  </Link>
+                </button>
               </li>
               <li>
-                <button onClick={() => handleOption(1)}>
+                <button onClick={(e) => handleOption(e, 2)}>
                   <Link
                     to={`/profilep/${users.id}`}
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
-                      select === 1
+                      select === 2
                         ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
                         : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
@@ -67,12 +76,12 @@ export default function SideBar() {
                 </button>
               </li>
               <li>
-                <button onClick={() => handleOption(2)}>
+                <button onClick={(e) => handleOption(e, 3)}>
                   <Link
                     to={`/profilep/jobs/${users.id}`}
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
-                      select === 2
+                      select === 3
                         ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
                         : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
@@ -83,12 +92,12 @@ export default function SideBar() {
                 </button>
               </li>
               <li>
-                <button onClick={() => handleOption(3)}>
+                <button onClick={(e) => handleOption(e, 4)}>
                   <Link
                     to={`/profilep/postulaciones/${users.id}`}
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
-                      select === 3
+                      select === 4
                         ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
                         : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
