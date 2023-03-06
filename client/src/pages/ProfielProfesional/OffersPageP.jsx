@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "./Card";
-import SinServicios from "./SinServicios";
+import Card from "./Cards/Card";
+import SinServicios from "./Ups/SinServicios";
 import {
   getMyServices,
   stateSelected,
