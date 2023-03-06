@@ -1,17 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 import { RiFolderUserLine, RiLogoutBoxLine } from "react-icons/ri";
-import { BsTools} from "react-icons/bs";
-import { FaPaperPlane} from "react-icons/fa";
-import { GoBriefcase} from "react-icons/go";
+import { BsTools } from "react-icons/bs";
+import { FaPaperPlane } from "react-icons/fa";
+import { GoBriefcase } from "react-icons/go";
 import logo from "../ProfileComun/image.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { stateSelected } from "../../redux/actions/professionalActions";
 
 export default function SideBar() {
   const users = useSelector((state) => state.userLogin);
 
   const imagePerfil = useSelector((state) => state.imagePerfil);
+
+  // Button
+  const select = useSelector((state) => state.selected);
+  const dispatch = useDispatch();
+
+  // const [selected, setSelected] = useState(select);
+  const handleOption = (p) => {
+    dispatch(stateSelected(p));
+    // setSelected(p);
+  };
 
   return (
     <div>
@@ -28,31 +39,52 @@ export default function SideBar() {
           <nav>
             <ul>
               <li>
-                <Link
-                  to={`/profilep/${users.id}`}
-                  className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
-                >
-                  <GoBriefcase />
-                  Mis Ofertas
-                </Link>
+                <button onClick={() => handleOption(1)}>
+                  <Link
+                    to={`/profilep/${users.id}`}
+                    // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    className={
+                      select === 1
+                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    }
+                  >
+                    <GoBriefcase />
+                    Mis Ofertas
+                  </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  to={`/profilep/jobs/${users.id}`}
-                  className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
-                >
-                  <BsTools />
-                  Mis trabajos
-                </Link>
+                <button onClick={() => handleOption(2)}>
+                  <Link
+                    to={`/profilep/jobs/${users.id}`}
+                    // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    className={
+                      select === 2
+                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    }
+                  >
+                    <BsTools />
+                    Mis trabajos
+                  </Link>
+                </button>
               </li>
               <li>
-                <Link
-                  to={`/profilep/postulaciones/${users.id}`}
-                  className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
-                >
-                  <FaPaperPlane />
-                  Mis Postulaciones
-                </Link>
+                <button onClick={() => handleOption(3)}>
+                  <Link
+                    to={`/profilep/postulaciones/${users.id}`}
+                    // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    className={
+                      select === 3
+                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                    }
+                  >
+                    <FaPaperPlane />
+                    Mis Postulaciones
+                  </Link>
+                </button>
               </li>
             </ul>
           </nav>
