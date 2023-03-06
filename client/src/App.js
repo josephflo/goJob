@@ -59,6 +59,7 @@ import LoadingHomePage from "./components/loading/LoadingHomePage";
 
 import MyProfile from "./pages/ProfileComun/MyProfile";
 import FormUpdateUserAuth from "./containers/forms/formUpdateUserAuth/FormUpdateUserAuth";
+import MyProfileP from "./pages/ProfielProfesional/MyProfileP";
 
 //token
 
@@ -188,6 +189,7 @@ function App() {
                   />
 
                   {/* ProfileProfessional ***********************************************/}
+                  <Route exact path="/myprofilep/:id" element={<MyProfileP />} />
                   <Route exact path="/profilep/:id" element={<OffersPageP />} />
                   <Route exact path="/profilep/jobs/:id" element={<Jobs />} />
                   <Route

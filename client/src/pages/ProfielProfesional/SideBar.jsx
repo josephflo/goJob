@@ -6,8 +6,11 @@ import { BsTools } from "react-icons/bs";
 import { FaPaperPlane } from "react-icons/fa";
 import { GoBriefcase } from "react-icons/go";
 import logo from "../ProfileComun/image.svg";
+
 import { useDispatch, useSelector } from "react-redux";
 import { stateSelected } from "../../redux/actions/professionalActions";
+
+import { CgProfile } from "react-icons/cg";
 
 export default function SideBar() {
   const users = useSelector((state) => state.userLogin);
@@ -38,6 +41,15 @@ export default function SideBar() {
         <div className=" flex flex-col h-[430px] justify-between">
           <nav>
             <ul>
+              <li>
+                <Link
+                  to={`/myprofilep/${users.id}`}
+                  className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                >
+                  <CgProfile />
+                  Mi Perfil
+                </Link>
+              </li>
               <li>
                 <button onClick={() => handleOption(1)}>
                   <Link

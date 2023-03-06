@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "./Card";
-import SinServicios from "./SinServicios";
+import Card from "./Card/Card";
+import SinServicios from "./Ups/SinServicios";
 import { getMyServices } from "../../redux/actions/professionalActions";
 
 export default function OffersPage() {
@@ -27,7 +27,7 @@ export default function OffersPage() {
             <Card
             key={e.id}
             tittle={e.tittle} 
-            imagenurl={e.imagenurl} 
+            imageServiceUrl={e.imageServiceUrl} 
             direccion={e.direccion} 
             presupuesto={e.presupuesto} 
             description={e.description} 
