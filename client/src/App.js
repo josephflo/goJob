@@ -59,6 +59,8 @@ import LoadingHomePage from "./components/loading/LoadingHomePage";
 
 import MyProfile from "./pages/ProfileComun/MyProfile";
 import FormUpdateUserAuth from "./containers/forms/formUpdateUserAuth/FormUpdateUserAuth";
+import SuccessPago from "./pages/ProfielProfesional/pagos/SuccessPago";
+import FailPago from "./pages/ProfielProfesional/pagos/FailPago";
 
 //token
 
@@ -208,6 +210,12 @@ function App() {
               <Route path="/professional" element={<ProfesionalPage />} />
             </>
           )}
+        </Routes>
+
+        {/* Paginas para pago */}
+        <Routes>
+          <Route exact path="stripe/:role/:id/success/:idProduct" element={<SuccessPago />} />
+          <Route exact path="stripe/:role/:id/fail/" element={<FailPago />} />
         </Routes>
       </BrowserRouter>
     </>
