@@ -72,8 +72,8 @@ function Filter({ totalPages }) {
 
   const paginatePrev = (e) => {
     e.preventDefault();
-    dispatch(cleanAllServices());
     if (page === 1) return;
+    dispatch(cleanAllServices());
     setPage(page - 1);
     console.log(e.target.value);
     let newConfig = {
@@ -84,8 +84,8 @@ function Filter({ totalPages }) {
   };
   const paginateNext = (e) => {
     e.preventDefault();
-    dispatch(cleanAllServices());
     if (page === totalPages) return;
+    dispatch(cleanAllServices());
     setPage(page + 1);
     let newConfig = {
       ...configFilterServices,
