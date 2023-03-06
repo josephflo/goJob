@@ -16,7 +16,7 @@ export default function OffersPageP() {
 
   useEffect(() => {
     dispatch(getMyServices());
-    dispatch(stateSelected(1));
+    dispatch(stateSelected(2));
   }, []);
 
   // MODAL
