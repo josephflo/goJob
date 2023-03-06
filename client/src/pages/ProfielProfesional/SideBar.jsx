@@ -50,8 +50,8 @@ export default function SideBar() {
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
                       select === 1
-                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
-                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                        ? "flex items-center mt-1 mb-1 w-[200px] gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center mt-1 mb-1 w-[200px] gap-4 hover:bg-blue-500 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
                   >
                     <CgProfile />
@@ -66,12 +66,12 @@ export default function SideBar() {
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
                       select === 2
-                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
-                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                        ? "flex items-center mt-1 mb-1 w-[200px] gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center mt-1 mb-1 w-[200px] gap-4 hover:bg-blue-500 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
                   >
                     <GoBriefcase />
-                    Mis Ofertas
+                    Mis Publicaciones
                   </Link>
                 </button>
               </li>
@@ -82,8 +82,8 @@ export default function SideBar() {
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
                       select === 3
-                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
-                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                        ? "flex items-center mt-1 mb-1 w-[200px] gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center mt-1 mb-1 w-[200px] gap-4 hover:bg-blue-500 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
                   >
                     <BsTools />
@@ -98,8 +98,8 @@ export default function SideBar() {
                     // className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     className={
                       select === 4
-                        ? "flex items-center gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
-                        : "flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+                        ? "flex items-center mt-1 mb-1 w-[200px] gap-4 bg-blue-600 p-4 text-gray-400 text-white rounded-lg transition-colors"
+                        : "flex items-center mt-1 mb-1 w-[200px] gap-4 hover:bg-blue-500 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
                     }
                   >
                     <FaPaperPlane />
