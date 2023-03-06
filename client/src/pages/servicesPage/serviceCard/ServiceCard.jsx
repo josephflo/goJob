@@ -26,7 +26,7 @@ function ServiceCard({
   return (
     <div className="bg-gray-100 p-4">
       <NavLink to={`/service/detail/${id}`}>
-        <div className="h-100 overflow-hidden">
+        <div className="h-[400px] overflow-hidden">
           {imageurl === "sin foto" ? (
             <img src={userFormBackground} className="object-fill" alt="" />
           ) : (

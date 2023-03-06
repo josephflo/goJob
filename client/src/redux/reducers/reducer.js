@@ -1,4 +1,5 @@
 //** Constants */
+import { Action } from "@remix-run/router";
 import { ActionTypes } from "../constants/actions-types";
 
 const initialState = {
@@ -24,6 +25,8 @@ const initialState = {
   mytrabajos: {},
   myservices: {},
   mypostulaciones: {},
+
+  selected: 1,
 
   // suggestions
   suggestionServices: [],
@@ -82,6 +85,13 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         jobById: {},
+      };
+
+    /************* */
+    case ActionTypes.STATE_SELECTED:
+      return {
+        ...state,
+        selected: action.payload,
       };
 
     /********************* */

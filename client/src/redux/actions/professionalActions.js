@@ -15,7 +15,7 @@ export const getProfessionalById = (id) => {
   };
 };
 
-export const getMyTrabajos = ()  => {
+export const getMyTrabajos = () => {
   return async (dispatch) => {
     const result = await axios.get(`/user/services/MyTrabajos`);
     return dispatch({
@@ -25,7 +25,7 @@ export const getMyTrabajos = ()  => {
   };
 };
 
-export const getMyServices = ()  => {
+export const getMyServices = () => {
   return async (dispatch) => {
     const result = await axios.get(`/user/services/MyServices`);
     return dispatch({
@@ -35,9 +35,9 @@ export const getMyServices = ()  => {
   };
 };
 
-export const getMyPostulaciones = ()  => {
+export const getMyPostulaciones = () => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/services/Postulaciones`);  
+    const result = await axios.get(`/user/services/Postulaciones`);
     return dispatch({
       type: ActionTypes.MY_POSTULACIONES,
       payload: result.data.result,
@@ -45,3 +45,13 @@ export const getMyPostulaciones = ()  => {
   };
 };
 
+// Mi Perfil
+
+export const stateSelected = (input) => {
+  return async (dispatch) => {
+    return dispatch({
+      type: ActionTypes.STATE_SELECTED,
+      payload: input,
+    });
+  };
+};
