@@ -65,6 +65,13 @@ const initialState = {
     orderName: false,
     orderRating: "DESC",
   },
+
+  // config para filtros PERFIL ofertas
+  configFilterPerfilOffer: {
+    tittle: "",
+    state: "",
+    fecha_publicacion: "ASC",
+  },
 };
 
 export default function reducer(state = initialState, action) {
@@ -191,6 +198,12 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         myservices: action.payload,
+      };
+
+    case ActionTypes.CONFIG_FILTER_PERFIL_OFFER:
+      return {
+        ...state,
+        configFilterPerfilOffer: action.payload,
       };
     case ActionTypes.MY_POSTULACIONES:
       return {
