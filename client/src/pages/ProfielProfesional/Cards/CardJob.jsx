@@ -1,7 +1,7 @@
 import React from "react";
-import { userFormBackground } from "../../assets";
+import { userFormBackground } from "../../../assets";
 
-export default function Card({
+export default function CardJob({
   id,
   imagenurl,
   tittle,
@@ -34,13 +34,6 @@ export default function Card({
             Estado del Servicio:
           </h2>
           <p className="text-sm">{state}</p>
-        
-
-        
-          <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
-            Postulantes:
-          </h2>
-          <p className="text-sm">{postulantes}</p>
 
           <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
             Presupuesto:

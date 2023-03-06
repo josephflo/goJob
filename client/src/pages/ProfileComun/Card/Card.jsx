@@ -1,19 +1,11 @@
 import React from "react";
-import { userFormBackground } from "../../assets";
+import { userFormBackground } from "../../../assets";
 
-export default function Card({
-  id,
-  imagenurl,
-  tittle,
-  presupuesto,
-  description,
-  postulantes,
-  state,
-}) {
+export default function Card({id, imageServiceUrl, tittle, presupuesto, description, postulantes, state}) {
   return (
     <div key={id} className="bg-gray-100 p-4">
       <div className="h-100 overflow-hidden">
-        <img src={userFormBackground} className="object-fill" alt="" />
+        <img src={imageServiceUrl} className="object-fill" alt="" />
       </div>
 
       <div className="h-100 overflow-hidden bg-blue-500 border-solid-gray-300 rounded-sm p-4">
@@ -34,9 +26,6 @@ export default function Card({
             Estado del Servicio:
           </h2>
           <p className="text-sm">{state}</p>
-        
-
-        
           <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
             Postulantes:
           </h2>

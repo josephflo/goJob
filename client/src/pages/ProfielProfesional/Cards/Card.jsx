@@ -1,9 +1,8 @@
 import React from "react";
-import { userFormBackground } from "../../assets";
 
-export default function CardPostulaciones({
+export default function Card({
   id,
-  imagenurl,
+  imageServiceUrl,
   tittle,
   presupuesto,
   description,
@@ -11,9 +10,9 @@ export default function CardPostulaciones({
   state,
 }) {
   return (
-    <div key={id} className="bg-gray-100 p-4">
+    <div className="bg-gray-100 p-4">
       <div className="h-100 overflow-hidden">
-        <img src={userFormBackground} className="object-fill" alt="" />
+        <img src={imageServiceUrl} className="object-fill" alt="" />
       </div>
 
       <div className="h-100 overflow-hidden bg-blue-500 border-solid-gray-300 rounded-sm p-4">
