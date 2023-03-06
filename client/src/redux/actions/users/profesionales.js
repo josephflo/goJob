@@ -15,9 +15,9 @@ export let getAllProfesionales = (objQuery) => async (dispatch) => {
 
   if (objQuery.provincia && objQuery.provincia != "false") queries.provincia = objQuery.provincia;
   if (objQuery.ciudad && objQuery.ciudad != false && objQuery.ciudad != "false") queries.ciudad = objQuery.ciudad;
-  if (objQuery.dias && objQuery.role != "false") queries.dias = objQuery.dias;
+  if (objQuery.dias && objQuery.dias != "false" && objQuery.dias !== false) queries.dias = objQuery.dias;
 
-  if (objQuery.horario && objQuery.horario.length) queries.horario = objQuery.horario;
+  if (objQuery.horario && objQuery.horario != "false" && objQuery.horario !== false) queries.horario = objQuery.horario;
   if (objQuery.role && objQuery.role != "false") queries.role = objQuery.role;
 
   if (objQuery.orderName && objQuery.orderName != "false") queries.orderName = objQuery.orderName;

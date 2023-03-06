@@ -45,8 +45,9 @@ const NavLinks = () => {
         provincia: "Buenos Aires",
         ciudad: false,
         dias: false,
-        horario: "mañana",
+        horario: false,
         role: "professional",
+        state: true
       })
     );
   };
