@@ -6,15 +6,25 @@ import { useEffect, useState } from "react";
 import NavLinks from "./NavLinks";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import jwtDecode from 'jwt-decode'
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
   const navigate = useNavigate()
   const users = useSelector((state) => state.userLogin);
   console.log(users);
-  
+  const userLogin = window.localStorage.getItem("loginStorage")
+  const [userToken, setUserToken] = useState(null)
+
+  useEffect(()=>{
+    if(userLogin > 3){
+      const info = jwtDecode(userLogin)
+      console.log("este token",info);
+    }
+    },[userLogin])
+
   useEffect(() => {
-    if (users && users.lastName === "sin apellido") {
+    if (users && users.lastName === "sin apellidos") {
       Swal.fire({
         title: 'Necesitamos más datos',
         confirmButtonColor: 'green'
@@ -50,7 +60,7 @@ const NavBarPortada = () => {
             </Link>
           </li>
 
-          {isAuthenticated ? (
+          {userLogin ? (
             users.role === "admin" ? (
               <li>
                 <Link to="/Dashboard" class="py-2 px-3 inline-block">
@@ -63,7 +73,7 @@ const NavBarPortada = () => {
           ) : (
             <></>
           )}
-          {isAuthenticated ? (
+          {userLogin ? (
             users.role === "admin" ? (
               <></>
             ) : (
@@ -90,13 +100,13 @@ const NavBarPortada = () => {
             <LoginButtons />
           )}
         </ul>
-        {isAuthenticated === true && (
+        {userLogin && (
           <div class="py-2 md:flex hidden" >
             <Link to={"/user/profile"}>
               <img
                 class="object-contain h-12 w-12 rounded-full auto px-1 py-1"
-                src={user.picture}
-                alt={user.name}
+                src={user?.picture}
+                alt={user?.name}
               />
             </Link>
           </div>

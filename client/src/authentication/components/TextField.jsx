@@ -5,7 +5,7 @@ const TextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <div className="mb-2">
-      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-3">
+      <div>
         <label 
         className="block text-sm font-medium text-gray-700"
         htmlForm={field.name}>{label}</label>

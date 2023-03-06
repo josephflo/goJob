@@ -172,6 +172,7 @@ export default function reducer(state = initialState, action) {
 
     //Login y Create user
     case ActionTypes.REGISTER_USER_AND_LOGIN:
+      window.localStorage.setItem("loginStorage", action.payload.token)
       return {
         ...state,
         token: action.payload.token,

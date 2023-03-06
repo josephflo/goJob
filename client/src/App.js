@@ -70,11 +70,10 @@ axios.defaults.baseURL = "https://gojob2-production.up.railway.app/";
 function App() {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const dispatch = useDispatch();
-
+  const isLogin = window.localStorage.getItem("loginStorage")
   let token = useSelector((state) => state.token);
   axios.defaults.headers.common["Authorization"] = token;
 
-  // const dispatch = useDispatch();
   const createUser = () => {
     const { given_name, nickname, family_name, email, picture } = user;
     let newUser = {
@@ -103,7 +102,7 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          {isAuthenticated ? (
+          {isLogin ? (
             <>
               {!token ? (
                 <>
