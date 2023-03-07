@@ -9,11 +9,24 @@ export default function CardPostulaciones({
   description,
   postulantes,
   state,
+  imageServiceUrl,
 }) {
   return (
     <div key={id} className="bg-gray-100 p-4">
-      <div className="h-100 overflow-hidden">
-        <img src={userFormBackground} className="object-fill" alt="" />
+      <div className="overflow-hidden h-[250px]">
+        {imageServiceUrl === "sin foto" ? (
+          <img
+            src={userFormBackground}
+            className="w-full h-full object-center object-cover "
+            alt=""
+          />
+        ) : (
+          <img
+            src={imageServiceUrl}
+            alt=""
+            className="w-full h-full object-center object-cover"
+          />
+        )}
       </div>
 
       <div className="h-100 overflow-hidden bg-blue-500 border-solid-gray-300 rounded-sm p-4">
@@ -32,11 +45,6 @@ export default function CardPostulaciones({
             Estado del Servicio:
           </h2>
           <p className="text-sm">{state}</p>
-
-          <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
-            Postulantes:
-          </h2>
-          {/* <p className="text-sm">{postulantes}</p> */}
 
           <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
             Presupuesto:
