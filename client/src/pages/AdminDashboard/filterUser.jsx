@@ -14,9 +14,6 @@ import {
 } from "../../redux/actions/users/profesionales";
 
 
-
-
-
 export function FilterUser({ totalPages }) {
   let configFilterUser = useSelector((state) => state.configFilterUser);
 
@@ -73,9 +70,6 @@ export function FilterUser({ totalPages }) {
       setFilter(newConfig);
     }
   };
-
-
-console.log(filter)
 
   useEffect(() => {
      dispatch(configFilterUserPut(filter));

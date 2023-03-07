@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 
 
@@ -6,7 +7,16 @@ import React from "react";
 
 export default function FormUser() {
 
+  const detailUser = useSelector((state)=> state.userDetail)
+
+  //   const dispatch = useDispatch()
   
+  // useEffect(()=>{
+  //   dispatch(getUserDetail(1))
+  // },[])
+   
+  
+  console.log({modifyuser:detailUser})
 
   return (
     <>
