@@ -16,6 +16,7 @@ function JobCard({ id, name }) {
         ...configFilterUser,
         job: idProfesion,
         name: "",
+        page: 1,
         provincia: "Buenos Aires",
         ciudad: false,
         dias: false,

@@ -51,7 +51,7 @@ const initialState = {
     job: false,
   },
 
-  //config para filtros services
+  //config para filtros buscar professionales
   configFilterUser: {
     page: 1,
     page_size: 15,
