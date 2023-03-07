@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
 import { getJobs } from "../../redux/actions/jobActions";
-<<<<<<< HEAD
-=======
 import { getMyPostulaciones } from "../../redux/actions/professionalActions";
 import { getService } from "../../redux/actions/serviceActions";
->>>>>>> 4853f30c9a2023f3989ed1265f6229e634165e3b
 import { getAllServices } from "../../redux/actions/services/getServices";
 
 
