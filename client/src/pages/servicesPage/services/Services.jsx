@@ -1,6 +1,6 @@
 import ServiceCard from "../serviceCard/ServiceCard";
 
-export default function Services({ services }) {
+export default function Services({ services, myPostulaciones }) {
   return (
     <>
       {services.map((e, index) => (
@@ -16,6 +16,7 @@ export default function Services({ services }) {
           numberJobs={e.numberJobs}
           description={e.description}
           userId={e.userId}
+          myPostulaciones={myPostulaciones}
         />
       ))}
     </>

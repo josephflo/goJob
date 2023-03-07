@@ -4,6 +4,7 @@ import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
 import Pagination from "../../containers/pagination/Pagination";
 import { getJobs } from "../../redux/actions/jobActions";
+import { getMyPostulaciones } from "../../redux/actions/professionalActions";
 import { getService } from "../../redux/actions/serviceActions";
 import { getAllServices } from "../../redux/actions/services/getServices";
 import { getUsers } from "../../redux/actions/userActions";
@@ -16,6 +17,8 @@ function ServicesPage() {
   let configFilterServices = useSelector((state) => state.configFilterServices);
   const dispatch = useDispatch();
 
+  let myPostulaciones = useSelector((state) => state.mypostulaciones);
+
   useEffect(() => {
     dispatch(getAllServices(configFilterServices));
   }, [configFilterServices]);
@@ -24,6 +27,7 @@ function ServicesPage() {
   useEffect(() => {
     dispatch(getJobs());
     dispatch(getAllServices(configFilterServices));
+    dispatch(getMyPostulaciones());
   }, []);
 
   return (
@@ -48,7 +52,10 @@ function ServicesPage() {
 
         <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {service.result && service.result.length > 0 ? (
-            <Services services={service.result} />
+            <Services
+              services={service.result}
+              myPostulaciones={myPostulaciones}
+            />
           ) : (
             <p className="flex items-center justify-center h-screen">
               {" "}
