@@ -11,6 +11,9 @@ const NavBarPortada = () => {
   const users = useSelector((state) => state.userLogin);
 
   const [open, setOpen] = useState(false);
+
+  console.log(users);
+
   return (
     <nav class="bg-white">
       <div class="flex items-center font-medium justify-around">
@@ -38,21 +41,17 @@ const NavBarPortada = () => {
             </Link>
           </li>
 
-          {isAuthenticated ? (
-            users.role === "admin" ? (
+          {isAuthenticated  &&
+            users.role === "admin" && (
               <li>
                 <Link to="/Dashboard" class="py-4 px-3 inline-block">
                   Dashboard
                 </Link>
               </li>
-            ) : (
-              <></>
-            )
-          ) : (
-            <></>
           )}
-          {isAuthenticated ? (
-            users.role === "admin" ? (
+
+          {/* {isAuthenticated &&
+            users.role === "admin" && (
               <></>
             ) : (
               <li>
@@ -60,11 +59,16 @@ const NavBarPortada = () => {
                   Crear Servicio
                 </Link>
               </li>
-            )
-          ) : (
-            <></>
-          )}
-          {users.role === "comun" ? (
+          )} */}
+
+          {users.role && users.role !== "admin"? (
+            <Link to={`/${users.role === "comun" ? 'profile' : 'myprofilep'}/${users.id}` } class="py-4 px-3 inline-block">
+              Mi Perfil
+            </Link>
+          ):(<LoginButtons/>)}
+
+
+          {/* {users.role === "comun" ? (
             <Link to={`/profile/${users.id}`} class="py-4 px-3 inline-block">
               Mi Perfil
             </Link>
@@ -76,7 +80,7 @@ const NavBarPortada = () => {
             <></>
           ) : (
             <LoginButtons />
-          )}
+          )} */}
         </ul>
         {isAuthenticated === true && (
           <div class="py-4">

@@ -100,19 +100,29 @@ function App() {
       createUser();
     }
   }, [isAuthenticated]);
+
+  console.log("****************************");
+  console.log(isAuthenticated);
+
+  console.log(token);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {isAuthenticated ? (
+          <Route path="/" element={<HomePage />} />
+          <Route exact path="/service" element={<ServicesPage />} />
+          <Route path="/professional" element={<ProfesionalPage />} />
+
+          {isAuthenticated && (
             <>
-              {!token ? (
+              {!token? (
+                
                 <>
                   <Route path="*" element={<LoadingHomePage />} />
                 </>
               ) : (
                 <>
-                  <Route path="/" element={<HomePage />} />
                   {/* Admin **********************************************************/}
 
                   <Route
@@ -210,13 +220,10 @@ function App() {
                 </>
               )}
             </>
-          ) : (
-            <>
-              <Route path="/" element={<HomePage />} />
-              <Route exact path="/service" element={<ServicesPage />} />
-              <Route path="/professional" element={<ProfesionalPage />} />
-            </>
-          )}
+          ) 
+          
+     
+          }
         </Routes>
 
         {/* Paginas para pago */}

@@ -23,7 +23,7 @@ import {
 export default function SideBar() {
   const users = useSelector((state) => state.userLogin);
 
-  const imagePerfil = useSelector((state) => state.imagePerfil);
+  const imagePerfil = useSelector((state) => state.userLogin.imagePerfil);
 
   // Button
   const select = useSelector((state) => state.selected);
@@ -125,6 +125,7 @@ export default function SideBar() {
               </li>
             </ul>
           </nav>
+
           <div className="flex flex-col gap-4">
             <img src={logo} alt="image" />
             <button onClick={handleCleanClick}>
@@ -137,6 +138,7 @@ export default function SideBar() {
               </Link>
             </button>
           </div>
+          
         </div>
       </div>
     </div>
