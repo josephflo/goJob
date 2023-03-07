@@ -31,7 +31,6 @@ export let getAllServices = (objQuery) => async (dispatch) => {
     let respuesta = result.data;
 
     console.log("Nueva peticion de services");
-    console.log(respuesta.result);
 
     queries = {};
 

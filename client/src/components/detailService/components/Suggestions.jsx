@@ -6,38 +6,18 @@ import PlaceAnArrayObjectAtTheBeggining from "../../../helpers/placeAnArrayObjec
 import { suggestionServices } from "../../../redux/actions/services/getServices";
 import CardSuggestion from "./CardSuggestion";
 
-export default function Suggestions({ detail, totalPages, job }) {
+export default function Suggestions({ detail, totalPages, job, jobName }) {
   //   const tittle = detail.tittle;
 
   const dispatch = useDispatch();
   // const jobs = detail.Jobs?.map((job) => job.id)[0];
   let suggestions = useSelector((state) => state.suggestionServices.result);
 
-  // suggestions = suggestions?.filter((s) => s.id !== detail.id);
-
-  // colocar la card suggestion seleccionada y colocar al inicio
-  // PlaceAnArrayObjectAtTheBeggining(suggestions, detail);
-  // const index = suggestions?.findIndex((s) => s.id === detail.id);
-  // if (index !== -1) {
-  //   suggestions?.splice(index, 1);
-  //   suggestions?.unshift(detail);
-  // }
-
   // Estados de la paginacion
   const [page, setPage] = useState(1);
   let configFilterServicesSuggestion = useSelector(
     (state) => state.configFilterServicesSuggestion
   );
-
-  // useEffect(() => {
-  //   dispatch(
-  //     suggestionServices({
-  //       page: 1,
-  //       page_size: 7,
-  //       job: jobs,
-  //     })
-  //   );
-  // }, [jobs]);
 
   const paginatePrev = (e) => {
     e.preventDefault();
@@ -79,12 +59,13 @@ export default function Suggestions({ detail, totalPages, job }) {
 
   return (
     <>
+      <h2 className="text-2xl font-medium m-3">Sugerencias - {jobName}</h2>
       {suggestions?.map((suggestion) => (
         <div className="pb-4">
           <CardSuggestion suggestion={suggestion} id={detail.id} />
         </div>
       ))}
-      <div className="p-2 bg-gray-100">
+      <div className="p-2">
         <div className="flex justify-center">
           <Pagination
             paginatePrev={paginatePrev}

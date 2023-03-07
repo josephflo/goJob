@@ -24,7 +24,7 @@ const initialState = {
   dashboardAdmin: {},
   mytrabajos: {},
   myservices: {},
-  mypostulaciones: {},
+  mypostulaciones: [],
 
   selected: 1,
 
@@ -60,7 +60,7 @@ const initialState = {
     provincia: "Buenos Aires",
     ciudad: false,
     dias: false,
-    horario: false  ,
+    horario: false,
     role: "professional",
     orderName: false,
     orderRating: "DESC",
@@ -165,7 +165,6 @@ export default function reducer(state = initialState, action) {
         userDetail: {},
       };
 
-   
     case ActionTypes.GET_ALL_USERS_FILTRADO:
       return {
         ...state,
