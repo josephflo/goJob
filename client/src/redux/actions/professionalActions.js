@@ -77,8 +77,8 @@ export const getMyPostulaciones = (input) => {
   return async (dispatch) => {
     let queries = {};
 
-    if (input.tittle) queries.tittle = input.tittle;
-    if (input.fecha_publicacion)
+    if (input?.tittle) queries.tittle = input.tittle;
+    if (input?.fecha_publicacion)
       queries.fecha_publicacion = input.fecha_publicacion;
 
     const concatQuery = convertObjToQuery(queries);
@@ -93,12 +93,23 @@ export const getMyPostulaciones = (input) => {
   };
 };
 
-// Mi Perfil
+// Mi Perfil - Profesional
 
 export const stateSelected = (input) => {
   return async (dispatch) => {
     return dispatch({
       type: ActionTypes.STATE_SELECTED,
+      payload: input,
+    });
+  };
+};
+
+// Mi Perfil - Comun
+
+export const stateSelectedComun = (input) => {
+  return async (dispatch) => {
+    return dispatch({
+      type: ActionTypes.STATE_SELECTED_COMUN,
       payload: input,
     });
   };

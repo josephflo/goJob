@@ -1,27 +1,27 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { getUserDetail } from "../../redux/actions/userActions";
-import CardProfileP from "./Cards/CardProfileP";
-import SideBar from "./SideBar";
+import { getUserDetail } from "../../../redux/actions/userActions";
+import CardProfile from "./Card/CardProfile";
+import SideBarComun from "./SideBarComun";
+import SideBar from "./SideBarComun";
 
-export default function MyProfileP () {
-    const params = useParams();
-    const { id } = params;
-    const dispatch = useDispatch();
-  
-    const user = useSelector((state) => state.userDetail);
+export default function MyProfile() {
+  const params = useParams();
+  const { id } = params;
+  const dispatch = useDispatch();
 
-  
-    useEffect(() => {
-      dispatch(getUserDetail(id));
-    }, []);
-    return(
-        <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-      <SideBar />
+  const user = useSelector((state) => state.userDetail);
+
+  useEffect(() => {
+    dispatch(getUserDetail(id));
+  }, []);
+  return (
+    <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
+      <SideBarComun />
       <div className="col-span-5">
         <div className=" bg-gray-100 ">
-          <CardProfileP
+          <CardProfile
             key={user.id}
             firstName={user.firstName}
             lastName={user.lastName}
@@ -37,5 +37,5 @@ export default function MyProfileP () {
         </div>
       </div>
     </div>
-    )
+  );
 }

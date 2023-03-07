@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   configFilterPerfilJobs,
   configFilterPerfilOffer,
-} from "../../../redux/actions/professionalActions";
+} from "../../../../redux/actions/professionalActions";
 
 export default function FilterJobs() {
   let order = [
