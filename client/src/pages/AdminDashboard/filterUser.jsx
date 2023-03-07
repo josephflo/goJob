@@ -3,14 +3,11 @@ import {
   RiSearchLine,
   RiFilter3Line,
   RiUserLocationLine,
-  RiCloseLine,
+
 } from "react-icons/ri";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { provincias } from "../../constants/ciudadesObject"
-import { dias, horario } from "../../constants/dias";
-import capitalizeFirstLetter from "../../helpers/capitalizeFirstLetter";
-import { convertirProvinciasAObjeto } from "../../helpers/convertProvinciasToObj";
+
 import {
   configFilterUserPut,
   getAllProfesionales,
@@ -19,16 +16,21 @@ import {
 
 
 
+
 export function FilterUser({ totalPages }) {
   let configFilterUser = useSelector((state) => state.configFilterUser);
+
   const usersProfesionales = useSelector((state) => state.usersProfesionales);
-  let provinciasObj = convertirProvinciasAObjeto(provincias);
+ 
 
   let [filter,setFilter]= useState({
     page:1,
-    page_size:15,
+    page_size:30,
     name:"",
-    role:false
+    role:false,
+    horario:false,
+    provincia:false,
+    state:true
   })
 
   const dispatch = useDispatch();
@@ -41,7 +43,6 @@ export function FilterUser({ totalPages }) {
       .getAttribute("name")
       
     let value = event.target.value;
-    
 
     let newConfig = {
       ...filter,
@@ -73,9 +74,13 @@ export function FilterUser({ totalPages }) {
     }
   };
 
+
+console.log(filter)
+
   useEffect(() => {
-    dispatch(getAllProfesionales(filter));
-  }, [filter]);
+     dispatch(configFilterUserPut(filter));
+     dispatch(getAllProfesionales(configFilterUser))
+  }, [filter,configFilterUser]);
 
   
   return (
@@ -104,8 +109,8 @@ export function FilterUser({ totalPages }) {
               placeholder="Buscar"
               value={filter.role}
             >
-             
-              <option name={"role"} value={"todos"} >todos</option>
+              <option name={"role"} value={"false"} >todos</option>
+              <option name={"role"} value={"admin"} >admin</option>
               <option name={"role"} value={"professional"} >professional</option>
               <option name={"role"} value={"comun"} >comun</option>
               
@@ -116,54 +121,20 @@ export function FilterUser({ totalPages }) {
           <div className="relative">
             <RiFilter3Line className="absolute left-2 top-3 text-blue-600" />
             <select
-                  defaultValue={Object.keys(provinciasObj)[0]}
-                  value={configFilterUser.provincia}
+                  value={configFilterUser.state}
                   onChange={handleOptionFilter}
                   className="p-2 py-2 pl-8 pr-4 outline-none  w-full border-none"
                        >
-                     {provinciasObj &&
-                    Object.keys(provinciasObj).length &&
-                    Object.keys(provinciasObj).map((prov, ind) => (
-                      <option key={ind + 1} value={prov} name={"provincia"}>
-                        {prov}
-                      </option>
-                    ))}
+                   <option key="1" value={true} name={"state"}>activo</option>
+                   <option key="2" value={false} name={"state"}>inactivo</option>
                 </select>
           </div>
         </form>
       </div>
 
-      <div className="flex items-center flex-wrap gap-4 mb-20">
-        {/* <span className="bg-white flex items-center gap-4 py-2 px-6 rounded-full">
-          <button className="bg-blue-100 p-1 rounded-full text-blue-600 text-xs">
-            <RiCloseLine />
-            {""}
-          </button>
-          Filtro1
-        </span>
-        <span className="bg-white flex items-center gap-4 py-2 px-6 rounded-full">
-          <button className="bg-blue-100 p-1 rounded-full text-blue-600 text-xs">
-            <RiCloseLine />
-            {""}
-          </button>
-          Filtro1
-        </span>
-        <span className="bg-white flex items-center gap-4 py-2 px-6 rounded-full">
-          <button className="bg-blue-100 p-1 rounded-full text-blue-600 text-xs">
-            <RiCloseLine />
-            {""}
-          </button>
-          Filtro1
-        </span>
-        <span className="bg-white flex items-center gap-4 py-2 px-6 rounded-full">
-          <button className="bg-blue-100 p-1 rounded-full text-blue-600 text-xs">
-            <RiCloseLine />
-            {""}
-          </button>
-          Filtro1
-        </span> */}
-        <button className="text-gray-500 ml-4">borrar filtros</button>
-      </div>
+      {/* <div className="flex items-center flex-wrap gap-4 mb-20">
+       
+      </div> */}
 
       <div className="flex items-center justify-between mb-8">
         <p className="text-gray-500">
