@@ -105,21 +105,19 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route exact path="/service" element={<ServicesPage />} />
+
+          
+          <Route path="/" element={<HomePage />} /> &&
+          <Route exact path="/service" element={<ServicesPage />} /> &&
           <Route path="/professional" element={<ProfesionalPage />} />
+          
 
-          {/* {isLoading && (
+          {isLoading && (
             <Route path="*" element={<LoadingHomePage />} />
-          )} */}
+          )}
+          
 
-          {isAuthenticated && (
-            <>
-              {!token? (
-                
-                  <Route path="*" element={<LoadingHomePage />} />
-              ) : 
-              (
+          {token && (
                 <>
                   {/* Admin **********************************************************/}
 
@@ -216,13 +214,9 @@ function App() {
                   {/*Profesionales */}
                   {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
                 </>
-              )}
+          )}
 
-            </>
-          ) 
-          
-     
-          }
+       
         </Routes>
 
         {/* Paginas para pago */}

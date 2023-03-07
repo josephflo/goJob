@@ -17,30 +17,34 @@ const NavBarPortada = () => {
   return (
     <nav class="bg-white">
       <div class="flex items-center font-medium justify-around">
+
         <div class="z-50 p-3 md:w-auto w-full flex justify-between md:p-7 lg:p-7">
           <Link to="/">
             <img src={GoJobLogo} alt="logo" className="md:cursor-pointer h-9" />
           </Link>
-          <div
-            className="text-3xl px-2 md:hidden"
-            onClick={() => setOpen(!open)}
-          >
+
+          <div className="text-3xl px-2 md:hidden" onClick={() => setOpen(!open)}>
             <ion-icon name={`${open ? "close" : "menu"}`}></ion-icon>
           </div>
         </div>
+
+
         <ul className="md:flex hidden uppercase items-center gap-8 font-[Poppins]">
           <li>
             <Link to="/" className="py-4 px-3 inline-block">
               Inicio
             </Link>
           </li>
+
           <NavLinkProf />
+
           <li>
             <Link to="/service" className="py-4 px-3 inline-block">
               Servicios
             </Link>
           </li>
 
+          {/*Solo si es Admin */}
           {isAuthenticated  &&
             users.role === "admin" && (
               <li>
@@ -50,39 +54,31 @@ const NavBarPortada = () => {
               </li>
           )}
 
-          {/* {isAuthenticated &&
-            users.role === "admin" && (
-              <></>
-            ) : (
-              <li>
-                <Link to="/create/service" class="py-4 px-3 inline-block">
-                  Crear Servicio
-                </Link>
-              </li>
-          )} */}
+          {/*Solo si es profesional mostrar CREAR SERVICIO */}
+          {users.role && users.role === "professional" && (
+            <li>
+              <Link to="/create/service" class="py-4 px-3 inline-block">
+                Crear Servicio
+              </Link>
+            </li>
+          )}
 
-          {users.role && users.role !== "admin"? (
+          {/*Modificamos el link de acuerdo al rol */}
+          {users.role && users.role !== "admin" && (
             <Link to={`/${users.role === "comun" ? 'profile' : 'myprofilep'}/${users.id}` } class="py-4 px-3 inline-block">
               Mi Perfil
             </Link>
-          ):(<LoginButtons/>)}
+          )}
+
+          {/*SOLO PONEMOS EL LOGIN CUANDO NO ESTA AUTENTICADO */}
+          {!isAuthenticated &&
+            (<LoginButtons/>)
+          }
 
 
-          {/* {users.role === "comun" ? (
-            <Link to={`/profile/${users.id}`} class="py-4 px-3 inline-block">
-              Mi Perfil
-            </Link>
-          ) : users.role === "professional" ? (
-            <Link to={`/myprofilep/${users.id}`} class="py-4 px-3 inline-block">
-              Mi Perfil
-            </Link>
-          ) : users.role === "admin" ? (
-            <></>
-          ) : (
-            <LoginButtons />
-          )} */}
         </ul>
-        {isAuthenticated === true && (
+
+        {isAuthenticated === true && user.picture && (
           <div class="py-4">
             <Link to={"/user/profile"}>
               <img
@@ -93,9 +89,8 @@ const NavBarPortada = () => {
             </Link>
           </div>
         )}
-        {/* <div class="md:block hidden"> */}
-        {/* <Button /> */}
-        {/* </div> */}
+
+   
 
         {/********************** Mobile nav **********************/}
 
@@ -108,49 +103,50 @@ const NavBarPortada = () => {
               Inicio
             </Link>
           </li>
+          
           <NavLinkProf />
+
           <li>
             <Link to="/service" className="py-3 px-2 inline-block">
               Servicios
             </Link>
           </li>
+
           <li>
             <Link to="/admin/create/job" className="py-3 px-2 inline-block">
               Crear Jobs
             </Link>
           </li>
+
           <li>
             <Link to="/create/service" className="py-3 px-2 inline-block">
               Crear Servicio
             </Link>
           </li>
-          {/* <li>
-            <Link to="/user/register" className="py-3 px-2 inline-block">
-              Crear User
-            </Link>
-          </li> */}
+
           <li>
-            {users.role === "comun" ? (
+            {users.role && users.role === "comun" &&(
               <Link
                 to={`/profile/${users.id}`}
                 className="py-7 px-2 inline-block"
               >
                 Mi Perfil
               </Link>
-            ) : users.role === "professional" ? (
+            )}
+            
+            {users.role && users.role === "professional" && (
               <Link
                 to={`/myprofilep/${users.id}`}
                 className="py-7 px-2 inline-block"
               >
                 Mi Perfil
               </Link>
-            ) : (
-              // <LoginButtons />
-              <></>
             )}
+
           </li>
+
           <div className="py-7">
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <Link to={"/user/profile"}>
                 <img
                   className="object-contain h-16 w-16 rounded-full auto px-2 py-3"
@@ -158,9 +154,8 @@ const NavBarPortada = () => {
                   alt={user.name}
                 />
               </Link>
-            ) : (
-              <LoginButtons />
             )}
+
           </div>
         </ul>
       </div>
