@@ -13,8 +13,9 @@ export default function JobPage() {
   let profesionales = jobs.slice(0,10)
 
   /*************************************** */
-  var settings = {
+  let settings = {
     dots: true,
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 5,
@@ -23,7 +24,7 @@ export default function JobPage() {
     autoplay: true,
     autoplaySpeed: 2800,
     pauseOnHover: true,
-
+    centerPadding: true,
     responsive: [
       {
         breakpoint: 1024,
@@ -40,22 +41,28 @@ export default function JobPage() {
           slidesToShow: 3,
           slidesToScroll: 1,
           infinite: true,
-          dots: true
-        }
+          dots: true,
+          arrows: false,
+        },
+
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
-          initialSlide: 1
-        }
+          initialSlide: 1,
+          arrows: false,
+        },
+
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1
+          slidesToScroll: 1,
+          arrows: false,
+          swipe: true
         }
       }
     ]

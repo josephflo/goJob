@@ -91,7 +91,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getJobs());
-    dispatch(getUsers());
+    //dispatch(getUsers());
   }, []);
 
   useEffect(() => {
