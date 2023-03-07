@@ -101,11 +101,6 @@ function App() {
     }
   }, [isAuthenticated]);
 
-  console.log("****************************");
-  console.log(isAuthenticated);
-
-  console.log(token);
-
   return (
     <>
       <BrowserRouter>
@@ -114,14 +109,17 @@ function App() {
           <Route exact path="/service" element={<ServicesPage />} />
           <Route path="/professional" element={<ProfesionalPage />} />
 
+          {/* {isLoading && (
+            <Route path="*" element={<LoadingHomePage />} />
+          )} */}
+
           {isAuthenticated && (
             <>
               {!token? (
                 
-                <>
                   <Route path="*" element={<LoadingHomePage />} />
-                </>
-              ) : (
+              ) : 
+              (
                 <>
                   {/* Admin **********************************************************/}
 
@@ -219,6 +217,7 @@ function App() {
                   {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
                 </>
               )}
+
             </>
           ) 
           
