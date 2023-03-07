@@ -1,5 +1,6 @@
 //** Dependencies */
 import axios from "axios";
+import convertObjToQuery from "../../helpers/convertObjToQuery";
 //** Constants */
 import { ActionTypes } from "../constants/actions-types";
 
@@ -15,9 +16,18 @@ export const getProfessionalById = (id) => {
   };
 };
 
-export const getMyTrabajos = () => {
+export const getMyTrabajos = (input) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/services/MyTrabajos`);
+    let queries = {};
+
+    if (input.state) queries.state = input.state;
+    if (input.tittle) queries.tittle = input.tittle;
+    if (input.fecha_publicacion)
+      queries.fecha_publicacion = input.fecha_publicacion;
+
+    const concatQuery = convertObjToQuery(queries);
+
+    const result = await axios.get(`/user/services/MyTrabajos?${concatQuery}`);
     return dispatch({
       type: ActionTypes.MY_TRABAJOS,
       payload: result.data.result,
@@ -25,9 +35,18 @@ export const getMyTrabajos = () => {
   };
 };
 
-export const getMyServices = () => {
+export const getMyServices = (input) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/services/MyServices`);
+    let queries = {};
+
+    if (input.state) queries.state = input.state;
+    if (input.tittle) queries.tittle = input.tittle;
+    if (input.fecha_publicacion)
+      queries.fecha_publicacion = input.fecha_publicacion;
+
+    const concatQuery = convertObjToQuery(queries);
+
+    const result = await axios.get(`/user/services/MyServices?${concatQuery}`);
     return dispatch({
       type: ActionTypes.MY_SERVICES,
       payload: result.data.result,
@@ -35,9 +54,38 @@ export const getMyServices = () => {
   };
 };
 
-export const getMyPostulaciones = () => {
+export const configFilterPerfilOffer = (input) => {
+  return {
+    type: ActionTypes.CONFIG_FILTER_PERFIL_OFFER,
+    payload: input,
+  };
+};
+export const configFilterPerfilJobs = (input) => {
+  return {
+    type: ActionTypes.CONFIG_FILTER_PERFIL_JOBS,
+    payload: input,
+  };
+};
+export const configFilterPerfilPostulaciones = (input) => {
+  return {
+    type: ActionTypes.CONFIG_FILTER_PERFIL_POSTULACIONES,
+    payload: input,
+  };
+};
+
+export const getMyPostulaciones = (input) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/services/Postulaciones`);
+    let queries = {};
+
+    if (input.tittle) queries.tittle = input.tittle;
+    if (input.fecha_publicacion)
+      queries.fecha_publicacion = input.fecha_publicacion;
+
+    const concatQuery = convertObjToQuery(queries);
+
+    const result = await axios.get(
+      `/user/services/Postulaciones?${concatQuery}`
+    );
     return dispatch({
       type: ActionTypes.MY_POSTULACIONES,
       payload: result.data.result,

@@ -10,6 +10,7 @@ function ServiceCard({
   description,
   userId,
   imageurl,
+  myPostulaciones,
 }) {
   const Swal = require("sweetalert2");
   function handleClick() {
@@ -23,14 +24,24 @@ function ServiceCard({
   tittle = capitalizeFirstLetter(tittle);
   description = capitalizeFirstLetter(description);
 
+  let id_myPostulaciones = myPostulaciones?.map((myPost) => myPost.id);
+
   return (
     <div className="bg-gray-100 p-4">
       <NavLink to={`/service/detail/${id}`}>
-        <div className="h-[400px] overflow-hidden">
+        <div className="overflow-hidden h-[350px]">
           {imageurl === "sin foto" ? (
-            <img src={userFormBackground} className="object-fill" alt="" />
+            <img
+              src={userFormBackground}
+              className="w-full h-full object-center object-cover"
+              alt=""
+            />
           ) : (
-            <img src={imageurl} className="object-fill" alt="" />
+            <img
+              src={imageurl}
+              className="w-full h-full object-center object-cover"
+              alt=""
+            />
           )}
         </div>
 
@@ -53,8 +64,19 @@ function ServiceCard({
               ${presupuesto}
             </p>
             <div className="flex justify-end ">
-              <button className="bg-blue-500  hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-                Postular
+              <button
+                disabled={id_myPostulaciones?.includes(id)}
+                className={
+                  id_myPostulaciones?.includes(id)
+                    ? "bg-green-800 text-white font-bold py-2 px-4 border border-green-700 rounded"
+                    : "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+                }
+              >
+                {id_myPostulaciones?.includes(id) ? (
+                  <>Postulado</>
+                ) : (
+                  <>Postular</>
+                )}
               </button>
             </div>
           </div>

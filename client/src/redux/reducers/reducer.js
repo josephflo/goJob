@@ -24,7 +24,7 @@ const initialState = {
   dashboardAdmin: {},
   mytrabajos: {},
   myservices: {},
-  mypostulaciones: {},
+  mypostulaciones: [],
 
   selected: 1,
 
@@ -60,10 +60,30 @@ const initialState = {
     provincia: "Buenos Aires",
     ciudad: false,
     dias: false,
-    horario: "mañana",
+    horario: false,
     role: "professional",
     orderName: false,
     orderRating: "DESC",
+  },
+
+  // config para filtros PERFIL PROFESIONAL ofertas
+  configFilterPerfilOffer: {
+    tittle: "",
+    state: "",
+    fecha_publicacion: "ASC",
+  },
+
+  // config para filtros PERFIL PROFESIONAL trabajos
+  configFilterPerfilJobs: {
+    tittle: "",
+    state: "",
+    fecha_publicacion: "ASC",
+  },
+
+  // config para filtros PERFIL PROFESIONAL postulaciones
+  configFilterPerfilPostulaciones: {
+    tittle: "",
+    fecha_publicacion: "ASC",
   },
 };
 
@@ -158,16 +178,6 @@ export default function reducer(state = initialState, action) {
         userDetail: {},
       };
 
-    // case ActionTypes.FILTER_MODEL:
-    //   return {
-    //     ...state,
-    //     filterService: action.payload.result,
-    //     state: action.payload.state,
-    //     job: action.payload.job,
-    //     provincias: action.payload.provincias,
-    //     localidades: action.payload.localidades,
-    //   };
-
     case ActionTypes.GET_ALL_USERS_FILTRADO:
       return {
         ...state,
@@ -192,6 +202,24 @@ export default function reducer(state = initialState, action) {
         ...state,
         myservices: action.payload,
       };
+
+    /************** FILTROS PERFIL PROFESIONAL */
+    case ActionTypes.CONFIG_FILTER_PERFIL_OFFER:
+      return {
+        ...state,
+        configFilterPerfilOffer: action.payload,
+      };
+    case ActionTypes.CONFIG_FILTER_PERFIL_JOBS:
+      return {
+        ...state,
+        configFilterPerfilJobs: action.payload,
+      };
+    case ActionTypes.CONFIG_FILTER_PERFIL_POSTULACIONES:
+      return {
+        ...state,
+        configFilterPerfilPostulaciones: action.payload,
+      };
+    /************** */
     case ActionTypes.MY_POSTULACIONES:
       return {
         ...state,
