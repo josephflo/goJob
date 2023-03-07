@@ -7,7 +7,8 @@ export let getAllServices = (objQuery) => async (dispatch) => {
 
   if (objQuery.page) queries.page = objQuery.page;
   if (objQuery.page_size) queries.page_size = objQuery.page_size;
-  if (objQuery.state && objQuery.state !== false) queries.state = objQuery.state;
+  if (objQuery.state && objQuery.state !== false)
+    queries.state = objQuery.state;
   if (objQuery.orderFecha && objQuery.orderFecha !== false)
     queries.orderFecha = objQuery.orderFecha;
 
@@ -56,6 +57,15 @@ export const cleanAllServices = () => {
   };
 };
 
+export const stateSuggestionService = (input) => {
+  return (dispatch) => {
+    return dispatch({
+      type: ActionTypes.STATE_SUGGESTION_SERVICE,
+      payload: input,
+    });
+  };
+};
+
 export const suggestionServices = (detail) => {
   return async (dispatch) => {
     let queries = {};
@@ -67,6 +77,7 @@ export const suggestionServices = (detail) => {
     if (detail.page) queries.page = detail.page;
     if (detail.page_size) queries.page_size = detail.page_size;
     if (detail.job && detail.job !== false) queries.job = detail.job;
+    if (detail.state && detail.state !== false) queries.state = detail.state;
 
     const concatQuery = convertObjToQuery(queries);
     // console.log(concatQuery);

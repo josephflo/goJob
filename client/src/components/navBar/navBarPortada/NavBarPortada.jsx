@@ -3,7 +3,7 @@ import GoJobLogo from "../../../assets/GoJobLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtons from "../../../authentication/components/LoginButtons";
 import { useState } from "react";
-import NavLinks from "./NavLinks";
+import NavLinkProf from "./NavLinkProf";
 import { useSelector } from "react-redux";
 
 const NavBarPortada = () => {
@@ -31,7 +31,7 @@ const NavBarPortada = () => {
               Inicio
             </Link>
           </li>
-          <NavLinks />
+          <NavLinkProf />
           <li>
             <Link to="/service" className="py-4 px-3 inline-block">
               Servicios
@@ -104,7 +104,7 @@ const NavBarPortada = () => {
               Inicio
             </Link>
           </li>
-          <NavLinks />
+          <NavLinkProf />
           <li>
             <Link to="/service" className="py-3 px-2 inline-block">
               Servicios
