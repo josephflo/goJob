@@ -2,9 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import {RiNotification3Line,RiArrowDownSLine,
          RiCheckboxBlankCircleFill} from "react-icons/ri"
+import { useSelector } from "react-redux";
+
 
 
 export function Notifications (){
+
+    const userLogin = useSelector((state) => state.userLogin)
+
+    console.log(userLogin)
 
     return (
         <nav className="w-[70%] flex justify-end">
@@ -17,7 +23,7 @@ export function Notifications (){
             </li>
             <li>
                 <Link to="#" className="flex items-center gap-1">
-                Usuario
+                {userLogin.firstName}
                 <RiArrowDownSLine/>
                 </Link>
               

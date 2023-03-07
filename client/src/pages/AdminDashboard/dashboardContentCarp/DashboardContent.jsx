@@ -3,12 +3,17 @@ import { Link } from "react-router-dom";
 import { RiLineChartLine, RiHashtag } from "react-icons/ri";
 import { SideBar } from "../sidebar";
 import { Header } from "../header";
-import { useSelector, useDispatch} from "react-redux";
-import { getService } from "../../../redux/actions/serviceActions";
-import { getAllServices } from "../../../redux/actions/services/getServices";
-import { useAuth0 } from "@auth0/auth0-react";
+
 
   function DashboardContent({servicesDashboard}) {
+
+   const ultimaDescripcion = servicesDashboard.ultimosPagos[0]?.description
+   const longitud = 30
+   const descripcionCorta = ultimaDescripcion.slice(0,longitud) + "..."
+
+   const ultimaDescripcion2 = servicesDashboard.ultimosPagos[1]?.description
+   const descripcionCorta2 = ultimaDescripcion.slice(0,longitud) + "..."
+
   
  
     return (
@@ -29,9 +34,9 @@ import { useAuth0 } from "@auth0/auth0-react";
             <div className="bg-blue-600 p-8 rounded-xl text-gray-300 flex flex-col gap-6">
               <RiLineChartLine className="text-5xl" />
               <h4 className="text-2xl">Ganancias totales</h4>
-              <span className="text-5xl text-white">{servicesDashboard.serviciosGananciasTodo}</span>
+              <span className="text-5xl text-white">{Math.round(servicesDashboard.serviciosGananciasTodo*0.15)}</span>
               <span className="py-1 px-3 bg-blue-900 rounded-full">
-               {"+ " + servicesDashboard.gananciasEsteMes + " este mes"}
+               {"+ " + Math.round(servicesDashboard.gananciasEsteMes*0.15) + " este mes"}
               </span>
             </div>
             {/* Card 2 */}
@@ -55,13 +60,13 @@ import { useAuth0 } from "@auth0/auth0-react";
                     <p className="text-gray-500">{servicesDashboard.serviciosEsteMesCount+" este mes"}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-gray-500 text-sm">
-                  <span className="bg-blue-300 py-1 px-4 rounded-full">
+                <div className="flex items-center gap-2 text-gray-500 text-sm" >
+                <a className="bg-yellow-100 text-yellow-800 py-1 px-3 rounded-full font-medium" href="dashboard/services/proceso">
                     Proceso
-                  </span>
-                  <span className="bg-blue-300 py-1 px-4 rounded-full">
+                  </a>
+                  <a className="bg-green-100 text-green-800 py-1 px-3 rounded-full font-medium" href="dashboard/services/terminado">
                     Finalizado
-                  </span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -80,10 +85,14 @@ import { useAuth0 } from "@auth0/auth0-react";
                   </div>
                 </div>
                 <div className="flex items-center gap-4 mb-4">
-                  <img
-                    src={servicesDashboard.ultimoUser[1].imagePerfil}
+                  {servicesDashboard.ultimoUser[1].imagePerfil? <img
+                    src={servicesDashboard.ultimoUser[1]?.imagePerfil}
                     className="w-14 h-14 object-cover rounded-full"
-                  />
+                  />: <img
+                  src=""
+                  className=""
+                />}
+                 
                   <div>
                     <h3 className="font-bold">{servicesDashboard.ultimoUser[1].firstName}</h3>
                     <p className="text-gray-500">{servicesDashboard.ultimoUser[1].role}</p>
@@ -91,10 +100,10 @@ import { useAuth0 } from "@auth0/auth0-react";
                 </div>
                 <div className="flex justify-end">
                   <Link
-                    to="to=/dashboard/services"
+                    to="/dashboard/users"
                     className="hover:text-gray-400 transition-colors hover:underline"
                   >
-                    ver servicios
+                    ver usuarios
                   </Link>
                 </div>
               </div>
@@ -108,14 +117,25 @@ import { useAuth0 } from "@auth0/auth0-react";
             
                 <div className="grid grid-cols-1 xl:grid-cols-4 items-center gap-4 mb-4">
                   <div className="col-span-2 flex items-center gap-4">
-                    <img
-                      src="https://img.freepik.com/foto-gratis/hombre-joven-hermoso-contento-camiseta-azul-que-senala-lado_1262-17845.jpg"
-                      className="w-14 h-14 object-cover rounded-xl"
-                    />
+                    {servicesDashboard.ultimosPagos[0].imageServiceUrl === "sin foto" ?
+                     <img
+                     src="https://la-oruga.com/wp-content/uploads/2022/04/port.png"
+                     className="w-14 h-14 object-cover rounded-xl"
+                   />
+                    : <img
+                    src={servicesDashboard.ultimosPagos[0]?.imageServiceUrl}
+                    className="w-14 h-14 object-cover rounded-xl"
+                  />}
+                    
+                    {servicesDashboard.ultimosPagos[0].tittle?
                     <div>
-                      <h3 className="font-bold">Nombre de Usuario</h3>
-                      <p className="text-gray-500">jobs</p>
-                    </div>
+                    <h3 className="font-bold">{servicesDashboard.ultimosPagos[0]?.tittle}</h3>
+                    <p className="text-gray-500">{descripcionCorta}</p>
+                  </div>:<div>
+                    <h3 className="font-bold"></h3>
+                    <p className="text-gray-500"></p>
+                  </div>}
+                     
                   </div>
                   <div>
                     <span className="bg-green-100 text-green-800 py-1 px-3 rounded-full font-medium">
@@ -123,28 +143,44 @@ import { useAuth0 } from "@auth0/auth0-react";
                     </span>
                   </div>
                   <div>
-                    <span className="font-bold">$ 1,200.87</span>
+                    {servicesDashboard.ultimosPagos[0].presupuesto?
+                    <span className="font-bold">{"$ "+servicesDashboard.ultimosPagos[0]?.presupuesto}</span>:
+                    <span className="font-bold"></span>}
+                    
                   </div>
                 </div>
                 {/* Card 2 */}
                 <div className="grid grid-cols-1 xl:grid-cols-4 items-center gap-4 mb-4">
                   <div className="col-span-2 flex items-center gap-4">
-                    <img
-                      src="https://img.freepik.com/foto-gratis/alegre-joven-deportista-posando-mostrando-pulgares-arriba-gesto_171337-8194.jpg"
-                      className="w-14 h-14 object-cover rounded-xl"
-                    />
+                    {
+                      servicesDashboard.ultimosPagos[1].imageServiceUrl === "sin foto"?
+                      <img
+                    src="https://la-oruga.com/wp-content/uploads/2022/04/port.png"  
+                     className="w-14 h-14 object-cover rounded-xl" />
+                      :  <img
+                      src={servicesDashboard.ultimosPagos[1]?.imageServiceUrl}  
+                       className="w-14 h-14 object-cover rounded-xl"
+                    />                   
+                    }
+                    
                     <div>
-                      <h3 className="font-bold">Nombre de usuario</h3>
-                      <p className="text-gray-500">Jobs</p>
+                      <h3 className="font-bold">{servicesDashboard.ultimosPagos[1]?.tittle}</h3>
+                      <p className="text-gray-500">{descripcionCorta2}</p>
                     </div>
                   </div>
                   <div>
-                    <span className="bg-red-100 text-red-800 py-1 px-3 rounded-full font-medium">
-                      cancelado
-                    </span>
+                    {servicesDashboard.ultimosPagos[1]?
+                    <span className="bg-green-100 text-green-800 py-1 px-3 rounded-full font-medium">
+                    Pagado
+                  </span>:<span >
+                               </span>}
+                  
                   </div>
                   <div>
-                    <span className="font-bold">$ 12,998.88</span>
+                    {servicesDashboard.ultimosPagos[1]?  
+                    <span className="font-bold">{"$ "+servicesDashboard.ultimosPagos[1]?.presupuesto}</span>:
+                    <span className="font-bold"></span>}
+                  
                   </div>
                 </div>
               </div>
@@ -169,11 +205,11 @@ import { useAuth0 } from "@auth0/auth0-react";
                 <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     <img
-                      src="https://img.freepik.com/foto-gratis/retrato-mujer-mayor-cerca_23-2149207185.jpg"
+                      src={servicesDashboard.ultimoService?.userId.imagePerfil}
                       className="w-14 h-14 object-cover rounded-full"
                     />
                     <div>
-                      <h3 className="font-bold">{servicesDashboard.ultimoService.userId.firstName+" "+servicesDashboard.ultimoService.userId.lastName}</h3>
+                      <h3 className="font-bold">{servicesDashboard.ultimoService?.userId.firstName+" "+servicesDashboard.ultimoService?.userId.lastName}</h3>
                       <p className="text-gray-500">{}</p>
                     </div>
                   </div>
@@ -183,19 +219,31 @@ import { useAuth0 } from "@auth0/auth0-react";
                     </span>
                   </div>
                 </div>
+                {servicesDashboard.ultimoService.tittle?
+                 <div>
+                 <h5 className="text-lg font-bold">
+                   {servicesDashboard.ultimoService?.tittle}
+                 </h5>
+                 <p className="text-gray-500">
+                   {servicesDashboard.ultimoService?.description}
+                 </p>
+               </div>:
                 <div>
-                  <h5 className="text-lg font-bold">
-                    {servicesDashboard.ultimoService.tittle}
-                  </h5>
-                  <p className="text-gray-500">
-                    {servicesDashboard.ultimoService.description}
-                  </p>
-                </div>
+                <h5 className="text-lg font-bold"> </h5>
+                <p className="text-gray-500"></p>
+              </div>}
+               
                 <div className="bg-primary-100/10 flex flex-col md:flex-row items-center justify-between gap-4 py-8 px-4 rounded-lg">
+                  {servicesDashboard.ultimoService.presupuesto?
                   <div>
                     <sup className="text-sm text-gray-500">$</sup>{" "}
-                    <span className="text-2xl font-bold mr-2">{servicesDashboard.ultimoService.presupuesto}</span>
-                  </div>
+                    <span className="text-2xl font-bold mr-2">{servicesDashboard.ultimoService?.presupuesto}</span>
+                  </div>:
+                  <div>
+                  <sup className="text-sm text-gray-500"></sup>{" "}
+                  <span className="text-2xl font-bold mr-2"></span>
+                 </div>}
+                  
                   <div>
                     {/* {servicesDashboard.Jobs.length? servicesDashboard.Jobs.map((job, index)=>
                       <span key={index} className="border border-primary-100 text-primary-100 py-2 px-4 rounded-full">

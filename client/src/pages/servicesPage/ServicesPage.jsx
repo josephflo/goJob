@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
-import Pagination from "../../containers/pagination/Pagination";
 import { getJobs } from "../../redux/actions/jobActions";
 import { getMyPostulaciones } from "../../redux/actions/professionalActions";
 import { getService } from "../../redux/actions/serviceActions";
 import { getAllServices } from "../../redux/actions/services/getServices";
-import { getUsers } from "../../redux/actions/userActions";
+
 
 import Services from "./services/Services";
 

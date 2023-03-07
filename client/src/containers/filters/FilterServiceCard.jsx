@@ -1,14 +1,12 @@
 export default function FilterServiceCard({ filter }) {
   const {
-    id,
+ 
     tittle,
-    state,
+   
     description,
-    provincia,
-    ciudad,
-    direccion,
+    
     presupuesto,
-    score,
+  
     Jobs,
     userId,
   } = filter;

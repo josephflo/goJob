@@ -17,7 +17,7 @@ export function Carduser({
 
   return (
     <Link
-      to={`dashboard/user/detail/${id}`}
+      to="/dashboard/user/detail"
       className="bg-white rounded-3xl mb-4 p-8 flex gap-8 w-full shadow-lg hover:border-blue-400 border-2 transition-all"
     >
       <div className="w-[10%] flex items-center justify-center">
