@@ -22,6 +22,8 @@
     -ms-touch-action: pan-y;
     touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
+
+    margin: 0%;
 }
 
 .slick-list
@@ -31,6 +33,7 @@
     display: block;
     overflow: hidden;
 
+    margin: 0 50px;
 
     padding-top: 10px;
     padding-bottom: 10px;
@@ -122,5 +125,10 @@
     border: 1px solid transparent;
 }
 .slick-arrow.slick-hidden {
-    /* display: none; */
+    display: block;
 }
+
+.slick-prev, .slick-next {
+    /* display: block; */
+    display: none;
+  }
