@@ -6,6 +6,7 @@ import removeItemOnce from "../../../helpers/removeItemOnce";
 import Location from "./formCreateProfessional/Location";
 import { updateUser } from "../../../redux/actions/userActions";
 import Swal from "sweetalert2";
+import SideBar from "../../../pages/ProfileComun/SideBar";
 
 function FormUpdateUserAuth() {
   const [input, setInput] = useState({});
@@ -62,6 +63,9 @@ function FormUpdateUserAuth() {
 
   return (
     <>
+    <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
+      <SideBar />
+      <div className="col-span-5">
       <div className="text-center lg:text-left">
         <h2 className=" text-4xl font-extrabold text-blue-900">Profesional</h2>
       </div>
@@ -73,6 +77,8 @@ function FormUpdateUserAuth() {
           changeInput={changeInput}
         />
         <Location changeInput={changeInput} handleRegister={handleRegister} />
+      </div>
+      </div>
       </div>
     </>
   );

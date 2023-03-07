@@ -60,7 +60,7 @@ export default function CardProfile({
                     </div>
                     <div className="col-span-1">
                         <Link to='/profilec/modificar'>
-              <button className="flex items-center h-13 gap-4 bg-blue-500 p-4 text-white rounded-lg ">
+              <button className="flex items-center h-13 py-2  gap-4 bg-blue-500 p-4 text-white rounded-lg ">
                 Modificar Perfil a Profesional
               </button>
               </Link>
