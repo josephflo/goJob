@@ -129,7 +129,7 @@ export default function OffersPageP() {
               Tus Ofertas
             </h1>
           </div>
-          <div className="flex justify-around   items-center">
+          <div className="flex justify-around items-center ">
             <FilterOffers />
           </div>
 
@@ -138,7 +138,7 @@ export default function OffersPageP() {
               <div className="">
                 <div className=" pt-4 grid grid-cols-1 ">
                   {services?.length > 0 ? (
-                    services?.map((e) => (
+                    services?.map((e, i) => (
                       <div
                         className={
                           modalIdService === e.id
@@ -147,7 +147,7 @@ export default function OffersPageP() {
                         }
                       >
                         <Card
-                          key={e.id}
+                          key={i}
                           id={e.id}
                           tittle={e.tittle}
                           imagenurl={e.imagenurl}

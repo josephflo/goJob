@@ -70,7 +70,7 @@ const initialState = {
   configFilterPerfilOffer: {
     tittle: "",
     state: "",
-    fecha_publicacion: "ASC",
+    fecha_publicacion: "DESC",
   },
 };
 

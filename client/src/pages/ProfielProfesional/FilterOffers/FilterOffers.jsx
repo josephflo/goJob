@@ -4,7 +4,6 @@ import { configFilterPerfilOffer } from "../../../redux/actions/professionalActi
 
 export default function FilterOffers() {
   let order = [
-    { name: "Default", valor: "" },
     { name: "Más recientes", valor: "DESC" },
     { name: "Más antiguos", valor: "ASC" },
   ];
