@@ -27,6 +27,7 @@ const initialState = {
   mypostulaciones: [],
 
   selected: 1,
+  selectedComun: 1,
 
   // suggestions
   suggestionServices: [],
@@ -64,6 +65,13 @@ const initialState = {
     role: "professional",
     orderName: false,
     orderRating: "DESC",
+  },
+
+  // config para filtros PERFIL COMUN ofertas
+  configFilterPerfilOfferComun: {
+    tittle: "",
+    state: "",
+    fecha_publicacion: "ASC",
   },
 
   // config para filtros PERFIL PROFESIONAL ofertas
@@ -112,6 +120,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selected: action.payload,
+      };
+    case ActionTypes.STATE_SELECTED_COMUN:
+      return {
+        ...state,
+        selectedComun: action.payload,
       };
 
     /********************* */

@@ -6,7 +6,7 @@ import removeItemOnce from "../../../helpers/removeItemOnce";
 import Location from "./formCreateProfessional/Location";
 import { updateUser } from "../../../redux/actions/userActions";
 import Swal from "sweetalert2";
-import SideBar from "../../../pages/ProfileComun/SideBar";
+import SideBar from "../../../pages/perfilesUsuarios/ProfileComun/SideBarComun";
 
 function FormUpdateUserAuth() {
   const [input, setInput] = useState({});
@@ -54,29 +54,35 @@ function FormUpdateUserAuth() {
     console.log(input);
     dispatch(updateUser(input));
     Swal.fire({
-			title: 'Datos guardados',
-			confirmButtonColor: 'green'
-		})
-        navigate('/')
-
+      title: "Datos guardados",
+      confirmButtonColor: "green",
+    });
+    navigate("/");
   };
 
   return (
     <>
-    <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-      <SideBar />
-      <div className="col-span-5">
-      <div className="text-center lg:text-left">
-        <h2 className=" text-4xl font-extrabold text-blue-900">Profesional</h2>
-      </div>
-      <div className="min-height-full flex">
-        <Jobs
-          jobs={jobs_}
-          handleJob={handleJob}
-          handleDay={handleDay}
-          changeInput={changeInput}
-        />
-        <Location changeInput={changeInput} handleRegister={handleRegister} />
+      <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
+        <SideBar />
+        <div className="col-span-5">
+          <div className="text-center lg:text-left">
+            <h2 className=" text-4xl font-extrabold text-blue-900">
+              Profesional
+            </h2>
+          </div>
+          <div className="min-height-full flex">
+            <Jobs
+              jobs={jobs_}
+              handleJob={handleJob}
+              handleDay={handleDay}
+              changeInput={changeInput}
+            />
+            <Location
+              changeInput={changeInput}
+              handleRegister={handleRegister}
+            />
+          </div>
+        </div>
       </div>
       </div>
       </div>

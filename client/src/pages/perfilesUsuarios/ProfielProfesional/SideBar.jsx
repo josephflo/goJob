@@ -8,7 +8,7 @@ import { GoBriefcase } from "react-icons/go";
 import logo from "../ProfileComun/image.svg";
 
 import { useDispatch, useSelector } from "react-redux";
-import { stateSelected } from "../../redux/actions/professionalActions";
+import { stateSelected } from "../../../redux/actions/professionalActions";
 
 import { CgProfile } from "react-icons/cg";
 

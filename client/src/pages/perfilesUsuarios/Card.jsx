@@ -1,6 +1,6 @@
 import React from "react";
 
-import { userFormBackground } from "../../../assets";
+import { userFormBackground } from "../../assets";
 
 export default function Card({
   id,

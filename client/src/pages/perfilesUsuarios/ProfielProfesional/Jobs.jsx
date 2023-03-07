@@ -1,40 +1,41 @@
 import React, { useEffect } from "react";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import CardPostulaciones from "./Cards/CardPostulaciones";
-import SinPostulaciones from "./Ups/SinPostulaciones";
-import { getMyPostulaciones } from "../../redux/actions/professionalActions";
-import FilterPostulaciones from "./Filter/FilterPostulaciones";
+import CardJob from "./Cards/CardJob";
+import SinJobs from "./Ups/SinJobs";
+import { getMyTrabajos } from "../../../redux/actions/professionalActions";
+import FilterJobs from "./Filter/FilterJobs";
 
-export default function Postulaciones() {
+export default function Jobs() {
   const dispatch = useDispatch();
 
-  const applications = useSelector((state) => state.mypostulaciones);
+  const jobs = useSelector((state) => state.mytrabajos);
+
   let configFilterServices = useSelector(
-    (state) => state.configFilterPerfilPostulaciones
+    (state) => state.configFilterPerfilJobs
   );
   useEffect(() => {
-    dispatch(getMyPostulaciones(configFilterServices));
+    dispatch(getMyTrabajos(configFilterServices));
   }, [configFilterServices]);
 
   return (
-    <div className="h-screen grid grid-gol-1  lg:grid-cols-6">
+    <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
       <SideBar />
-      <div className="col-span-5 bg-gray-100">
+      <div className="col-span-5  bg-gray-100">
         <div className="">
           <h1 className="text-lg text-left font-semibold md:text-xl lg:text-3xl">
-            Tus Ofertas
+            Tus Trabajos
           </h1>
         </div>
         <div className="flex justify-around   items-center">
-          <FilterPostulaciones />
+          <FilterJobs />
         </div>
-        <div className="h-screen p-4  ">
+        <div className="p-4 ">
           <div>
-            {applications?.length > 0 ? (
+            {jobs?.length > 0 ? (
               <div className="grid grid-cols-3">
-                {applications?.map((e) => (
-                  <CardPostulaciones
+                {jobs?.map((e) => (
+                  <CardJob
                     key={e.id}
                     tittle={e.tittle}
                     imagenurl={e.imagenurl}
@@ -48,7 +49,7 @@ export default function Postulaciones() {
                 ))}
               </div>
             ) : (
-              <SinPostulaciones />
+              <SinJobs />
             )}
           </div>
         </div>
