@@ -84,10 +84,9 @@ function FormUpdateUserAuth() {
           </div>
         </div>
       </div>
-      </div>
-      </div>
     </>
   );
 }
 
 export default FormUpdateUserAuth;
+
