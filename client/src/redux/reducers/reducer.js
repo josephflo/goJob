@@ -158,16 +158,7 @@ export default function reducer(state = initialState, action) {
         userDetail: {},
       };
 
-    // case ActionTypes.FILTER_MODEL:
-    //   return {
-    //     ...state,
-    //     filterService: action.payload.result,
-    //     state: action.payload.state,
-    //     job: action.payload.job,
-    //     provincias: action.payload.provincias,
-    //     localidades: action.payload.localidades,
-    //   };
-
+   
     case ActionTypes.GET_ALL_USERS_FILTRADO:
       return {
         ...state,
