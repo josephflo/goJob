@@ -16,9 +16,18 @@ export const getProfessionalById = (id) => {
   };
 };
 
-export const getMyTrabajos = () => {
+export const getMyTrabajos = (input) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/services/MyTrabajos`);
+    let queries = {};
+
+    if (input.state) queries.state = input.state;
+    if (input.tittle) queries.tittle = input.tittle;
+    if (input.fecha_publicacion)
+      queries.fecha_publicacion = input.fecha_publicacion;
+
+    const concatQuery = convertObjToQuery(queries);
+
+    const result = await axios.get(`/user/services/MyTrabajos?${concatQuery}`);
     return dispatch({
       type: ActionTypes.MY_TRABAJOS,
       payload: result.data.result,
@@ -51,10 +60,32 @@ export const configFilterPerfilOffer = (input) => {
     payload: input,
   };
 };
+export const configFilterPerfilJobs = (input) => {
+  return {
+    type: ActionTypes.CONFIG_FILTER_PERFIL_JOBS,
+    payload: input,
+  };
+};
+export const configFilterPerfilPostulaciones = (input) => {
+  return {
+    type: ActionTypes.CONFIG_FILTER_PERFIL_POSTULACIONES,
+    payload: input,
+  };
+};
 
-export const getMyPostulaciones = () => {
+export const getMyPostulaciones = (input) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/services/Postulaciones`);
+    let queries = {};
+
+    if (input.tittle) queries.tittle = input.tittle;
+    if (input.fecha_publicacion)
+      queries.fecha_publicacion = input.fecha_publicacion;
+
+    const concatQuery = convertObjToQuery(queries);
+
+    const result = await axios.get(
+      `/user/services/Postulaciones?${concatQuery}`
+    );
     return dispatch({
       type: ActionTypes.MY_POSTULACIONES,
       payload: result.data.result,

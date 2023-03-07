@@ -11,7 +11,7 @@ import { acceptUser } from "../../redux/actions/offers/acceptUser";
 import { userFormBackground } from "../../assets";
 
 import { getSessionUrl } from "../../redux/actions/services/stripePago";
-import FilterOffers from "./FilterOffers/FilterOffers";
+import FilterOffers from "./Filter/FilterOffers";
 
 export default function OffersPageP() {
   const dispatch = useDispatch();
@@ -334,7 +334,7 @@ export default function OffersPageP() {
                   <div className="bg-gray-100 w-full mt-10 px-16 md:px-0 flex items-center justify-center">
                     <div className="bg-white border border-gray-200 flex flex-col items-center justify-center px-4 md:px-8 lg:px-24 py-8 rounded-lg shadow-2xl">
                       <p className="text-2xl md:text-1xl lg:text-3xl font-bold tracking-wider text-gray-500 mt-4">
-                        Dale click en uno
+                        Dale click a uno
                       </p>
                       <div className="grid grid-cols-1"></div>
                     </div>

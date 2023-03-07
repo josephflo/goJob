@@ -66,10 +66,23 @@ const initialState = {
     orderRating: "DESC",
   },
 
-  // config para filtros PERFIL ofertas
+  // config para filtros PERFIL PROFESIONAL ofertas
   configFilterPerfilOffer: {
     tittle: "",
     state: "",
+    fecha_publicacion: "ASC",
+  },
+
+  // config para filtros PERFIL PROFESIONAL trabajos
+  configFilterPerfilJobs: {
+    tittle: "",
+    state: "",
+    fecha_publicacion: "ASC",
+  },
+
+  // config para filtros PERFIL PROFESIONAL postulaciones
+  configFilterPerfilPostulaciones: {
+    tittle: "",
     fecha_publicacion: "ASC",
   },
 };
@@ -190,11 +203,23 @@ export default function reducer(state = initialState, action) {
         myservices: action.payload,
       };
 
+    /************** FILTROS PERFIL PROFESIONAL */
     case ActionTypes.CONFIG_FILTER_PERFIL_OFFER:
       return {
         ...state,
         configFilterPerfilOffer: action.payload,
       };
+    case ActionTypes.CONFIG_FILTER_PERFIL_JOBS:
+      return {
+        ...state,
+        configFilterPerfilJobs: action.payload,
+      };
+    case ActionTypes.CONFIG_FILTER_PERFIL_POSTULACIONES:
+      return {
+        ...state,
+        configFilterPerfilPostulaciones: action.payload,
+      };
+    /************** */
     case ActionTypes.MY_POSTULACIONES:
       return {
         ...state,
