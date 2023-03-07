@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { configFilterUserPut } from "../../../redux/actions/users/profesionales";
 import { links_ } from "./MyLinks";
 
-const NavLinks = () => {
+const NavLinkProf = () => {
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
 
@@ -84,7 +84,7 @@ const NavLinks = () => {
                   <div className="bg-white p-5 grid grid-cols-3 gap-x-4 gap-y-2 ">
                     {link.sublinks.map((job) => (
                       <div
-                        className="px-5 py-2 rounded hover:bg-blue-500 hover:text-[#fff] "
+                        className="px-5 py-2 rounded hover:bg-neutral-400/30  "
                         onClick={() => modifyStateFilter(job.id)}
                       >
                         <Link to={job.link} className="text-sm font-semibold">
@@ -148,4 +148,4 @@ const NavLinks = () => {
   );
 };
 
-export default NavLinks;
+export default NavLinkProf;
