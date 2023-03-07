@@ -5,8 +5,10 @@ import Filter from "../../containers/filters/Filter";
 import { getJobs } from "../../redux/actions/jobActions";
 import { getMyPostulaciones } from "../../redux/actions/professionalActions";
 import { getService } from "../../redux/actions/serviceActions";
-import { getAllServices } from "../../redux/actions/services/getServices";
-
+import {
+  cleanAllServices,
+  getAllServices,
+} from "../../redux/actions/services/getServices";
 
 import Services from "./services/Services";
 
@@ -19,6 +21,7 @@ function ServicesPage() {
   let myPostulaciones = useSelector((state) => state.mypostulaciones);
 
   useEffect(() => {
+    dispatch(cleanAllServices());
     dispatch(getAllServices(configFilterServices));
   }, [configFilterServices]);
 
