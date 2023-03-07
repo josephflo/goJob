@@ -47,21 +47,21 @@ import ProfesionalPage from "./pages/propfesionalPage/ProfesionalPage";
 import UserProfile from "./authentication/ProfileScreen/UserProfile";
 import DetailService from "./components/detailService/DetailService";
 
-import OffersPage from "./pages/ProfileComun/OffersPage";
-import OffersPageP from "./pages/ProfielProfesional/OffersPageP";
-import Jobs from "./pages/ProfielProfesional/Jobs";
-import Postulaciones from "./pages/ProfielProfesional/Postulaciones";
+// import OffersPage from "./pages/ProfileComun/OffersPage";
+import OffersPageP from "./pages/perfilesUsuarios/OffersPageP";
+import Jobs from "./pages/perfilesUsuarios/ProfielProfesional/Jobs";
+import Postulaciones from "./pages/perfilesUsuarios/ProfielProfesional/Postulaciones";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import ServicesDashboard from "./pages/AdminDashboard/serviceDashboard";
 import { getService } from "./redux/actions/serviceActions";
 import LoadingHomePage from "./components/loading/LoadingHomePage";
 
-import MyProfile from "./pages/ProfileComun/MyProfile";
+import MyProfile from "./pages/perfilesUsuarios/ProfileComun/MyProfile";
 import FormUpdateUserAuth from "./containers/forms/formUpdateUserAuth/FormUpdateUserAuth";
-import MyProfileP from "./pages/ProfielProfesional/MyProfileP";
-import SuccessPago from "./pages/ProfielProfesional/pagos/SuccessPago";
-import FailPago from "./pages/ProfielProfesional/pagos/FailPago";
+import MyProfileP from "./pages/perfilesUsuarios/ProfielProfesional/MyProfileP";
+import SuccessPago from "./pages/perfilesUsuarios/ProfielProfesional/pagos/SuccessPago";
+import FailPago from "./pages/perfilesUsuarios/ProfielProfesional/pagos/FailPago";
 
 //token
 
@@ -182,7 +182,8 @@ function App() {
                   <Route path="/professional" element={<ProfesionalPage />} />
 
                   {/* ProfileComun***********************************************/}
-                  <Route exact path="/profilec/:id" element={<OffersPage />} />
+                  {/* <Route exact path="/profilec/:id" element={<OffersPage />} /> */}
+                  <Route exact path="/profilec/:id" element={<OffersPageP />} />
                   <Route exact path="/profile/:id" element={<MyProfile />} />
                   <Route
                     exact
@@ -191,7 +192,11 @@ function App() {
                   />
 
                   {/* ProfileProfessional ***********************************************/}
-                  <Route exact path="/myprofilep/:id" element={<MyProfileP />} />
+                  <Route
+                    exact
+                    path="/myprofilep/:id"
+                    element={<MyProfileP />}
+                  />
                   <Route exact path="/profilep/:id" element={<OffersPageP />} />
                   <Route exact path="/profilep/jobs/:id" element={<Jobs />} />
                   <Route
@@ -216,8 +221,16 @@ function App() {
 
         {/* Paginas para pago */}
         <Routes>
-          <Route exact path="/stripe/:role/:idUser/success/:idProduct" element={<SuccessPago />} />
-          <Route exact path="/stripe/:role/:idUser/fail/" element={<FailPago />} />
+          <Route
+            exact
+            path="/stripe/:role/:idUser/success/:idProduct"
+            element={<SuccessPago />}
+          />
+          <Route
+            exact
+            path="/stripe/:role/:idUser/fail/"
+            element={<FailPago />}
+          />
         </Routes>
       </BrowserRouter>
     </>

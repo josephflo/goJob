@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import SideBar from "./SideBar";
+import SideBar from "./ProfielProfesional/SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import Card from "./Cards/Card";
-import SinServicios from "./Ups/SinServicios";
+import Card from "./Card";
+import SinServicios from "./ProfielProfesional/Ups/SinServicios";
 import {
   getMyServices,
   stateSelected,
+  stateSelectedComun,
 } from "../../redux/actions/professionalActions";
 import { acceptUser } from "../../redux/actions/offers/acceptUser";
 import { userFormBackground } from "../../assets";
 
 import { getSessionUrl } from "../../redux/actions/services/stripePago";
-import FilterOffers from "./Filter/FilterOffers";
+import FilterOffers from "./ProfielProfesional/Filter/FilterOffers";
+import SideBarComun from "./ProfileComun/SideBarComun";
 
 export default function OffersPageP() {
   const dispatch = useDispatch();
@@ -23,6 +25,7 @@ export default function OffersPageP() {
   useEffect(() => {
     dispatch(getMyServices(configFilterPerfilOffer));
     dispatch(stateSelected(2));
+    dispatch(stateSelectedComun(2));
   }, [configFilterPerfilOffer]);
 
   // MODAL
@@ -89,9 +92,12 @@ export default function OffersPageP() {
     }
   }, [newSession]);
 
+  // NAVBAR
+  const role = useSelector((state) => state.userLogin.role);
+
   return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-      <SideBar />
+      {role === "professional" ? <SideBar /> : <SideBarComun />}
       <div className="col-span-5 bg-gray-100 h-full ">
         {/* <div className="grid grid-cols-5 gap-4 items-center mb-4">
             <div>
