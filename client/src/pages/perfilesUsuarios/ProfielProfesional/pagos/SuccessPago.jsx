@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { setReviewTrabajo } from "../../../redux/actions/services/stripePago";
+import { setReviewTrabajo } from "../../../../redux/actions/services/stripePago";
 
 export default function SuccessPago() {
   let dispatch = useDispatch()
+  const { role, idUser, idProduct } = useParams();
+
   let [enviarButt, setEnviarButt] = useState(false)
   let [review, setForm] = useState("")
   let [score, setScore] = useState(1)
@@ -19,7 +21,6 @@ export default function SuccessPago() {
   })
 
 
-  const { role, idUser, idProduct } = useParams();
 
   let setReview = ()=>{
     setEnviarButt(true) 
