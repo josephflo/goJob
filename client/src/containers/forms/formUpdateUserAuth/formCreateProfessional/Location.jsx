@@ -33,7 +33,7 @@ export default function Location({ changeInput, handleRegister }) {
                     htmlFor="direccion"
                     className="text-sm text-gray-600"
                   >
-                    Ingrese Provincia
+                    Ingrese provincia
                   </label>
                   <select
                     name="provincia"
@@ -59,7 +59,7 @@ export default function Location({ changeInput, handleRegister }) {
                       htmlFor="direccion"
                       className="text-sm text-gray-600"
                     >
-                      Ingrese Ciudad
+                      Ingrese ciudad
                     </label>
                     <select
                       name="ciudad"
@@ -87,7 +87,7 @@ export default function Location({ changeInput, handleRegister }) {
                   htmlFor="direccion"
                   className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
                 >
-                  Ingrese Dirección
+                  Ingrese dirección
                 </label>
                 <input
                   type="text"

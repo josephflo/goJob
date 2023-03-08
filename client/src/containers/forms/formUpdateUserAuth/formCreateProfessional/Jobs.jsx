@@ -4,31 +4,31 @@ export default function Jobs({ jobs, handleJob, handleDay, changeInput }) {
   const dias = [
     {
       id: 1,
-      name: "lunes",
+      name: "Lunes",
     },
     {
       id: 2,
-      name: "martes",
+      name: "Martes",
     },
     {
       id: 3,
-      name: "miercoles",
+      name: "Miercoles",
     },
     {
       id: 4,
-      name: "jueves",
+      name: "Jueves",
     },
     {
       id: 5,
-      name: "viernes",
+      name: "Viernes",
     },
     {
       id: 6,
-      name: "sabado",
+      name: "Sabado",
     },
     {
       id: 7,
-      name: "domingo",
+      name: "Domingo",
     },
   ];
 

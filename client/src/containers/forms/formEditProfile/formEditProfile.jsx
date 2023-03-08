@@ -1,19 +1,22 @@
 import React, { useState } from "react"; 
 import { useDispatch, useSelector } from "react-redux"; 
-import { Link } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom"; 
 import { updateUser } from "../../../redux/actions/userActions"; 
 import { provincias } from "../../../constants/ciudadesObject"; 
 import SideBarComun from "../../../pages/perfilesUsuarios/ProfileComun/SideBarComun";
 import SideBar from "../../../pages/perfilesUsuarios/ProfielProfesional/SideBar";
- 
+import Swal from "sweetalert2";
+
  
 export default function FormEditProfile() { 
  const dispatch = useDispatch(); 
 
   const users = useSelector((state) => state.userLogin); 
 
-  const [provState, setProvState] = useState(""); 
+  const [provState, setProvState] = useState("");  
   const [ciudState, setCiudState] = useState(); 
+    const navigate = useNavigate();
+
  
   const handleOption = (e) => { 
     const value = e.target.value; 
@@ -39,6 +42,11 @@ export default function FormEditProfile() {
     ciudad: '', 
     direccion: '', 
     }) 
+    Swal.fire({
+      title: "Datos guardados",
+      confirmButtonColor: "green",
+    });
+    navigate(`/${users.role === "comun" ? 'profile' : 'myprofilep'}/${users.id}`);
   } 
  
   const changeInput = (e) => { 
@@ -60,7 +68,7 @@ export default function FormEditProfile() {
         <div className="relative flex flex-col items-center  w-[700px] max-w-[95%] mx-auto bg-gray-200 bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3"> 
           <div className="mt-2 mb-8 w-full"> 
             <h4 className="px-2 text-xl font-bold text-white dark:text-white h-30 overflow-hidden border-solid-gray-300  p-4 bg-blue-500 "> 
-              Modificar Datos Personales 
+              Modificar datos personales 
             </h4> 
           </div> 
  
@@ -101,7 +109,7 @@ export default function FormEditProfile() {
                   htmlFor="direccion"
                   className="text-sm text-gray-600" 
                 >
-                  Ingrese Dirección
+                  Ingrese dirección
                 </label>
                 <input
                   type="text"
@@ -118,7 +126,7 @@ export default function FormEditProfile() {
                   <label
                     htmlFor="direccion"
                     className="text-sm text-gray-600" 
-                  >Ingrese Provincia
+                  >Ingrese provincia
                   </label>
                   <select
                     name="provincia"
@@ -143,7 +151,7 @@ export default function FormEditProfile() {
                     <label
                       htmlFor="direccion"
                       className="text-sm text-gray-600" 
-                    >Ingrese Ciudad
+                    >Ingrese ciudad
                     </label>
                     <select
                       name="ciudad"
