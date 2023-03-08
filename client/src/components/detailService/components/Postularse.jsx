@@ -13,10 +13,9 @@ export default function Postularse({
   id,
   myPostulaciones,
 }) {
-  const users = useSelector((state) => state.userLogin); 
+  const users = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
 
   const handleApply = () => {
     dispatch(applyToService(id));
@@ -25,7 +24,8 @@ export default function Postularse({
       title: "Te has postulado",
       confirmButtonColor: "green",
     });
-    navigate(`/profilep/postulaciones/${users.id}`);
+    // navigate(`/profilep/postulaciones/${users.id}`);
+    navigate(`/service`);
   };
 
   const handleCleanDetailService = () => {
