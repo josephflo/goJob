@@ -314,7 +314,7 @@ export default function OffersPageP() {
                         )}
                       </div>
                     </div>
-                  ) : (
+                  ) : modalService.state === "proceso" ? (
                     <div>
                       <div className="">
                         <h1 className="text-lg text-left font-semibold md:text-xl lg:text-2xl">
@@ -327,6 +327,14 @@ export default function OffersPageP() {
                       >
                         Pagar {modalService.id}
                       </button>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="">
+                        <h1 className="text-lg text-left font-semibold md:text-xl lg:text-2xl">
+                          Proceso Culminado
+                        </h1>
+                      </div>
                     </div>
                   )}
                 </>

@@ -33,7 +33,7 @@ export default function Jobs() {
         <div className="p-4 ">
           <div>
             {jobs?.length > 0 ? (
-              <div className="grid grid-cols-3">
+              <div className="grid grid-cols-1">
                 {jobs?.map((e) => (
                   <CardJob
                     key={e.id}
@@ -45,6 +45,7 @@ export default function Jobs() {
                     postulantes={e.postulantes}
                     state={e.state}
                     imageServiceUrl={e.imageServiceUrl}
+                    detail={e}
                   />
                 ))}
               </div>
