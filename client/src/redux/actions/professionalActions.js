@@ -83,13 +83,17 @@ export const getMyPostulaciones = (input) => {
 
     const concatQuery = convertObjToQuery(queries);
 
-    const result = await axios.get(
-      `/user/services/Postulaciones?${concatQuery}`
-    );
-    return dispatch({
-      type: ActionTypes.MY_POSTULACIONES,
-      payload: result.data.result,
-    });
+    try {
+      const result = await axios.get(
+        `/user/services/Postulaciones?${concatQuery}`
+      );
+      return dispatch({
+        type: ActionTypes.MY_POSTULACIONES,
+        payload: result.data.result,
+      });
+    } catch (error) {
+      console.log("No está autenticado getMyPostulaciones");
+    }
   };
 };
 
