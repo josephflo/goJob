@@ -18,7 +18,7 @@ export default function CardProfile({
             <div className="relative flex flex-col items-center  w-[700px] max-w-[95%] mx-auto bg-gray-200 bg-clip-border shadow-3xl shadow-shadow-500 dark:!bg-navy-800 dark:text-white dark:!shadow-none p-3">
                 <div className="mt-2 mb-8 w-full">
                     <h1 className="px-2 text-xl font-bold text-white dark:text-white h-30 overflow-hidden border-solid-gray-300 p-4 bg-blue-500 ">
-                    Información General
+                    Información general
                     </h1>
                     <div className="flex flex-col items-start h-20 justify-center ">
                     <h1 className="mt-2 px-2 text-base h-30 font-medium text-navy-700 dark:text-white">
@@ -29,7 +29,7 @@ export default function CardProfile({
                     <div >
                         <Link to="/profilec/modificar">
               <button className="h-13 py-2  gap-4 bg-blue-500 p-4 text-white  mt-2 w-[80%]  font-semibold hover:text-white  border border-blue-500 hover:border-transparent rounded " >
-                Modificar a Profesional
+                Modificar a profesional
               </button>
               </Link>
               </div>
@@ -72,7 +72,7 @@ export default function CardProfile({
                     <div className="col-span-1">
                         <Link to='/profilec/modificardatos'>
               <button className="h-13 py-2  gap-4 bg-blue-500 p-4 text-white  mt-2 w-[80%]  font-semibold hover:text-white  border border-blue-500 hover:border-transparent rounded " >
-                Modificar datos Personales
+                Modificar datos personales
               </button>
               </Link>
             </div>

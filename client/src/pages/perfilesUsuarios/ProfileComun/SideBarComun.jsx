@@ -80,6 +80,7 @@ export default function SideBarComun() {
           </nav>
           <div className="flex flex-col gap-4">
             <img src={logo} alt="image" />
+
             <button onClick={handleCleanClick}>
               <Link
                 to="/"
@@ -89,6 +90,7 @@ export default function SideBarComun() {
                 Log Out
               </Link>
             </button>
+
           </div>
         </div>
       </div>

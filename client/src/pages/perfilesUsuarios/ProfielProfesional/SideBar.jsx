@@ -128,6 +128,10 @@ export default function SideBar() {
 
           <div className="flex flex-col gap-4">
             <img src={logo} alt="image" />
+
+              
+            
+
             <button onClick={handleCleanClick}>
               <Link
                 to="/"
@@ -137,6 +141,7 @@ export default function SideBar() {
                 Log Out
               </Link>
             </button>
+
           </div>
         </div>
       </div>
