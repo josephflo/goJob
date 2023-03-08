@@ -1,17 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoJobLogo from "../../../assets/GoJobLogo.png";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButtons from "../../../authentication/components/LoginButtons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavLinkProf from "./NavLinkProf";
 import { useSelector } from "react-redux";
+import useUserLogin from "../../../helpers/customHooks/useUserLogin";
+import Swal from "sweetalert2";
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
-  const users = useSelector((state) => state.userLogin);
-
+  // const users = useSelector((state) => state.userLogin);
+  const navigate = useNavigate()
+  const {userInfo:users, isLogin} = useUserLogin();
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    if (users?.lastName === "sin apellido") {
+      Swal.fire({
+        title: 'Necesitamos más datos',
+        confirmButtonColor: 'green'
+      });
+      navigate('/aditionalinfo');
+    }
+  }, [users]);
   console.log(users);
 
   return (
@@ -41,54 +53,34 @@ const NavBarPortada = () => {
             </Link>
           </li>
 
-          {isAuthenticated  &&
-            users.role === "admin" && (
-              <li>
-                <Link to="/Dashboard" class="py-4 px-3 inline-block">
-                  Dashboard
-                </Link>
-              </li>
+          {users && users?.role === "admin" && (
+            <li>
+              <Link to="/Dashboard" class="py-4 px-3 inline-block">
+                Dashboard
+              </Link>
+            </li>
           )}
 
-          {/* {isAuthenticated &&
-            users.role === "admin" && (
-              <></>
-            ) : (
-              <li>
-                <Link to="/create/service" class="py-4 px-3 inline-block">
-                  Crear Servicio
-                </Link>
-              </li>
-          )} */}
-
-          {users.role && users.role !== "admin"? (
-            <Link to={`/${users.role === "comun" ? 'profile' : 'myprofilep'}/${users.id}` } class="py-4 px-3 inline-block">
+          {users && users?.role !== "admin" ? (
+            <Link
+              to={`/${users?.role === "comun" ? "profile" : "myprofilep"}/${
+                users?.id
+              }`}
+              class="py-4 px-3 inline-block"
+            >
               Mi Perfil
             </Link>
-          ):(<LoginButtons/>)}
-
-
-          {/* {users.role === "comun" ? (
-            <Link to={`/profile/${users.id}`} class="py-4 px-3 inline-block">
-              Mi Perfil
-            </Link>
-          ) : users.role === "professional" ? (
-            <Link to={`/myprofilep/${users.id}`} class="py-4 px-3 inline-block">
-              Mi Perfil
-            </Link>
-          ) : users.role === "admin" ? (
-            <></>
           ) : (
             <LoginButtons />
-          )} */}
+          )}
         </ul>
-        {isAuthenticated === true && (
+        {users && (
           <div class="py-4">
             <Link to={"/user/profile"}>
               <img
                 class="object-contain h-16 w-16 rounded-full auto px-3 py-3"
-                src={user.picture}
-                alt={user.name}
+                src={users?.imagePerfil}
+                alt={users?.firstName}
               />
             </Link>
           </div>
@@ -130,16 +122,16 @@ const NavBarPortada = () => {
             </Link>
           </li> */}
           <li>
-            {users.role === "comun" ? (
+            {users?.role === "comun" ? (
               <Link
                 to={`/profile/${users.id}`}
                 className="py-7 px-2 inline-block"
               >
                 Mi Perfil
               </Link>
-            ) : users.role === "professional" ? (
+            ) : users?.role === "professional" ? (
               <Link
-                to={`/myprofilep/${users.id}`}
+                to={`/myprofilep/${users?.id}`}
                 className="py-7 px-2 inline-block"
               >
                 Mi Perfil
@@ -150,12 +142,12 @@ const NavBarPortada = () => {
             )}
           </li>
           <div className="py-7">
-            {isAuthenticated ? (
+            {users ? (
               <Link to={"/user/profile"}>
                 <img
                   className="object-contain h-16 w-16 rounded-full auto px-2 py-3"
-                  src={user.picture}
-                  alt={user.name}
+                  src={users?.imagePerfil}
+                  alt={users?.firstName}
                 />
               </Link>
             ) : (
