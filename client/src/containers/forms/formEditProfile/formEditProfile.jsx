@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { updateUser } from "../../../redux/actions/userActions"; 
 import { provincias } from "../../../constants/ciudadesObject"; 
 import SideBarComun from "../../../pages/perfilesUsuarios/ProfileComun/SideBarComun";
+import SideBar from "../../../pages/perfilesUsuarios/ProfielProfesional/SideBar";
  
  
 export default function FormEditProfile() { 
@@ -51,7 +52,8 @@ export default function FormEditProfile() {
  
   return ( 
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6"> 
-      <SideBarComun /> 
+    { users?.role === 'comun' ? (<SideBarComun /> ) : (<SideBar /> ) }
+      
       <div className="col-span-5"> 
       <div className=" bg-gray-100 ">
       <div  className="flex flex-col justify-center items-center h-[100vh]"> 
@@ -178,7 +180,7 @@ export default function FormEditProfile() {
               </Link> 
             </div> 
             <div> 
-              <Link to={`/profile/${users.id}`}> 
+              <Link  to={`/${users.role === "comun" ? 'profile' : 'myprofilep'}/${users.id}` }> 
                 <button className="bg-transparent mt-2 w-[80%]  hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 border border-blue-500 hover:border-transparent rounded"> 
                   Volver 
                 </button> 

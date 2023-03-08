@@ -203,11 +203,11 @@ function App() {
                     path="/myprofilep/:id"
                     element={<MyProfileP />}
                   />
-                  {/* <Route 
+                  <Route 
                     exact 
                     path="/profilep/modificar" 
                     element={<FormEditProfile />} 
-                  /> */}
+                  />
                   <Route exact path="/profilep/:id" element={<OffersPageP />} />
                   <Route exact path="/profilep/jobs/:id" element={<Jobs />} />
                   <Route
