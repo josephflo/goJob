@@ -31,7 +31,7 @@ export default function Rating({ array, arr2, arr, items1, items2 }) {
           ))}
         </div>
         <p className="text-center text-sm font-medium text-gray-500 dark:text-gray-400">
-          {array.length} valoraciones
+          {array?.length} valoraciones
         </p>
       </div>
       <div className="w-[65%]  ">
