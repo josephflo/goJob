@@ -22,7 +22,7 @@ function Footer() {
 								<a
 									href="https://www.instagram.com/go-job/"
 									target="_blank"
-									rel="noreferrer"
+									rel=""
 								>
 									<BsInstagram />
 								</a>
