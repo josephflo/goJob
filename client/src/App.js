@@ -62,6 +62,7 @@ import FormUpdateUserAuth from "./containers/forms/formUpdateUserAuth/FormUpdate
 import MyProfileP from "./pages/perfilesUsuarios/ProfielProfesional/MyProfileP";
 import SuccessPago from "./pages/perfilesUsuarios/ProfielProfesional/pagos/SuccessPago";
 import FailPago from "./pages/perfilesUsuarios/ProfielProfesional/pagos/FailPago";
+import FormEditProfile from "./containers/forms/formEditProfile/formEditProfile";
 
 //token
 
@@ -196,6 +197,11 @@ function App() {
                     path="/profilec/modificar"
                     element={<FormUpdateUserAuth />}
                   />
+                  <Route 
+                    exact 
+                    path="/profilec/modificardatos" 
+                    element={<FormEditProfile />} 
+                  />
 
                   {/* ProfileProfessional ***********************************************/}
                   <Route
@@ -203,6 +209,11 @@ function App() {
                     path="/myprofilep/:id"
                     element={<MyProfileP />}
                   />
+                  {/* <Route 
+                    exact 
+                    path="/profilep/modificar" 
+                    element={<FormEditProfile />} 
+                  /> */}
                   <Route exact path="/profilep/:id" element={<OffersPageP />} />
                   <Route exact path="/profilep/jobs/:id" element={<Jobs />} />
                   <Route

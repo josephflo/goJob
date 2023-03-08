@@ -34,7 +34,7 @@ export default function Jobs({ jobs, handleJob, handleDay, changeInput }) {
 
   return (
     <>
-      <div className="items-center justify-center w-[50%] m-10">
+      <div className="items-center justify-center w-[70%] m-10">
         <div>
           <h2 className="mt-4 text-xl mb-5 font-extrabold text-blue-900 lg:text-left">
             Qué desempeñas
@@ -114,7 +114,7 @@ export default function Jobs({ jobs, handleJob, handleDay, changeInput }) {
               {horario.length &&
                 horario.map((ele) => <option value={ele}>{ele}</option>)}
             </select>
-            <input type="submit" value="Enviar" />
+            <input type="submit" value="" />
           </form>
         </div>
 
