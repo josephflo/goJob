@@ -30,11 +30,11 @@ export default function DetailProfessional() {
   const detail_ = useSelector((state) => state.professionalDetail);
   const idUser = detail_.rating?.map((obj) => obj.idUser);
 
-  useEffect(() => {
-    if (reviewsDetails?.length === 0) {
-      dispatch(getUserReviewDetails(idUser));
-    }
-  }, [dispatch, idUser, reviewsDetails]);
+  // useEffect(() => {
+  //   if (reviewsDetails?.length === 0) {
+  //     dispatch(getUserReviewDetails(idUser));
+  //   }
+  // }, [dispatch, idUser, reviewsDetails]);
 
   useEffect(() => {
     dispatch(getProfessionalById(id));
@@ -101,9 +101,9 @@ export default function DetailProfessional() {
             />
           </div>
 
-          <div className="border-2 rounded m-3 p-4 bg-white">
+          {/* <div className="border-2 rounded m-3 p-4 bg-white">
             <Opinion detail={combinedArr} />
-          </div>
+          </div> */}
           {/*}
            */}
         </div>
