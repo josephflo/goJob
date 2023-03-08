@@ -21,24 +21,23 @@ export default function Location({ changeInput, handleRegister }) {
 
   return (
     <>
-      <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
-        <div className="mt-2">
+      <div className="items-center justify-center w-[70%] m-10">   
           <form className="space-y-1">
             <div className="grid grid-cols-1  lg:gap-3">
-              <h2 className="mt-4 text-xl pl-8 font-extrabold text-blue-900 lg:text-left">
+              <h2 className="mt-4 text-xl mb-5 font-extrabold text-blue-900 lg:text-left">
                 Localidad
               </h2>
-              <div className=" flex justify-center">
+              <div className="flex flex-col items-start h-21 bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
                 <form action="#">
                   <label
                     htmlFor="direccion"
-                    className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                    className="text-sm text-gray-600"
                   >
                     Ingrese Provincia
                   </label>
                   <select
                     name="provincia"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                     onChange={handleInputChange}
                   >
                     <option value="" selected>
@@ -50,21 +49,21 @@ export default function Location({ changeInput, handleRegister }) {
                       </option>
                     ))}
                   </select>
-                  <input type="submit" value="Enviar" />
+                  <input type="submit" value="" />
                 </form>
               </div>
               {provState.length ? (
-                <div className=" flex justify-center">
+                <div className="flex flex-col items-start h-21  bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
                   <form action="#">
                     <label
                       htmlFor="direccion"
-                      className="block text-sm font-medium mt-2 lg:mt-0 text-gray-700"
+                      className="text-sm text-gray-600"
                     >
                       Ingrese Ciudad
                     </label>
                     <select
                       name="ciudad"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      className="mt-2 shadow appearance-none border roun w-[80%] py-2 px-3 text-blue-900 leading-tight focus:outline-none focus:shadow-outline"
                       onChange={changeInput}
                     >
                       <option value="" selected>
@@ -76,7 +75,7 @@ export default function Location({ changeInput, handleRegister }) {
                         </option>
                       ))}
                     </select>
-                    <input type="submit" value="Enviar" />
+                    <input type="submit" value="" />
                   </form>
                 </div>
               ) : (
@@ -128,7 +127,7 @@ export default function Location({ changeInput, handleRegister }) {
             </div>
           </form>
         </div>
-      </div>
+   
     </>
   );
 }
