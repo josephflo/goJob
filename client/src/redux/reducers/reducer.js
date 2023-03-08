@@ -140,6 +140,7 @@ export default function reducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+
     case ActionTypes.GET_USERS:
       return {
         ...state,
@@ -157,8 +158,15 @@ export default function reducer(state = initialState, action) {
         service: action.payload,
         totalPages: action.payload.totalPages,
       };
-
-    case "USER_DETAIL_OPINION_1":
+    case ActionTypes.UPDATE_USER:
+      window.localStorage.removeItem("userStorage");
+      window.localStorage.setItem("userStorage", JSON.stringify(action.payload))
+      return {
+        ...state,
+        userLogin: action.payload,
+      };
+      
+      case "USER_DETAIL_OPINION_1":
       return {
         ...state,
         userDetailOpinion1: action.payload,
@@ -173,7 +181,6 @@ export default function reducer(state = initialState, action) {
         ...state,
         userDetailOpinion3: action.payload,
       };
-
     /** SUGESTIONS */
     case ActionTypes.SUGGESTION_SERVICES:
       return {
@@ -317,11 +324,15 @@ export default function reducer(state = initialState, action) {
 
     //Login y Create user
     case ActionTypes.REGISTER_USER_AND_LOGIN:
+      const newToken = {
+        ...action.payload.result,
+        token: action.payload.token,
+      };
+      window.localStorage.setItem("userStorage", JSON.stringify(newToken));
       return {
         ...state,
         token: action.payload.token,
         userLogin: action.payload.result,
-        imagePerfil: action.payload.imagePerfil,
       };
     /**************************************** */
     //FILTROS

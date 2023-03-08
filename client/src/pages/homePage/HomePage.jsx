@@ -13,7 +13,7 @@ export default function HomePage() {
       <div className="inset-0 bg-gray-900 absolute bg-opacity-40 z-10"></div>
       <div className=" h-screen bg-no-repeat bg-center bg-cover  bg-landingBackground">
         <div className="sticky top-0 z-50 bg-white ">
-          <NavBarPortada />
+          <NavBarPortada/>
         </div>
         <div className=" h-screen flex flex-col justify-center ">
           <h1 className="text-white mx-auto p-5 text-center z-20 text-3xl md:text-4xl lg:text-5xl">
