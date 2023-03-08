@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { imageUrlNotFound } from "../../../assets";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function ProfessionalCard({
   id,
@@ -11,6 +12,7 @@ function ProfessionalCard({
   contrat,
   description,
 }) {
+  const { loginWithRedirect } = useAuth0();
   const localStorage = window.localStorage.getItem("userStorage");
 
   if (!localStorage) {
@@ -43,7 +45,10 @@ function ProfessionalCard({
           ))}
 
           <div class="flex justify-center mt-4">
-            <button class="bg-transparent w-full hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded btn-sm">
+            <button
+              onClick={() => loginWithRedirect()}
+              class="bg-transparent w-full hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded btn-sm"
+            >
               <i class="fa-regular fa-envelope"></i> Contactar
             </button>
           </div>

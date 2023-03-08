@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { userFormBackground } from "../../../assets";
 import capitalizeFirstLetter from "../../../helpers/capitalizeFirstLetter";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function ServiceCard({
   tittle,
@@ -29,6 +30,7 @@ function ServiceCard({
   /**LOCAL STORAGE */
   const localStorage = window.localStorage.getItem("userStorage");
 
+  const { loginWithRedirect } = useAuth0();
   if (!localStorage) {
     return (
       <div className="bg-gray-100 p-4">
@@ -69,6 +71,7 @@ function ServiceCard({
             <div className="flex justify-end ">
               <button
                 disabled={id_myPostulaciones?.includes(id)}
+                onClick={() => loginWithRedirect()}
                 className={
                   id_myPostulaciones?.includes(id)
                     ? "bg-green-800 text-white font-bold py-2 px-4 border border-green-700 rounded"
