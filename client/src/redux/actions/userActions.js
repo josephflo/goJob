@@ -114,6 +114,33 @@ export const getUserDetail = (id) => {
     });
   };
 };
+export const getUserDetailOpinion1 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_1",
+      payload: result.data.result,
+    });
+  };
+};
+export const getUserDetailOpinion2 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_2",
+      payload: result.data.result,
+    });
+  };
+};
+export const getUserDetailOpinion3 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_3",
+      payload: result.data.result,
+    });
+  };
+};
 
 export const getUserReviewDetails = (ids) => {
   return async (dispatch) => {

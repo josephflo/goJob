@@ -28,6 +28,9 @@ const initialState = {
 
   //REVIEWS DETAIL PROFESSIONAL
   userReviewDetail: [],
+  userDetailOpinion1: {},
+  userDetailOpinion2: {},
+  userDetailOpinion3: {},
 
   selected: 1,
   selectedComun: 1,
@@ -153,6 +156,22 @@ export default function reducer(state = initialState, action) {
         ...state,
         service: action.payload,
         totalPages: action.payload.totalPages,
+      };
+
+    case "USER_DETAIL_OPINION_1":
+      return {
+        ...state,
+        userDetailOpinion1: action.payload,
+      };
+    case "USER_DETAIL_OPINION_2":
+      return {
+        ...state,
+        userDetailOpinion2: action.payload,
+      };
+    case "USER_DETAIL_OPINION_3":
+      return {
+        ...state,
+        userDetailOpinion3: action.payload,
       };
 
     /** SUGESTIONS */
