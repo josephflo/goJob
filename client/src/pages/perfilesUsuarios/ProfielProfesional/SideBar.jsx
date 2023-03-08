@@ -40,7 +40,7 @@ export default function SideBar() {
   const handleCleanClick = () => {
     dispatch(cleanOfferPerfilProfessional());
     dispatch(cleanTrabajosPerfilProfessional());
-    dispatch(cleanPostulacionesPerfilProfessional());
+    // dispatch(cleanPostulacionesPerfilProfessional());
     dispatch(stateSelected(1));
     dispatch(stateSelectedComun(1));
   };
@@ -138,7 +138,6 @@ export default function SideBar() {
               </Link>
             </button>
           </div>
-          
         </div>
       </div>
     </div>
