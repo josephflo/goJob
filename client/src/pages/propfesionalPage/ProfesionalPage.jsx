@@ -43,6 +43,7 @@ function ProfesionalPage() {
           </div>
         )}
       </div>
+      
     </div>
   );
 }
