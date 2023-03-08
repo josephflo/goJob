@@ -26,6 +26,9 @@ const initialState = {
   myservices: {},
   mypostulaciones: [],
 
+  //REVIEWS DETAIL PROFESSIONAL
+  userReviewDetail: [],
+
   selected: 1,
   selectedComun: 1,
 
@@ -129,7 +132,6 @@ export default function reducer(state = initialState, action) {
         selectedComun: action.payload,
       };
 
-    /********************* */
     case ActionTypes.CREATE_USER:
       return {
         ...state,
@@ -214,10 +216,21 @@ export default function reducer(state = initialState, action) {
         userDetail: action.payload,
       };
 
+    /************* */
+
+    case "GET_USER_REVIEW_DETAIL":
+      return {
+        ...state,
+        userReviewDetail: action.payload,
+      };
+
+    /********************* */
+
     case ActionTypes.CLEAN_USER_DETAIL:
       return {
         ...state,
         userDetail: {},
+        userReviewDetail: [],
       };
 
     case ActionTypes.GET_ALL_USERS_FILTRADO:

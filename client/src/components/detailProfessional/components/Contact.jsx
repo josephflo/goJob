@@ -1,20 +1,29 @@
 import { Link } from "react-router-dom";
 import { imageUrlNotFound } from "../../../assets";
+import { cleanUserDetail } from "../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 export default function Contact({ detail, arr2 }) {
+  const dispatch = useDispatch();
+
+  const cleanDetailProfessional = () => {
+    dispatch(cleanUserDetail());
+    return;
+  };
+
   return (
     <>
       <div className="border-2 rounded-xl m-3 bg-white pb-4">
         <div className="flex items-center p-7 mt-2 justify-center grid grid-cols-2 rounded pt-4">
           <div className="col-span-1 flex justify-center">
-            {detail.imageurl === "sin foto" ? (
+            {detail.imagePerfil === "sin foto" ? (
               <img src={imageUrlNotFound} className=" " alt="" />
             ) : (
-              <img src={detail.imageurl} alt="" className="p-2" />
+              <img src={detail.imagePerfil} alt="" className="p-2" />
             )}
           </div>
           <div className="col-span-1 ">
-            <p className="p-2 text-right text-amber-400">
+            <p className="p-2 text-left">
               {" "}
               {detail.firstName} {detail.lastName}{" "}
             </p>
@@ -57,7 +66,7 @@ export default function Contact({ detail, arr2 }) {
             to="/professional"
             className="bg-transparent w-[80%] hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           >
-            <button>Volver</button>
+            <button onClick={cleanDetailProfessional}>Volver</button>
           </Link>
         </div>
       </div>
