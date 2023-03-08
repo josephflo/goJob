@@ -1,9 +1,9 @@
 import ServiceCard from "../serviceCard/ServiceCard";
 
 export default function Services({ services, myPostulaciones }) {
-  const service = useSelector((state) => state.service.result);
+  // const service = useSelector((state) => state.service.result);
 
-  let myPostulaciones = useSelector((state) => state.mypostulaciones);
+  // let myPostulaciones = useSelector((state) => state.mypostulaciones);
 
 
 
@@ -38,11 +38,11 @@ export default function Services({ services, myPostulaciones }) {
         />
       ))}
 
-      {service.result && !service.result.length && (
+      {/* {service.result && !service.result.length && (
         <div className="flex items-center col-span-4 justify-center h-screen">
           <p className="text-2xl font-semibold">{"Sin resultados"}</p>
         </div>
-      )}  
+      )}   */}
 
     </>
   );
