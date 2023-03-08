@@ -14,7 +14,11 @@ import {
   stateSuggestionService,
   suggestionServices,
 } from "../../redux/actions/services/getServices";
-import { getMyPostulaciones } from "../../redux/actions/professionalActions";
+import {
+  getMyPostulaciones,
+  stateSelected,
+  stateSelectedComun,
+} from "../../redux/actions/professionalActions";
 
 export default function DetailService() {
   const params = useParams();
@@ -43,6 +47,8 @@ export default function DetailService() {
 
   useEffect(() => {
     dispatch(getMyPostulaciones());
+    dispatch(stateSelected(1));
+    dispatch(stateSelectedComun(1));
   }, []);
 
   useEffect(() => {

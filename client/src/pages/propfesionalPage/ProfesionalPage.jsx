@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
-import FilterUser from "../../containers/filters/filterUser/FilterUser";
+import FilterUser from "../../containers/filters/filterUser/filterUser";
 import PaginationProfesional from "../../containers/filters/filterUser/PaginationProfesional";
 import { getAllProfesionales } from "../../redux/actions/users/profesionales";
 import Professionals from "./components/Professionals";
@@ -31,7 +31,7 @@ function ProfesionalPage() {
       </div>
 
       <div className="flex flex-col justify-center items-center my-2 ">
-        <PaginationProfesional/>
+        <PaginationProfesional />
       </div>
 
       <div className="pt-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
@@ -43,7 +43,6 @@ function ProfesionalPage() {
           </div>
         )}
       </div>
-      
     </div>
   );
 }

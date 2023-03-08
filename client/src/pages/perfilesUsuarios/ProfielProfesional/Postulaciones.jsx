@@ -23,7 +23,7 @@ export default function Postulaciones() {
       <div className="col-span-5 bg-gray-100">
         <div className="">
           <h1 className="text-lg text-left font-semibold md:text-xl lg:text-3xl">
-            Tus Ofertas
+            Mis Postulaciones
           </h1>
         </div>
         <div className="flex justify-around   items-center">
@@ -36,6 +36,7 @@ export default function Postulaciones() {
                 {applications?.map((e) => (
                   <CardPostulaciones
                     key={e.id}
+                    id={e.id}
                     tittle={e.tittle}
                     imagenurl={e.imagenurl}
                     direccion={e.direccion}
