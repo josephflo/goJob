@@ -6,7 +6,7 @@ import { cleanAllServices } from "../../redux/actions/services/getServices";
 import { configFilterService } from "../../redux/actions/services/modifyFilterServices";
 import Pagination from "../pagination/Pagination";
 
-function Filter({ totalPages }) {
+function Filter() {
   let configFilterServices = useSelector((state) => state.configFilterServices);
 
   const jobs = useSelector((state) => state.jobs);
@@ -26,10 +26,6 @@ function Filter({ totalPages }) {
 
   //Estados para menu Jobs
   let [selectFilter, setSelectFilter] = useState(configFilterServices.tittle);
-
-  // Estados de la paginacion
-  const [page, setPage] = useState(1);
-  const [page_size, setPage_size] = useState(15);
 
   let handleOptionFilter = (event) => {
     let propiedadFilter =
@@ -70,51 +66,7 @@ function Filter({ totalPages }) {
     }
   };
 
-  const paginatePrev = (e) => {
-    e.preventDefault();
-    if (page === 1) return;
-    dispatch(cleanAllServices());
-    setPage(page - 1);
-    console.log(e.target.value);
-    let newConfig = {
-      ...configFilterServices,
-      page: page - 1,
-    };
-    dispatch(configFilterService(newConfig));
-  };
-  const paginateNext = (e) => {
-    e.preventDefault();
-    if (page === totalPages) return;
-    dispatch(cleanAllServices());
-    setPage(page + 1);
-    let newConfig = {
-      ...configFilterServices,
-      page: page + 1,
-    };
-    dispatch(configFilterService(newConfig));
-  };
 
-  const paginate = (e, num) => {
-    // e.preventDefault();
-    setPage(num);
-    dispatch(cleanAllServices());
-    let newConfig = {
-      ...configFilterServices,
-      page: num,
-    };
-    dispatch(configFilterService(newConfig));
-  };
-
-  const fn = (e) => {
-    setPage_size(e.target.value);
-    setPage(1);
-    let newConfig = {
-      ...configFilterServices,
-      page: 1,
-      page_size: parseInt(e.target.value),
-    };
-    dispatch(configFilterService(newConfig));
-  };
 
   return (
     <>
@@ -235,27 +187,9 @@ function Filter({ totalPages }) {
             </select>
           </div>
         </div>
-        {/* <div>
-        <select name="select" onChange={fn}>
-        <option value="3" selected>
-        3
-        </option>
-        <option value="5">5</option>
-        <option value="7">7</option>
-        </select>
-      </div> */}
+ 
       </div>
-      <div className="p-2 bg-gray-100">
-        <div className="flex justify-center">
-          <Pagination
-            paginatePrev={paginatePrev}
-            paginateNext={paginateNext}
-            paginate={paginate}
-            totalPages={totalPages}
-            page={page}
-          />
-        </div>
-      </div>
+      
     </>
   );
 }

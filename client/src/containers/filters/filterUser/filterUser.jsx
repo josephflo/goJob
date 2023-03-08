@@ -17,7 +17,7 @@ import {
 } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 
-function FilterUser({ totalPages }) {
+function FilterUser() {
   let configFilterUser = useSelector((state) => state.configFilterUser); // estado filtra usuario
 
   // modificando por ejemplo name: la ruta del api regresar los usuarios correspondientes
@@ -49,6 +49,7 @@ function FilterUser({ totalPages }) {
       configFilterUserPut({
         //actualizamos el estado de redux configFilterUser con el array newDias
         ...configFilterUser,
+        page: 1,
         dias: newDias,
       })
     );
@@ -71,6 +72,7 @@ function FilterUser({ totalPages }) {
     let newConfig = {
       //aqui vamos  guardar la propiedad que tengamos con su valor
       ...configFilterUser, //guardamos lo que ya llevabamos
+      page: 1,
       [propiedadFilter]: value, //mismo ejemplo de arriba horario=mañana
     };
 
@@ -90,6 +92,7 @@ function FilterUser({ totalPages }) {
       newConfig = {
         // creamos el nuevo modelo de configFilterUser
         ...configFilterUser, //traemos todo lo que tenemos en el estado de redux
+        page: 1,
         name: value, //pisamos el value
       };
       dispatch(configFilterUserPut(newConfig)); //actualizamos el valor de configFilterUser con ese dispatch
@@ -97,6 +100,7 @@ function FilterUser({ totalPages }) {
       newConfig = {
         //en caso de que sea menor a 3 actualizamos el estado
         ...configFilterUser,
+        page: 1,
         name: "", //con name vacio
       };
 
@@ -118,7 +122,7 @@ function FilterUser({ totalPages }) {
         </div>
 
         {/* searchFilter*/}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
+        <div className="grid grid-cols-1 sm:grid-cols- md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 ">
           <div className="col-span-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center mb-4">
               <form className="col-span-2 md:grid-cols-3">

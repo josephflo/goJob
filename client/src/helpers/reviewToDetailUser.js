@@ -1,11 +1,11 @@
 const reviwToDetailUser = (array) => {
   const arr = [];
   let arr2 = [];
-  for (let i = 1; i <= 5; i++) arr.push(array.filter((x) => x === i).length);
-  arr2 = arr.map((num) =>
-    ((num * 100) / arr.reduce((a, b) => a + b, 0)).toFixed(0)
+  for (let i = 1; i <= 5; i++) arr.push(array?.filter((x) => x === i).length);
+  arr2 = arr?.map((num) =>
+    ((num * 100) / arr?.reduce((a, b) => a + b, 0)).toFixed(0)
   );
-  const avg = array.reduce((a, b) => a + b, 0) / array.length || 0;
+  const avg = array?.reduce((a, b) => a + b, 0) / array?.length || 0;
   arr2.push(avg.toFixed(0));
   return [arr, arr2];
 };

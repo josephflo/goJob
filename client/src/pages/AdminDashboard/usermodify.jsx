@@ -1,13 +1,20 @@
 import React from "react";
 
-
 // components
 
 import FormUser from "../AdminDashboard/formUser";
+import Profile from "../AdminDashboard/profile";
 import { SideBar } from "./sidebar";
 import { Header } from "./header";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserDetail } from "../../redux/actions/userActions";
+import { useState,useEffect } from "react";
 
 export default function ModifyUser() {
+  const detailUser = useSelector((state)=>state.userDetail)
+
+ 
+console.log(detailUser)
   return (
     <>
     <div className="grid lg:grid-cols-4 xl:grid-cols-6 min-h-screen">
@@ -17,10 +24,10 @@ export default function ModifyUser() {
                 <div className="p-10 bg-gray-100" >
                     <div className="flex flex-wrap">
                      <div className="w-full lg:w-8/12 px-4">
-                      <FormUser />
+                      <FormUser  detailUser={detailUser}/>
                     </div>
                 <div className="w-full lg:w-4/12 px-4">
-                  {/* <Profile /> */}
+                  <Profile />
         </div>
         </div>
       </div>

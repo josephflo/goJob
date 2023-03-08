@@ -6,7 +6,11 @@ import { useSelector } from "react-redux";
 import { GoBriefcase } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
 import { useDispatch } from "react-redux";
-import { stateSelectedComun } from "../../../redux/actions/professionalActions";
+import {
+  stateSelected,
+  stateSelectedComun,
+} from "../../../redux/actions/professionalActions";
+import { cleanOfferPerfilProfessional } from "../../../redux/actions/users/profileUser";
 
 export default function SideBarComun() {
   const users = useSelector((state) => state.userLogin);
@@ -21,6 +25,12 @@ export default function SideBarComun() {
     // e.preventDefault();
     dispatch(stateSelectedComun(p));
     // setSelected(p);
+  };
+
+  const handleCleanClick = () => {
+    dispatch(cleanOfferPerfilProfessional());
+    dispatch(stateSelectedComun(1));
+    dispatch(stateSelected(1));
   };
 
   return (
@@ -70,13 +80,17 @@ export default function SideBarComun() {
           </nav>
           <div className="flex flex-col gap-4">
             <img src={logo} alt="image" />
-            <Link
-              to="/"
-              className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
-            >
-              <RiLogoutBoxLine />
-              Volver
-            </Link>
+
+            <button onClick={handleCleanClick}>
+              <Link
+                to="/"
+                className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
+              >
+                <RiLogoutBoxLine />
+                Log Out
+              </Link>
+            </button>
+
           </div>
         </div>
       </div>

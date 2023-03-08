@@ -22,7 +22,7 @@ export default function ContentGen({ isAuthenticated, isLoading }) {
     <div>
       {isLoading && <div>Cargando...</div>}
 
-      {isAuthenticated && servicesDashboard.status == "success" && (
+      {isAuthenticated && servicesDashboard.status == "success" && userLogin.role === "admin" &&(
         <DashboardContent servicesDashboard={servicesDashboard}/>
       )}
     </div>

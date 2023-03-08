@@ -10,7 +10,7 @@ export function Notifications (){
 
     const userLogin = useSelector((state) => state.userLogin)
 
-    console.log(userLogin)
+   
 
     return (
         <nav className="w-[70%] flex justify-end">
