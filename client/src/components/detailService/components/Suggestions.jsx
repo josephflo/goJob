@@ -59,7 +59,7 @@ export default function Suggestions({ detail, totalPages, job, jobName }) {
 
   return (
     <>
-      <h2 className="text-2xl font-medium m-3">Sugerencias - {jobName}</h2>
+      <h2 className="text-2xl font-medium m-3">Sugerencias</h2>
       {suggestions?.map((suggestion) => (
         <div className="pb-4">
           <CardSuggestion suggestion={suggestion} id={detail.id} />

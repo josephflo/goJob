@@ -41,6 +41,7 @@ const NavLinkProf = () => {
       configFilterUserPut({
         ...configFilterUser,
         job: idProfesion,
+        page: 1,
         name: "",
         provincia: "Buenos Aires",
         ciudad: false,

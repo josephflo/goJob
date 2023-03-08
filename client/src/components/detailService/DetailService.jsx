@@ -10,8 +10,15 @@ import Suggestions from "./components/Suggestions";
 // import Navbar from "../navbarPortada/NavBar";
 
 import Loading from "../loading/Loading";
-import { suggestionServices } from "../../redux/actions/services/getServices";
-import { getMyPostulaciones } from "../../redux/actions/professionalActions";
+import {
+  stateSuggestionService,
+  suggestionServices,
+} from "../../redux/actions/services/getServices";
+import {
+  getMyPostulaciones,
+  stateSelected,
+  stateSelectedComun,
+} from "../../redux/actions/professionalActions";
 
 export default function DetailService() {
   const params = useParams();
@@ -20,6 +27,8 @@ export default function DetailService() {
 
   // get detail service
   const detail = useSelector((state) => state.serviceDetail);
+  const suggestionJob = useSelector((state) => state.stateSuggestionService);
+  let jobNameState = detail.Jobs?.map((job) => job.name)[0];
 
   // userLogin
   const user = useSelector((state) => state.userLogin);
@@ -38,7 +47,9 @@ export default function DetailService() {
 
   useEffect(() => {
     dispatch(getMyPostulaciones());
-  });
+    dispatch(stateSelected(1));
+    dispatch(stateSelectedComun(1));
+  }, []);
 
   useEffect(() => {
     if (!hasFetchedServiceById) {
@@ -66,7 +77,7 @@ export default function DetailService() {
               detail={detail}
               totalPages={totalPages}
               job={detail.Jobs?.map((job) => job.id)[0]}
-              jobName={detail.Jobs?.map((job) => job.name)[0]}
+              jobName={suggestionJob}
             />
           </div>
         </div>

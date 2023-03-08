@@ -26,17 +26,25 @@ const initialState = {
   myservices: {},
   mypostulaciones: [],
 
+  //REVIEWS DETAIL PROFESSIONAL
+  userReviewDetail: [],
+  userDetailOpinion1: {},
+  userDetailOpinion2: {},
+  userDetailOpinion3: {},
+
   selected: 1,
   selectedComun: 1,
 
   // suggestions
   suggestionServices: [],
+  stateSuggestionService: "",
 
   //config para filtros services
   configFilterServicesSuggestion: {
     page: 1,
     page_size: 5,
     job: false,
+    state: "pendiente",
   },
 
   //config para filtros services
@@ -51,10 +59,10 @@ const initialState = {
     job: false,
   },
 
-  //config para filtros services
+  //config para filtros buscar professionales
   configFilterUser: {
     page: 1,
-    page_size: 15,
+    page_size: 1,
     state: true,
     name: "",
     job: false,
@@ -127,7 +135,6 @@ export default function reducer(state = initialState, action) {
         selectedComun: action.payload,
       };
 
-    /********************* */
     case ActionTypes.CREATE_USER:
       return {
         ...state,
@@ -150,6 +157,24 @@ export default function reducer(state = initialState, action) {
         service: action.payload,
         totalPages: action.payload.totalPages,
       };
+
+    case "USER_DETAIL_OPINION_1":
+      return {
+        ...state,
+        userDetailOpinion1: action.payload,
+      };
+    case "USER_DETAIL_OPINION_2":
+      return {
+        ...state,
+        userDetailOpinion2: action.payload,
+      };
+    case "USER_DETAIL_OPINION_3":
+      return {
+        ...state,
+        userDetailOpinion3: action.payload,
+      };
+
+    /** SUGESTIONS */
     case ActionTypes.SUGGESTION_SERVICES:
       return {
         ...state,
@@ -160,6 +185,7 @@ export default function reducer(state = initialState, action) {
           // page: 1,
           page_size: 5,
           job: false,
+          state: "pendiente",
         },
       };
     case ActionTypes.CLEAN_SUGGESTION_SERVICE:
@@ -167,11 +193,35 @@ export default function reducer(state = initialState, action) {
         ...state,
         suggestionServices: action.payload,
       };
+    case ActionTypes.STATE_SUGGESTION_SERVICE:
+      return {
+        ...state,
+        stateSuggestionService: action.payload,
+      };
+    /************************* */
     case ActionTypes.CLEAN_ALL_SERVICES:
       return {
         ...state,
         service: action.payload,
       };
+
+    //******** CLEAN PROFESSIONAL PROFILE */
+    case ActionTypes.CLEAN_OFFER_PERFIL_PROFESSIONAL:
+      return {
+        ...state,
+        myservices: {},
+      };
+    case ActionTypes.CLEAN_TRABAJOS_PERFIL_PROFESSIONAL:
+      return {
+        ...state,
+        mytrabajos: {},
+      };
+    case ActionTypes.CLEAN_POSTULACIONES_PERFIL_PROFESSIONAL:
+      return {
+        ...state,
+        mypostulaciones: {},
+      };
+    //*********************************** */
 
     case ActionTypes.GET_SERVICES_DASBOARD:
       return {
@@ -185,10 +235,21 @@ export default function reducer(state = initialState, action) {
         userDetail: action.payload,
       };
 
+    /************* */
+
+    case "GET_USER_REVIEW_DETAIL":
+      return {
+        ...state,
+        userReviewDetail: action.payload,
+      };
+
+    /********************* */
+
     case ActionTypes.CLEAN_USER_DETAIL:
       return {
         ...state,
         userDetail: {},
+        userReviewDetail: [],
       };
 
     case ActionTypes.GET_ALL_USERS_FILTRADO:

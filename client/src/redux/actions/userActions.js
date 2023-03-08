@@ -83,7 +83,6 @@ export const uploadImage = (input) => async (dispatch) => {
   }
 };
 
-
 export const getUsers = () => {
   return async (dispatch) => {
     const result = await axios.get("/user");
@@ -113,6 +112,49 @@ export const getUserDetail = (id) => {
       type: ActionTypes.USER_DETAIL,
       payload: result.data.result,
     });
+  };
+};
+export const getUserDetailOpinion1 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_1",
+      payload: result.data.result,
+    });
+  };
+};
+export const getUserDetailOpinion2 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_2",
+      payload: result.data.result,
+    });
+  };
+};
+export const getUserDetailOpinion3 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_3",
+      payload: result.data.result,
+    });
+  };
+};
+
+export const getUserReviewDetails = (ids) => {
+  return async (dispatch) => {
+    try {
+      const promises = ids.map((id) => axios.get(`/user/get/${id}`));
+      const responses = await Promise.all(promises);
+      const userReviewDetails = responses.map(
+        (response) => response.data.result
+      );
+      // console.log(userReviewDetails);
+      dispatch({ type: "GET_USER_REVIEW_DETAIL", payload: userReviewDetails });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 };
 
