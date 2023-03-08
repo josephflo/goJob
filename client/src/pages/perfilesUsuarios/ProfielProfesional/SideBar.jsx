@@ -138,7 +138,7 @@ export default function SideBar() {
                 className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
               >
                 <RiLogoutBoxLine />
-                Log Out
+                Volver
               </Link>
             </button>
 
