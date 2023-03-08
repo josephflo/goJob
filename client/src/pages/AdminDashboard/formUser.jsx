@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 
 // components
 
-export default function FormUser() {
-  const detailUser = useSelector((state) => state.userDetail);
+export default function FormUser({detailUser}) {
+
+ console.log(detailUser)
 
   return (
     <>
@@ -40,9 +41,8 @@ export default function FormUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Username"
-                    defaultValue={detailUser.user}
-                  />
+                    placeholder={detailUser.user}
+                                    />
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
@@ -56,7 +56,7 @@ export default function FormUser() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue={detailUser.email}
+                    placeholder={detailUser.email}
                   />
                 </div>
               </div>
@@ -71,8 +71,8 @@ export default function FormUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Nombres"
-                    defaultValue={detailUser.firstName}
+                    placeholder={detailUser.firstName}
+                    
                   />
                 </div>
               </div>
@@ -87,8 +87,8 @@ export default function FormUser() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    placeholder="Apellidos"
-                    defaultValue={detailUser.lastName}
+                    placeholder={detailUser.lastName}
+                   
                   />
                 </div>
               </div>
@@ -112,7 +112,7 @@ export default function FormUser() {
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      defaultValue={detailUser.direccion}
+                      placeholder={detailUser.direccion}
                     />
                   ) : (
                     <input
@@ -135,7 +135,7 @@ export default function FormUser() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      defaultValue={detailUser.provincia}
+                      placeholder={detailUser.provincia}
                     />
                   ) : (
                     <input
@@ -158,7 +158,7 @@ export default function FormUser() {
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      defaultValue={detailUser.country}
+                      placeholder={detailUser.country}
                     />
                   ) : (
                     <input
@@ -175,13 +175,13 @@ export default function FormUser() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Codigo Postal
+                    Telefono
                   </label>
-                  {detailUser.cp ? (
+                  {detailUser.phone ? (
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      defaultValue={detailUser.cp}
+                      placeholder={detailUser.phone}
                     />
                   ) : (
                     <input
@@ -227,7 +227,7 @@ export default function FormUser() {
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       rows="4"
-                      defaultValue={detailUser.description}
+                     placeholder={detailUser.description}
                     ></textarea>
                   ) : (
                     <textarea

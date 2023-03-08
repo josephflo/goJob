@@ -100,19 +100,25 @@ function App() {
       createUser();
     }
   }, [isAuthenticated]);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {isAuthenticated ? (
-            <>
-              {!token ? (
+
+          
+          <Route path="/" element={<HomePage />} /> &&
+          <Route exact path="/service" element={<ServicesPage />} /> &&
+          <Route path="/professional" element={<ProfesionalPage />} />
+          
+
+          {isLoading && (
+            <Route path="*" element={<LoadingHomePage />} />
+          )}
+          
+
+          {token && (
                 <>
-                  <Route path="*" element={<LoadingHomePage />} />
-                </>
-              ) : (
-                <>
-                  <Route path="/" element={<HomePage />} />
                   {/* Admin **********************************************************/}
 
                   <Route
@@ -208,15 +214,9 @@ function App() {
                   {/*Profesionales */}
                   {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
                 </>
-              )}
-            </>
-          ) : (
-            <>
-              <Route path="/" element={<HomePage />} />
-              <Route exact path="/service" element={<ServicesPage />} />
-              <Route path="/professional" element={<ProfesionalPage />} />
-            </>
           )}
+
+       
         </Routes>
 
         {/* Paginas para pago */}
