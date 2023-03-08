@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 import { applyToService } from "../../../redux/actions/services/applyService.js";
 import { cleanServiceById } from "../../../redux/actions/serviceActions.js";
@@ -12,9 +13,19 @@ export default function Postularse({
   id,
   myPostulaciones,
 }) {
+  const users = useSelector((state) => state.userLogin); 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+
   const handleApply = () => {
     dispatch(applyToService(id));
+
+    Swal.fire({
+      title: "Te has postulado",
+      confirmButtonColor: "green",
+    });
+    navigate(`/profilep/postulaciones/${users.id}`);
   };
 
   const handleCleanDetailService = () => {
