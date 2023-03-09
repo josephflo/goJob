@@ -7,21 +7,24 @@ import NavLinkProf from "./NavLinkProf";
 import { useSelector } from "react-redux";
 import useUserLogin from "../../../helpers/customHooks/useUserLogin";
 import Swal from "sweetalert2";
+import LogoutButtons from "../../../authentication/components/LogoutButtons";
 
 const NavBarPortada = () => {
   const { isAuthenticated, user } = useAuth0();
   // const users = useSelector((state) => state.userLogin);
-  const navigate = useNavigate()
-  const {userInfo:users, isLogin} = useUserLogin();
+  const navigate = useNavigate();
+  const { userInfo: users, isLogin } = useUserLogin();
   const [open, setOpen] = useState(false);
+
+  const localStorage = window.localStorage.getItem("userStorage");
 
   useEffect(() => {
     if (users?.lastName === "sin apellido") {
       Swal.fire({
-        title: 'Necesitamos más datos',
-        confirmButtonColor: 'green'
+        title: "Necesitamos más datos",
+        confirmButtonColor: "green",
       });
-      navigate('/aditionalinfo');
+      navigate("/aditionalinfo");
     }
   }, [users]);
   console.log(users);
@@ -52,29 +55,55 @@ const NavBarPortada = () => {
               Servicios
             </Link>
           </li>
+          {localStorage && (
+            <li>
+              {JSON.parse(localStorage).role === "comun" ||
+              JSON.parse(localStorage).role === "professional" ? (
+                <Link to="/create/service" className="py-3 px-2 inline-block">
+                  Crear Servicio
+                </Link>
+              ) : null}
+            </li>
+          )}
 
-          {users && users?.role === "admin" && (
+          {localStorage && JSON.parse(localStorage).role === "admin" && (
             <li>
               <Link to="/Dashboard" class="py-4 px-3 inline-block">
                 Dashboard
               </Link>
             </li>
           )}
-
-          {users && users?.role !== "admin" ? (
+        </ul>
+        {localStorage && JSON.parse(localStorage).role !== "admin" ? (
+          <div className="md:flex hidden uppercase">
             <Link
               to={`/${users?.role === "comun" ? "profile" : "myprofilep"}/${
                 users?.id
               }`}
-              class="py-4 px-3 inline-block"
+              class=""
             >
-              Mi Perfil
+              <img
+                className="object-contain h-12 w-12 rounded-full auto "
+                src={users?.imagePerfil}
+                alt={users?.firstName}
+              />
+              {/* Mi Perfil */}
             </Link>
-          ) : (
-            <LoginButtons />
-          )}
-        </ul>
-        {users && (
+          </div>
+        ) : (
+          <div>
+            {localStorage && JSON.parse(localStorage).role === "admin" ? (
+              <img
+                className="object-contain h-12 w-12 rounded-full auto "
+                src={users?.imagePerfil}
+                alt={users?.firstName}
+              />
+            ) : (
+              <LoginButtons />
+            )}
+          </div>
+        )}
+        {/* {users && (
           <div class="py-4">
             <Link to={"/user/profile"}>
               <img
@@ -84,7 +113,7 @@ const NavBarPortada = () => {
               />
             </Link>
           </div>
-        )}
+        )} */}
         {/* <div class="md:block hidden"> */}
         {/* <Button /> */}
         {/* </div> */}
@@ -127,33 +156,30 @@ const NavBarPortada = () => {
                 to={`/profile/${users.id}`}
                 className="py-7 px-2 inline-block"
               >
-                Mi Perfil
+                <img
+                  className="object-contain h-16 w-16 rounded-full auto "
+                  src={users?.imagePerfil}
+                  alt={users?.firstName}
+                />
+                {/* Mi Perfil */}
               </Link>
             ) : users?.role === "professional" ? (
               <Link
                 to={`/myprofilep/${users?.id}`}
-                className="py-7 px-2 inline-block"
+                className="py-7 px-2  inline-block"
               >
-                Mi Perfil
+                <img
+                  className="object-contain h-16 w-16 rounded-full auto "
+                  src={users?.imagePerfil}
+                  alt={users?.firstName}
+                />
+                {/* Mi Perfil */}
               </Link>
             ) : (
               // <LoginButtons />
               <></>
             )}
           </li>
-          <div className="py-7">
-            {users ? (
-              <Link to={"/user/profile"}>
-                <img
-                  className="object-contain h-16 w-16 rounded-full auto px-2 py-3"
-                  src={users?.imagePerfil}
-                  alt={users?.firstName}
-                />
-              </Link>
-            ) : (
-              <LoginButtons />
-            )}
-          </div>
         </ul>
       </div>
     </nav>
