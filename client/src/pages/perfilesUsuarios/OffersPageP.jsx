@@ -28,6 +28,10 @@ export default function OffersPageP() {
     dispatch(stateSelectedComun(2));
   }, [configFilterPerfilOffer]);
 
+  // useEffect(() => {
+  //   dispatch(getMyServices(configFilterPerfilOffer));
+  // }, []);
+
   // MODAL
   const [modal, setModal] = useState(false);
   const [modalPostulantes, setModalPostulantes] = useState({});
@@ -140,11 +144,11 @@ export default function OffersPageP() {
           </div>
 
           <div className="grid grid-cols-7 ">
-            <div className="col-span-2 my-10 mx-7 overflow-y-auto h-screen">
+            <div className="col-span-2 my-10 mx-7 description_barra h-screen">
               <div className="">
                 <div className=" pt-4 grid grid-cols-1 ">
                   {services?.length > 0 ? (
-                    services?.map((e) => (
+                    services?.map((e, ind) => (
                       <div
                         className={
                           modalIdService === e.id
@@ -154,7 +158,7 @@ export default function OffersPageP() {
                       >
                         <Card
                           key={e.id}
-                          id={e.id}
+                          id={e.ind}
                           tittle={e.tittle}
                           imagenurl={e.imagenurl}
                           direccion={e.direccion}
@@ -183,26 +187,26 @@ export default function OffersPageP() {
                       Descripción
                     </h1>
                   </div>
-                  <div className="">
+                  <div className="mt-5">
                     <div className="text-left grid grid-cols-2">
                       <div className="h-100 overflow-hidden">
                         {modalService.imageServiceUrl === "sin foto" ? (
                           <img
                             src={userFormBackground}
-                            className="object-fill  object-left"
+                            className="object-fill fra_border  object-left"
                             alt=""
                           />
                         ) : (
                           <img
                             src={modalService.imageServiceUrl}
                             alt=""
-                            className="object-fill w-full "
+                            className="object-fill fra_border w-full "
                           />
                         )}
                       </div>
-                      <div className="p-5">
+                      <div className="pb-5 pl-5 pt-0 mt-0">
                         <div>
-                          <h2 className="font-sans pt-1 not-italic font-medium text-gray-700">
+                          <h2 className="font-sans not-italic font-medium text-gray-700">
                             Título:
                           </h2>
                           <p className="text-sm">{modalService.tittle}</p>

@@ -29,9 +29,9 @@ export default function OffersPage() {
         >
           <div className=" pt-4 grid grid-cols-3 ">
             {services?.length > 0 ? (
-              services?.map((e) => (
+              services?.map((e, ind) => (
                 <Card
-                  key={e.id}
+                  key={e.ind}
                   tittle={e.tittle}
                   imageServiceUrl={e.imageServiceUrl}
                   direccion={e.direccion}

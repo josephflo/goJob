@@ -33,18 +33,18 @@ export default function Card({
                   <img
                     src={imageServiceUrl}
                     alt=""
-                    className="object-cover min-w-full"
+                    className="object-cover min-w-full "
                   />
                 )}
               </div>  
             </div>
 
-            <div className={`h-100 absolute min-w-full bottom-0 overflow-hidden border-solid-gray-300 pt-1 pb-2 ${
+            <div className={`h-100 absolute min-w-full text-center bottom-0 overflow-hidden border-solid-gray-300 pt-1 pb-2 ${
                 state === "pendiente"
                   ? "bg-green-800/50"
                   : state === "terminado"
                   ? "bg-slate-400/40"
-                  : "bg-orange-500/60	"
+                  : "bg-cyan-700/60 	"
               } container_videogames `}>
 
 

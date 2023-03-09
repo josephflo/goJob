@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { configFilterPerfilOffer } from "../../../../redux/actions/professionalActions";
 
 export default function FilterOffers() {
   let order = [
-    { name: "Default", valor: "" },
     { name: "Más recientes", valor: "DESC" },
     { name: "Más antiguos", valor: "ASC" },
   ];
@@ -54,13 +53,10 @@ export default function FilterOffers() {
       [propiedadFilter]: value,
     };
 
-    // if (propiedadFilter == "provincia") {
-    //   newConfig.ciudad = false;
-    // }
-    console.log(newConfig);
-
     dispatch(configFilterPerfilOffer(newConfig));
   };
+
+
   return (
     <>
       <form className="">
@@ -85,7 +81,7 @@ export default function FilterOffers() {
           Por lanzamiento
         </p>
         <select
-          value={configFilterServices.order}
+          value={configFilterServices.fecha_publicacion}
           onChange={handleOptionFilter}
           className="p-2 py-2 pl-3 pr-4 text-xs md:text-sm lg:text-base"
           // className="absolute z-10 right-0 top-full mt-2 w-full bg-gray-200 rounded-md px-4 py-2 text-sm"

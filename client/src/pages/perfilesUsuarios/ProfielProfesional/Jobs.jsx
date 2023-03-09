@@ -33,7 +33,7 @@ export default function Jobs() {
         <div className="p-4 ">
           <div>
             {jobs?.length > 0 ? (
-              <div className="grid grid-cols-1">
+              <div className="grid grid-cols-1 rounded">
                 {jobs?.map((e) => (
                   <CardJob
                     key={e.id}

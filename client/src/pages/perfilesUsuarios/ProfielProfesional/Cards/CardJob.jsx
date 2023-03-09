@@ -13,41 +13,42 @@ export default function CardJob({
   detail,
 }) {
   return (
-    <div key={id} className="bg-gray-100 p-4 grid grid-cols-6">
-      <div className="col-span-2">
-        <div className="overflow-hidden h-[300px]">
+    <div key={id} className="relative bg-gray-100 p-4 grid grid-cols-6 fra_border_5">
+      <div className="relative col-span-2">
+        <div className="overflow-hidden h-[300px] ">
           {imageServiceUrl === "sin foto" ? (
             <img
               src={userFormBackground}
-              className="w-full h-full object-center object-cover "
+              className="w-full h-full object-center object-cover fra_border_5 "
               alt=""
             />
           ) : (
             <img
               src={imageServiceUrl}
               alt=""
-              className="w-full h-full object-center object-cover"
+              className="object-cover min-h-full min-w-full fra_border_5"
             />
           )}
         </div>
 
         <div
-          className={`h-100 overflow-hidden border-solid-gray-300 rounded-sm p-4 ${
+          className={`absolute h-100 bottom-0 min-w-full text-center	 overflow-hidden border-solid-gray-300 rounded-sm py-2 pb-2 ${
             state === "pendiente"
-              ? "bg-blue-600"
-              : state === "terminado"
-              ? "bg-gray-600"
-              : "bg-yellow-600"
-          }`}
+            ? "bg-green-800/50"
+            : state === "terminado"
+            ? "bg-slate-500/40"
+            : "bg-cyan-700/60	"
+          } container_videogames`}
         >
           <h1 className=" w-38 h-7 top-9 font-sans font-semibold text-xl not-italic text-white">
             {tittle}
           </h1>
         </div>
+        
       </div>
 
       <div className="col-span-4">
-        <div className="box-border h-full flex pt-8 bg-white border-solid-gray-300 rounded-sm p-4">
+        <div className="box-border h-full flex bg-white border-solid-gray-300 rounded-sm px-4 pt-1">
           <div className="">
             <h2 className="font-sans pt-1 not-italic font-medium text-gray-700">
               Descripción del trabajo:
@@ -78,5 +79,7 @@ export default function CardJob({
         </div>
       </div>
     </div>
+
+
   );
 }

@@ -80,27 +80,27 @@ const initialState = {
   configFilterPerfilOfferComun: {
     tittle: "",
     state: "",
-    fecha_publicacion: "ASC",
+    fecha_publicacion: "DESC",
   },
 
   // config para filtros PERFIL PROFESIONAL ofertas
   configFilterPerfilOffer: {
     tittle: "",
     state: "",
-    fecha_publicacion: "ASC",
+    fecha_publicacion: "DESC",
   },
 
   // config para filtros PERFIL PROFESIONAL trabajos
   configFilterPerfilJobs: {
     tittle: "",
     state: "",
-    fecha_publicacion: "ASC",
+    fecha_publicacion: "DESC",
   },
 
   // config para filtros PERFIL PROFESIONAL postulaciones
   configFilterPerfilPostulaciones: {
     tittle: "",
-    fecha_publicacion: "ASC",
+    fecha_publicacion: "DESC",
   },
 };
 
