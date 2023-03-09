@@ -215,7 +215,7 @@ function FormEditProfile() {
               </div>
             </form>
 
-            <div>
+            {/* <div>
               <Link
                 to={`/${
                   JSON.parse(localStorage)?.role === "comun"
@@ -227,7 +227,7 @@ function FormEditProfile() {
                   Volver
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
