@@ -2,14 +2,19 @@ import { Link } from "react-router-dom";
 import { imageUrlNotFound } from "../../../assets";
 import { cleanUserDetail } from "../../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import { contactarProff } from "../../../redux/actions/users/contact";
 
-export default function Contact({ detail, arr2 }) {
+export default function Contact({ detail, arr2, profesionalID }) {
   const dispatch = useDispatch();
-
+  
   const cleanDetailProfessional = () => {
     dispatch(cleanUserDetail());
     return;
   };
+
+  let contacProfessional = (idProfessional)=>{
+    dispatch(contactarProff(idProfessional))
+  }
 
   return (
     <>
@@ -52,7 +57,7 @@ export default function Contact({ detail, arr2 }) {
           </button>
         </div> */}
         <div className="flex justify-center p-2">
-          <button className="bg-transparent w-[80%] hover:bg-green-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+          <button onClick={()=>contacProfessional(profesionalID)} className="bg-transparent w-[80%] hover:bg-green-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
             <i className="fa-regular fa-envelope"></i> Contactar
           </button>
         </div>

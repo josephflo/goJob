@@ -46,6 +46,11 @@ export default function OffersPageP() {
 
   const handleAccept = (id_postulante) => {
     dispatch(acceptUser(id_postulante, modalIdService));
+    alert("Aceptaste el trabajador")
+
+    dispatch(getMyServices(configFilterPerfilOffer));
+    dispatch(stateSelected(2));
+    dispatch(stateSelectedComun(2));
   };
 
   const fecha = new Date(modalService.fecha_publicacion);
@@ -83,7 +88,6 @@ export default function OffersPageP() {
     let prueba5 = getSessionUrl(modalService.id)
       .then((res) => {
         setNewSession(res);
-        alert("Todo salio bien");
       })
       .catch((error) => {
         alert(error.message);
@@ -269,6 +273,7 @@ export default function OffersPageP() {
                                 </th>
                               </tr>
                             </thead>
+
                             <tbody>
                               {modalPostulantes.map((postulante) => (
                                 <tr className="h-5">
@@ -295,7 +300,7 @@ export default function OffersPageP() {
                                     {postulante.rating_promedio}
                                   </th>
                                   <th className="text-center">
-                                    <button
+                                    <button className="hov_acceptar"
                                       onClick={() =>
                                         handleAccept(postulante.id)
                                       }
@@ -306,6 +311,7 @@ export default function OffersPageP() {
                                 </tr>
                               ))}
                             </tbody>
+
                           </table>
                         ) : (
                           <div className="bg-gray-100 w-full flex mt-10 items-center justify-center">
@@ -319,18 +325,20 @@ export default function OffersPageP() {
                       </div>
                     </div>
                   ) : modalService.state === "proceso" ? (
-                    <div>
-                      <div className="">
-                        <h1 className="text-lg text-left font-semibold md:text-xl lg:text-2xl">
+                    <div className="text-center ">
+                      <div className="mt-10 mb-15 pb-10 w-full text-center	">
+                        <h1 className="text-lg text-center font-semibold md:text-xl lg:text-2xl">
                           Para pagar
                         </h1>
                       </div>
-                      <button
+
+                      <button bg-
                         onClick={generateSessionPagar}
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                        class="bg-green-800 hover:bg-green-700 mt-15 text-white font-bold py-2 px-4 rounded text-xl"
                       >
-                        Pagar {modalService.id}
+                        Pagar
                       </button>
+
                     </div>
                   ) : (
                     <div>
