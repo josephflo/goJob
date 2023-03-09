@@ -228,11 +228,11 @@ export default function DetailUser({ id }) {
                 <i className="fa-regular fa-envelope"></i> Enviar mensaje
               </button>
             </div>
-            <div className="flex justify-center p-2 ">
+            {/* <div className="flex justify-center p-2 ">
               <button className="bg-transparent w-[80%] hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 <i className="fa-regular fa-heart"></i> Guardar en mi lista
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

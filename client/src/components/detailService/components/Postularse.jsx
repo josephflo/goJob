@@ -65,11 +65,11 @@ export default function Postularse({
           </button>
         </div>
 
-        <div className="flex justify-center p-2 ">
+        {/* <div className="flex justify-center p-2 ">
           <button className="bg-transparent w-[80%] hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
             <i className="fa-regular fa-heart"></i> Guardar en mi lista
           </button>
-        </div>
+        </div> */}
         <div className="flex justify-center text-center p-2">
           <Link
             to="/service"

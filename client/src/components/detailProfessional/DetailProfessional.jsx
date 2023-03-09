@@ -33,6 +33,8 @@ export default function DetailProfessional() {
   const detail_ = useSelector((state) => state.professionalDetail);
   const idUser = detail_.rating?.map((obj) => obj.idUser);
 
+  let profesionalID = detail_.id
+
   // useEffect(() => {
   //   if (reviewsDetails?.length === 0) {
   //     dispatch(getUserReviewDetails(idUser));
@@ -141,7 +143,7 @@ export default function DetailProfessional() {
            */}
         </div>
         <div className="col-span-1">
-          <Contact detail={user} arr2={arr2} />
+          <Contact profesionalID={profesionalID}  detail={user} arr2={arr2} />
         </div>
       </div>
     </>
