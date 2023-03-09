@@ -186,6 +186,11 @@ function App() {
                 path="/profilec/modificar"
                 element={<FormUpdateUserAuth />}
               />
+               <Route 
+                    exact 
+                    path="/profilec/modificardatos" 
+                    element={<FormEditProfile />} 
+                  />
 
               {/* ProfileProfessional ***********************************************/}
               <Route exact path="/myprofilep/:id" element={<MyProfileP />} />
@@ -196,6 +201,11 @@ function App() {
                 path="/profilep/postulaciones/:id"
                 element={<Postulaciones />}
               />
+              <Route 
+                    exact 
+                    path="/profilep/modificar" 
+                    element={<FormEditProfile />} 
+                  />
 
                   {/*Profesionales */}
                   {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
