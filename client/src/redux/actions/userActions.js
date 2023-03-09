@@ -48,7 +48,7 @@ export const createAndLogin = (newUser) => async (dispatch) => {
   try {
     let result = await axios.post("/user/register", newUser);
 
-    console.log("Se hizo un REGISTER");
+    console.log(result.data);
     //return null
     return dispatch({
       type: ActionTypes.REGISTER_USER_AND_LOGIN,
@@ -62,8 +62,9 @@ export const createAndLogin = (newUser) => async (dispatch) => {
 
 export const putUser = (newUser) => async (dispatch) => {
   try {
-    let result = axios.put("/user/update", newUser);
-
+    let result = await axios.put("/user/update", newUser);
+    
+    console.log("FINALLYYYY",result.data);
     return dispatch({
       type: ActionTypes.UPDATE_USER,
       payload: result.data,
