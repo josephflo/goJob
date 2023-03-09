@@ -139,13 +139,13 @@ export default function Form({
               </div>
               <div>
                 <label
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                   for="file_input"
                 >
                   Upload file
                 </label>
                 <input
-                  class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                   id="file_input"
                   type="file"
                   name="file"
@@ -160,23 +160,23 @@ export default function Form({
                 >
                   Tipo de rol el cual desea registrarse:
                 </label>
-                <div class="flex justify-center mt-3">
-                  <ul class="grid w-[70%] gap-6 md:grid-cols-2">
+                <div className="flex justify-center mt-3">
+                  <ul className="grid w-[70%] gap-6 md:grid-cols-2">
                     <li>
                       <input
                         type="radio"
                         id="hosting-small"
                         name="role"
                         value="comun"
-                        class="hidden peer"
+                        className="hidden peer"
                         required
                         onChange={handleInputChange}
                       />
                       <label
                         for="hosting-small"
-                        class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                        className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
                       >
-                        <div class="w-full text-lg font-semibold">Comun</div>
+                        <div className="w-full text-lg font-semibold">Comun</div>
                       </label>
                     </li>
                     <li>
@@ -185,14 +185,14 @@ export default function Form({
                         id="hosting-big"
                         name="role"
                         value="professional"
-                        class="hidden peer"
+                        className="hidden peer"
                         onChange={handleInputChange}
                       />
                       <label
                         for="hosting-big"
-                        class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                        className="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
                       >
-                        <div class="w-full text-lg font-semibold">
+                        <div className="w-full text-lg font-semibold">
                           Profesional
                         </div>
                       </label>

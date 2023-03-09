@@ -89,14 +89,14 @@ export default function FormCreateUser() {
 
   return (
     <>
-      <div class="p-1.5 sticky top-0 z-50 bg-white ">
+      <div className="sticky top-0 z-50 bg-white ">
         <NavBarPortada />
       </div>
 
-      <div class="min-height-full flex">
+      <div className="min-height-full flex">
         {!inputForm.state ? (
-          <div class="hidden lg:block relative h-full flex-1">
-            <img src={userFormBackground} class="h-screen " alt="" />
+          <div className="hidden lg:block relative h-full flex-1">
+            <img src={userFormBackground} className="h-screen " alt="" />
           </div>
         ) : (
           <>
@@ -115,8 +115,8 @@ export default function FormCreateUser() {
           </>
         )}
         <div className="flex-1 flex flex-col justify-center  px-4 sm:px-6 lg:flex-none">
-          <div class="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
-            <div class="text-center lg-text-left">
+          <div className="mx-auto w-full max-w-sm lg:max-w-lg lg:w-[100rem]">
+            <div className="text-center lg-text-left">
               {!inputForm.state ? (
                 <Form
                   changeInput={changeInput}

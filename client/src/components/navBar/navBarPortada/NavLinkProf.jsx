@@ -2,88 +2,105 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { configFilterUserPut } from "../../../redux/actions/users/profesionales";
-import { links } from "./MyLinks";
+import { links_ } from "./MyLinks";
 
-const NavLinks = () => {
+const NavLinkProf = () => {
   const [heading, setHeading] = useState("");
   const [subHeading, setSubHeading] = useState("");
 
-
   //estados para modificar el filtro
   let configFilterUser = useSelector((state) => state.configFilterUser);
-  let dispatch = useDispatch()
+  let jobs = useSelector((state) => state.jobs);
+  let dispatch = useDispatch();
 
-  let modifyStateFilter = (idProfesion)=>{
-    dispatch(configFilterUserPut({
-      ...configFilterUser,
-      job: idProfesion,
-      name: "",
-      provincia: "Buenos Aires",
-      ciudad: false,
-      dias: false,
-      horario: "mañana",
-      role: "professional"
-    }));
-  
-  }
+  // console.log("hola", jobs);
 
+  const jobItems = jobs
+    .map((job) => ({
+      name: job.name,
+      Head: job.name,
+      link: "/professional",
+      id: job.id,
+      sublink: [],
+    }))
+    .slice(0, 6);
+
+  // console.log(jobItems);
+  // const links = links_;
+
+  const links = [
+    {
+      name: "Profesionales",
+      submenu: true,
+      sublinks: jobItems,
+    },
+  ];
+
+  let modifyStateFilter = (idProfesion) => {
+    dispatch(
+      configFilterUserPut({
+        ...configFilterUser,
+        job: idProfesion,
+        page: 1,
+        name: "",
+        provincia: "Buenos Aires",
+        ciudad: false,
+        dias: false,
+        horario: false,
+        role: "professional",
+        state: true
+      })
+    );
+  };
 
   return (
     <>
       {links.map((link) => (
         <div>
-          <div class="px-3 text-left md:cursor-pointer group">
-            <h1
-              class="py-7 flex justify-between items-center md:pr-0 pr-5 group"
+          <div className="px-2 text-left md:cursor-pointer group">
+            <Link
+              className="py-2 flex justify-between items-center md:pr-0 pr-5 group"
               onClick={() => {
                 heading !== link.name ? setHeading(link.name) : setHeading("");
                 setSubHeading("");
+                modifyStateFilter(false);
               }}
+              to={"/professional"}
             >
               {link.name}
-              <span class="text-xl md:hidden inline">
+              <span className="text-xl md:hidden inline">
                 <ion-icon
                   name={`${
                     heading === link.name ? "chevron-up" : "chevron-down"
                   }`}
                 ></ion-icon>
               </span>
-              <span class="text-xl md:mt-1 md:ml-2  md:block hidden group-hover:rotate-180 group-hover:-mt-2">
+              <span className="text-xl md:mt-1 md:ml-2  md:block hidden group-hover:rotate-180 group-hover:-mt-2">
                 <ion-icon name="chevron-down"></ion-icon>
               </span>
-            </h1>
+            </Link>
             {link.submenu && (
-            <div>
-              <div class="absolute top-20 hidden group-hover:md:block hover:md:block">
-                <div class="py-3">
-                  <div
-                    class="w-4 h-4 left-3 absolute 
-                    mt-1 bg-white rotate-45"
-                  ></div>
-                </div>
-                <div class="bg-white p-5 grid grid-cols-3 gap-10">
-                  {link.sublinks.map((mysublinks) => (
-                    <div>
-                      <h1 class="text-lg font-semibold">
-                        {mysublinks.Head}
-                      </h1>
-                      {mysublinks.sublink.map((slink) => (
-                        <li class="text-sm text-gray-600 my-2.5">
-                          <Link onClick={()=>modifyStateFilter(slink.id)} to={"/professional"} class="hover:text-primary">
-                            {slink.name}
-                          </Link>
-                        </li>
-                      ))}
-                    </div>
-                  ))}
+              <div>
+                <div class="absolute top-15 border hidden group-hover:md:block hover:md:block">
+                  <div className="bg-white p-5 grid grid-cols-3 gap-x-4 gap-y-2 ">
+                    {link.sublinks.map((job) => (
+                      <div
+                        className="px-5 py-2 rounded hover:bg-neutral-400/30  "
+                        onClick={() => modifyStateFilter(job.id)}
+                      >
+                        <Link to={job.link} className="text-sm font-semibold">
+                          {job.name}
+                        </Link>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
             )}
           </div>
           {/* Mobile menus */}
           <div
-            class={`
+            className={`
             ${heading === link.name ? "md:hidden" : "hidden"}
           `}
           >
@@ -97,11 +114,11 @@ const NavLinks = () => {
                         ? setSubHeading(slinks.Head)
                         : setSubHeading("")
                     }
-                    class="py-4 pl-7 font-semibold md:pr-0 pr-5 flex justify-between items-center md:pr-0 pr-5"
+                    className="py-4 pl-7 font-semibold md:pr-0 pr-5 flex justify-between items-center md:pr-0 pr-5"
                   >
                     {slinks.Head}
 
-                    <span class="text-xl md:mt-1 md:ml-2 inline">
+                    <span className="text-xl md:mt-1 md:ml-2 inline">
                       <ion-icon
                         name={`${
                           subHeading === slinks.Head
@@ -112,12 +129,12 @@ const NavLinks = () => {
                     </span>
                   </h1>
                   <div
-                    class={`${
+                    className={`${
                       subHeading === slinks.Head ? "md:hidden" : "hidden"
                     }`}
                   >
                     {slinks.sublink.map((slink) => (
-                      <li class="py-3 pl-14">
+                      <li className="py-3 pl-14">
                         <Link to={slink.link}>{slink.name}</Link>
                       </li>
                     ))}
@@ -132,4 +149,4 @@ const NavLinks = () => {
   );
 };
 
-export default NavLinks;
+export default NavLinkProf;

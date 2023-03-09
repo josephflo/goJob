@@ -1,5 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getUserDetail } from "../../redux/actions/userActions";
+
 
 export function Carduser({
   firstName,
@@ -15,10 +19,21 @@ export function Carduser({
   phone
 }) {
 
+ const dispatch = useDispatch()
+
+const userID = (event) => {
+  const value = event.currentTarget.getAttribute("value");
+ 
+  dispatch(getUserDetail(value))
+}
+
+
   return (
     <Link
-      to={`dashboard/user/detail/${id}`}
+      to="/dashboard/user/detail"
       className="bg-white rounded-3xl mb-4 p-8 flex gap-8 w-full shadow-lg hover:border-blue-400 border-2 transition-all"
+      value= {id}
+      onClick={userID}
     >
       <div className="w-[10%] flex items-center justify-center">
         {/* imagen */}
@@ -38,14 +53,14 @@ export function Carduser({
             ))}  
         </h1>
         <p className="text-gray-500 text-md">
-          {provincia + " " + ciudad + " " + direccion}
+          {provincia + " " + ciudad }
         </p>
       </div>
       <div className="w-[20%] flex flex-col items-end">
         {/* servicios y fecha */}
         <div>
           <h3 className="text-xl text-gray-500 mb-2">{"Rating"+" "+rating }</h3>
-          <p className="text-gray-500">{phone}</p>
+          <p className="text-gray-500">{direccion}</p>
         </div>
       </div>
     </Link>

@@ -7,7 +7,7 @@ export default function Jobs({ jobs, handleJob }) {
     //   <h1 className=" text-5xl text-black mx-auto pt-20 text-center">
     //     Qué desempeñas
     //   </h1>
-    //   <div class="py-24 flex flex-wrap items-center justify-center ">
+    //   <div className="py-24 flex flex-wrap items-center justify-center ">
     //     {jobs?.length > 0 ? (
     //       jobs?.map((e) => {
     //         return (
@@ -26,12 +26,12 @@ export default function Jobs({ jobs, handleJob }) {
     //   </div>
     // </div>
     <>
-      <div class="py-24 items-center justify-center ">
-        <h1 class="pb-5 text-5xl text-black mx-auto pt-20 text-center">
+      <div className="py-24 items-center justify-center ">
+        <h1 className="pb-5 text-5xl text-black mx-auto pt-20 text-center">
           {" "}
           Qué desempeñas{" "}
         </h1>
-        <div class="p-10">
+        <div className="p-10">
           {jobs.map((job) => (
             <label key={job.name}>
               {job.name}

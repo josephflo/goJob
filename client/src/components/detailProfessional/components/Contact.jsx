@@ -1,30 +1,39 @@
 import { Link } from "react-router-dom";
 import { imageUrlNotFound } from "../../../assets";
+import { cleanUserDetail } from "../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 export default function Contact({ detail, arr2 }) {
+  const dispatch = useDispatch();
+
+  const cleanDetailProfessional = () => {
+    dispatch(cleanUserDetail());
+    return;
+  };
+
   return (
     <>
-      <div class="border-2 rounded-xl m-3 bg-white pb-4">
-        <div class="flex items-center p-7 mt-2 justify-center grid grid-cols-2 rounded pt-4">
+      <div className="border-2 rounded-xl m-3 bg-white pb-4">
+        <div className="flex items-center p-7 mt-2 justify-center grid grid-cols-2 rounded pt-4">
           <div className="col-span-1 flex justify-center">
-            {detail.imageurl === "sin foto" ? (
+            {detail.imagePerfil === "sin foto" ? (
               <img src={imageUrlNotFound} className=" " alt="" />
             ) : (
-              <img src={detail.imageurl} alt="" class="p-2" />
+              <img src={detail.imagePerfil} alt="" className="p-2" />
             )}
           </div>
-          <div class="col-span-1 ">
-            <p class="p-2 text-right text-amber-400">
+          <div className="col-span-1 ">
+            <p className="p-2 text-left">
               {" "}
               {detail.firstName} {detail.lastName}{" "}
             </p>
-            {/* <p class="text-center text-sm">{detail.specificJob2}</p> */}
+            {/* <p className="text-center text-sm">{detail.specificJob2}</p> */}
           </div>
         </div>
-        <div class="flex justify-center p-3">
+        <div className="flex justify-center p-3">
           {/* <svg
             aria-hidden="true"
-            class="w-10 h-10 text-yellow-400"
+            className="w-10 h-10 text-yellow-400"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -34,30 +43,30 @@ export default function Contact({ detail, arr2 }) {
           {/* <h1 className="text-3xl px-4 ">{arr2[5]} </h1>
           <h1 className="">
             {" "}
-            <span class="text-3xl pl-4"> {detail.price}</span> USD
+            <span className="text-3xl pl-4"> {detail.price}</span> USD
           </h1> */}
         </div>
-        {/* <div class="flex justify-center p-2">
-          <button class="bg-blue-500 w-[80%] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
-            <i class="fa-solid fa-bolt"></i> Reserva dia de trabajo
+        {/* <div className="flex justify-center p-2">
+          <button className="bg-blue-500 w-[80%] hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+            <i className="fa-solid fa-bolt"></i> Reserva dia de trabajo
           </button>
         </div> */}
-        <div class="flex justify-center p-2">
-          <button class="bg-transparent w-[80%] hover:bg-green-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            <i class="fa-regular fa-envelope"></i> Contactar
+        <div className="flex justify-center p-2">
+          <button className="bg-transparent w-[80%] hover:bg-green-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <i className="fa-regular fa-envelope"></i> Contactar
           </button>
         </div>
-        {/* <div class="flex justify-center p-2 ">
-          <button class="bg-transparent w-[80%] hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-            <i class="fa-regular fa-heart"></i> Guardar en mi lista
+        {/* <div className="flex justify-center p-2 ">
+          <button className="bg-transparent w-[80%] hover:bg-red-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <i className="fa-regular fa-heart"></i> Guardar en mi lista
           </button>
         </div> */}
-        <div class="flex justify-center text-center p-2">
+        <div className="flex justify-center text-center p-2">
           <Link
             to="/professional"
-            class="bg-transparent w-[80%] hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            className="bg-transparent w-[80%] hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           >
-            <button>Volver</button>
+            <button onClick={cleanDetailProfessional}>Volver</button>
           </Link>
         </div>
       </div>

@@ -1,25 +1,19 @@
-import React from "react"
-import CreateJob from "../../containers/createJob/CreateJob"
-import { SideBar } from "./sidebar"
-import { Header } from "./header"
+import React from "react";
+import CreateJob from "../../containers/createJob/CreateJob";
+import { SideBar } from "./sidebar";
+import { Header } from "./header";
 
-export function JobCreate (){
-return (
+export function JobCreate() {
+  return (
     <div className="min-h-screen grid grid-gol-1  lg:grid-cols-6">
-              <SideBar/>
+      <SideBar />
 
-            <div className="col-span-5">
-                    <Header/>
-                     <div className="p-10 bg-gray-100 ">
-                        <CreateJob/>                          
-
-                    </div>
-
-             </div>
-
-
+      <div className="col-span-5">
+        <Header />
+        <div className=" bg-gray-100 ">
+          <CreateJob />
+        </div>
+      </div>
     </div>
-
-)
+  );
 }
-

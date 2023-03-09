@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ActionTypes } from "../constants/actions-types";
 
 export const orderAplhabetical = (payload) => {

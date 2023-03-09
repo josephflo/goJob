@@ -6,7 +6,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllServices } from "../../redux/actions/services/getServices";
 import { getJobs } from "../../redux/actions/jobActions";
-import Services from "../servicesPage/services/Services"
+import Services from "./servicemap";
 
 export default function ServicesDashboard (){
     const service = useSelector((state) => state.service);
@@ -33,7 +33,7 @@ export default function ServicesDashboard (){
                 <div className="p-10 bg-gray-100 ">
                 <Filter totalPages={service.totalPages} />
                 </div>
-                <div class="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {service.result && service.result.length > 0 ? (
                     <Services services={service.result} />
                 ) : (

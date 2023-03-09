@@ -44,25 +44,12 @@ export const createUser = (input) => {
   };
 };
 
-export const getUserAuth0Id = (sub) => async (dispatch) => {
-  try {
-    const existingUser = await axios.get(`/user/get/${sub}`);
-    return dispatch({
-      type: ActionTypes.GET_USER_AUTH0_ID,
-      payload: existingUser.data,
-    });
-  } catch (error) {
-    return dispatch({
-      type: ActionTypes.GET_USER_AUTH0_ID,
-      payload: { status: "error" },
-    });
-  }
-};
-
 export const createAndLogin = (newUser) => async (dispatch) => {
   try {
     let result = await axios.post("/user/register", newUser);
 
+    console.log(result.data);
+    //return null
     return dispatch({
       type: ActionTypes.REGISTER_USER_AND_LOGIN,
       payload: result.data,
@@ -75,10 +62,11 @@ export const createAndLogin = (newUser) => async (dispatch) => {
 
 export const putUser = (newUser) => async (dispatch) => {
   try {
-    let result = axios.put("/user/register", newUser);
-
+    let result = await axios.put("/user/update", newUser);
+    
+    console.log("FINALLYYYY",result.data);
     return dispatch({
-      type: ActionTypes.REGISTER_USER_AND_LOGIN,
+      type: ActionTypes.UPDATE_USER,
       payload: result.data,
     });
   } catch (error) {
@@ -96,67 +84,14 @@ export const uploadImage = (input) => async (dispatch) => {
   }
 };
 
-// export const createUserImageV2 = (input) => {
-//   return async (dispatch) => {
-//     // const json = JSON.stringify(input);
-//     const formData = new FormData();
-
-//     formData.append("user", JSON.stringify(input.user));
-//     formData.append("jobs", JSON.stringify(input.jobs));
-//     formData.append("image", input.image);
-//     console.log(formData);
-//     const customConfig = {
-//       headers: {
-//         // Accept: "application/json",
-//         // "Content-Type": "application/json",
-//         "content-type": "multipart/form-data",
-//       },
-//     };
-//     const result = await axios.post("user/register", formData, customConfig);
-//     return dispatch({
-//       type: ActionTypes.CREATE_USER,
-//       payload: result.data,
-//     });
-//   };
-// };
-
-//ruta modificada de create user para enviar imagens
-//
-
-//
-
 export const getUsers = () => {
   return async (dispatch) => {
     const result = await axios.get("/user");
-    return dispatch({
-      type: ActionTypes.GET_USERS,
-      payload: result.data.result,
-    });
-  };
-};
-export const getUsersPaginate = () => {
-  return async (dispatch) => {
-    const result = await axios.get(`/user/page=1&page_size=3`);
-    return dispatch({
-      type: ActionTypes.GET_USERS,
-      payload: result.data.result,
-    });
-  };
-};
 
-export const userLogin = (input) => {
-  return async (dispatch) => {
-    const json = JSON.stringify(input);
-    const customConfig = {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    };
-    const result = await axios.post("user/login", json, customConfig);
+    console.log("Se hizo una peticion de todos los Users");
     return dispatch({
-      type: ActionTypes.USER_LOGIN,
-      payload: result.data,
+      type: ActionTypes.GET_USERS,
+      payload: result.data.result,
     });
   };
 };
@@ -171,13 +106,58 @@ export const updateUser = (payload) => {
   };
 };
 
-export const getUserDetail = (id) => {
+export const getUserDetail = (id,state) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/get/${id}`);
+    const result = await axios.get(`/user/get/${id}`,{
+      state:state
+    });
     return dispatch({
       type: ActionTypes.USER_DETAIL,
       payload: result.data.result,
     });
+  };
+};
+export const getUserDetailOpinion1 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_1",
+      payload: result.data.result,
+    });
+  };
+};
+export const getUserDetailOpinion2 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_2",
+      payload: result.data.result,
+    });
+  };
+};
+export const getUserDetailOpinion3 = (id) => {
+  return async (dispatch) => {
+    const result = await axios.get(`/user/get/${id}`);
+    return dispatch({
+      type: "USER_DETAIL_OPINION_3",
+      payload: result.data.result,
+    }); 
+  };
+};
+
+export const getUserReviewDetails = (ids) => {
+  return async (dispatch) => {
+    try {
+      const promises = ids.map((id) => axios.get(`/user/get/${id}`));
+      const responses = await Promise.all(promises);
+      const userReviewDetails = responses.map(
+        (response) => response.data.result
+      );
+      // console.log(userReviewDetails);
+      dispatch({ type: "GET_USER_REVIEW_DETAIL", payload: userReviewDetails });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 };
 

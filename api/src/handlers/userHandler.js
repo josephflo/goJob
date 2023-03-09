@@ -2,7 +2,7 @@ const { Job, Service, User } = require("../connection/db");
 const bcrypt = require("bcrypt");
 const { uploadImage } = require("../services/cloudinary");
 const fs = require("fs-extra");
-const {bienvenidaMail, notifyPostulacionMyTrabajo} = require("../templatesEmails/singupEmail");
+const {bienvenidaMail, notifyPostulacionMyTrabajo, notifyTeContrataron} = require("../templatesEmails/singupEmail");
 
 const {
   getDbUser,
@@ -708,6 +708,12 @@ const elegirTrabajador = async (req, res) => {
 
   try {
     if (!idTrabajador || !idService) throw Error("Mising data");
+    //sacamos al user Trabajador para el mensaje
+    let userTrabajador = await User.findByPk(idTrabajador)
+
+    //sacamos el contratista
+    let contratista = await User.findByPk(idUser)
+
 
     //elegimos el trabajador
     let service = await Service.findOne({
@@ -727,6 +733,11 @@ const elegirTrabajador = async (req, res) => {
         where: { id: idService, UserId: idUser },
       }
     );
+
+    //enviamos email a usuario contratado
+    let nameTraba = `${userTrabajador.firstName} ${userTrabajador.lastName}`
+    let nameContratista = `${contratista.firstName} ${contratista.lastName}`
+    notifyTeContrataron(nameTraba, userTrabajador.email, service.tittle, nameContratista, contratista.email)
 
     //Si todo salio bien
     return res.status(200).json({

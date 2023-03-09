@@ -12,15 +12,15 @@ export default function DetailComun() {
 
   return (
     <>
-      <div class="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
-        <div class="border-2 rounded  m-3 p-4 bg-white">
+      <div className="grid grid-cols-3 gap-3 mx-6 bg-gray-200">
+        <div className="border-2 rounded  m-3 p-4 bg-white">
           {/* <Header detail={detail} /> */}
           <Header detail={detail} />
         </div>
-        <div class="border-2 rounded  m-3 p-4 bg-white">
+        <div className="border-2 rounded  m-3 p-4 bg-white">
           <Description detail={detail} />
         </div>
-        <div class="border-2 rounded  m-3 p-4 bg-white">
+        <div className="border-2 rounded  m-3 p-4 bg-white">
           <Jobs detail={detail} />
         </div>
       </div>
