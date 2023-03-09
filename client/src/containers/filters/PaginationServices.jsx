@@ -10,7 +10,7 @@ const PaginationServices = () => {
 
   let dispatch = useDispatch()
 
-  let [actualPage, setActualPage] = useState(1)
+  let [actualPage, setActualPage] = useState(configFilterServices.page)
 
   const previusPage = (actualPage)=>{
     if(actualPage <= 1) return false
@@ -55,6 +55,7 @@ const PaginationServices = () => {
       setArrayPages(newArray)
     }
   }, [service])
+
 
 
   let clasePage =  "cursor-pointer px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
