@@ -15,9 +15,6 @@ export default function Opinion3({ detail }) {
 
   return (
     <>
-      <h1 className="text-2xl pb-4 font-semibold">
-        Opiniones de nuestros usuarios
-      </h1>
       <ul className="">
         <>
           <li className=" flex grid grid-cols-5 p-2">
