@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { updateUser } from "../../redux/actions/admin/inactiveuser";
@@ -19,6 +19,7 @@ export default function FormUser({ detailUser }) {
 
     setUserDetail(formConstruct);
   };
+
 
 const modifyUser = () => { 
   dispatch(

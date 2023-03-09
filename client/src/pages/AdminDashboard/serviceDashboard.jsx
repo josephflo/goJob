@@ -6,7 +6,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllServices } from "../../redux/actions/services/getServices";
 import { getJobs } from "../../redux/actions/jobActions";
-import Services from "../servicesPage/services/Services"
+import Services from "./servicemap";
 
 export default function ServicesDashboard (){
     const service = useSelector((state) => state.service);
