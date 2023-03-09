@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
-import FilterUser from "../../containers/filters/filterUser/filterUser";
+import FilterUser from "../../containers/filters/filterUser/FilterUser";
 import PaginationProfesional from "../../containers/filters/filterUser/PaginationProfesional";
 import { getAllProfesionales } from "../../redux/actions/users/profesionales";
 import Professionals from "./components/Professionals";

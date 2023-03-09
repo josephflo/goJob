@@ -35,3 +35,15 @@
 .fra_border_5{
     border-radius: 5px;
 }
+
+
+.hov_acceptar{
+    font-size: 13px;
+    color: rgb(39, 38, 38);
+    transition: 0.1s;
+    font-weight: 700;
+}
+
+.hov_acceptar:hover{
+    color: rgb(5, 5, 5);
+}
