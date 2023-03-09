@@ -5,6 +5,8 @@ import TextField from "./TextField";
 import * as Yup from "yup";
 import { putUser } from "../../redux/actions/userActions";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+
 
 
 const AdittionalInfo = () => {
