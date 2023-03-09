@@ -25,6 +25,7 @@ const initialState = {
   mytrabajos: {},
   myservices: {},
   mypostulaciones: [],
+  userInactivate: {},
 
   //REVIEWS DETAIL PROFESSIONAL
   userReviewDetail: [],
@@ -160,13 +161,16 @@ export default function reducer(state = initialState, action) {
       };
     case ActionTypes.UPDATE_USER:
       window.localStorage.removeItem("userStorage");
-      window.localStorage.setItem("userStorage", JSON.stringify(action.payload))
+      window.localStorage.setItem(
+        "userStorage",
+        JSON.stringify(action.payload)
+      );
       return {
         ...state,
         userLogin: action.payload,
       };
-      
-      case "USER_DETAIL_OPINION_1":
+
+    case "USER_DETAIL_OPINION_1":
       return {
         ...state,
         userDetailOpinion1: action.payload,
@@ -353,6 +357,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         dashboardAdmin: action.payload,
+      };
+    case ActionTypes.UPDATE_USER_ADMIN:
+      return {
+        ...state,
+        userDetail: action.payload,
       };
     default:
       return state;

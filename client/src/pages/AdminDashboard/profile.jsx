@@ -1,13 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "../../redux/actions/userActions";
 import logo from "../AdminDashboard/image.svg";
 import Swal from "sweetalert2";
+import { updateUser } from "../../redux/actions/admin/inactiveuser";
+
 // components
 
-export default function Profile() {
-  const detailUser = useSelector((state)=> state.userDetail)
+export default function Profile({updateDetail}) {
+  const detailUser = useSelector((state) => state.userDetail);
 
+ 
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -15,11 +17,10 @@ export default function Profile() {
           <div className="flex flex-wrap justify-center">
             <div className="w-full px-4 r">
               <div className="relative flex justify-center items-center">
-                
                 <img
                   alt=""
                   src={detailUser.imagePerfil}
-                 className="shadow-xl rounded-full h-auto items-center border-none relative -m-20 -ml-25 lg:-ml-30 max-w-200-px "
+                  className="shadow-xl rounded-full h-auto items-center border-none relative -m-20 -ml-25 lg:-ml-30 max-w-200-px "
                 />
               </div>
             </div>
@@ -46,23 +47,25 @@ export default function Profile() {
             <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
               {detailUser.firstName}
             </h3>
-            {detailUser.provincia?
-            <div className="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
-            <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>{" "}
-              {detailUser.provincia}
-            </div>:
-            <div className="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
-            <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>{" "}
-             Sin registro
-            </div>}
-            
+            {detailUser.provincia ? (
+              <div className="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
+                <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>{" "}
+                {detailUser.provincia}
+              </div>
+            ) : (
+              <div className="text-sm leading-normal mt-0 mb-2 text-gray-400 font-bold uppercase">
+                <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-400"></i>{" "}
+                Sin registro
+              </div>
+            )}
+
             <div className="mb-2 text-gray-600 mt-10">
               <i className="fas fa-briefcase mr-2 text-lg text-gray-400"></i>
               {detailUser.user}
             </div>
             <div className="mb-2 text-gray-600">
               <i className="fas fa-university mr-2 text-lg text-gray-400"></i>
-              {"ID: "+ detailUser.id}
+              {"ID: " + detailUser.id}
             </div>
           </div>
           <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
@@ -75,27 +78,26 @@ export default function Profile() {
                   ? "Usuario Activo"
                   : "Usuario Baneado"}
 
-               {detailUser.state === true?
-              <button
-              className="mt-3 bg-red-600 text-white active:bg-red-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-              onClick={""} 
-              >
-                Banear
-              </button>:
-              <button
-              className="mt-3 bg-green-600 text-white active:bg-red-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-              type="button"
-              onClick={""} 
-              >
-                Activar
-              </button>              
-              }
-            
-             
-          
-
-                </div>
+                {detailUser.state === true ? (
+                  <button
+                    className="mt-3 bg-red-600 text-white active:bg-red-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button"
+                    value={false}
+                    onClick={updateDetail}
+                  >
+                    Banear
+                  </button>
+                ) : (
+                  <button
+                    className="mt-3 bg-green-600 text-white active:bg-red-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+                    type="button"
+                    value={true}
+                    onClick={updateDetail}
+                  >
+                    Activar
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -76,7 +76,7 @@ export function FilterUser({ totalPages }) {
      dispatch(getAllProfesionales(configFilterUser))
   }, [filter,configFilterUser]);
 
-  
+  console.log(usersProfesionales)
   return (
     <div>
       <div className="grid grid-cols-4 gap-4 items-center mb-4">

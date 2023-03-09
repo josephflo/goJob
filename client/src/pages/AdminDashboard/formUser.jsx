@@ -1,11 +1,34 @@
 import React from "react";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { updateUser } from "../../redux/actions/admin/inactiveuser";
 // components
 
-export default function FormUser({detailUser}) {
+export default function FormUser({ detailUser }) {
+  const [userDetail, setUserDetail] = useState({});
+  const dispatch = useDispatch()
 
- console.log(detailUser)
+  const formUpdate = (event) => {
+    let propiedad = event.target.name;
+    let value = event.target.value;
+
+    let formConstruct = {
+      ...userDetail,
+      [propiedad]: value,
+    };
+
+    setUserDetail(formConstruct);
+  };
+
+const modifyUser = () => { 
+  dispatch(
+    updateUser({ 
+      ...detailUser,
+      ...userDetail
+    })
+  );
+
+}
 
   return (
     <>
@@ -19,6 +42,7 @@ export default function FormUser({detailUser}) {
             <button
               className="bg-blue-600 text-white active:bg-blue-900 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
+              onClick={modifyUser}
             >
               Modificar
             </button>
@@ -41,8 +65,11 @@ export default function FormUser({detailUser}) {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                    name="user"
                     placeholder={detailUser.user}
-                                    />
+                    value={userDetail.user}
+                    onChange={formUpdate}
+                  />
                 </div>
               </div>
               <div className="w-full lg:w-6/12 px-4">
@@ -55,8 +82,11 @@ export default function FormUser({detailUser}) {
                   </label>
                   <input
                     type="email"
+                    name="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder={detailUser.email}
+                    value={userDetail.email}
+                    onChange={formUpdate}
                   />
                 </div>
               </div>
@@ -72,7 +102,9 @@ export default function FormUser({detailUser}) {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder={detailUser.firstName}
-                    
+                    value={userDetail.firstName}
+                    name="firstName"
+                    onChange={formUpdate}
                   />
                 </div>
               </div>
@@ -88,7 +120,9 @@ export default function FormUser({detailUser}) {
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     placeholder={detailUser.lastName}
-                   
+                    value={userDetail.lastName}
+                    name="lastName"
+                    onChange={formUpdate}
                   />
                 </div>
               </div>
@@ -113,12 +147,18 @@ export default function FormUser({detailUser}) {
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder={detailUser.direccion}
+                      value={userDetail.direccion}
+                      name="direccion"
+                      onChange={formUpdate}
                     />
                   ) : (
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="N/E"
+                      value={userDetail.direccion}
+                      name="direccion"
+                      onChange={formUpdate}
                     />
                   )}
                 </div>
@@ -131,17 +171,23 @@ export default function FormUser({detailUser}) {
                   >
                     Ciudad
                   </label>
-                  {detailUser.provincia ? (
+                  {detailUser.ciudad ? (
                     <input
-                      type="email"
+                    type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder={detailUser.provincia}
+                      placeholder={detailUser.ciudad}
+                      value={userDetail.ciudad}
+                      name="ciudad"
+                      onChange={formUpdate}
                     />
                   ) : (
                     <input
-                      type="email"
+                    type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="N/E"
+                      value={userDetail.ciudad}
+                      name="ciudad"
+                      onChange={formUpdate}
                     />
                   )}
                 </div>
@@ -152,19 +198,25 @@ export default function FormUser({detailUser}) {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Pais
+                    Provincia
                   </label>
-                  {detailUser.country ? (
+                  {detailUser.provincia ? (
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder={detailUser.country}
+                      placeholder={detailUser.provincia}
+                      value={userDetail.provincia}
+                      name="provincia"
+                      onChange={formUpdate}
                     />
                   ) : (
                     <input
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="N/E"
+                      value={userDetail.provincia}
+                      name="provincia"
+                      onChange={formUpdate}
                     />
                   )}
                 </div>
@@ -179,15 +231,21 @@ export default function FormUser({detailUser}) {
                   </label>
                   {detailUser.phone ? (
                     <input
-                      type="text"
+                      type="tel"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder={detailUser.phone}
+                      value={userDetail.phone}
+                      name="phone"
+                      onChange={formUpdate}
                     />
                   ) : (
                     <input
-                      type="text"
+                      type="tel"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="N/E"
+                      value={userDetail.phone}
+                      name="phone"
+                      onChange={formUpdate}
                     />
                   )}
                 </div>
@@ -227,7 +285,10 @@ export default function FormUser({detailUser}) {
                       type="text"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       rows="4"
-                     placeholder={detailUser.description}
+                      placeholder={detailUser.description}
+                      value={userDetail.description}
+                      name="description"
+                      onChange={formUpdate}
                     ></textarea>
                   ) : (
                     <textarea
@@ -235,6 +296,9 @@ export default function FormUser({detailUser}) {
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       rows="4"
                       placeholder="N/E"
+                      value={userDetail.description}
+                      name="description"
+                      onChange={formUpdate}
                     ></textarea>
                   )}
                 </div>

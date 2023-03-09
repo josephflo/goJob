@@ -17,8 +17,8 @@ export function Notifications (){
         <ul className="flex items-center gap-4">
             <li>
                 <Link to="#" className="relative">
-                <RiNotification3Line className="text-lg"/>
-                <RiCheckboxBlankCircleFill className="absolute -right-1 -top-1 text-xs text-red-500"/>
+                {/* <RiNotification3Line className="text-lg"/>
+                <RiCheckboxBlankCircleFill className="absolute -right-1 -top-1 text-xs text-red-500"/> */}
                 </Link>
             </li>
             <li>

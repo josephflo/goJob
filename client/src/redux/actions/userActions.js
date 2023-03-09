@@ -105,9 +105,11 @@ export const updateUser = (payload) => {
   };
 };
 
-export const getUserDetail = (id) => {
+export const getUserDetail = (id,state) => {
   return async (dispatch) => {
-    const result = await axios.get(`/user/get/${id}`);
+    const result = await axios.get(`/user/get/${id}`,{
+      state:state
+    });
     return dispatch({
       type: ActionTypes.USER_DETAIL,
       payload: result.data.result,
@@ -138,7 +140,7 @@ export const getUserDetailOpinion3 = (id) => {
     return dispatch({
       type: "USER_DETAIL_OPINION_3",
       payload: result.data.result,
-    });
+    }); 
   };
 };
 
