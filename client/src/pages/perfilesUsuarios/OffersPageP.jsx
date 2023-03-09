@@ -140,7 +140,7 @@ export default function OffersPageP() {
           </div>
 
           <div className="grid grid-cols-7 ">
-            <div className="col-span-2 p-10 overflow-y-auto h-screen">
+            <div className="col-span-2 my-10 mx-7 overflow-y-auto h-screen">
               <div className="">
                 <div className=" pt-4 grid grid-cols-1 ">
                   {services?.length > 0 ? (
@@ -148,8 +148,8 @@ export default function OffersPageP() {
                       <div
                         className={
                           modalIdService === e.id
-                            ? "gap-4 bg-gray-600 p-1 m-2 mt-1 mb-1"
-                            : "gap-4 bg-gray-300 p-1 m-2 mt-1 mb-1"
+                            ? "gap-4 bg-gray-600 p-1 m-2 mt-1 mb-1 rounded"
+                            : "gap-4 bg-gray-300 p-1 m-2 mt-1 mb-1 rounded"
                         }
                       >
                         <Card

@@ -2,6 +2,11 @@
 module.exports = {
   content: ["./public/index.html", "./src/**/*.{js,jsx}"],
   theme: {
+    extend: {
+      backgroundColor: {
+        'rgba': 'rgba(var(--bg-rgba), var(--bg-opacity))',
+      }
+    },
     screens: {
       sm: "640px",
       // => @media (min-width: 640px) { ... }
@@ -49,4 +54,9 @@ module.exports = {
   //   },
   // },
   plugins: [],
+  extend: {
+    filter: {
+      'data-filter': '5rem',
+    },
+  },
 };
