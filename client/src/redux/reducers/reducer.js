@@ -162,11 +162,11 @@ export default function reducer(state = initialState, action) {
     case ActionTypes.UPDATE_USER:
       const updateUser = {
         ...action.payload.user,
-        token: action.payload.token
-      }
+        token: action.payload.token,
+      };
       window.localStorage.removeItem("userStorage");
-      window.localStorage.setItem("userStorage", JSON.stringify(updateUser))
-      console.log("UPDATEPAYLOAD",action.payload);
+      window.localStorage.setItem("userStorage", JSON.stringify(updateUser));
+      console.log("UPDATEPAYLOAD", action.payload);
       return {
         ...state,
         token: action.payload.token,
@@ -366,6 +366,16 @@ export default function reducer(state = initialState, action) {
         ...state,
         userDetail: action.payload,
       };
+    case ActionTypes.INACTIVE_SERVICE:
+      return {
+        ...state,
+        service: action.payload,
+      };
+      case ActionTypes.ACTIVATE_SERVICE:
+        return {
+          ...state,
+          service: action.payload,
+        };
     default:
       return state;
   }
