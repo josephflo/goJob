@@ -36,7 +36,7 @@ function ProfesionalPage() {
 
       <div className="pt-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
         {usersProfesionales.result ? (
-          <Professionals usersProfesionales={usersProfesionales.result} />
+          <Professionals/>
         ) : (
           <div className="flex items-center col-span-4 justify-center h-screen">
             <p className="text-2xl font-semibold">{"Sin resultados"}</p>
