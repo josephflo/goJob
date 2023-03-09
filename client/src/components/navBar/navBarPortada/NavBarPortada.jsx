@@ -18,16 +18,16 @@ const NavBarPortada = () => {
 
   const localStorage = window.localStorage.getItem("userStorage");
 
-  useEffect(() => {
-    if (users?.lastName === "sin apellido") {
-      Swal.fire({
-        title: "Necesitamos más datos",
-        confirmButtonColor: "green",
-      });
-      navigate("/aditionalinfo");
-    }
-  }, [users]);
-  console.log(users);
+  // useEffect(() => {
+  //   if (users?.lastName === "sin apellido") {
+  //     Swal.fire({
+  //       title: "Necesitamos más datos",
+  //       confirmButtonColor: "green",
+  //     });
+  //     navigate("/aditionalinfo");
+  //   }
+  // }, [users]);
+  // console.log(users);
 
   return (
     <nav class="bg-white">
