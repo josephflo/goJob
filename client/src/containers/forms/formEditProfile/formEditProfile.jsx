@@ -76,6 +76,7 @@ function FormEditProfile() {
     // setInput_2(newConfig);
   };
 
+  const localStorage = window.localStorage.getItem("userStorage");
   const users = useSelector((state) => state.userLogin);
 
   useEffect(() => {}, [values]);
@@ -216,9 +217,11 @@ function FormEditProfile() {
 
             <div>
               <Link
-                to={`/${users.role === "comun" ? "profile" : "myprofilep"}/${
-                  users.id
-                }`}
+                to={`/${
+                  JSON.parse(localStorage)?.role === "comun"
+                    ? "profile"
+                    : "myprofilep"
+                }/${JSON.parse(localStorage)?.id}`}
               >
                 <button className="bg-transparent mt-2 w-[80%]  hover:bg-orange-500 text-blue-700 font-semibold hover:text-white py-2 border border-blue-500 hover:border-transparent rounded">
                   Volver
