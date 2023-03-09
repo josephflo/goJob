@@ -27,32 +27,34 @@ export default function CardProfileP({
           <div className="flex flex-col items-start h-20 justify-center ">
             <h1 className="mt-2 px-2 text-base h-30 font-medium text-navy-700 dark:text-white">
               {/* Usuario {role} */}
-              Usuario {localStorage.role}
+              Usuario {JSON.parse(localStorage).role}
             </h1>
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 px-2 w-full">
           <div className="flex flex-col items-start h-20 justify-center  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Nombre</p>
-            {localStorage.lastName === "sin apellido" ? (
+            {JSON.parse(localStorage).lastName === "sin apellido" ? (
               <p className="text-base h-20 font-medium text-navy-700 dark:text-white">
-                {localStorage.firstName}
+                {JSON.parse(localStorage).firstName}
               </p>
             ) : (
               <p className="text-base h-20 font-medium text-navy-700 dark:text-white">
-                {localStorage.firstName} {localStorage.lastName}
+                {JSON.parse(localStorage).firstName}{" "}
+                {JSON.parse(localStorage).lastName}
               </p>
             )}
           </div>
 
           <div className="flex flex-col justify-center h-20  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Lugar de residencia</p>
-            {localStorage.provincia ||
-            localStorage.ciudad ||
-            localStorage.direccion ? (
+            {JSON.parse(localStorage).provincia ||
+            JSON.parse(localStorage).ciudad ||
+            JSON.parse(localStorage).direccion ? (
               <p className="text-base font-medium text-navy-700 dark:text-white">
-                {localStorage.provincia}, {localStorage.ciudad},{" "}
-                {localStorage.direccion}
+                {JSON.parse(localStorage).provincia},{" "}
+                {JSON.parse(localStorage).ciudad},{" "}
+                {JSON.parse(localStorage).direccion}
               </p>
             ) : (
               <p className="text-base font-medium text-navy-700 dark:text-white">
@@ -64,14 +66,14 @@ export default function CardProfileP({
           <div className="flex flex-col items-start justify-center  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Email</p>
             <p className="text-base font-medium text-navy-700 dark:text-white">
-              {localStorage.email}
+              {JSON.parse(localStorage).email}
             </p>
           </div>
 
           <div className="flex flex-col justify-center  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Rating</p>
             <p className="text-base font-medium text-navy-700 dark:text-white">
-              {localStorage.rating_promedio}
+              {JSON.parse(localStorage).rating_promedio}
             </p>
           </div>
           <div className="col-span-1">
