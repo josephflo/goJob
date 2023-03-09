@@ -5,18 +5,13 @@ import { convertirProvinciasAObjeto } from "../../../../helpers/convertProvincia
 
 const prov = convertirProvinciasAObjeto(provincias)["Buenos Aires"];
 
-export const FormCreateServiceSchema = Yup.object({
-  tittle: Yup.string().min(2).max(70).required("Please enter a title"),
-  description: Yup.string().required("Please enter a description of the job"),
+export const FormUpdateUserSchema = Yup.object({
+  firstName: Yup.string().min(2).max(70).required("Please enter a name"),
+  lastName: Yup.string().min(2).max(70).required("Please enter a last name"),
   direccion: Yup.string().required("Please enter an address"),
-  presupuesto: Yup.number()
-    .nullable(true)
-    .max(99999, "Please enter an estimate of up to 5 digits")
-    .required("Please enter an estimate"),
   provincia: Yup.string()
     .required()
     .oneOf(["Buenos Aires"])
     .required("Please select one"),
   ciudad: Yup.string().required().oneOf(prov).required("Please select one"),
-  jobs: Yup.array().of(Yup.number()),
 });

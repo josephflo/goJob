@@ -12,6 +12,7 @@ export default function CardProfile({
   role,
   rating_promedio,
 }) {
+  const localStorage = window.localStorage.getItem("userStorage");
   return (
     <div
       key={id}
@@ -24,7 +25,7 @@ export default function CardProfile({
           </h1>
           <div className="flex flex-col items-start h-20 justify-center ">
             <h1 className="mt-2 px-2 text-base h-30 font-medium text-navy-700 dark:text-white">
-              Usuario {role}
+              Usuario {JSON.parse(localStorage)?.role}
             </h1>
           </div>
           <div className="grid grid-cols-2 gap-4 px-2 w-full">
@@ -40,22 +41,27 @@ export default function CardProfile({
         <div className="grid grid-cols-2 gap-4 px-2 w-full">
           <div className="flex flex-col items-start h-20 justify-center  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Nombre</p>
-            {lastName === "sin apellido" ? (
+            {JSON.parse(localStorage).lastName === "sin apellido" ? (
               <p className="text-base h-20 font-medium text-navy-700 dark:text-white">
-                {firstName}
+                {JSON.parse(localStorage).firstName}
               </p>
             ) : (
               <p className="text-base h-20 font-medium text-navy-700 dark:text-white">
-                {firstName} {lastName}
+                {JSON.parse(localStorage).firstName}{" "}
+                {JSON.parse(localStorage).lastName}
               </p>
             )}
           </div>
 
           <div className="flex flex-col justify-center h-20  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Lugar de residencia</p>
-            {provincia || ciudad || direccion ? (
+            {JSON.parse(localStorage).provincia ||
+            JSON.parse(localStorage).ciudad ||
+            JSON.parse(localStorage).direccion ? (
               <p className="text-base font-medium text-navy-700 dark:text-white">
-                {provincia}, {ciudad}, {direccion}
+                {JSON.parse(localStorage).provincia},{" "}
+                {JSON.parse(localStorage).ciudad},{" "}
+                {JSON.parse(localStorage).direccion}
               </p>
             ) : (
               <p className="text-base font-medium text-navy-700 dark:text-white">
@@ -67,14 +73,14 @@ export default function CardProfile({
           <div className="flex flex-col items-start justify-center  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Email</p>
             <p className="text-base font-medium text-navy-700 dark:text-white">
-              {email}
+              {JSON.parse(localStorage).email}
             </p>
           </div>
 
           <div className="flex flex-col justify-center  bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none">
             <p className="text-sm text-gray-600">Rating</p>
             <p className="text-base font-medium text-navy-700 dark:text-white">
-              {rating_promedio}
+              {JSON.parse(localStorage).rating_promedio}
             </p>
           </div>
           <div className="col-span-1">

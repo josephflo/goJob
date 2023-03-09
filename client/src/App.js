@@ -63,7 +63,7 @@ import MyProfileP from "./pages/perfilesUsuarios/ProfielProfesional/MyProfileP";
 import SuccessPago from "./pages/perfilesUsuarios/ProfielProfesional/pagos/SuccessPago";
 import FailPago from "./pages/perfilesUsuarios/ProfielProfesional/pagos/FailPago";
 import useUserLogin from "./helpers/customHooks/useUserLogin";
-import AditionalInfo from './authentication/components/AditionalInfo'
+import AditionalInfo from "./authentication/components/AditionalInfo";
 import FormEditProfile from "./containers/forms/formEditProfile/formEditProfile";
 
 //token
@@ -77,10 +77,12 @@ function App() {
   const dispatch = useDispatch();
 
   let token = useSelector((state) => state.token);
-  axios.defaults.headers.common["Authorization"] = token;
+
+  const localStorage = window.localStorage.getItem("userStorage");
+
+  axios.defaults.headers.common["Authorization"] = token || localStorage?.token;
 
   const { userInfo, isLogin } = useUserLogin();
-
 
   const createUser = () => {
     const { given_name, nickname, family_name, email, picture } = user;
@@ -108,13 +110,10 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-
-          
           <Route path="/" element={<HomePage />} /> &&
           <Route exact path="/service" element={<ServicesPage />} /> &&
           <Route path="/professional" element={<ProfesionalPage />} />
-
-          {!isLogin  ? (
+          {!isLogin ? (
             <Route path="*" element={<LoadingHomePage />} />
           ) : (
             <>
@@ -186,6 +185,11 @@ function App() {
                 path="/profilec/modificar"
                 element={<FormUpdateUserAuth />}
               />
+              <Route
+                exact
+                path="/profilec/modificardatos"
+                element={<FormEditProfile />}
+              />
 
               {/* ProfileProfessional ***********************************************/}
               <Route exact path="/myprofilep/:id" element={<MyProfileP />} />
@@ -197,16 +201,10 @@ function App() {
                 element={<Postulaciones />}
               />
 
-                  {/*Profesionales */}
-                  {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
-                </>
-              )}
-
-            
-           
-          
-     
-          
+              {/*Profesionales */}
+              {/* <Route path="/profesionales" element={<ProfesionalPage/>} /> */}
+            </>
+          )}
         </Routes>
 
         {/* Paginas para pago */}
