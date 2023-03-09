@@ -80,7 +80,8 @@ function App() {
 
   const localStorage = window.localStorage.getItem("userStorage");
 
-  axios.defaults.headers.common["Authorization"] = token || localStorage?.token;
+  axios.defaults.headers.common["Authorization"] =
+    token || JSON.parse(localStorage)?.token;
 
   const { userInfo, isLogin } = useUserLogin();
 
