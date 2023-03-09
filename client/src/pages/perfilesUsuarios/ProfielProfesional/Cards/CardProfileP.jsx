@@ -76,13 +76,15 @@ export default function CardProfileP({
               {JSON.parse(localStorage).rating_promedio}
             </p>
           </div>
-          <div className="col-span-1">
+
+          {/* <div className="col-span-1">
             <Link to="/profilep/modificar">
               <button className="h-13 py-2  gap-4 bg-blue-500 p-4 text-white  mt-2 w-[80%]  font-semibold hover:text-white  border border-blue-500 hover:border-transparent rounded ">
                 Modificar datos personales
               </button>
             </Link>
-          </div>
+          </div> */}
+
         </div>
       </div>
     </div>
