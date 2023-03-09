@@ -159,11 +159,17 @@ export default function reducer(state = initialState, action) {
         totalPages: action.payload.totalPages,
       };
     case ActionTypes.UPDATE_USER:
+      const updateUser = {
+        ...action.payload.user,
+        token: action.payload.token
+      }
       window.localStorage.removeItem("userStorage");
-      window.localStorage.setItem("userStorage", JSON.stringify(action.payload))
+      window.localStorage.setItem("userStorage", JSON.stringify(updateUser))
+      console.log("UPDATEPAYLOAD",action.payload);
       return {
         ...state,
-        userLogin: action.payload,
+        token: action.payload.token,
+        userLogin: action.payload.user,
       };
       
       case "USER_DETAIL_OPINION_1":

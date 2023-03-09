@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import TextField from "./TextField";
 import * as Yup from "yup";
@@ -16,24 +16,32 @@ const AdittionalInfo = () => {
     .max(10, "Puede tener 10 caracters o menos")
     .required("Campo obligatorio"),
     email: Yup.string().email("Email invalido").required("Email obligatorio"),
-    ciudad: Yup.string()
+    telefono: Yup.string()
     .max(10, "Puede tener 10 caracters o menos")
     .required("La ciudad es obligatoria"),
   });
   
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   return (
     <Formik
       initialValues={{
         firstName: "",
         lastName: "",
         email: "",
-        city: "",
+        telefono: "",
       }}
       validationSchema={validate}
       onSubmit={(values) => {
         console.log(values);
         dispatch(putUser(values));
+        Swal.fire({
+          type: 'success',
+          title: 'Datos completos',
+          confirmButtonColor: 'green'
+        });
+        navigate("/")
       }}
     >
       {(formik) => (
@@ -55,7 +63,7 @@ const AdittionalInfo = () => {
                 <TextField label="Nombre" name="firstName" type="text " />
                 <TextField label="Apellido" name="lastName" type="text" />
                 <TextField label="Email" name="email" type="text" />
-                <TextField label="Ciudad" name="ciudad" type="text" />
+                <TextField label="Telefono" name="telefono" type="text" />
                 {/* <Form.Dropdown
                 placer
                 /> */}
@@ -64,7 +72,7 @@ const AdittionalInfo = () => {
                     className="mt-4 w-full py-3 bg-sky-700 text-white"
                     type="submit"
                   >
-                    Registrarse
+                    Completar datos
                   </button>
                 </div>
                 {/* <button type="reset">Reiniciar</button> */}
