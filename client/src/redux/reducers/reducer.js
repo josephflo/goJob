@@ -51,7 +51,7 @@ const initialState = {
   //config para filtros services
   configFilterServices: {
     page: 1,
-    page_size: 15,
+    page_size: 20,
     state: "pendiente",
     tittle: "",
     orderFecha: "DESC",
@@ -63,7 +63,7 @@ const initialState = {
   //config para filtros buscar professionales
   configFilterUser: {
     page: 1,
-    page_size: 1,
+    page_size: 20,
     state: true,
     name: "",
     job: false,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import NavBarPortada from "../../components/navBar/navBarPortada/NavBarPortada";
 import Filter from "../../containers/filters/Filter";
-import FilterUser from "../../containers/filters/filterUser/filterUser";
+import FilterUser from "../../containers/filters/filterUser/FilterUser";
 import PaginationProfesional from "../../containers/filters/filterUser/PaginationProfesional";
 import { getAllProfesionales } from "../../redux/actions/users/profesionales";
 import Professionals from "./components/Professionals";
@@ -36,7 +36,7 @@ function ProfesionalPage() {
 
       <div className="pt-4 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
         {usersProfesionales.result ? (
-          <Professionals usersProfesionales={usersProfesionales.result} />
+          <Professionals/>
         ) : (
           <div className="flex items-center col-span-4 justify-center h-screen">
             <p className="text-2xl font-semibold">{"Sin resultados"}</p>

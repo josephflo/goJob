@@ -6,7 +6,7 @@ import { convertirProvinciasAObjeto } from "../../../../helpers/convertProvincia
 const prov = convertirProvinciasAObjeto(provincias)["Buenos Aires"];
 
 export const FormCreateServiceSchema = Yup.object({
-  tittle: Yup.string().min(2).max(25).required("Please enter a title"),
+  tittle: Yup.string().min(2).max(70).required("Please enter a title"),
   description: Yup.string().required("Please enter a description of the job"),
   direccion: Yup.string().required("Please enter an address"),
   presupuesto: Yup.number()

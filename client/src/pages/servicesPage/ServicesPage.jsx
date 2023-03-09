@@ -55,10 +55,7 @@ function ServicesPage() {
 
 
           {service.result && service.result.length > 0 && (
-            <Services
-              services={service.result}
-              myPostulaciones={myPostulaciones}
-            />
+            <Services/>
           )}
           
           {service.result && !service.result.length && (

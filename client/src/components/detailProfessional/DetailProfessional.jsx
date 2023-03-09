@@ -113,32 +113,23 @@ export default function DetailProfessional() {
           <div className="border-2 rounded m-3 p-4 bg-white">
             <Opinion3 detail={} />
           </div> */}
-          <div>
+          <div className="border-2 rounded m-3 p-4 bg-white">
             {detail_.rating?.map((detail, index) => {
               if (index === 0) {
                 return (
-                  <div
-                    key={detail.id}
-                    className="border-2 rounded m-3 p-4 bg-white"
-                  >
+                  <div key={detail.id}>
                     <Opinion1 detail={detail} />
                   </div>
                 );
               } else if (index === 1) {
                 return (
-                  <div
-                    key={detail.id}
-                    className="border-2 rounded m-3 p-4 bg-white"
-                  >
+                  <div key={detail.id}>
                     <Opinion2 detail={detail} />
                   </div>
                 );
               } else if (index === 2) {
                 return (
-                  <div
-                    key={detail.id}
-                    className="border-2 rounded m-3 p-4 bg-white"
-                  >
+                  <div key={detail.id}>
                     <Opinion3 detail={detail} />
                   </div>
                 );

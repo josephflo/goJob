@@ -1,6 +1,11 @@
+import { useSelector } from "react-redux";
 import ProfessionalCard from "./ProfessionalCard";
 
-function Professionals({ usersProfesionales }) {
+function Professionals() {
+
+  const usersProfesionales = useSelector((state) => state.usersProfesionales.result);
+
+
   return (
     <>
       {usersProfesionales.map((e, index) => (

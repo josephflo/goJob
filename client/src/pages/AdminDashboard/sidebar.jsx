@@ -8,6 +8,7 @@ import {
   RiLogoutBoxLine,
 } from "react-icons/ri";
 import logo from "../AdminDashboard/image.svg";
+import LogoutButtons from "../../authentication/components/LogoutButtons";
 
 export function SideBar() {
   return (
@@ -65,7 +66,7 @@ export function SideBar() {
             className="flex items-center gap-4 hover:bg-blue-600 p-4 text-gray-400 hover:text-white rounded-lg transition-colors"
           >
             <RiLogoutBoxLine />
-            Log Out
+            <LogoutButtons />
           </Link>
         </div>
       </div>
