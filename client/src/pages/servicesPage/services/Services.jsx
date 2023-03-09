@@ -1,9 +1,10 @@
+import { useSelector } from "react-redux";
 import ServiceCard from "../serviceCard/ServiceCard";
 
-export default function Services({ services, myPostulaciones }) {
-  // const service = useSelector((state) => state.service.result);
+export default function Services() {
+  const services = useSelector((state) => state.service.result);
 
-  // let myPostulaciones = useSelector((state) => state.mypostulaciones);
+  let myPostulaciones = useSelector((state) => state.mypostulaciones);
 
 
 
