@@ -1,0 +1,4 @@
+.container_videogames{
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(5px);
+}

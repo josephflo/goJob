@@ -1,6 +1,7 @@
 import React from "react";
 
 import { userFormBackground } from "../../assets";
+import "./as/BlurCard.css"
 
 export default function Card({
   id,
@@ -16,57 +17,43 @@ export default function Card({
   return (
     <>
       <button onClick={handleModalOffer}>
-        <div key={id} className="bg-gray-100 grid grid-cols-1">
-          <div className="col-span-1">
-            <div className="h-100 overflow-hidden">
-              <div className="col-span-2 flex">
+        <div key={id} className="relative bg-gray-100 grid grid-cols-1">
+
+          <div className="relative col-span-1 " >
+        
+            <div className="h-100  overflow-hidden  ">
+              <div className="h-100 min-h-100 col-span-2 min-w-full overflow-hidden">
                 {imageServiceUrl === "sin foto" ? (
                   <img
                     src={userFormBackground}
-                    className="object-fill "
+                    className="object-cover min-w-full "
                     alt=""
                   />
                 ) : (
                   <img
                     src={imageServiceUrl}
                     alt=""
-                    className="object-fill h-full"
+                    className="object-cover min-w-full"
                   />
                 )}
-              </div>
+              </div>  
             </div>
 
-            <div
-              className={`h-100 overflow-hidden border-solid-gray-300 rounded-sm p-4 ${
+            <div className={`h-100 absolute min-w-full bottom-0 overflow-hidden border-solid-gray-300 pt-1 pb-2 ${
                 state === "pendiente"
-                  ? "bg-blue-600"
+                  ? "bg-green-800/50"
                   : state === "terminado"
-                  ? "bg-gray-600"
-                  : "bg-yellow-600"
-              }`}
-            >
-              <h1 className="top-9 font-sans font-semibold text-xl not-italic text-white">
+                  ? "bg-slate-400/40"
+                  : "bg-orange-500/60	"
+              } container_videogames `}>
+
+
+              <h1 className="top-9 font-sans font-semibold text-sm not-italic text-white">
                 {tittle}
               </h1>
             </div>
           </div>
 
-          {/* <div className="box-border bg-white border-solid-gray-300 rounded-sm p-4">
-            <div className="text-left">
-              <h2 className="font-sans pt-1 not-italic font-medium text-gray-700">
-                Descripción del trabajo:
-              </h2>
-              <p className="text-sm">{description}</p>
-              <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
-                Estado del Servicio:
-              </h2>
-              <p className="text-sm">{state}</p>
-              <h2 className="font-sans pt-1 not-italic font-medium  text-gray-700">
-                Presupuesto:
-              </h2>
-              <p className="text-sm">${presupuesto}</p>
-            </div>
-          </div> */}
         </div>
       </button>
     </>
