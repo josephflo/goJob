@@ -13,6 +13,7 @@ const getAllServices = async (req, res)=>{
 
   let job = Number(req.query.job)
   let state = req.query.state
+  let active = req.query.active
   let tittle = req.query.tittle
   let provincia = req.query.provincia
   let ciudad = req.query.ciudad
@@ -25,7 +26,12 @@ const getAllServices = async (req, res)=>{
 
   //configuraciones para filtrado
   let statementService = {
-    active: true
+    active: String(true)
+  }
+
+  if(active != undefined){
+    statementService.active = String(active)
+    querys.active = String(active)
   }
 
   if(state){
@@ -99,7 +105,7 @@ const getIdService = async (req, res) => {
         {
           model: User,
           as:"userId",
-          attributes:["id", "firstName", "lastName", "user", "email", "phone"]
+          attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil"]
 
         },
         {
@@ -143,5 +149,4 @@ const getIdService = async (req, res) => {
 module.exports = {
   getAllServices,
   getIdService,
-  
 };

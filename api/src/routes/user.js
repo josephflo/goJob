@@ -27,8 +27,7 @@ router.get("/services/Postulaciones", auth, userHandlers2.getAllMyPostulaciones)
 router.post("/register", userHandlers.createUser);//
 router.post("/register/img", userHandlers.uploadImg);//
 
-router.post("/service", auth, userHandlers.createServer)//
-
+router.post("/service", auth, userHandlers.createService)//
 
 
 router.post("/friend", auth, userHandlers.addFriend)//
@@ -45,10 +44,16 @@ router.post("/contact/:idProfessional", auth, notifyHandler.contactarProfessiona
 
 
 /****** PUT ******* */
+//image service
+router.put("/service/img/:id", auth, userHandlers.putServiceImg)
+
 router.put("/service/:idService", auth, userHandlers.actualizarService)//
 
 router.put("/service/calificar/:idService", auth, userHandlers.calificarService)//
+router.put("/service/pagar/review", auth, userHandlers.pagarProducto)//
+
 router.put("/update", auth, userHandlers.putUser)
+
 
 
 /******* DELETE ******* */

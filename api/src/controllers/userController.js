@@ -9,11 +9,6 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob, 
   const offset = (page - 1) * page_size;
 
   let verifyStatementeJob = Object.keys(statementeJob)
-
-  
-  console.log("-------------------------aaaaaaaaaa-------------");
-  console.log(stamentOrder.order);
-
   try{
     let result
     if(verifyStatementeJob.length){
@@ -22,7 +17,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob, 
         order: stamentOrder.order,
         limit: page_size,
         offset: offset,
-        attributes: { exclude: ['password', "state"] },
+        attributes: { exclude: ['password'] },
         include: [
           {
             model: Job,
@@ -40,7 +35,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob, 
         order: stamentOrder.order,
         limit: page_size,
         offset: offset,
-        attributes: { exclude: ['password', "state"] },
+        attributes: { exclude: ['password'] },
         include: [
           {
             model: Job,
@@ -83,6 +78,7 @@ const getDbUser = async (page, page_size, querys, statementUser, statementeJob, 
 
     return {
       ...paginado,
+      totalCount: totalCount,
       result
     }
   }catch(error){
@@ -137,6 +133,7 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
   return {
     nextPage,
     previousPage,
+    actualPage: page,
     totalPages
   }
   
@@ -150,9 +147,11 @@ const paginacion = (page, page_size, totalPages, totalCount, querys)=>{
 }
 
 const getUserByID = async (id) =>{
+
+
   try{
     const result = await User.findOne({
-      where: {id: id, state: true},
+      where: {id: id},
       attributes: { exclude: ['password'] },
       include: [
         {

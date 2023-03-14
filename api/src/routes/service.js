@@ -9,5 +9,4 @@ router.get('/', serviceHandlers.getAllServices);
 router.get('/:id', serviceHandlers.getIdService);
 
 
-
 module.exports = router;

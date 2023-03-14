@@ -36,6 +36,12 @@ const getAllMyServices = async (req, res) => {
             through: {
               attributes: [],
             },
+            include: {
+              model: Job,
+              through: {
+                attributes: [],
+              },
+            }
           },
         ],
       });

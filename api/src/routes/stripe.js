@@ -1,4 +1,5 @@
 const { Router} = require('express');
+const bodyParser = require('body-parser');
 const router = Router();
 const {createCheckoutHandler, 
         productCreateHandler, 
@@ -6,10 +7,18 @@ const {createCheckoutHandler,
         productByIdHandler,
         delProductHandler,
         allProductHandler,
-        allPriceProductHandler} = require("../handlers/stripeHandler")
+        allPriceProductHandler
+        } = require("../handlers/stripeHandler");
+const { stripeRawBody } = require('../middlewares/stripe');
+const { eventListenComplete } = require('../services/stripe');
 
 
 //estas rutas solo son para ver como funciona el api, las rutas funcionales vienen dentro de createservice y createjob
+
+// router.use(bodyParser.json());
+// router.use(bodyParser.urlencoded({ extended: true }));
+
+router.post('/webhook', eventListenComplete );
 
 router.post("/checkout", createCheckoutHandler) // creas un checkout
 

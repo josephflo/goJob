@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Sequelize } = require("sequelize");
 // Exportamos una funcion que define el modelo
 // Luego le injectamos la conexion a sequelize.
 const userModel = (sequelize) => {
@@ -8,6 +8,11 @@ const userModel = (sequelize) => {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
+    },
+    fecha_register: {
+        type: DataTypes.DATE,
+        defaultValue: Sequelize.NOW,
+        allowNull: false,   
     },
     state: {
         type: DataTypes.BOOLEAN,
@@ -34,6 +39,7 @@ const userModel = (sequelize) => {
     },
     imagePerfil: {
         type: DataTypes.STRING,
+        defaultValue: "sin foto",
     },
     imageurl: {
         type: DataTypes.STRING,

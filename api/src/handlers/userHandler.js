@@ -12,7 +12,8 @@ const {
 } = require("../controllers/userController");
 const { Op, STRING } = require("sequelize");
 const { fechaActual } = require("../helpers/fechaActual");
-const { createToken } = require("../services/jwt")
+const { createToken } = require("../services/jwt");
+const { createProduct, createPrice, createSession, getProductById } = require("../services/stripe");
 
 const getAllUser = async (req, res) => {
   let page = Number(req.query.page || 1);
@@ -20,6 +21,7 @@ const getAllUser = async (req, res) => {
 
   let name = req.query.name;
   let role = req.query.role;
+  let state = req.query.state
   let job = Number(req.query.job);
   let provincia = req.query.provincia;
   let ciudad = req.query.ciudad;
@@ -31,9 +33,12 @@ const getAllUser = async (req, res) => {
   let querys = {};
 
   //configuraciones para filtrado
-  let statementUser = {
-    state: true,
-  };
+  let statementUser = {};
+
+  if(state != undefined){
+    statementUser.state = state
+    querys.state = state
+  }
   if (name) {
     statementUser[Op.or] = {
       firstName: { [Op.iLike]: `%${name}%` },
@@ -115,6 +120,7 @@ const getAllUser = async (req, res) => {
 
 const getUserID = async (req, res) => {
   const id = req.params.id;
+
   let userTotal;
 
   try {
@@ -209,9 +215,7 @@ const createUser = async (req, res) => {
 
 const uploadImg = async (req, res) => {
   let errors = false;
-
   let user = req.body.user;
-
   let newUser = {};
 
   console.log("Entra a post img");
@@ -335,6 +339,7 @@ const putUser = async (req, res) => {
   if(putUser.jobs) {
     idJobs = [...putUser.jobs]
     idJobsBoolean = true
+    delete putUser.jobs
   }
   
   try {
@@ -351,9 +356,57 @@ const putUser = async (req, res) => {
       await user.setJobs(idJobs);
     }
 
+    //devolcemos user actualizado
+    [
+ 
+    ]
+    let userActualizado = await User.findOne({
+      where: {id: idUser},
+      include: [
+        {
+          model: Job,
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: Service,
+          as: "myServices",
+          include:
+          {
+            model: User,
+            as: "postulantes",
+            attributes:["id", "firstName", "lastName", "user", "email", "phone", "imagePerfil", "rating_promedio", ],
+            through: { 
+              attributes:[]
+            }
+          }
+        },
+        {
+          model: Service,
+          as: "myTrabajos",
+          through: { 
+            attributes:[]
+          }
+        },
+        {
+          model: Service,
+          as: "postulaciones",
+          through: { 
+            attributes:[]
+          }
+        } 
+      ]
+    })
+
+    let token = createToken(userActualizado);
+
+
     return res.status(200).json({
       status: "success",
       message: "Actualizado correctamente",
+      token: token,
+      user: userActualizado
     });
   } catch (error) {
     return res.status(400).json({
@@ -453,7 +506,7 @@ const getFriends = async (req, res) => {
   }
 };
 //service
-const createServer = async (req, res) => {
+const createService = async (req, res) => {
   let newService = req.body;
   let idUser = req.user.id;
   try {
@@ -473,6 +526,43 @@ const createServer = async (req, res) => {
     return res.status(400).json({
       status: "error",
       message: error.message,
+    });
+  }
+};
+
+const putServiceImg = async (req, res) => {
+  req.params.id;
+  let errors = false;
+  let id = req.params.id;
+  let newService = {};
+
+  try {
+
+      const result = await uploadImage(req.files.image.tempFilePath);
+      if (result.error){
+        errors = true;
+        throw new Error("error en subir la imagen")
+      } // Si se produce un error al cargar la imagen, establecemos la variable de estado en verdadero
+      newService.imageServiceUrl = result.secure_url;
+      newService.imagePublicId = result.public_id;
+
+      await fs.unlink(req.files.image.tempFilePath); // borra el archivo despues de subirlo a cloudinary
+
+      //extramos el usuario
+      let updateImgUser = await Service.update(newService, {
+        where: { id: id },
+      });
+
+      //Si todo salio bien
+    return res.status(200).json({
+      status: "Imagen subida correctamente",
+      message: "success",
+    });
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: error.message,
+      error: errors,
     });
   }
 };
@@ -706,6 +796,7 @@ const elegirTrabajador = async (req, res) => {
   let idTrabajador = Number(req.body.trabajador);
   let idService = Number(req.body.service);
 
+  let actStateSer
   try {
     if (!idTrabajador || !idService) throw Error("Mising data");
     //sacamos al user Trabajador para el mensaje
@@ -724,25 +815,42 @@ const elegirTrabajador = async (req, res) => {
     //eliminamos al trabajdor de la lista postulantes
     let deletePostu = await service.removePostulante(idTrabajador);
 
+    //enviamos email a usuario contratado
+    let typeProfile
+    if(contratista.role = "comun") typeProfile = "c"
+    if(contratista.role = "professional") typeProfile = "p"
+
+    let nameTraba = `${userTrabajador.firstName} ${userTrabajador.lastName}`
+    let nameContratista = `${contratista.firstName} ${contratista.lastName}`
+    notifyTeContrataron(nameTraba, userTrabajador.email, service.tittle, nameContratista, contratista.email)
+
+
+    /********************************************************* */
+    //CREACION DE PRODUCTO STRIPE
+    let stripeProductoName = service.tittle
+    let stripeIdProduct = await createProduct(stripeProductoName, contratista.id, userTrabajador.id, service.id, typeProfile )
+
+
     //actualizamos el state del service
-    let actStateSer = await Service.update(
+    actStateSer = await Service.update(
       {
         state: "proceso",
+        stripeProductId: stripeIdProduct.id,
       },
       {
         where: { id: idService, UserId: idUser },
       }
     );
 
-    //enviamos email a usuario contratado
-    let nameTraba = `${userTrabajador.firstName} ${userTrabajador.lastName}`
-    let nameContratista = `${contratista.firstName} ${contratista.lastName}`
-    notifyTeContrataron(nameTraba, userTrabajador.email, service.tittle, nameContratista, contratista.email)
 
     //Si todo salio bien
     return res.status(200).json({
       status: "success",
       message: "Se agrego trabjador al servicio exitosamente",
+      actStateSer: actStateSer,
+      stripeIdProduct: stripeIdProduct.id,
+      stripeIdProduct: stripeIdProduct
+
     });
   } catch (error) {
     return res.status(400).json({
@@ -752,31 +860,88 @@ const elegirTrabajador = async (req, res) => {
   }
 };
 
+const pagarProducto = async(req, res)=>{
+  let idProduct = Number(req.body.idProduct)
+
+
+  try {
+    let product = await Service.findOne({
+      where: {id: idProduct },
+      attributes: ["tittle", "stripeProductId", "presupuesto", ]
+    })
+
+    //Stripe
+    let stripeIdPrecio = await createPrice((product.presupuesto * 100), product.stripeProductId)
+
+    let detailProduct = await getProductById(product.stripeProductId)
+
+    console.log("***********************");
+    console.log(typeof detailProduct);
+    console.log(detailProduct);
+    
+
+    let stripeCheckout = await createSession(stripeIdPrecio.id, product.stripeProductId, detailProduct.metadata)
+
+
+    //actualizamos el valor para pago
+    let actParaPago = await Service.update(
+      {
+        stripeSesionId: stripeCheckout.id,
+        stripeSesionURL: stripeCheckout.url
+      },
+      {
+        where: {id: idProduct },
+      }
+    )
+
+    return res.status(201).json({
+      status: "Sesion success",
+      message: "Sesion de pago abierta correctamente",
+      tittle: product.tittle,
+      stripeSesionId: stripeCheckout.id,
+      stripeSesionURL: stripeCheckout.url,
+      metadata: stripeCheckout.metadata,
+      success: stripeCheckout.success_url,
+      cancel: stripeCheckout.cancel_url
+
+
+    })
+
+  } catch (error) {
+    return res.status(408).json({
+      status: "error",
+      message: error.message
+
+
+    })
+  }
+}
+
 const calificarService = async (req, res) => {
   let idUser = req.user.id;
-  let idService = Number(req.params.idService);
+  let idService = req.params.idService;
   let scoreService = req.body.score;
   let review = req.body.review;
 
+  console.log(idService);
+
   try {
-    let stamentUpdate = {
-      state: "terminado",
-    };
+    let stamentUpdate = {};
     if (scoreService) stamentUpdate.score = Number(scoreService);
     if (review) stamentUpdate.review = review;
 
     //actualizamos el state del service
     let actStateSer = await Service.update(stamentUpdate, {
-      where: { id: idService, UserId: idUser },
+      where: { stripeProductId: idService, UserId: idUser },
     });
 
     //eliminamos los postulantes
-    let deleteAllPost = await Service.findOne({where: {id: idService}})
-    deleteAllPost.setPostulantes(null)
+    // let deleteAllPost = await Service.findOne({where: {id: idService}})
+    // deleteAllPost.setPostulantes(null)
 
     //extraemos la informacion del servicio para el rating
     let service = await Service.findOne({
-      where: { id: idService },
+      where: { stripeProductId: idService },
       include: {
         model: User,
         as: "trabajadorId",
@@ -786,6 +951,10 @@ const calificarService = async (req, res) => {
         },
       },
     });
+
+    console.log(service);
+    //eliminamos los postulantes
+    await service.setPostulantes([])
 
     //guardamos en el trabajador su nuevo rating
     if (scoreService) {
@@ -829,6 +998,7 @@ const calificarService = async (req, res) => {
     return res.status(400).json({
       status: "error",
       message: error.message,
+      error
     });
   }
 };
@@ -846,12 +1016,14 @@ module.exports = {
   deleteJob,
   getFriends,
   getAllMyService,
-  createServer,
+  createService,
+  putServiceImg,
   actualizarService,
   deleteService,
   putUser,
   postularService,
   deletePostuleService,
   elegirTrabajador,
+  pagarProducto,
   calificarService,
 };
